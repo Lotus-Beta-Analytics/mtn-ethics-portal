@@ -10,28 +10,23 @@ import { NotFound } from "./notFound/NotFound";
 import { AppContainer } from "./styles/styles";
 import { Footer } from "./modules/shared/components/Footer";
 import { TopNavigation } from "./modules/shared/components/Navigation/top-navigation/TopNavigation";
+import { LandingPage } from "./modules/employee/pages/landing-page/LandingPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = () => {
   jQuery("#workbenchPageContent").prop("style", "min-width: 100%");
   jQuery(".SPCanvas-canvas").prop("style", "min-width: 100%");
   jQuery(".CanvasZone").prop("style", "min-width: 100%");
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <ToastProvider>
-          <AppContainer>
-            <TopNavigation />
-            <Box>
-              <Switch>
-                <Route exact path="/" component={CreateQuizPage} />
-                <Route path="/admin" render={() => <Box>Quiz</Box>} />
-                <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
-                <Route path="*" component={NotFound} />
-              </Switch>
-            </Box>
-
-            <Footer />
-          </AppContainer>
+          <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/admin" render={() => <Box>Quiz</Box>} />
+            <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
+            <Route path="*" component={NotFound} />
+          </Switch>
         </ToastProvider>
       </Router>
     </ThemeProvider>

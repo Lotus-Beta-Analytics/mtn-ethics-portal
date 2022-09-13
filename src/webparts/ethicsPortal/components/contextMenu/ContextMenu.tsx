@@ -18,16 +18,17 @@ export const ContextMenu: FC<Props> = ({
   return (
     //@ts-ignore
     <ClickAwayListener onClickAway={handleClickAway}>
-      <Box
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          width: "200px",
-          height: "250px",
-        }}
-      >
+      <Box>
         {open ? (
-          <Popper open={open} anchorEl={anchorEl} placement="bottom" id={id}>
+          <Popper
+            open={open}
+            anchorEl={anchorEl}
+            placement="bottom"
+            id={id}
+            style={{
+              zIndex: 99,
+            }}
+          >
             <ContextMenuWrapper>{children}</ContextMenuWrapper>
           </Popper>
         ) : null}
@@ -39,7 +40,7 @@ export const ContextMenu: FC<Props> = ({
 export const ContextMenuWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  backgroundColor: "none",
+  backgroundColor: theme.palette.primary.main,
   textTransform: "none",
   boxShadow: "#00000003 0px 3px 6px",
   mt: 0.5,
@@ -48,4 +49,5 @@ export const ContextMenuWrapper = styled(Box)(({ theme }) => ({
   width: "inherit",
   overflow: "0.5rem",
   border: "none",
+  zIndex: 99,
 }));

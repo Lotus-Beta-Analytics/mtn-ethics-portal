@@ -4,13 +4,11 @@ import { Link } from "react-router-dom";
 import { theme } from "../themes/themes";
 
 export const AppContainer = styled(Box)({
-  minWidth: "80vw",
-  minHeight: "100vh",
-  border: "1px solid green",
+  width: "85vw",
+  height: "100vh",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
-  position: "relative",
 });
 
 export const MLink = styled(Link)({

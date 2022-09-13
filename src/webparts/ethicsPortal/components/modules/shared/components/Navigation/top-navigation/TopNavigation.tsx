@@ -4,44 +4,39 @@ import { ContextMenu } from "../../../../../contextMenu/ContextMenu";
 import { ContextMenuLink } from "../../../../../contextMenu/ContextMenuLink";
 import { MLink } from "../../../../../styles/styles";
 import { theme } from "../../../../../themes/themes";
+import { NavigationSearch } from "./components/NavigationSearch";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     container: {
-      width: "95%",
+      width: "85vw",
       boxSizing: "border-box",
       padding: theme.spacing(4),
       backgroundColor: theme.palette.primary.main,
-      height: "100px",
+      height: "60px",
       position: "absolute",
       display: "flex",
       top: 0,
-      left: "3%",
-      borderRadius: "9px",
+      alignItems: "center",
       color: theme.palette.common.black,
-      "&:hover": {
-        transition: "height 2s 1s ease-in-out",
-        minHeight: "140px",
-      },
+      zIndex: 1,
     },
     linkContainer: {
       width: "100%",
       height: "25px",
-      positon: "inherit",
       display: "flex",
       listStyle: "none",
       alignItems: "center",
       boxSizing: "border-box",
-      gap: "5rem",
-      "&:hover": {
-        borderBottom: `1px solid ${theme.palette.common.black}`,
-      },
+      gap: "2.5rem",
+      zIndex: "inherit",
     },
     list: {
       listStyle: "none",
       maxWidth: "100%",
       height: "100%",
+      zIndex: "inherit",
       "&:hover": {
         borderBottom: `2px solid ${theme.palette.common.white}`,
       },
@@ -49,12 +44,17 @@ const useStyles = makeStyles((theme: Theme) =>
     active: {
       borderBottom: `2px solid ${theme.palette.common.white}`,
       maxWidth: "100%",
-      height: "100%",
     },
 
     filledBG: {
       backgroundColor: theme.palette.common.white,
       borderRadius: "10px",
+    },
+    subMenuLink: {
+      "&:hover": {
+        backgroundColor: theme.palette.common.white,
+        borderRadius: "10px",
+      },
     },
   })
 );
@@ -70,7 +70,7 @@ export const TopNavigation = () => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? activeIndex : undefined;
+  const id = open ? `${activeIndex + 1}item` : undefined;
   const [subMenuIndex, setSubMenuIndex] = React.useState(null);
 
   const handleClickAway = () => {};
@@ -79,6 +79,18 @@ export const TopNavigation = () => {
     <Box className={classes.container}>
       <>
         <ul className={classes.linkContainer}>
+          <Box>
+            <img
+              src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/logo.png"
+              alt=""
+              width="150px"
+              height="50px"
+              style={{
+                objectFit: "contain",
+              }}
+            />
+          </Box>
+
           {MenuItems.map((menu, index) => {
             return (
               <li
@@ -90,24 +102,27 @@ export const TopNavigation = () => {
                   handleClick(e);
                 }}
               >
-                <MLink>{menu.text}</MLink>
+                <>
+                  <MLink>{menu.text}</MLink>
+                </>
               </li>
             );
           })}
         </ul>
-
         <ContextMenu
           open={open}
           handleClickAway={handleClickAway}
           anchorEl={anchorEl}
           id={id}
         >
-          {MenuItems[activeIndex]?.subMenu?.map((it, index) => (
+          {MenuItems[activeIndex]?.subMenu?.map((it, ind) => (
             <Box
               onClick={() => {
-                setSubMenuIndex(index);
+                setSubMenuIndex(ind);
               }}
-              className={subMenuIndex === index && classes.filledBG}
+              className={`${subMenuIndex === ind && classes.filledBG} ${
+                classes.subMenuLink
+              }`}
             >
               <ContextMenuLink to={it.link} title={it?.text} />
             </Box>
@@ -146,6 +161,40 @@ const MenuItems = [
   {
     id: 3,
     text: "Ethics Quiz",
+    isActive: false,
+    link: "#",
+  },
+  {
+    id: 4,
+    text: "Recognition",
+    isActive: false,
+    link: "#",
+    subMenu: [
+      { id: 1, text: "Champion Recognition", link: "" },
+      { id: 2, text: "Employee Recognition", link: "" },
+    ],
+  },
+  {
+    id: 5,
+    text: "Trainings",
+    isActive: false,
+    link: "#",
+  },
+  {
+    id: 6,
+    text: "Policy Breaches",
+    isActive: false,
+    link: "#",
+  },
+  {
+    id: 7,
+    text: "Ethics Articles",
+    isActive: false,
+    link: "#",
+  },
+  {
+    id: 8,
+    text: "Contact Us",
     isActive: false,
     link: "#",
   },
