@@ -5,7 +5,6 @@ import {
   Theme,
   Typography,
 } from "@material-ui/core";
-import { ContactMail, Web } from "@material-ui/icons";
 import * as React from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
