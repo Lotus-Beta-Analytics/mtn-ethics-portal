@@ -16,18 +16,20 @@ export const MLink = styled(Link)({
   color: theme.palette.common.black,
 });
 
-export const TopContainer = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
-  width: "100%",
-  height: "250px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  borderRadius: "25px",
-}));
+export const TopContainer = styled.div<{ bg: string; height: string }>(
+  (props) => ({
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
+    width: "100%",
+    height: props.height ? props.height : "250px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    borderRadius: "25px",
+  })
+);
 
 export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `url(${props.bg})`,
