@@ -12,7 +12,13 @@ import { theme } from "../../../../themes/themes";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import Carousel from "react-elastic-carousel";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { MLink } from "../../../../styles/styles";
+import {
+  CarouselContainer,
+  HomeItemContainer,
+  MLink,
+} from "../../../../styles/styles";
+import Marquee from "react-fast-marquee";
+import { MMarquee } from "../../../shared/components/marquee/MMarquee";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,12 +31,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const pageMenu = [
+  { id: 1, text: "Declare a gift", link: "" },
+  { id: 2, text: "Declare conflict of interest", link: "" },
+];
+
 export const LandingPage = () => {
   const classes = useStyles();
   return (
-    <EmployeeWrapper>
+    <EmployeeWrapper
+      pageNavigation={true}
+      pageMenu={pageMenu}
+      backButton={false}
+    >
       <Container>
-        <Carousel isRTL={false}>
+        <MMarquee text="hello" />
+        <Carousel isRTL={false} enableAutoPlay>
           {carouselItems.map((item) => (
             <CarouselContainer bg={item.image}>
               <Typography style={{ fontStyle: "italic", fontSize: "24px" }}>
@@ -56,38 +72,45 @@ export const LandingPage = () => {
           style={{
             display: "flex",
             alignItems: "center",
+            justifyContent: "space-around",
             flexWrap: "nowrap",
-            width: "100%",
-            height: "250px",
-            border: "1px solid red",
+            height: "230px",
             gap: "2.5rem",
+            margin: "auto",
           }}
         >
-          {homeItems.map((item) => (
-            <HomeItemContainer bg={item.image}>
-              <Box></Box>
-              <Typography
-                variant="h6"
-                style={{
-                  fontStyle: "italic",
-                  padding: "2rem",
-                  boxSizing: "border-box",
-                }}
-              >
-                {item.title}
-              </Typography>
-              <MLink to={item.link}>
-                <Button
-                  className={classes.root}
-                  endIcon={<ChevronRightIcon />}
-                  variant="contained"
-                  color="primary"
+          <Marquee
+            gradient={false}
+            speed={10}
+            direction="right"
+            style={{ width: "85%" }}
+          >
+            {homeItems.map((item) => (
+              <HomeItemContainer bg={item.image}>
+                <Box></Box>
+                <Typography
+                  variant="h5"
+                  style={{
+                    fontStyle: "italic",
+                    paddingRight: "15rem",
+                    boxSizing: "border-box",
+                  }}
                 >
-                  Read More...
-                </Button>
-              </MLink>
-            </HomeItemContainer>
-          ))}
+                  {item.title}
+                </Typography>
+                <MLink to={item.link}>
+                  <Button
+                    className={classes.root}
+                    endIcon={<ChevronRightIcon />}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Read More...
+                  </Button>
+                </MLink>
+              </HomeItemContainer>
+            ))}
+          </Marquee>
         </Box>
       </Container>
     </EmployeeWrapper>
@@ -98,21 +121,6 @@ const Container = styled.div`
   width: 100%;
   min-height: 100%;
 `;
-const CarouselContainer = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
-  width: "100%",
-  height: "450px",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  paddingLeft: theme.spacing(16),
-  color: theme.palette.common.white,
-  position: "relative",
-  top: theme.spacing(17),
-}));
 
 const carouselItems = [
   {
@@ -142,33 +150,24 @@ const homeItems = [
       "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/wawq%202.png",
   },
   {
-    id: 1,
+    id: 2,
     title: "Did you know?",
     link: "",
     image:
       "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/few%202.png",
   },
   {
-    id: 1,
+    id: 3,
+    title: "Eyes wide open",
+    link: "",
+    image:
+      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/Rectangle%2020.png",
+  },
+  {
+    id: 4,
     title: "Eyes wide open",
     link: "",
     image:
       "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/Rectangle%2020.png",
   },
 ];
-
-const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `url(${props.bg})`,
-  width: "300px",
-  height: "100%",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  display: "flex",
-  flexDirection: "column",
-  paddingLeft: theme.spacing(6),
-  paddingBottom: theme.spacing(6),
-  color: theme.palette.common.black,
-  boxSizing: "border-box",
-  justifyContent: "space-between",
-}));
