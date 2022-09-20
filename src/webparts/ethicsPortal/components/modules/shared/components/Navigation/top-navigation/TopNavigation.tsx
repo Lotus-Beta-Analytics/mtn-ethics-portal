@@ -140,8 +140,8 @@ const MenuItems = [
     isActive: false,
     link: "#",
     subMenu: [
-      { id: 1, text: "Photo Categories", link: "" },
-      { id: 2, text: "Video Categories", link: "" },
+      { id: 1, text: "Photo Categories", link: "/employee/photo-categories" },
+      { id: 2, text: "Video Categories", link: "/employee/video-categories" },
     ],
   },
   {

@@ -47,8 +47,6 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
   const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState(-1);
 
-  console.log(nav, "*****");
-
   return (
     <>
       <NavContainer open={open}>
@@ -94,11 +92,11 @@ const NavContainer = styled.div<{ open: boolean }>((props) => ({
   backgroundColor: theme.palette.primary.main,
   position: "absolute",
   top: "40%",
-  minHeight: "200px",
-  zIndex: "999",
+  minHeight: "300px",
   left: props?.open ? "85%" : "100%",
   boxShadow: "3px 5px 5px rgba(0, 0, 0, 0.25)",
   borderRadius: "26px",
   transition: "all .2s ease-in-out",
   boxSizing: "border-box",
+  zIndex: "9",
 }));

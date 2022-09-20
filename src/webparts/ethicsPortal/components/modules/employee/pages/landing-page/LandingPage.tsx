@@ -12,7 +12,11 @@ import { theme } from "../../../../themes/themes";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import Carousel from "react-elastic-carousel";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { MLink } from "../../../../styles/styles";
+import {
+  CarouselContainer,
+  HomeItemContainer,
+  MLink,
+} from "../../../../styles/styles";
 import Marquee from "react-fast-marquee";
 import { MMarquee } from "../../../shared/components/marquee/MMarquee";
 
@@ -35,7 +39,11 @@ const pageMenu = [
 export const LandingPage = () => {
   const classes = useStyles();
   return (
-    <EmployeeWrapper pageNavigation={true} pageMenu={pageMenu}>
+    <EmployeeWrapper
+      pageNavigation={true}
+      pageMenu={pageMenu}
+      backButton={false}
+    >
       <Container>
         <MMarquee text="hello" />
         <Carousel isRTL={false} enableAutoPlay>
@@ -75,7 +83,7 @@ export const LandingPage = () => {
             gradient={false}
             speed={10}
             direction="right"
-            style={{ width: "80%" }}
+            style={{ width: "85%" }}
           >
             {homeItems.map((item) => (
               <HomeItemContainer bg={item.image}>
@@ -113,21 +121,6 @@ const Container = styled.div`
   width: 100%;
   min-height: 100%;
 `;
-const CarouselContainer = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
-  width: "100%",
-  height: "450px",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-  paddingLeft: theme.spacing(16),
-  color: theme.palette.common.white,
-  position: "relative",
-  top: theme.spacing(17),
-}));
 
 const carouselItems = [
   {
@@ -178,23 +171,3 @@ const homeItems = [
       "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/Rectangle%2020.png",
   },
 ];
-
-const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `url(${props.bg})`,
-  width: "250px",
-  height: "100%",
-  backgroundSize: "contain",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  display: "flex",
-  flexDirection: "column",
-  paddingLeft: theme.spacing(6),
-  paddingBottom: theme.spacing(6),
-  color: theme.palette.common.black,
-  boxSizing: "border-box",
-  justifyContent: "space-between",
-  "&:hover": {
-    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
-    backgroundSize: "cover",
-  },
-}));
