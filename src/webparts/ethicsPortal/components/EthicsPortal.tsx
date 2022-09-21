@@ -10,6 +10,8 @@ import { NotFound } from "./notFound/NotFound";
 import { LandingPage } from "./modules/employee/pages/landing-page/LandingPage";
 import { PhotoCategories } from "./modules/employee/pages/gallery/photo-categories/PhotoCategories";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
+import { ConflictOfInterest } from "./modules/employee/pages/ethics-policies/ConflictOfInterest";
+import "./styles.css";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = () => {
   jQuery("#workbenchPageContent").prop("style", "min-width: 100%");
@@ -32,6 +34,12 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = () => {
               path="/employee/video-categories"
               component={VideoCategories}
             />
+            <Route
+              exact
+              path="/employee/conflict-interest"
+              component={ConflictOfInterest}
+            />
+
             <Route path="/admin" render={() => <Box>Quiz</Box>} />
             <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
             <Route path="*" component={NotFound} />

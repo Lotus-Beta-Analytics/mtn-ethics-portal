@@ -24,10 +24,27 @@ export const TopContainer = styled.div<{ bg: string; height: string }>(
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    boxSizing: "border-box",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    borderRadius: "25px",
+    borderRadius: "10px",
+  })
+);
+export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
+  (props) => ({
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
+    width: "100%",
+    height: props.height ? props.height : "450px",
+    display: "flex",
+    alignItems: "center",
+    paddingLeft: "1.5rem",
+    boxSizing: "border-box",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    position: "relative",
+    top: theme.spacing(9),
   })
 );
 
@@ -64,5 +81,5 @@ export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
   paddingLeft: theme.spacing(16),
   color: theme.palette.common.white,
   position: "relative",
-  top: theme.spacing(17),
+  top: theme.spacing(9),
 }));

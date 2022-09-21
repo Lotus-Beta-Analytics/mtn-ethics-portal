@@ -1,24 +1,15 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import * as React from "react";
-import { TopContainer } from "../../../../styles/styles";
-import { theme } from "../../../../themes/themes";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
+import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithImage";
 
-type Props = {};
-
-export const VideoCategories = (props: Props) => {
+export const VideoCategories = () => {
   return (
     <EmployeeWrapper>
-      <TopContainer bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png">
-        <Typography
-          variant="h1"
-          style={{
-            color: theme.palette.common.white,
-          }}
-        >
-          Video Gallery
-        </Typography>
-      </TopContainer>
+      <PageHeaderWithImage
+        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png"
+        text="Video Gallery"
+      />
       <Box></Box>
     </EmployeeWrapper>
   );

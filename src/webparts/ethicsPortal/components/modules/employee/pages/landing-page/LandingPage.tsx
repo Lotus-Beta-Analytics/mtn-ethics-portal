@@ -46,7 +46,7 @@ export const LandingPage = () => {
     >
       <Container>
         <MMarquee text="hello" />
-        <Carousel isRTL={false} enableAutoPlay>
+        <Carousel isRTL={false}>
           {carouselItems.map((item) => (
             <CarouselContainer bg={item.image}>
               <Typography style={{ fontStyle: "italic", fontSize: "24px" }}>

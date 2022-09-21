@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: "100%",
       height: "100%",
       zIndex: "inherit",
+      cursor: "pointer",
       "&:hover": {
         borderBottom: `2px solid ${theme.palette.common.white}`,
       },
@@ -102,9 +103,7 @@ export const TopNavigation = () => {
                   handleClick(e);
                 }}
               >
-                <>
-                  <MLink>{menu.text}</MLink>
-                </>
+                {menu.text}
               </li>
             );
           })}
@@ -150,7 +149,11 @@ const MenuItems = [
     isActive: false,
     link: "#",
     subMenu: [
-      { id: 1, text: "Conflict of Interest", link: "" },
+      {
+        id: 1,
+        text: "Conflict of Interest",
+        link: "/employee/conflict-interest",
+      },
       { id: 2, text: "Gift and Entertainment", link: "" },
       { id: 3, text: "Conduct Passport", link: "" },
       { id: 4, text: "Whistle Blowing", link: "" },

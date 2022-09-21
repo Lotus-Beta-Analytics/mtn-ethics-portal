@@ -4,22 +4,17 @@ import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/emplo
 import styled from "styled-components";
 import { theme } from "../../../../../themes/themes";
 import { TopContainer } from "../../../../../styles/styles";
+import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
 
 type Props = {};
 
 export const PhotoCategories = (props: Props) => {
   return (
     <EmployeeWrapper>
-      <TopContainer bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png">
-        <Typography
-          variant="h1"
-          style={{
-            color: theme.palette.common.white,
-          }}
-        >
-          Photo Gallery
-        </Typography>
-      </TopContainer>
+      <PageHeaderWithImage
+        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png"
+        text="Photo Gallery"
+      />
       <Box></Box>
     </EmployeeWrapper>
   );

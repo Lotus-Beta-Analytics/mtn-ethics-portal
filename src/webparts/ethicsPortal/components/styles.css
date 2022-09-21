@@ -11,3 +11,38 @@ body {
   width: 100vw;
   min-height: 100%;
 }
+
+.rec.rec-arrow {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffcc00;
+  z-index: 9;
+}
+.rec.rec-pagination {
+  position: absolute;
+  top: 55%;
+}
+.rec.rec-dot {
+  background: rgba(44, 43, 43, 0.7) !important;
+}
+.rec.rec-dot_active {
+  background: rgba(0, 0, 0, 0.5) !important;
+  outline: 3px solid #ffcc00 !important;
+}
+.rec.rec-dot:hover {
+  background: rgba(0, 0, 0, 0.5) !important;
+  outline: 3px solid #ffcc00 !important;
+}
+.rec-arrow:hover {
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: #ffcc00 !important;
+}
+
+.rec.rec-arrow-right {
+  position: absolute;
+  left: 90%;
+}
+.rec.rec-arrow-left {
+  position: absolute;
+  right: 13%;
+}

@@ -13,8 +13,8 @@ type Props = {
   nav: PageNav[];
 };
 
-type PageNav = {
-  id: string;
+export type PageNav = {
+  id: string | number;
   text: string;
   link: string;
 };
@@ -60,7 +60,7 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
         <Box
           style={{
             display: open ? "flex" : "none",
-            maxWidth: "80%",
+            maxWidth: "90%",
             minHeight: "200px",
             flexDirection: "column",
             justifyContent: "center",
@@ -86,17 +86,17 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
 };
 
 const NavContainer = styled.div<{ open: boolean }>((props) => ({
-  minWidth: props?.open ? "350px" : "50px",
+  minWidth: props?.open ? "350px" : "100px",
   display: "flex",
   alignItems: "center",
   backgroundColor: theme.palette.primary.main,
   position: "absolute",
-  top: "40%",
+  top: "20%",
   minHeight: "300px",
   left: props?.open ? "85%" : "100%",
-  boxShadow: "3px 5px 5px rgba(0, 0, 0, 0.25)",
+  boxShadow: "3px 2px 5px rgba(0, 0, 0, 0.25)",
   borderRadius: "26px",
   transition: "all .2s ease-in-out",
   boxSizing: "border-box",
-  zIndex: "9",
+  zIndex: "99",
 }));
