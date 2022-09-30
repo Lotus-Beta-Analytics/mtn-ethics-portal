@@ -10,17 +10,19 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     container: {
-      width: "85vw",
+      width: "80vw",
       boxSizing: "border-box",
       padding: theme.spacing(4),
       backgroundColor: theme.palette.primary.main,
       height: "60px",
       position: "absolute",
       display: "flex",
-      top: 0,
+      top: "3%",
       alignItems: "center",
       color: theme.palette.common.black,
       zIndex: 1,
+      left: "3%",
+      borderRadius: "9px",
     },
     linkContainer: {
       width: "100%",

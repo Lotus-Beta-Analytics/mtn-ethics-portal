@@ -1,13 +1,11 @@
 import Box from "@material-ui/core/Box";
-import styled from "styled-components";
-import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
 import * as React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
-import { colors, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { theme } from "../../../../../themes/themes";
 import { createStyles, Theme } from "@material-ui/core/styles";
-import { MLink } from "../../../../../styles/styles";
+import { MLink, PageNavigationContainer } from "../../../../../styles/styles";
 
 type Props = {
   nav: PageNav[];
@@ -49,7 +47,7 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
 
   return (
     <>
-      <NavContainer open={open}>
+      <PageNavigationContainer open={open}>
         <IconButton onClick={() => setOpen(!open)}>
           {open ? (
             <FaAngleDoubleRight color={theme.palette.common.black} />
@@ -80,23 +78,7 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
               );
             })}
         </Box>
-      </NavContainer>
+      </PageNavigationContainer>
     </>
   );
 };
-
-const NavContainer = styled.div<{ open: boolean }>((props) => ({
-  minWidth: props?.open ? "350px" : "100px",
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: theme.palette.primary.main,
-  position: "absolute",
-  top: "20%",
-  minHeight: "300px",
-  left: props?.open ? "85%" : "100%",
-  boxShadow: "3px 2px 5px rgba(0, 0, 0, 0.25)",
-  borderRadius: "26px",
-  transition: "all .2s ease-in-out",
-  boxSizing: "border-box",
-  zIndex: "99",
-}));

@@ -1,16 +1,16 @@
 import { Box, Typography } from "@material-ui/core";
 import * as React from "react";
-import { TopContainer } from "../../../../styles/styles";
-import { theme } from "../../../../themes/themes";
-import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { LandingPageHeaderWithImage } from "../../../shared/components/LandingPageHeaderWithImage";
-import { PageNav } from "../../../shared/components/Navigation/page-navigation/PageNavigation";
+import { TopContainer } from "../../../../../styles/styles";
+import { theme } from "../../../../../themes/themes";
+import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
+import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
+import { PageNav } from "../../../../shared/components/Navigation/page-navigation/PageNavigation";
 
 const pageMenu: PageNav[] = [
   {
     id: 1,
     text: "Conflict of interest write-up",
-    link: "",
+    link: "/employee/conflict-interest/writeup",
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const pageMenu: PageNav[] = [
   },
 ];
 
-export const ConflictOfInterest = () => {
+export const ConflictOfInterestLanding = () => {
   return (
     <EmployeeWrapper
       pageMenu={pageMenu}

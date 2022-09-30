@@ -11,7 +11,7 @@ import styled from "styled-components";
 import { theme } from "../../../../themes/themes";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import Carousel from "react-elastic-carousel";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { FaAngleDoubleRight } from "react-icons/fa";
 import {
   CarouselContainer,
   HomeItemContainer,
@@ -19,6 +19,7 @@ import {
 } from "../../../../styles/styles";
 import Marquee from "react-fast-marquee";
 import { MMarquee } from "../../../shared/components/marquee/MMarquee";
+import { MButton } from "../../../shared/components/buttons/MButton";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,14 +57,7 @@ export const LandingPage = () => {
                 {item.title}
               </Typography>
               <MLink to={item.link}>
-                <Button
-                  className={classes.root}
-                  endIcon={<ChevronRightIcon />}
-                  variant="contained"
-                  color="primary"
-                >
-                  Read More...
-                </Button>
+                <MButton endIcon={<FaAngleDoubleRight />} text="Read More..." />
               </MLink>
             </CarouselContainer>
           ))}
@@ -99,14 +93,10 @@ export const LandingPage = () => {
                   {item.title}
                 </Typography>
                 <MLink to={item.link}>
-                  <Button
-                    className={classes.root}
-                    endIcon={<ChevronRightIcon />}
-                    variant="contained"
-                    color="primary"
-                  >
-                    Read More...
-                  </Button>
+                  <MButton
+                    endIcon={<FaAngleDoubleRight />}
+                    text="Read More..."
+                  />
                 </MLink>
               </HomeItemContainer>
             ))}

@@ -9,6 +9,7 @@ export const AppContainer = styled(Box)({
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
+  backgroundColor: theme.palette.common.white,
 });
 
 export const MLink = styled(Link)({
@@ -20,7 +21,7 @@ export const TopContainer = styled.div<{ bg: string; height: string }>(
   (props) => ({
     backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
     width: "100%",
-    height: props.height ? props.height : "250px",
+    height: "200px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -29,6 +30,7 @@ export const TopContainer = styled.div<{ bg: string; height: string }>(
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     borderRadius: "10px",
+    margin: "0 auto",
   })
 );
 export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
@@ -44,7 +46,7 @@ export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     position: "relative",
-    top: theme.spacing(9),
+    top: 0,
   })
 );
 
@@ -81,5 +83,31 @@ export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
   paddingLeft: theme.spacing(16),
   color: theme.palette.common.white,
   position: "relative",
-  top: theme.spacing(9),
+  top: 0,
 }));
+
+export const PostPreviewContainer = styled(Box)({
+  display: "grid",
+  width: "100%",
+  height: "60%",
+  gridTemplateColumns: "1fr 1fr 1fr",
+  boxSizing: "border-box",
+});
+
+export const PageNavigationContainer = styled.div<{ open: boolean }>(
+  (props) => ({
+    minWidth: props?.open ? "350px" : "100px",
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: theme.palette.primary.main,
+    position: "absolute",
+    top: "20%",
+    minHeight: "300px",
+    left: props?.open ? "85%" : "100%",
+    boxShadow: "3px 2px 5px rgba(0, 0, 0, 0.25)",
+    borderRadius: "26px",
+    transition: "all .2s ease-in-out",
+    boxSizing: "border-box",
+    zIndex: "99",
+  })
+);

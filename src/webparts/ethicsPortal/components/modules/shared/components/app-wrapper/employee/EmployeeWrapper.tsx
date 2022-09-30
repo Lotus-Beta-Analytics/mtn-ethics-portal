@@ -7,12 +7,20 @@ import { Footer } from "../../Footer";
 import { PageNavigation } from "../../Navigation/page-navigation/PageNavigation";
 import { TopNavigation } from "../../Navigation/top-navigation/TopNavigation";
 import { useHistory } from "react-router-dom";
+import { StyledButton } from "../../buttons/MButton";
 
-export const EmployeeWrapper = ({
+export const EmployeeWrapper: React.FC<{
+  children;
+  pageNavigation?: boolean;
+  pageMenu?: any[];
+  backButton?: boolean;
+  showFooter?: boolean;
+}> = ({
   children,
   pageNavigation = false,
   pageMenu = [],
   backButton = true,
+  showFooter = true,
 }) => {
   const history = useHistory();
   return (
@@ -27,19 +35,22 @@ export const EmployeeWrapper = ({
             position: "relative",
             width: "100px",
             height: "30px",
-            top: "70px",
+            top: "80px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            left: "30px",
           }}
           onClick={() => history.goBack()}
         >
-          <FaAngleDoubleLeft color={theme.palette.common.black} />
+          <FaAngleDoubleLeft
+            color={theme.palette.common.black}
+            fontSize="20px"
+          />
         </Box>
       )}
-
       {children}
-      <Footer />
+      {showFooter && <Footer />}
     </AppContainer>
   );
 };

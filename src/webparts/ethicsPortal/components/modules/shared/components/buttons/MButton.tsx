@@ -1,14 +1,28 @@
-import { Button } from "@material-ui/core";
+import { Button, styled } from "@material-ui/core";
 import * as React from "react";
+import { theme } from "../../../../themes/themes";
 
-type Props = {};
-
-const MButton: React.FC<{
+export const MButton: React.FC<{
   text: string;
-  startIcon: any;
+  startIcon?: any;
+  endIcon?: any;
   loading?: boolean;
-}> = (props: Props) => {
-  return <Button></Button>;
+}> = ({ text, startIcon, loading, endIcon }) => {
+  return (
+    <StyledButton
+      variant="contained"
+      color="primary"
+      startIcon={startIcon}
+      endIcon={endIcon}
+    >
+      {text}
+    </StyledButton>
+  );
 };
 
-export default MButton;
+export const StyledButton = styled(Button)({
+  borderRadius: "100px",
+  "&:hover": {
+    backgroundColor: theme.palette.primary.light,
+  },
+});

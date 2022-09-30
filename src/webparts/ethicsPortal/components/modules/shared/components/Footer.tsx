@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "200px",
       color: theme.palette.common.white,
       boxSizing: "border-box",
+      borderRadius: "26px 26px 0 0",
     },
     footerLogoSection: {
       display: "flex",
