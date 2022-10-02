@@ -15,11 +15,17 @@ import "./styles.css";
 import { ConflictOfInterestLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestLanding";
 import { ConflictOfInterestWriteUpLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestWriteUpLanding";
 import { Post } from "./modules/employee/components/blog/Post";
+import { QuizLandingPage } from "./modules/employee/pages/quiz";
+import { QuizPage } from "./modules/employee/pages/quiz/QuizPage";
 
-const EthicsPortal: React.FC<IEthicsPortalProps> = () => {
+const EthicsPortal: React.FC<IEthicsPortalProps> = (
+  props: IEthicsPortalProps
+) => {
   jQuery("#workbenchPageContent").prop("style", "min-width: 100%");
   jQuery(".SPCanvas-canvas").prop("style", "min-width: 100%");
   jQuery(".CanvasZone").prop("style", "min-width: 100%");
+
+  const { context } = props;
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,6 +43,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = () => {
               path="/employee/video-categories"
               component={VideoCategories}
             />
+            <Route exact path="/employee/quiz" component={QuizLandingPage} />
+            <Route exact path="/employee/take-quiz" component={QuizPage} />
             <Route
               exact
               path="/employee/conflict-interest"

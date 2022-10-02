@@ -105,7 +105,7 @@ export const TopNavigation = () => {
                   handleClick(e);
                 }}
               >
-                {menu.text}
+                <MLink to={menu?.link}>{menu.text}</MLink>
               </li>
             );
           })}
@@ -167,7 +167,7 @@ const MenuItems = [
     id: 3,
     text: "Ethics Quiz",
     isActive: false,
-    link: "#",
+    link: "/employee/quiz",
   },
   {
     id: 4,

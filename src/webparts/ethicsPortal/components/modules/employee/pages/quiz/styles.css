@@ -1,0 +1,36 @@
+.nav-arrow {
+  cursor: pointer;
+}
+
+.center-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: transform(-50%, -50%);
+}
+
+.options-container {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-left: 3rem;
+  box-sizing: border-box;
+}
+.options {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.submit-button {
+  width: 200px;
+  height: 50px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: #ffcc00;
+  color: #000;
+}
