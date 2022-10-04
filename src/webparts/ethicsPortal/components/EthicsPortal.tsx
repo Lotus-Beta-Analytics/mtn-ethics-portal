@@ -20,6 +20,7 @@ import { QuizPage } from "./modules/employee/pages/quiz/QuizPage";
 import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
 import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
 import { QuizResultPage } from "./modules/employee/pages/quiz/QuizResultPage";
+import { useHistory } from "react-router-dom";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -29,12 +30,13 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
   jQuery(".CanvasZone").prop("style", "min-width: 100%");
 
   const { context } = props;
+  const history = useHistory();
 
   return (
     <ToastProvider>
       <ThemeProvider theme={theme}>
-        <QuizContextProvider>
-          <Router>
+        <Router>
+          <QuizContextProvider>
             <Switch>
               <Route exact path="/" component={LandingPage} />
               <Route
@@ -68,7 +70,11 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                 component={QuizLandingPage}
               />
 
-              <Route exact path="/employee/take-quiz" component={QuizPage} />
+              <Route
+                exact
+                path="/employee/take-quiz"
+                render={() => <QuizPage />}
+              />
               <Route exact path="/employee/review" component={QuizReviewPage} />
               <Route
                 exact
@@ -77,8 +83,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
               />
               <Route path="*" component={NotFound} />
             </Switch>
-          </Router>
-        </QuizContextProvider>
+          </QuizContextProvider>
+        </Router>
       </ThemeProvider>
     </ToastProvider>
   );
