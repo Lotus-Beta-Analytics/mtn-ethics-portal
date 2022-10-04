@@ -154,7 +154,7 @@ const MenuItems = [
       {
         id: 1,
         text: "Conflict of Interest",
-        link: "/employee/conflict-interest",
+        link: "/conflict/landing",
       },
       { id: 2, text: "Gift and Entertainment", link: "" },
       { id: 3, text: "Conduct Passport", link: "" },
@@ -167,7 +167,7 @@ const MenuItems = [
     id: 3,
     text: "Ethics Quiz",
     isActive: false,
-    link: "/employee/quiz",
+    link: "/employee/quiz/landing",
   },
   {
     id: 4,

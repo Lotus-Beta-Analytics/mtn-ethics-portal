@@ -15,7 +15,7 @@ import "./styles.css";
 import { ConflictOfInterestLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestLanding";
 import { ConflictOfInterestWriteUpLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestWriteUpLanding";
 import { Post } from "./modules/employee/components/blog/Post";
-import { QuizLandingPage } from "./modules/employee/pages/quiz";
+import { QuizLandingPage } from "./modules/employee/pages/quiz/QuizLandingPage";
 import { QuizPage } from "./modules/employee/pages/quiz/QuizPage";
 import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
 import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
@@ -46,7 +46,26 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
               path="/employee/video-categories"
               component={VideoCategories}
             />
-            <Route exact path="/employee/quiz" component={QuizLandingPage} />
+
+            <Route
+              exact
+              path="/conflict/landing"
+              component={ConflictOfInterestLanding}
+            />
+            <Route
+              exact
+              path="/conflict/writeup"
+              component={ConflictOfInterestWriteUpLanding}
+            />
+            <Route exact path="/blog/post/:id" component={Post} />
+
+            <Route path="/admin" render={() => <Box>Quiz</Box>} />
+            <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
+            <Route
+              exact
+              path="/employee/quiz/landing"
+              component={QuizLandingPage}
+            />
             <QuizContextProvider>
               <Route exact path="/employee/take-quiz" component={QuizPage} />
               <Route exact path="/employee/review" component={QuizReviewPage} />
@@ -56,21 +75,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                 component={QuizResultPage}
               />
             </QuizContextProvider>
-
-            <Route
-              exact
-              path="/employee/conflict-interest"
-              component={ConflictOfInterestLanding}
-            />
-            <Route
-              exact
-              path="/employee/conflict-interest/writeup"
-              component={ConflictOfInterestWriteUpLanding}
-            />
-            <Route exact path="/blog/post/:id" component={Post} />
-
-            <Route path="/admin" render={() => <Box>Quiz</Box>} />
-            <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
             <Route path="*" component={NotFound} />
           </Switch>
         </ToastProvider>

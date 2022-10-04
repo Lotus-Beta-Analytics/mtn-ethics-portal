@@ -10,7 +10,7 @@ const pageMenu: PageNav[] = [
   {
     id: 1,
     text: "Conflict of interest write-up",
-    link: "/employee/conflict-interest/writeup",
+    link: "/conflict/writeup",
   },
   {
     id: 2,
