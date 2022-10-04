@@ -17,6 +17,9 @@ import { ConflictOfInterestWriteUpLanding } from "./modules/employee/pages/ethic
 import { Post } from "./modules/employee/components/blog/Post";
 import { QuizLandingPage } from "./modules/employee/pages/quiz";
 import { QuizPage } from "./modules/employee/pages/quiz/QuizPage";
+import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
+import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
+import { QuizResultPage } from "./modules/employee/pages/quiz/QuizResultPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -44,7 +47,16 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
               component={VideoCategories}
             />
             <Route exact path="/employee/quiz" component={QuizLandingPage} />
-            <Route exact path="/employee/take-quiz" component={QuizPage} />
+            <QuizContextProvider>
+              <Route exact path="/employee/take-quiz" component={QuizPage} />
+              <Route exact path="/employee/review" component={QuizReviewPage} />
+              <Route
+                exact
+                path="/employee/quiz-result"
+                component={QuizResultPage}
+              />
+            </QuizContextProvider>
+
             <Route
               exact
               path="/employee/conflict-interest"

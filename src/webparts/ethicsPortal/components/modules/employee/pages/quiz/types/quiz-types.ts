@@ -3,4 +3,6 @@ export type QuizResponseType = {
   question: string;
   answer: string;
   responseTime: string;
+  isCorrect: boolean;
+  point: number;
 };
