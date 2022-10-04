@@ -31,42 +31,43 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
   const { context } = props;
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <ToastProvider>
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route
-              exact
-              path="/employee/photo-categories"
-              component={PhotoCategories}
-            />
-            <Route
-              exact
-              path="/employee/video-categories"
-              component={VideoCategories}
-            />
+    <ToastProvider>
+      <ThemeProvider theme={theme}>
+        <QuizContextProvider>
+          <Router>
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route
+                exact
+                path="/employee/photo-categories"
+                component={PhotoCategories}
+              />
+              <Route
+                exact
+                path="/employee/video-categories"
+                component={VideoCategories}
+              />
 
-            <Route
-              exact
-              path="/conflict/landing"
-              component={ConflictOfInterestLanding}
-            />
-            <Route
-              exact
-              path="/conflict/writeup"
-              component={ConflictOfInterestWriteUpLanding}
-            />
-            <Route exact path="/blog/post/:id" component={Post} />
+              <Route
+                exact
+                path="/conflict/landing"
+                component={ConflictOfInterestLanding}
+              />
+              <Route
+                exact
+                path="/conflict/writeup"
+                component={ConflictOfInterestWriteUpLanding}
+              />
+              <Route exact path="/blog/post/:id" component={Post} />
 
-            <Route path="/admin" render={() => <Box>Quiz</Box>} />
-            <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
-            <Route
-              exact
-              path="/employee/quiz/landing"
-              component={QuizLandingPage}
-            />
-            <QuizContextProvider>
+              <Route path="/admin" render={() => <Box>Quiz</Box>} />
+              <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
+              <Route
+                exact
+                path="/employee/quiz/landing"
+                component={QuizLandingPage}
+              />
+
               <Route exact path="/employee/take-quiz" component={QuizPage} />
               <Route exact path="/employee/review" component={QuizReviewPage} />
               <Route
@@ -74,12 +75,12 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                 path="/employee/quiz-result"
                 component={QuizResultPage}
               />
-            </QuizContextProvider>
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </ToastProvider>
-      </Router>
-    </ThemeProvider>
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </Router>
+        </QuizContextProvider>
+      </ThemeProvider>
+    </ToastProvider>
   );
 };
 
