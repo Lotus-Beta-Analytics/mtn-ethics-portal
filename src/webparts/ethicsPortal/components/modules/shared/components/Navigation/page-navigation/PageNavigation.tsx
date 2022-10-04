@@ -50,9 +50,15 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
       <PageNavigationContainer open={open}>
         <IconButton onClick={() => setOpen(!open)}>
           {open ? (
-            <FaAngleDoubleRight color={theme.palette.common.black} />
+            <FaAngleDoubleRight
+              color={theme.palette.common.black}
+              style={{ fontSize: "1rem" }}
+            />
           ) : (
-            <FaAngleDoubleLeft color={theme.palette.common.black} />
+            <FaAngleDoubleLeft
+              color={theme.palette.common.black}
+              style={{ fontSize: "1rem" }}
+            />
           )}
         </IconButton>
         <Box
