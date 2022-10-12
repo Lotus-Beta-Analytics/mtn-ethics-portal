@@ -1,0 +1,33 @@
+.mtn__coverImage {
+  display: none;
+  height: 70%;
+  width: 100%;
+  padding: 15px;
+  background-color: whitesmoke;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  /* transition: transform 0.2s; */
+}
+
+.mtn__coverOval {
+  position: absolute;
+  display: none;
+  height: 50%;
+  width: 100%;
+  top: 0;
+  z-index: 1;
+  border-radius: 0 0 50% 50%;
+  background: inherit;
+}
+
+.mtn__coverImage span {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.mtn__CoverImageSpan {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+}

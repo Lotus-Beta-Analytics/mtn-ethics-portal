@@ -175,7 +175,7 @@ const MenuItems = [
     isActive: false,
     link: "#",
     subMenu: [
-      { id: 1, text: "Champion Recognition", link: "" },
+      { id: 1, text: "Champion Recognition", link: "/recognition/champion" },
       { id: 2, text: "Employee Recognition", link: "" },
     ],
   },
