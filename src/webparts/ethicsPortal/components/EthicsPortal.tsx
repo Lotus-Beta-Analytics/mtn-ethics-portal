@@ -21,6 +21,9 @@ import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
 import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
 import { QuizResultPage } from "./modules/employee/pages/quiz/QuizResultPage";
 import { useHistory } from "react-router-dom";
+import { ChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ChampionLandingPage";
+import { EthicsChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ethics-champions/EthicsChampionLandingPage";
+import { EthicsChampionsActivties } from "./modules/employee/pages/recognition/champion-recognition/ethics-champion-activties/EthicsChampionsActivties";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -60,6 +63,22 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                 path="/conflict/writeup"
                 component={ConflictOfInterestWriteUpLanding}
               />
+              <Route
+                exact
+                path="/recognition/champion"
+                component={ChampionLandingPage}
+              />
+              <Route
+                exact
+                path="/recognition/ethicschampion"
+                component={EthicsChampionLandingPage}
+              />
+              <Route
+                exact
+                path="/recognition/ethicschampion/activties"
+                component={EthicsChampionsActivties}
+              />
+
               <Route exact path="/blog/post/:id" component={Post} />
 
               <Route path="/admin" render={() => <Box>Quiz</Box>} />
