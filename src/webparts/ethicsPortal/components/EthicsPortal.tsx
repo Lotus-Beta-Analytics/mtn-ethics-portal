@@ -21,6 +21,13 @@ import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
 import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
 import { QuizResultPage } from "./modules/employee/pages/quiz/QuizResultPage";
 import { useHistory } from "react-router-dom";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -31,62 +38,69 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
   const { context } = props;
   const history = useHistory();
+  const queryClient = new QueryClient();
 
   return (
-    <ToastProvider>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <QuizContextProvider>
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route
-                exact
-                path="/employee/photo-categories"
-                component={PhotoCategories}
-              />
-              <Route
-                exact
-                path="/employee/video-categories"
-                component={VideoCategories}
-              />
+    <QueryClientProvider client={queryClient}>
+      <ToastProvider>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <QuizContextProvider>
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                <Route
+                  exact
+                  path="/employee/photo-categories"
+                  component={PhotoCategories}
+                />
+                <Route
+                  exact
+                  path="/employee/video-categories"
+                  component={VideoCategories}
+                />
 
-              <Route
-                exact
-                path="/conflict/landing"
-                component={ConflictOfInterestLanding}
-              />
-              <Route
-                exact
-                path="/conflict/writeup"
-                component={ConflictOfInterestWriteUpLanding}
-              />
-              <Route exact path="/blog/post/:id" component={Post} />
+                <Route
+                  exact
+                  path="/conflict/landing"
+                  component={ConflictOfInterestLanding}
+                />
+                <Route
+                  exact
+                  path="/conflict/writeup"
+                  component={ConflictOfInterestWriteUpLanding}
+                />
+                <Route exact path="/blog/post/:id" component={Post} />
 
-              <Route path="/admin" render={() => <Box>Quiz</Box>} />
-              <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
-              <Route
-                exact
-                path="/employee/quiz/landing"
-                component={QuizLandingPage}
-              />
+                <Route path="/admin" render={() => <Box>Quiz</Box>} />
+                <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
+                <Route
+                  exact
+                  path="/employee/quiz/landing"
+                  component={QuizLandingPage}
+                />
 
-              <Route
-                exact
-                path="/employee/take-quiz"
-                render={() => <QuizPage />}
-              />
-              <Route exact path="/employee/review" component={QuizReviewPage} />
-              <Route
-                exact
-                path="/employee/quiz-result"
-                component={QuizResultPage}
-              />
-              <Route path="*" component={NotFound} />
-            </Switch>
-          </QuizContextProvider>
-        </Router>
-      </ThemeProvider>
-    </ToastProvider>
+                <Route
+                  exact
+                  path="/employee/take-quiz"
+                  render={() => <QuizPage />}
+                />
+                <Route
+                  exact
+                  path="/employee/review"
+                  component={QuizReviewPage}
+                />
+                <Route
+                  exact
+                  path="/employee/quiz-result"
+                  component={QuizResultPage}
+                />
+                <Route path="*" component={NotFound} />
+              </Switch>
+            </QuizContextProvider>
+          </Router>
+        </ThemeProvider>
+      </ToastProvider>
+    </QueryClientProvider>
   );
 };
 
