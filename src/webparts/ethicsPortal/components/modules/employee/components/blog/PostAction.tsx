@@ -23,7 +23,6 @@ export const PostAction: React.FC<Props> = ({
     React.useState<Set<number | string>>();
   const toast = useToasts().addToast;
   const postLikeHandler = async () => {
-    console.log(postId, "postid####");
     try {
       const resPost = await sp.web.lists
         .getByTitle("Likes")
@@ -70,7 +69,7 @@ export const PostAction: React.FC<Props> = ({
           return;
         }
 
-        postId && setUnLikePostset(new Set([postId]));
+        setUnLikePostset(new Set([postId]));
         await sp.web.lists.getByTitle("UnLikes").items.add({
           PostId: String(postId),
         });
@@ -143,14 +142,13 @@ export const CommentAction: React.FC<Props> = ({
       if (resComment.length > 0) {
         return;
       }
-      commentId && setLikeCommentset(new Set([commentId]));
+      setLikeCommentset(new Set([commentId]));
       await sp.web.lists.getByTitle("Likes").items.add({
         CommentId: String(commentId),
       });
       setLikeCommentset(new Set());
     } catch (e) {
       setLikeCommentset(new Set());
-
       toast("An error occurred", {
         appearance: "error",
       });
@@ -169,7 +167,21 @@ export const CommentAction: React.FC<Props> = ({
           .items.getById(Number(resComment[0].Id))
           .delete();
       }
-      commentId && setUnLikeCommentset(new Set([commentId]));
+
+      const findCommentId = await sp.web.lists
+        .getByTitle("UnLikes")
+        .items.filter(`PostId eq '${commentId}'`)
+        .get();
+
+      if (findCommentId.length > 0) {
+        await sp.web.lists
+          .getByTitle("unLikes")
+          .items.getById(Number(findCommentId[0].Id))
+          .delete();
+        return;
+      }
+
+      setUnLikeCommentset(new Set([commentId]));
       await sp.web.lists.getByTitle("UnLikes").items.add({
         CommentId: String(commentId),
       });
@@ -177,7 +189,6 @@ export const CommentAction: React.FC<Props> = ({
       setUnLikeCommentset(new Set());
     } catch (e) {
       setUnLikeCommentset(new Set());
-
       toast("An error occurred", {
         appearance: "error",
       });

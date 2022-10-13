@@ -11,15 +11,11 @@ import { PostAction } from "./PostAction";
 import { EnterComment } from "./EnterComment";
 import Button from "@material-ui/core/Button";
 import { sp } from "@pnp/sp";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { FaShare } from "react-icons/fa";
-import { useToasts } from "react-toast-notifications";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { AddToast, useToasts } from "react-toast-notifications";
+import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 
 type User = {
   name: string;
@@ -27,7 +23,6 @@ type User = {
 };
 
 export const Post = () => {
-  const toast = useToasts().addToast;
   const { id } = useParams();
   const [comment, setComment] = React.useState("");
   const { data } = useQuery<User>(["userProfile"], async () => {
@@ -38,9 +33,10 @@ export const Post = () => {
         photoUrl: res?.PictureUrl,
       };
     } catch (e) {
-      toast("An error occured");
+      errorAlert(toast);
     }
   });
+  const toast = useToasts().addToast;
 
   const [commenting, setCommenting] = React.useState<boolean>(false);
 
@@ -50,11 +46,18 @@ export const Post = () => {
       const res = await sp.web.lists.getByTitle("Comments").items.add({
         PostId: id,
         comment,
-        user: data,
+        user: JSON.stringify(data),
       });
+
       setCommenting(false);
+      // toast("Comment Added", {
+      //   appearance: "success",
+      //   autoDismiss: true,
+      // });
+      successAlert(toast, "Comment Added");
+      setComment(null);
     } catch (e) {
-      toast("An error occured");
+      errorAlert(toast);
       setCommenting(false);
     }
   };
@@ -185,7 +188,7 @@ export const Post = () => {
                 disabled={!comment?.trim() || commenting}
                 onClick={() => commentHandler()}
               >
-                Add Comment
+                {commenting ? <CircularProgress size={20} /> : "Add Comment"}
               </Button>
             </Box>
           </Box>
