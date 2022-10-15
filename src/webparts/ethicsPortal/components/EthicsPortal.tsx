@@ -32,7 +32,6 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 
-
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
 ) => {
@@ -67,21 +66,21 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   path="/conflict/landing"
                   component={ConflictOfInterestLanding}
                 />
-                   <Route
-                exact
-                path="/recognition/champion"
-                component={ChampionLandingPage}
-              />
-              <Route
-                exact
-                path="/recognition/ethicschampion"
-                component={EthicsChampionLandingPage}
-              />
-              <Route
-                exact
-                path="/recognition/ethicschampion/activties"
-                component={EthicsChampionsActivties}
-              />
+                <Route
+                  exact
+                  path="/recognition/champion"
+                  component={ChampionLandingPage}
+                />
+                <Route
+                  exact
+                  path="/recognition/ethicschampion"
+                  component={EthicsChampionLandingPage}
+                />
+                <Route
+                  exact
+                  path="/recognition/ethicschampion/activties"
+                  component={EthicsChampionsActivties}
+                />
                 <Route
                   exact
                   path="/conflict/writeup"
@@ -89,9 +88,12 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                 />
                 <Route exact path="/blog/post/:id" component={Post} />
 
-
-                <Route path="/admin" render={() => <Box>Quiz</Box>} />
-                <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
+                <Route path="/admin" exact render={() => <Box>Quiz</Box>} />
+                <Route
+                  path="/admin/create-quiz"
+                  exact
+                  render={() => <CreateQuizPage />}
+                />
                 <Route
                   exact
                   path="/employee/quiz/landing"

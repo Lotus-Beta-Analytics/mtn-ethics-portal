@@ -38,9 +38,9 @@ type Result = {
 };
 
 export const QuizContextProvider = ({ children }) => {
-  const [questions, setQuestions] = React.useState(questionsList);
+  const [questions, setQuestions] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [total, setTotal] = React.useState(4);
+  const [total, setTotal] = React.useState(0);
   const [responses, setResponses] = React.useState<QuizResponseType[]>([]);
   const [response, setResponse] = React.useState<QuizResponseType>();
   const [loading, setLoading] = React.useState(false);
@@ -55,11 +55,13 @@ export const QuizContextProvider = ({ children }) => {
   React.useEffect(() => {
     setGetting(true);
     sp.web.lists
-      .getByTitle("Questions")
-      .items.getAll()
+      .getByTitle("QuizQuestions")
+      .items.get()
       .then((items) => {
-        setQuestions(items);
-        setTotal(items.length);
+        let q = items[3].questions;
+        q = JSON.parse(q);
+        setQuestions(q);
+        setTotal(q?.length);
         setGetting(false);
       })
       .catch((err) => {
