@@ -1,10 +1,16 @@
 import * as React from "react";
 import styled from "styled-components";
+import { QuizTime } from "./QuizTime";
 
 type Props = {};
 
 export const QuizWrapper = ({ children }) => {
-  return <QuizWrapperContainer>{children}</QuizWrapperContainer>;
+  return (
+    <QuizWrapperContainer>
+      <QuizTime />
+      {children}
+    </QuizWrapperContainer>
+  );
 };
 
 const QuizWrapperContainer = styled.div`

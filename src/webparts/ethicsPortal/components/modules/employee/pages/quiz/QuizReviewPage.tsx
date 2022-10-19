@@ -1,10 +1,10 @@
-import { Box, colors, Typography } from "@material-ui/core";
+import { Box, Button, colors, Typography } from "@material-ui/core";
 import * as React from "react";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { PageWrapper } from "../../../shared/components/app-wrapper/employee/PageWrapper";
 import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithImage";
 import { QuizWrapper } from "./components/QuizWrapper";
-import { getQuizContextState } from "./context/QuizContext";
+import { AnswerStatus, getQuizContextState } from "./context/QuizContext";
 import "./styles.css";
 import { CircularProgress } from "@material-ui/core";
 import { isChecked } from "./util";
@@ -12,10 +12,46 @@ import {
   ShowNextNavButton,
   ShowPrevNavButton,
 } from "./components/showNavButtons";
+import { sp } from "@pnp/sp";
+import { useQuery } from "@tanstack/react-query";
+import { useToasts } from "react-toast-notifications";
+import { errorAlert } from "../../../../utils/toast-messages";
+import { QuizResponseType } from "./types/quiz-types";
+import { QuizStatus } from "../../../admin/pages/quiz/modals/EnableQuizPromptModal";
 
 export const QuizReviewPage = () => {
-  const { page, responses, showSubmit, total, questions, getting } =
+  const { page, showSubmit, total, questions, getting, doneHandler } =
     getQuizContextState();
+
+  const { data } = useQuery(["pr"], async () => {
+    try {
+      const res = await sp.profiles.myProperties.get();
+      return {
+        name: res?.DisplayName,
+        email: res?.Email,
+      };
+    } catch (e) {
+      errorAlert(toast);
+    }
+  });
+  const toast = useToasts().addToast;
+
+  const [staffResponses, setStaffResponses] = React.useState<
+    QuizResponseType[]
+  >([]);
+
+  React.useEffect(() => {
+    if (!data) return;
+    sp.web.lists
+      .getByTitle("QuizResponse")
+      .items.filter(`StaffEmail eq '${data?.email}'`)
+      .get()
+      .then((items) => {
+        let userResponses = items;
+        userResponses = JSON.parse(userResponses[0].responses);
+        setStaffResponses(userResponses);
+      });
+  }, [data?.email]);
 
   return (
     <EmployeeWrapper showFooter={false} backButton={false}>
@@ -58,7 +94,7 @@ export const QuizReviewPage = () => {
                               <Box
                                 className={`options-container ${
                                   questions[page].answer ===
-                                  isChecked(responses, page, option)
+                                  isChecked(staffResponses, page, option)
                                     ? "correct"
                                     : ""
                                 } ${
@@ -78,7 +114,8 @@ export const QuizReviewPage = () => {
                                   name={`option${page}`}
                                   value={option}
                                   checked={
-                                    option == isChecked(responses, page, option)
+                                    option ==
+                                    isChecked(staffResponses, page, option)
                                       ? true
                                       : null
                                   }
@@ -95,7 +132,23 @@ export const QuizReviewPage = () => {
                       </Box>
                     </Box>
                     <Box>
-                      {!showSubmit(page) ? <ShowNextNavButton /> : <></>}
+                      {!showSubmit(page) ? (
+                        <ShowNextNavButton />
+                      ) : (
+                        <Button
+                          className="submit-button"
+                          style={{
+                            position: "absolute",
+                            bottom: "10px",
+                            right: "10px",
+                          }}
+                          variant="contained"
+                          color="secondary"
+                          onClick={doneHandler}
+                        >
+                          Done
+                        </Button>
+                      )}
                     </Box>
                   </Box>
                 ) : (

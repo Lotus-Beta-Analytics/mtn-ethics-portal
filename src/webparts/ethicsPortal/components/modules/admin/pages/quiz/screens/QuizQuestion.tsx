@@ -18,28 +18,33 @@ type Props = {};
 export const QuizQuestionSetUp = (props: Props) => {
   const { quiz, handleChange, setQuiz } = CreateAdminQuizContextData();
   const [option, setOption] = React.useState("");
-  const [options, setOptions] = React.useState<string[] | null>([]);
   const [isUpdating, setIsUpdating] = React.useState(false);
   const [indextoUpdate, setIndextoUpdate] = React.useState(null);
-  const [q, setQ] = React.useState("");
-  const [type, setType] = React.useState("");
-  const [answer, setAnswer] = React.useState(null);
-  const [question, setQuestion] = React.useState<QuizQuestion>();
+  const [question, setQuestion] = React.useState<QuizQuestion>({
+    options: [],
+    answer: "",
+    question: "",
+    type: "",
+    point: null,
+  });
 
   //delete an option
   const onDeleteOption = (i: number) => {
-    const newOptions = options.filter((_, index) => index !== i);
-    setOptions(newOptions);
+    const newOptions = question?.options.filter((_, index) => index !== i);
+    setQuestion({
+      ...question,
+      options: newOptions,
+    });
   };
 
   const onEditOption = (i: number) => {
     setIndextoUpdate(i);
     setIsUpdating(true);
-    setOption(options[i]);
+    setOption(question?.options[i]);
   };
 
   const updateOptionHandler = () => {
-    options.splice(indextoUpdate, 1, option);
+    question?.options.splice(indextoUpdate, 1, option);
     setOption("");
     setIsUpdating(false);
   };
@@ -96,7 +101,7 @@ export const QuizQuestionSetUp = (props: Props) => {
           <Autocomplete
             id="type"
             freeSolo={false}
-            options={questionTypes.map((option) => option)}
+            options={questionTypes?.map((option) => option)}
             fullWidth
             value={question?.type}
             renderInput={(params) => (
@@ -148,7 +153,13 @@ export const QuizQuestionSetUp = (props: Props) => {
                   updateOptionHandler();
                   return;
                 }
-                setOptions([option, ...options]);
+                // setOptions([option, ...options]);
+
+                setQuestion({
+                  ...question,
+                  options: [option, ...question?.options],
+                });
+
                 setOption("");
               }}
               className="action-btn"
@@ -157,8 +168,8 @@ export const QuizQuestionSetUp = (props: Props) => {
             </Box>
           </Box>
           <Box width="100%" display="flex" flexDirection="column">
-            {options?.length > 0 &&
-              options?.map((option, i) => (
+            {question?.options?.length > 0 &&
+              question?.options?.map((option, i) => (
                 <Box
                   display="flex"
                   alignItems="center"
@@ -181,31 +192,37 @@ export const QuizQuestionSetUp = (props: Props) => {
               ))}
           </Box>
         </Box>
-        <Autocomplete
-          id="answer"
-          freeSolo={false}
-          options={options.map((option) => option)}
-          fullWidth
-          value={question?.answer ?? ""}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Select Answer"
-              margin="normal"
-              variant="outlined"
-            />
-          )}
-          onChange={(e, newvalue) =>
-            setQuestion({
-              ...question,
-              answer: newvalue,
-            })
-          }
-        />
+        {question?.options.length > 0 && (
+          <Autocomplete
+            id="answer"
+            freeSolo={false}
+            options={question?.options?.map((option) => option)}
+            fullWidth
+            value={question?.answer ?? ""}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Select Answer"
+                margin="normal"
+                variant="outlined"
+              />
+            )}
+            onChange={(e, newvalue) =>
+              setQuestion({
+                ...question,
+                answer: newvalue,
+              })
+            }
+          />
+        )}
 
         <Box
           onClick={() => {
-            if (!question?.answer && !options.length && !question?.type) {
+            if (
+              !question?.answer &&
+              !question?.options?.length &&
+              !question?.type
+            ) {
               return;
             }
 
@@ -215,20 +232,32 @@ export const QuizQuestionSetUp = (props: Props) => {
                 ...(quiz?.questions ?? []),
                 {
                   ...question,
-                  options,
                 },
               ],
             });
 
             setQuestion(null);
-            setOptions([]);
           }}
           className="action-btn"
         >
           Add Question
         </Box>
       </Box>
-      <QuestionsTable questions={quiz?.questions} />
+      <QuestionsTable
+        questions={quiz?.questions}
+        onUpdate={(res) => {
+          setQuiz({
+            ...quiz,
+            questions: [
+              ...quiz?.questions.filter(
+                //@ts-ignore
+                (it) => it.tableData.id !== res.tableData.id
+              ),
+            ],
+          });
+          setQuestion(res);
+        }}
+      />
     </Box>
   );
 };

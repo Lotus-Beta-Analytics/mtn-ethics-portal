@@ -9,6 +9,7 @@ import { sp } from "@pnp/sp";
 import { QuizTopic } from "../screens/QuizTopic";
 import { QuizMetaData } from "../screens/QuizMetaData";
 import { QuizQuestionSetUp } from "../screens/QuizQuestion";
+import { useHistory } from "react-router-dom";
 
 type QuizContextType = {
   quiz: AdminQuizCreateType;
@@ -28,6 +29,9 @@ type QuizContextType = {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   loading: boolean;
+  isUpdating: boolean;
+  setIsUpdating: React.Dispatch<React.SetStateAction<boolean>>;
+  updateHandler: (id: number) => void;
 };
 
 const CreateAdminQuizContext = React.createContext<QuizContextType | null>(
@@ -42,6 +46,8 @@ export const CreateAdminQuizContextProvider: React.FC<{
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
   const [questions, setQuestions] = React.useState<QuizQuestion[]>([]);
+  const [isUpdating, setIsUpdating] = React.useState<boolean>(false);
+  const history = useHistory();
   const steps = getSteps();
 
   const isStepOptional = (step: number) => {
@@ -71,7 +77,6 @@ export const CreateAdminQuizContextProvider: React.FC<{
     if (!isStepOptional(activeStep)) {
       throw new Error("You can't skip a step that isn't optional.");
     }
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
@@ -116,6 +121,29 @@ export const CreateAdminQuizContextProvider: React.FC<{
       setLoading(false);
     }
   };
+  const updateHandler = async (id: number) => {
+    setLoading(true);
+    try {
+      await sp.web.lists
+        .getByTitle("QuizQuestions")
+        .items.getById(id)
+        .update({
+          questions: JSON.stringify(quiz?.questions),
+          duration: quiz?.duration,
+          startDate: new Date(quiz?.startDate),
+          endDate: new Date(quiz?.endDate),
+          QuizTitle: quiz?.title,
+          instruction: quiz?.instruction,
+          topic: quiz?.topic,
+        });
+      successAlert(toast, "Quiz Updated");
+      history.push("/admin/manage-quiz");
+      setLoading(false);
+    } catch (e) {
+      errorAlert(toast);
+      setLoading(false);
+    }
+  };
 
   return (
     <CreateAdminQuizContext.Provider
@@ -135,6 +163,9 @@ export const CreateAdminQuizContextProvider: React.FC<{
         handleChange,
         submitHandler,
         loading,
+        isUpdating,
+        updateHandler,
+        setIsUpdating,
       }}
     >
       {children}

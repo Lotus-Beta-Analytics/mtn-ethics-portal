@@ -7,6 +7,7 @@ export interface AdminQuizCreateType {
   title: string;
   duration: number;
   questions: QuizQuestion[];
+  ID?: number;
 }
 
 export interface QuizQuestion {

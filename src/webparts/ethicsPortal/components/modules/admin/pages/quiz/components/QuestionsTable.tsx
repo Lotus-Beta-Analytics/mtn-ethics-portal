@@ -22,16 +22,17 @@ import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
 
 type Props = {
   questions: QuizQuestion[];
+  onUpdate: React.Dispatch<QuizQuestion>;
 };
 
-export const QuestionsTable: React.FC<Props> = ({ questions }) => {
+export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
   console.log(questions, "here...");
 
   const columns = [
     {
       title: "SN",
       field: "tableData",
-      render: (rowData) => <div>{rowData.tableData.id + 1}</div>,
+      render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
     },
     { title: "Question", field: "question" },
     { title: "Question Type", field: "type" },
@@ -139,9 +140,8 @@ export const QuestionsTable: React.FC<Props> = ({ questions }) => {
           },
           tooltip: "edit",
 
-          onClick: (event, rowData) => {
-            // setUser(rowData);
-            // setOpenEdit(true);
+          onClick: (event, rowData: QuizQuestion) => {
+            onUpdate(rowData);
           },
         },
         {
@@ -160,7 +160,7 @@ export const QuestionsTable: React.FC<Props> = ({ questions }) => {
       components={{
         Action: (props) => (
           <IconButton
-            onClick={(event) => props.action.onClick(event, props.data)}
+            onClick={(event) => props?.action?.onClick(event, props?.data)}
             style={{
               width: "25px",
               height: "25px",
@@ -168,16 +168,16 @@ export const QuestionsTable: React.FC<Props> = ({ questions }) => {
               padding: "1rem",
             }}
             color={
-              props.action.tooltip === "view"
+              props?.action?.tooltip === "view"
                 ? "primary"
-                : props.action.tooltip === "edit"
+                : props?.action?.tooltip === "edit"
                 ? "default"
                 : "secondary"
             }
           >
-            {props.action.tooltip === "view" ? (
+            {props?.action?.tooltip === "view" ? (
               <RemoveRedEye />
-            ) : props.action.tooltip === "edit" ? (
+            ) : props?.action?.tooltip === "edit" ? (
               <Edit />
             ) : (
               <CloseSharp />

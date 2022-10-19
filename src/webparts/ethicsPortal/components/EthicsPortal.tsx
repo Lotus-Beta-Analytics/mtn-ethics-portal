@@ -31,6 +31,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
+import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/context/AdminQuizContext";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -48,76 +50,82 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
       <ToastProvider>
         <ThemeProvider theme={theme}>
           <Router>
-            <QuizContextProvider>
-              <Switch>
-                <Route exact path="/" component={LandingPage} />
-                <Route
-                  exact
-                  path="/employee/photo-categories"
-                  component={PhotoCategories}
-                />
-                <Route
-                  exact
-                  path="/employee/video-categories"
-                  component={VideoCategories}
-                />
-                <Route
-                  exact
-                  path="/conflict/landing"
-                  component={ConflictOfInterestLanding}
-                />
-                <Route
-                  exact
-                  path="/recognition/champion"
-                  component={ChampionLandingPage}
-                />
-                <Route
-                  exact
-                  path="/recognition/ethicschampion"
-                  component={EthicsChampionLandingPage}
-                />
-                <Route
-                  exact
-                  path="/recognition/ethicschampion/activties"
-                  component={EthicsChampionsActivties}
-                />
-                <Route
-                  exact
-                  path="/conflict/writeup"
-                  component={ConflictOfInterestWriteUpLanding}
-                />
-                <Route exact path="/blog/post/:id" component={Post} />
+            <CreateAdminQuizContextProvider>
+              <QuizContextProvider>
+                <Switch>
+                  <Route exact path="/" component={LandingPage} />
+                  <Route
+                    exact
+                    path="/employee/photo-categories"
+                    component={PhotoCategories}
+                  />
+                  <Route
+                    exact
+                    path="/employee/video-categories"
+                    component={VideoCategories}
+                  />
+                  <Route
+                    exact
+                    path="/conflict/landing"
+                    component={ConflictOfInterestLanding}
+                  />
+                  <Route
+                    exact
+                    path="/recognition/champion"
+                    component={ChampionLandingPage}
+                  />
+                  <Route
+                    exact
+                    path="/recognition/ethicschampion"
+                    component={EthicsChampionLandingPage}
+                  />
+                  <Route
+                    exact
+                    path="/recognition/ethicschampion/activties"
+                    component={EthicsChampionsActivties}
+                  />
+                  <Route
+                    exact
+                    path="/conflict/writeup"
+                    component={ConflictOfInterestWriteUpLanding}
+                  />
+                  <Route exact path="/blog/post/:id" component={Post} />
 
-                <Route path="/admin" exact render={() => <Box>Quiz</Box>} />
-                <Route
-                  path="/admin/create-quiz"
-                  exact
-                  render={() => <CreateQuizPage />}
-                />
-                <Route
-                  exact
-                  path="/employee/quiz/landing"
-                  component={QuizLandingPage}
-                />
+                  <Route
+                    path="/admin/manage-quiz"
+                    exact
+                    render={() => <ManageQuizPage />}
+                  />
+                  <Route
+                    path="/admin/create-quiz"
+                    exact
+                    render={() => <CreateQuizPage />}
+                  />
+                  <Route
+                    exact
+                    path="/employee/quiz/landing"
+                    component={QuizLandingPage}
+                  />
 
-                <Route
-                  exact
-                  path="/employee/take-quiz"
-                  render={() => <QuizPage />}
-                />
-                <Route
-                  exact
-                  path="/employee/review"
-                  component={QuizReviewPage}
-                />
-                <Route
-                  exact
-                  path="/employee/quiz-result"
-                  component={QuizResultPage}
-                />
-                <Route path="*" component={NotFound} />
-              </Switch>
-            </QuizContextProvider>
+                  <Route
+                    exact
+                    path="/employee/take-quiz"
+                    render={() => <QuizPage />}
+                  />
+                  <Route
+                    exact
+                    path="/employee/review"
+                    component={QuizReviewPage}
+                  />
+                  <Route
+                    exact
+                    path="/employee/quiz-result"
+                    component={QuizResultPage}
+                  />
+                  <Route path="*" component={NotFound} />
+                </Switch>
+              </QuizContextProvider>
+            </CreateAdminQuizContextProvider>
           </Router>
         </ThemeProvider>
       </ToastProvider>

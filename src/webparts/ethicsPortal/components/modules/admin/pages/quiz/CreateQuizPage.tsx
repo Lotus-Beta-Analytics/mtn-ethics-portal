@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Component = () => {
+export const CreateQuizPage = () => {
   const classes = useStyles();
   const {
     activeStep,
@@ -39,6 +39,9 @@ const Component = () => {
     getStepContent,
     submitHandler,
     loading,
+    isUpdating,
+    updateHandler,
+    quiz,
   } = CreateAdminQuizContextData();
   return (
     <Box>
@@ -73,9 +76,13 @@ const Component = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={
-                    activeStep === steps.length - 1 ? submitHandler : handleNext
-                  }
+                  onClick={() => {
+                    if (activeStep === steps.length - 1) {
+                      isUpdating ? updateHandler(quiz?.ID) : submitHandler();
+                    } else {
+                      handleNext();
+                    }
+                  }}
                 >
                   {activeStep === steps.length - 1
                     ? loading
@@ -91,9 +98,3 @@ const Component = () => {
     </Box>
   );
 };
-
-export const CreateQuizPage = () => (
-  <CreateAdminQuizContextProvider>
-    <Component />
-  </CreateAdminQuizContextProvider>
-);

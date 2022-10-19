@@ -1,12 +1,15 @@
 import * as React from "react";
-import { QuizResponseType } from "../types/quiz-types";
+import { QuizInfo, QuizResponseType } from "../types/quiz-types";
 import { sp } from "@pnp/sp";
 import { useToasts } from "react-toast-notifications";
 import { useHistory } from "react-router-dom";
 import { removeDuplicateObjectFromArray } from "../util";
+import { QuizStatus } from "../../../../admin/pages/quiz/modals/EnableQuizPromptModal";
+import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
 
 type QuizContextType = {
   responses: QuizResponseType[];
+  staffResponses: QuizResponseType[];
   page: number;
   total: number | null;
   next: (page: number) => void;
@@ -27,6 +30,10 @@ type QuizContextType = {
   questions: any[];
   getting: boolean;
   result: Result;
+  doneHandler: () => void;
+  quizInfo: QuizInfo;
+  seconds: number;
+  startTimer: () => void;
 };
 
 const QuizContext = React.createContext<QuizContextType>(null);
@@ -42,12 +49,18 @@ export const QuizContextProvider = ({ children }) => {
   const [page, setPage] = React.useState(0);
   const [total, setTotal] = React.useState(0);
   const [responses, setResponses] = React.useState<QuizResponseType[]>([]);
+  const [staffResponses, setStaffResponses] = React.useState<
+    QuizResponseType[]
+  >([]);
   const [response, setResponse] = React.useState<QuizResponseType>();
   const [loading, setLoading] = React.useState(false);
   const [staff, setStaff] = React.useState<any>();
   const [score, setScore] = React.useState(0);
   const [getting, setGetting] = React.useState<boolean>(false);
   const [result, setResult] = React.useState<Result>(null);
+  const [quizInfo, setQuizInfo] = React.useState<QuizInfo>();
+  const [seconds, setSeconds] = React.useState(60);
+
   const toast = useToasts().addToast;
 
   const history = useHistory();
@@ -56,13 +69,42 @@ export const QuizContextProvider = ({ children }) => {
     setGetting(true);
     sp.web.lists
       .getByTitle("QuizQuestions")
-      .items.get()
+      .items.filter(`status eq '${QuizStatus.Is_Enabled}'`)
+      .get()
       .then((items) => {
-        let q = items[3].questions;
-        q = JSON.parse(q);
-        setQuestions(q);
-        setTotal(q?.length);
         setGetting(false);
+        if (items.length > 0) {
+          const range = generateArrayOfDates(
+            items[0].endDate,
+            items[0].startDate
+          );
+          const today = new Date(Date.now()).toISOString();
+          if (range.includes(new Date(today).toLocaleDateString())) {
+            setQuizInfo({
+              area: items[0].area,
+              duration: items[0].duration,
+              endDate: items[0].endDate,
+              startDate: items[0].startDate,
+              instruction: items[0].instruction,
+              title: items[0].QuizTitle,
+              topic: items[0].topic,
+            });
+
+            let q = items[0].questions;
+            q = JSON.parse(q);
+            setQuestions(q);
+            setTotal(q?.length);
+            setGetting(false);
+          } else {
+            setQuestions([]);
+            setTotal(0);
+            setGetting(false);
+          }
+        } else {
+          setQuestions([]);
+          setTotal(0);
+          setGetting(false);
+        }
       })
       .catch((err) => {
         setGetting(false);
@@ -82,6 +124,14 @@ export const QuizContextProvider = ({ children }) => {
     });
   }, []);
 
+  React.useEffect(() => {
+    if (seconds > 0) return;
+    setQuizInfo({
+      ...quizInfo,
+      duration: quizInfo?.duration - 1,
+    });
+  }, [seconds]);
+
   const next = (page: number) => {
     setPage(page + 1);
   };
@@ -89,6 +139,38 @@ export const QuizContextProvider = ({ children }) => {
   const prev = (page: number) => {
     setPage(page - 1);
   };
+
+  let [nIntervId, setnIntervId] = React.useState(null);
+
+  const startTimer = () => {
+    if (!nIntervId) {
+      setnIntervId(
+        setInterval(() => {
+          setSeconds((prev) => prev - 1);
+        }, 1000)
+      );
+    }
+  };
+  const stopTimer = () => {
+    clearInterval(nIntervId);
+    nIntervId = null;
+  };
+
+  React.useEffect(() => {
+    if (quizInfo?.duration === 0 && seconds < 1) {
+      errorAlert(toast, "quiz timed out");
+      setSeconds(0);
+      setQuizInfo({
+        ...quizInfo,
+        duration: 0,
+      });
+      stopTimer();
+    }
+
+    if (seconds === 0 && quizInfo?.duration > 0) {
+      setSeconds(60);
+    }
+  }, [seconds, nIntervId, quizInfo?.duration]);
 
   const showNext = (currentPage: number) => {
     return currentPage !== total;
@@ -116,63 +198,74 @@ export const QuizContextProvider = ({ children }) => {
   const submitQuiz = async (data) => {
     if (loading) return;
     setLoading(true);
-    const filteredData: QuizResponseType[] = removeDuplicateObjectFromArray(
+    let filteredData: QuizResponseType[] = removeDuplicateObjectFromArray(
       data?.responses,
       "answer"
     );
 
-    const groupedResponses = filteredData.reduce((prev, curr) => {
-      const currCount = prev[`${curr.isCorrect}`] ?? [];
-      return {
-        ...prev,
-        [`${curr.isCorrect}`]: [...currCount, curr],
-      };
-    }, {});
-    setResult({
-      correct: groupedResponses["true"] ? groupedResponses["true"].length : 0,
-      wrong: groupedResponses["false"] ? groupedResponses["false"].length : 0,
-      skipped:
-        groupedResponses["false"] &&
-        groupedResponses["true"] &&
-        groupedResponses["false"].length + groupedResponses["true"].length ===
-          questions.length
-          ? 0
-          : Math.abs(
-              groupedResponses["false"]?.length ??
-                0 - groupedResponses["true"]?.length ??
-                0
-            ) === questions.length
-          ? 0
-          : Math.abs(
-              groupedResponses["false"]?.length ??
-                0 - groupedResponses["true"]?.length ??
-                0
-            ),
-    });
-    const correctScore = groupedResponses["true"]
-      ?.map(({ point }) => point)
-      .reduce((prev, curr) => prev + curr, 0);
-    setScore(correctScore);
-    history.push("/employee/quiz-result");
-    setPage(0);
+    try {
+      const res = await sp.web.lists.getByTitle("QuizResponse").items.add({
+        StaffName: staff?.name,
+        StaffEmail: staff?.email,
+        responses: JSON.stringify(filteredData),
+      });
 
-    // try {
-    //   await sp.web.lists.getByTitle("QuizResponse").items.add({
-    //     staffName: data?.staff?.name,
-    //     staffEmail: data?.staff?.email,
-    //     responses: JSON.stringify(filteredData),
-    //   });
-    //   toast(`Your response has been submitted.`, {
-    //     appearance: "success",
-    //     autoDismiss: true,
-    //   });
-    // } catch (error) {
-    //   setLoading(false);
-    //   toast(`An error occured`, {
-    //     appearance: "error",
-    //     autoDismiss: true,
-    //   });
-    // }
+      setLoading(false);
+
+      let userResponses = res.data;
+      userResponses = JSON.parse(userResponses.responses);
+      setResponses([]);
+
+      setStaffResponses(userResponses);
+
+      filteredData = removeDuplicateObjectFromArray(userResponses, "answer");
+
+      const groupedResponses = filteredData.reduce((prev, curr) => {
+        const currCount = prev[`${curr.isCorrect}`] ?? [];
+        return {
+          ...prev,
+          [`${curr.isCorrect}`]: [...currCount, curr],
+        };
+      }, {});
+      setResult({
+        correct: groupedResponses["true"] ? groupedResponses["true"].length : 0,
+        wrong: groupedResponses["false"] ? groupedResponses["false"].length : 0,
+        skipped:
+          groupedResponses["false"] &&
+          groupedResponses["true"] &&
+          groupedResponses["false"].length + groupedResponses["true"].length ===
+            questions.length
+            ? 0
+            : Math.abs(
+                groupedResponses["false"]?.length ??
+                  0 - groupedResponses["true"]?.length ??
+                  0
+              ) === questions.length
+            ? 0
+            : Math.abs(
+                groupedResponses["false"]?.length ??
+                  0 - groupedResponses["true"]?.length ??
+                  0
+              ),
+      });
+      const correctScore = groupedResponses["true"]
+        ?.map(({ point }) => point)
+        .reduce((prev, curr) => prev + curr, 0);
+      setScore(correctScore);
+      history.push("/employee/quiz-result");
+      setPage(0);
+    } catch (error) {
+      setLoading(false);
+      toast(`An error occured`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    }
+  };
+
+  const doneHandler = () => {
+    setPage(0);
+    history.push("/employee/quiz/landing");
   };
 
   return (
@@ -199,6 +292,11 @@ export const QuizContextProvider = ({ children }) => {
         questions,
         getting,
         result,
+        staffResponses,
+        doneHandler,
+        quizInfo,
+        seconds,
+        startTimer,
       }}
     >
       {children}
@@ -214,37 +312,18 @@ export const getQuizContextState = () => {
   };
 };
 
-const questionsList = [
-  {
-    id: 1,
-    question: "What is your favorite fruit?",
-    options: ["Banana", "Melon", "Apple", "Grape"],
-    type: "radio",
-    answer: "Banana",
-    point: 5,
-  },
-  {
-    id: 2,
-    question: "What is your favorite car?",
-    options: ["Toyota", "Benz", "KIA", "IVM"],
-    type: "radio",
-    answer: "Toyota",
-    point: 5,
-  },
-  {
-    id: 3,
-    question: "What is your favorite color?",
-    options: ["Yellow", "Red", "Green", "Blue"],
-    type: "radio",
-    answer: "Red",
-    point: 5,
-  },
-  {
-    id: 4,
-    question: "What is your favorite language?",
-    options: ["PHP", "JS", "Rust", "C#"],
-    type: "radio",
-    answer: "Rust",
-    points: 5,
-  },
-];
+export const enum AnswerStatus {
+  Disabled = "disabled",
+  Enabled = "enabled",
+}
+
+export const generateArrayOfDates = (from, to) => {
+  let arr = [];
+  let dt = new Date(to);
+  from = new Date(from);
+  while (dt <= from) {
+    arr.push(new Date(dt).toLocaleDateString());
+    dt.setDate(dt.getDate() + 1);
+  }
+  return arr;
+};
