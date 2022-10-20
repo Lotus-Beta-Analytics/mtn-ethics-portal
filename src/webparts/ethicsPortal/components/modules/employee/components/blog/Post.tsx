@@ -11,11 +11,12 @@ import { PostAction } from "./PostAction";
 import { EnterComment } from "./EnterComment";
 import Button from "@material-ui/core/Button";
 import { sp } from "@pnp/sp";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { FaShare } from "react-icons/fa";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { AddToast, useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
+import { BlogContent } from "../../../admin/components/blog-set-up/BlogContent";
 
 type User = {
   name: string;
@@ -36,6 +37,23 @@ export const Post = () => {
       errorAlert(toast);
     }
   });
+
+  const {
+    data: post,
+    isLoading,
+    isSuccess,
+  } = useQuery<any>(["singlePost", id], async () => {
+    try {
+      const res = await sp.web.lists
+        .getByTitle("Post")
+        .items.getItemByStringId(id)
+        .get();
+      return res;
+    } catch (e) {
+      errorAlert(toast);
+    }
+  });
+
   const toast = useToasts().addToast;
 
   const [commenting, setCommenting] = React.useState<boolean>(false);
@@ -48,151 +66,160 @@ export const Post = () => {
         comment,
         user: JSON.stringify(data),
       });
-
+      setPage(-1);
       setCommenting(false);
-      // toast("Comment Added", {
-      //   appearance: "success",
-      //   autoDismiss: true,
-      // });
       successAlert(toast, "Comment Added");
-      setComment(null);
+      setComment("");
     } catch (e) {
       errorAlert(toast);
       setCommenting(false);
     }
   };
 
-  const post = {
-    id: 1,
-    title: "Post title",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png",
-    date: new Date(),
-    post: {
-      body: "lorem ipsum dolor sit amet, consect",
-      comments: [
-        {
-          id: 1,
-          comment: "first comment",
-          user: {
-            name: "Jake",
-            photoUrl:
-              "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png",
-          },
-          likes: [{ userId: 1 }],
-          unLikes: [{ userId: 2 }],
-        },
-        {
-          id: 2,
-          comment: "first comment",
-          user: {
-            name: "Jake",
-            photoUrl:
-              "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png",
-          },
-          likes: [{ userId: 1 }],
-          unLikes: [{ userId: 2 }],
-        },
-      ],
-    },
-    likes: [{ userId: 1 }],
-    unLikes: [{ userId: 2 }],
-  };
+  const [page, setPage] = React.useState(null);
+  const [comments, setComments] = React.useState([]);
+  const [likes, setLikes] = React.useState([]);
+  const [unLikes, setUnlikes] = React.useState([]);
+
+  React.useEffect(() => {
+    setPage(-1);
+  }, []);
+
+  React.useEffect(() => {
+    if (page == null) return;
+    if (page < 0) {
+      setPage(0);
+      return;
+    }
+    Promise.all([
+      sp.web.lists
+        .getByTitle("Comments")
+        .items.filter(`PostId eq '${id}'`)
+        .get()
+        .then((res) => {
+          setComments(res);
+        }),
+      sp.web.lists
+        .getByTitle("Likes")
+        .items.filter(`PostId eq '${id}'`)
+        .get()
+        .then((res) => {
+          setLikes(res);
+        }),
+      sp.web.lists
+        .getByTitle("UnLikes")
+        .items.filter(`PostId eq '${id}'`)
+        .get()
+        .then((res) => {
+          setUnlikes(res);
+        }),
+    ]);
+  }, [page]);
+
   return (
     <EmployeeWrapper showFooter={false} backButton={false}>
       <PageWrapper>
-        <PageHeaderWithImage bg={post.image} text={post.title} />
-        <Box>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Typography variant="h5">{post.title}</Typography>
-            <Typography>
-              Posted On: {dayjs(post.date).format("MMMM DD, YYYY")}
-            </Typography>
-          </Box>
-          <Typography>{post.post.body}</Typography>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            py={3}
-            style={{ boxSizing: "border-box" }}
-          >
-            <Box></Box>
-            <PostAction
-              comments={post?.post?.comments?.length}
-              likes={post?.likes.length}
-              unLikes={post?.unLikes.length}
-              postId={post?.id}
-            />
-          </Box>
-          <Box className="comment-container">
-            <Typography variant="h6">Comments</Typography>
-            <Box>
-              {post.post.comments.map((comment) => (
-                <PostComment
-                  comment={comment}
-                  comments={post?.post?.comments?.length}
-                />
-              ))}
-            </Box>
-          </Box>
-          <Box width="100%" mb={1}>
-            <Typography variant="h6">Add Comment</Typography>
-            <Box
-              style={{
-                display: "flex",
-                gap: ".5rem",
-              }}
-              width="100%"
-            >
-              <Box
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: ".5rem",
-                  alignItems: "center",
-                  flex: ".2",
-                }}
-              >
-                <Avatar
-                  src={data?.photoUrl}
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                  }}
-                />
-                <Typography>{data?.name}</Typography>
-              </Box>
-              <Box flex="1.4">
-                <EnterComment
-                  comment={comment}
-                  onUpdate={(comment) => setComment(comment)}
-                />
-              </Box>
-            </Box>
+        {post && (
+          <PageHeaderWithImage
+            bg={`${post?.FileUrl}`}
+            text={`${post?.PostTitle}`}
+          />
+        )}
+
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <Box>
             <Box
               display="flex"
               alignItems="center"
               justifyContent="space-between"
             >
-              <Box></Box>
-              <Button
-                endIcon={<FaShare />}
-                style={{ borderRadius: "100px" }}
-                color="primary"
-                variant="contained"
-                disabled={!comment?.trim() || commenting}
-                onClick={() => commentHandler()}
+              <Typography variant="h5">{post?.PostTitle}</Typography>
+              <Typography>
+                Posted On: {dayjs(post?.Created).format("MMMM DD, YYYY")}
+              </Typography>
+            </Box>
+            <Box>
+              <BlogContent post={JSON.parse(post?.content)} />
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="center"
+              py={3}
+              style={{ boxSizing: "border-box" }}
+            >
+              <PostAction
+                comments={comments?.length}
+                likes={likes?.length}
+                unLikes={unLikes?.length}
+                postId={post?.Id}
+                setPage={setPage}
+              />
+            </Box>
+            <Box className="comment-container">
+              <Typography variant="h6">Comments</Typography>
+              <Box>
+                {comments?.map((comment) => (
+                  <PostComment comment={comment} comments={comments?.length} />
+                ))}
+              </Box>
+            </Box>
+            <Box width="100%" mb={1}>
+              <Typography variant="h6">Add Comment</Typography>
+              <Box
+                style={{
+                  display: "flex",
+                  gap: ".5rem",
+                }}
+                width="100%"
               >
-                {commenting ? <CircularProgress size={20} /> : "Add Comment"}
-              </Button>
+                <Box
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: ".5rem",
+                    alignItems: "center",
+                    flex: ".2",
+                  }}
+                >
+                  <Avatar
+                    src={data?.photoUrl}
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                    }}
+                  />
+                  <Typography>{data?.name}</Typography>
+                </Box>
+                <Box flex="1.4">
+                  <EnterComment
+                    comment={comment}
+                    onUpdate={(comment) => setComment(comment)}
+                  />
+                </Box>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Box></Box>
+                <Button
+                  endIcon={<FaShare />}
+                  style={{ borderRadius: "100px" }}
+                  color="primary"
+                  variant="contained"
+                  disabled={!comment?.trim() || commenting}
+                  onClick={() => commentHandler()}
+                >
+                  {commenting ? <CircularProgress size={20} /> : "Add Comment"}
+                </Button>
+              </Box>
             </Box>
           </Box>
-        </Box>
+        )}
       </PageWrapper>
     </EmployeeWrapper>
   );

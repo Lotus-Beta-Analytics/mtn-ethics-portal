@@ -16,6 +16,8 @@ import {
 } from "./components/showNavButtons";
 import { sp } from "@pnp/sp";
 import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
+import { QuizTime } from "./components/QuizTime";
 
 export const QuizPage = () => {
   const {
@@ -26,7 +28,6 @@ export const QuizPage = () => {
     setTotal,
     total,
     questions,
-    score,
     getting,
     startTimer,
     quizInfo,
@@ -58,7 +59,16 @@ export const QuizPage = () => {
       .get()
       .then((items) => {
         if (items.length > 0) {
-          history.push("/");
+          swal({
+            closeOnEsc: false,
+            closeOnClickOutside: false,
+            text: "You have taken the Quiz.",
+            dangerMode: true,
+            icon: "error",
+            title: "Error",
+          }).then(() => {
+            history.push("/");
+          });
         }
       });
   }, []);
@@ -71,6 +81,7 @@ export const QuizPage = () => {
           text="Ethics Quiz"
         />
         <QuizWrapper>
+          <QuizTime />
           <>
             {getting ? (
               <CircularProgress

@@ -82,7 +82,7 @@ export const QuizContextProvider = ({ children }) => {
           if (range.includes(new Date(today).toLocaleDateString())) {
             setQuizInfo({
               area: items[0].area,
-              duration: items[0].duration,
+              duration: items[0].duration > 0 ? items[0].duration - 1 : 0,
               endDate: items[0].endDate,
               startDate: items[0].startDate,
               instruction: items[0].instruction,
@@ -211,6 +211,7 @@ export const QuizContextProvider = ({ children }) => {
       });
 
       setLoading(false);
+      setQuizInfo(null);
 
       let userResponses = res.data;
       userResponses = JSON.parse(userResponses.responses);

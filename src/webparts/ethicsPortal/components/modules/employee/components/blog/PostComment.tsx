@@ -39,20 +39,6 @@ export const PostComment: React.FC<Props> = ({ comment, comments }) => {
 
         <Typography>{comment?.comment}</Typography>
       </Box>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        py={3}
-        style={{ boxSizing: "border-box" }}
-      >
-        <Box></Box>
-        <CommentAction
-          likes={comment?.likes.length}
-          unLikes={comment?.unLikes.length}
-          commentId={comment.id}
-        />
-      </Box>
     </PostCommentContainer>
   );
 };

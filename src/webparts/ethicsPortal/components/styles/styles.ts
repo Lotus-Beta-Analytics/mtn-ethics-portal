@@ -19,7 +19,7 @@ export const MLink = styled(Link)({
 
 export const TopContainer = styled.div<{ bg: string; height: string }>(
   (props) => ({
-    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
     width: "100%",
     height: "200px",
     display: "flex",
@@ -35,7 +35,7 @@ export const TopContainer = styled.div<{ bg: string; height: string }>(
 );
 export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
   (props) => ({
-    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
     width: "100%",
     height: props.height ? props.height : "450px",
     display: "flex",
@@ -65,7 +65,7 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
   boxSizing: "border-box",
   justifyContent: "space-between",
   "&:hover": {
-    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
     backgroundSize: "cover",
   },
 }));
@@ -84,7 +84,7 @@ export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
   position: "relative",
   // justifyContent: "space-between",
   "&:hover": {
-    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
     backgroundSize: "cover",
     borderRadius: "10px",
     // transform: "scale(1.1)",
@@ -99,7 +99,7 @@ export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
 }));
 
 export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
+  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
   width: "100%",
   height: "450px",
   backgroundSize: "cover",

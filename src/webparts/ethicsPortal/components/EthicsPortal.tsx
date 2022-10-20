@@ -20,7 +20,7 @@ import { QuizPage } from "./modules/employee/pages/quiz/QuizPage";
 import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
 import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
 import { QuizResultPage } from "./modules/employee/pages/quiz/QuizResultPage";
-import { useHistory } from "react-router-dom";
+import { useHistory, Outlet } from "react-router-dom";
 import { ChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ChampionLandingPage";
 import { EthicsChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ethics-champions/EthicsChampionLandingPage";
 import { EthicsChampionsActivties } from "./modules/employee/pages/recognition/champion-recognition/ethics-champion-activties/EthicsChampionsActivties";
@@ -33,6 +33,8 @@ import {
 } from "@tanstack/react-query";
 import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
 import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/context/AdminQuizContext";
+import { PostEditor } from "./modules/admin/components/blog-set-up/PostEditor";
+import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -101,6 +103,12 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     exact
                     render={() => <CreateQuizPage />}
                   />
+                  <Route
+                    path="/admin/create-post"
+                    exact
+                    render={() => <CreateBlogPost context={context} />}
+                  />
+
                   <Route
                     exact
                     path="/employee/quiz/landing"

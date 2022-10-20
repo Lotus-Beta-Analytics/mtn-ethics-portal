@@ -10,6 +10,7 @@ type Props = {
   comments?: number;
   postId?: number | string;
   commentId?: number | string;
+  setPage: (page: number) => void;
 };
 
 export const PostAction: React.FC<Props> = ({
@@ -17,6 +18,7 @@ export const PostAction: React.FC<Props> = ({
   likes,
   unLikes,
   postId,
+  setPage,
 }) => {
   const [likePostSet, setLikePostset] = React.useState<Set<number | string>>();
   const [unLikePostSet, setUnLikePostset] =
@@ -36,6 +38,7 @@ export const PostAction: React.FC<Props> = ({
         PostId: String(postId),
       });
       setLikePostset(new Set());
+      setPage(-1);
     } catch (e) {
       setLikePostset(new Set());
       toast("An error occurred", {
@@ -73,6 +76,7 @@ export const PostAction: React.FC<Props> = ({
         await sp.web.lists.getByTitle("UnLikes").items.add({
           PostId: String(postId),
         });
+        setPage(-1);
         setUnLikePostset(new Set());
       } else {
         return;
