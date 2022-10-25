@@ -17,6 +17,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { AddToast, useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { BlogContent } from "../../../admin/components/blog-set-up/BlogContent";
+import * as _ from "lodash";
 
 type User = {
   name: string;
@@ -66,8 +67,9 @@ export const Post = () => {
         comment,
         user: JSON.stringify(data),
       });
-      setPage(-1);
+
       setCommenting(false);
+      setPage(-1);
       successAlert(toast, "Comment Added");
       setComment("");
     } catch (e) {
@@ -97,7 +99,7 @@ export const Post = () => {
         .items.filter(`PostId eq '${id}'`)
         .get()
         .then((res) => {
-          setComments(res);
+          setComments(res.sort((a, b) => Number(b.ID) - Number(a.ID)));
         }),
       sp.web.lists
         .getByTitle("Likes")
@@ -160,7 +162,13 @@ export const Post = () => {
             </Box>
             <Box className="comment-container">
               <Typography variant="h6">Comments</Typography>
-              <Box>
+              <Box
+                display="flex"
+                style={{
+                  flexDirection: "column",
+                  gap: ".5rem",
+                }}
+              >
                 {comments?.map((comment) => (
                   <PostComment comment={comment} comments={comments?.length} />
                 ))}

@@ -12,6 +12,10 @@ import TableRow from "@tiptap/extension-table-row";
 import { TableMenu } from "./menu/table/TableMenu";
 import { MouseEventHandler } from "react";
 import { Box, IconButton, styled, Tooltip } from "@material-ui/core";
+import Blockquote from "@tiptap/extension-blockquote";
+// import Document from "@tiptap/extension-document";
+// import Paragraph from "@tiptap/extension-paragraph";
+// import Text from "@tiptap/extension-text";
 import * as React from "react";
 
 const CustomTableCell = TableCell.extend({
@@ -46,6 +50,9 @@ export const extensions = [
   TableHeader,
   CustomTableCell,
   Underline,
+  Blockquote,
+  // Document,
+  // Text,
 ];
 
 export const DocumentEditor: React.FC<{

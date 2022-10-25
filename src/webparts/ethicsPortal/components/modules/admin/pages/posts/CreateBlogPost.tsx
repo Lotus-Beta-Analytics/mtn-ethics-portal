@@ -11,6 +11,7 @@ import { sp } from "@pnp/sp";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
+import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
 import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
@@ -53,51 +54,63 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
   };
 
   return (
-    <form onSubmit={submitHandler} style={{ width: "60%", margin: "auto" }}>
-      <Typography>Create Blog Post</Typography>
-      <TextField
-        variant="outlined"
-        value={postTitle}
-        onChange={(e) => setPostTitle(e.target.value)}
-        label="Post Title"
-        fullWidth
-        required
-        style={{ margin: "1rem 0" }}
-      />
-      <Box>
-        <Typography>Upload Image</Typography>
-        <FileUpload
-          fileControl={file}
-          onUpdate={(fileUrl) => setFile(fileUrl)}
-          context={context}
+    <AdminWrapper>
+      <form
+        onSubmit={submitHandler}
+        style={{
+          width: "80%",
+          margin: "auto",
+          boxSizing: "border-box",
+          padding: "1.5rem 1rem",
+        }}
+      >
+        <Typography>Create Blog Post</Typography>
+        <TextField
+          variant="outlined"
+          value={postTitle}
+          onChange={(e) => setPostTitle(e.target.value)}
+          label="Post Title"
+          fullWidth
+          required
+          style={{ margin: "1rem 0" }}
         />
-      </Box>
+        <Box>
+          <Typography>Upload Image</Typography>
+          <FileUpload
+            fileControl={file}
+            onUpdate={(fileUrl) => setFile(fileUrl)}
+            context={context}
+          />
+        </Box>
 
-      <Box my={2}>
-        <CreateSection
-          section={section as BlogSectionEnums}
-          onUpdate={(section) => setSection(section as BlogSectionEnums)}
-        />
-      </Box>
-      <Box my={2}>
-        <PostEditor onUpdate={(content) => setContent(content)} />
-      </Box>
+        <Box my={2}>
+          <CreateSection
+            section={section as BlogSectionEnums}
+            onUpdate={(section) => setSection(section as BlogSectionEnums)}
+          />
+        </Box>
+        <Box my={2} style={{ overflowY: "auto" }}>
+          <PostEditor onUpdate={(content) => setContent(content)} />
+        </Box>
 
-      <Box style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
-        <Button variant="outlined" color="secondary" size="large">
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          variant="contained"
-          color="secondary"
-          size="large"
-          endIcon={loading ? <CircularProgress size={20} /> : <Add />}
-          disabled={loading}
+        <Box
+          style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
         >
-          Create
-        </Button>
-      </Box>
-    </form>
+          <Button variant="outlined" color="secondary" size="large">
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            size="large"
+            endIcon={loading ? <CircularProgress size={20} /> : <Add />}
+            disabled={loading}
+          >
+            Create
+          </Button>
+        </Box>
+      </form>
+    </AdminWrapper>
   );
 };

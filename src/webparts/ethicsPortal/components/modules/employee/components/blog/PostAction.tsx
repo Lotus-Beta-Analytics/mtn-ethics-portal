@@ -92,32 +92,29 @@ export const PostAction: React.FC<Props> = ({
   return (
     <Box>
       {likePostSet?.has(postId) ? (
-        <IconButton className="action-btn">
+        <IconButton>
           <CircularProgress size={20} />
         </IconButton>
       ) : (
-        <IconButton className="action-btn" onClick={() => postLikeHandler()}>
+        <IconButton onClick={() => postLikeHandler()}>
           <FaThumbsUp className="action-icon" />
           {likes}
         </IconButton>
       )}
+
       {unLikePostSet?.has(postId) ? (
-        <IconButton className="action-btn">
+        <IconButton>
           <CircularProgress size={20} />
         </IconButton>
       ) : (
-        <IconButton className="action-btn" onClick={() => postUnlikeHandler()}>
+        <IconButton onClick={() => postUnlikeHandler()}>
           <FaThumbsDown className="action-icon" />
           {unLikes}
         </IconButton>
       )}
 
-      {comments && (
-        <IconButton
-          className="action-btn"
-          disableFocusRipple={true}
-          focusRipple={false}
-        >
+      {comments > 0 && (
+        <IconButton disableFocusRipple={true} focusRipple={false}>
           <FaComment className="action-icon" />
           {comments}
         </IconButton>

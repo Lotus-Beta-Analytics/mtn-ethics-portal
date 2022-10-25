@@ -11,14 +11,14 @@ type Props = {
 
 export const PostPreviewItem: React.FC<Props> = ({ post }) => {
   return (
-    <Box width="150px" height="70%" mb={1}>
+    <Box width="auto" height="70%" mb={1}>
       <PreviewContainer bg={post?.FileUrl}>
         <Typography>{post?.PostTitle}</Typography>
         <MLink to={`/blog/post/${post.Id}`}>
           <MButton text="Read More" endIcon={<FaAngleDoubleRight />} />
         </MLink>
       </PreviewContainer>
-      <Typography align="center">
+      <Typography>
         Posted on {new Date(post?.Created).toDateString()}
       </Typography>
     </Box>
@@ -29,7 +29,7 @@ const PreviewContainer = styled.div<{
   bg: string;
   height: string;
 }>((props) => ({
-  backgroundImage: `url(${props.bg})`,
+  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
   width: "300px",
   height: "90%",
   display: "flex",

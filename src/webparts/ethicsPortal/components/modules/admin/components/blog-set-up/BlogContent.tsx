@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@material-ui/core";
+import { Box, CircularProgress, colors } from "@material-ui/core";
 import TTLink from "@tiptap/extension-link";
 import { Editor, EditorContent } from "@tiptap/react";
 import * as React from "react";
@@ -42,7 +42,12 @@ export const BlogContent: React.FC<{ post }> = ({ post }) => {
   }
 
   return (
-    <Box sx={{ mt: 1, pt: 3, mb: 2 }} border="1px solid red">
+    <Box
+      sx={{ mt: 1, mb: 2 }}
+      style={{
+        boxSizing: "border-box",
+      }}
+    >
       <EditorContent editor={editor} />
     </Box>
   );

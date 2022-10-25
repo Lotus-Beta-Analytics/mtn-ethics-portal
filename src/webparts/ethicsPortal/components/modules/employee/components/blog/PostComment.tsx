@@ -3,6 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { styled } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import * as React from "react";
+import { format } from "timeago.js";
 import { CommentAction, PostAction } from "./PostAction";
 
 type Props = {
@@ -11,6 +12,8 @@ type Props = {
 };
 
 export const PostComment: React.FC<Props> = ({ comment, comments }) => {
+  const user = JSON.parse(comment?.user);
+
   return (
     <PostCommentContainer>
       <Box
@@ -28,17 +31,27 @@ export const PostComment: React.FC<Props> = ({ comment, comments }) => {
           }}
         >
           <Avatar
-            src={comment?.user?.photoUrl ?? ""}
+            src={user?.photoUrl ?? ""}
             style={{
               width: "40px",
               height: "40px",
             }}
           />
-          <Typography>{comment?.user?.name ?? "N/A"}</Typography>
+          <Typography variant="caption">{user?.name || "N/A"}</Typography>
         </Box>
 
         <Typography>{comment?.comment}</Typography>
       </Box>
+      <Typography
+        variant="caption"
+        style={{
+          position: "absolute",
+          bottom: 5,
+          right: 5,
+        }}
+      >
+        {format(comment?.Created)}
+      </Typography>
     </PostCommentContainer>
   );
 };
@@ -51,4 +64,5 @@ const PostCommentContainer = styled(Box)({
   minHeight: "90px",
   boxSizing: "border-box",
   padding: "1rem",
+  position: "relative",
 });

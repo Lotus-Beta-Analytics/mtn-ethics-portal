@@ -28,6 +28,18 @@ export const EditorContentMenuBar = ({ editor }) => {
 
   const applyHeader = (headerValue) => {};
 
+  // const addImage = React.useCallback(() => {
+  //   const url = window.prompt("URL");
+
+  //   if (url) {
+  //     editor.chain().focus().setImage({ src: url }).run();
+  //   }
+  // }, [editor]);
+
+  if (!editor) {
+    return null;
+  }
+
   return (
     <>
       <DoumentEditorButtonGroupWrapper>
