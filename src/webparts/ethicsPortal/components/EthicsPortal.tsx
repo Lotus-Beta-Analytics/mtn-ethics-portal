@@ -34,6 +34,8 @@ import { ArticlesLandingPage } from "./modules/employee/pages/ethics-articles/et
 import { LeadershipSeries } from "./modules/employee/pages/ethics-articles/ethics-leadership-series/LeadershipSeries";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/context/AdminQuizContext";
+import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
+import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -55,6 +57,23 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
               <QuizContextProvider>
                 <Switch>
                   <Route exact path="/" component={LandingPage} />
+
+                  <Route
+                    exact
+                    path="/admin/create-post"
+                    render={() => <CreateBlogPost context={context} />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/create-quiz"
+                    render={() => <CreateQuizPage />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/manage-quiz"
+                    render={() => <ManageQuizPage />}
+                  />
+
                   <Route
                     exact
                     path="/employee/photo-categories"
