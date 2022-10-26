@@ -24,6 +24,14 @@ import { useHistory } from "react-router-dom";
 import { ChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ChampionLandingPage";
 import { EthicsChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ethics-champions/EthicsChampionLandingPage";
 import { EthicsChampionsActivties } from "./modules/employee/pages/recognition/champion-recognition/ethics-champion-activties/EthicsChampionsActivties";
+import { EthicsTrainings } from "./modules/employee/pages/training/ethic-trainings/EthicsTrainings";
+import { BusinessEthics } from "./modules/employee/pages/training/training-ethics-business/BusinessEthics";
+import { MtnTrainingVideo } from "./modules/employee/pages/training/mtn-ethics-video/MtnTrainingVideo";
+import { OrganizationEthics } from "./modules/employee/pages/training/organiztion-ethics/OrganizationEthics";
+import { PolicyBreaches } from "./modules/employee/pages/policy-breaches/policybreaches-landingPage/PolicyBreaches";
+import { EthicsDefaulters } from "./modules/employee/pages/policy-breaches/ethics-defaulters/EthicsDefaulters";
+import { ArticlesLandingPage } from "./modules/employee/pages/ethics-articles/ethics-articles-page/ArticlesLandingPage";
+import { LeadershipSeries } from "./modules/employee/pages/ethics-articles/ethics-leadership-series/LeadershipSeries";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -77,6 +85,49 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                 exact
                 path="/recognition/ethicschampion/activties"
                 component={EthicsChampionsActivties}
+              />
+              <Route
+                exact
+                path="/trainings/traininglandingpage"
+                component={EthicsTrainings}
+              />
+              <Route
+                exact
+                path="/ethics/training/businessethics"
+                component={BusinessEthics}
+              />
+              <Route
+                exact
+                path="/ethics/training/mtnethicstrainingvideos"
+                component={MtnTrainingVideo}
+              />
+              <Route
+                exact
+                path="/ethics/training/organizationalethics"
+                component={OrganizationEthics}
+              />
+
+              <Route
+                exact
+                path="/ethics/policybreaches"
+                component={PolicyBreaches}
+              />
+
+              <Route
+                exact
+                path="/policybreaches/ethicsdefaulters"
+                component={EthicsDefaulters}
+              />
+              <Route
+                exact
+                path="/ethics/articleslandingpage"
+                component={ArticlesLandingPage}
+              />
+
+              <Route
+                exact
+                path="/ethical/leadership/series"
+                component={LeadershipSeries}
               />
 
               <Route exact path="/blog/post/:id" component={Post} />

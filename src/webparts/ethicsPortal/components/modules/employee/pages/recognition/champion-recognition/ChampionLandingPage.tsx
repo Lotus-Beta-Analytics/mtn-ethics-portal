@@ -7,12 +7,7 @@ import {
   Theme,
 } from "@material-ui/core";
 import * as React from "react";
-import { FaAngleDoubleRight } from "react-icons/fa";
-import styled from "styled-components";
 import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import Carousel from "react-elastic-carousel";
-import { MButton } from "../../../../shared/components/buttons/MButton";
-import { MMarquee } from "../../../../shared/components/marquee/MMarquee";
 import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
 import { ImageContainerEthics } from "../../../../../styles/styles";
 import "./styles.css";
@@ -46,7 +41,7 @@ export const ChampionLandingPage = () => {
       backButton={false}
       showFooter={true}
     >
-      <MMarquee text="Hello Champions" />
+      {/* <MMarquee text="Hello Champions" /> */}
       <LandingPageHeaderWithImage
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo.png"
         text="Champion Recognition"
@@ -54,12 +49,12 @@ export const ChampionLandingPage = () => {
       <Box
         style={{
           display: "flex",
-          // flexWrap: "nowrap",
-          width: "980px",
-          height: "280px",
+          flexWrap: "wrap",
+          // width: "980px",
+          height: "400px",
           margin: "auto",
           padding: "0.5rem",
-          gap: "1rem",
+          gap: "0.5rem",
           position: "relative",
           backgroundSize: "cover",
           borderRadius: "2rem",
@@ -73,8 +68,7 @@ export const ChampionLandingPage = () => {
               <Box className="mtn__coverImage">
                 <div className="mtn__CoverImageSpan">
                   <span>
-                    Name:
-                    <h5>Fonsus Ali</h5>
+                    Name: <h5>Fonsus Ali</h5>
                   </span>
                   <span>
                     Division:

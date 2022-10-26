@@ -1,3 +1,8 @@
+.titleH3 {
+  display: flex;
+  justify-items: center;
+  align-self: center;
+}
 .mtn__coverImage {
   display: none;
   height: 70%;
@@ -27,9 +32,16 @@
   font-size: 12px;
 }
 
+.mtn__CoverImageSpan h5 {
+  margin-left: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-content: center;
+}
+
 .mtn__CoverImageSpan {
   margin-top: 45px;
-  display: flex;
-  flex-direction: column;
-  /* margin-bottom: 10px; */
+  width: 100%;
+  gap: 3px;
 }
