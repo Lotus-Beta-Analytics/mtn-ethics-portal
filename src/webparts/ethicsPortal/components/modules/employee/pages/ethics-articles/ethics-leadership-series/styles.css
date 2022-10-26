@@ -1,0 +1,10 @@
+.mtn__topic {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.mtn__blogBody {
+  height: 600px;
+  background-color: blue;
+}

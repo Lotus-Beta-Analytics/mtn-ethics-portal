@@ -1,26 +1,23 @@
 import * as React from "react";
-import { Box, Typography } from "@material-ui/core";
-import { EmployeeWrapper } from "../../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { PageWrapper } from "../../../../../shared/components/app-wrapper/employee/PageWrapper";
-import { PageHeaderWithImage } from "../../../../../shared/components/PageHeaderWithImage";
-import {
-  HomeItemContainer,
-  ImageContainerEthics,
-} from "../../../../../../styles/styles";
-import styles from "./styles.module.scss";
+import { Box } from "@material-ui/core";
+import { ImageContainerEthics } from "../../../../../styles/styles";
+import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
+import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/PageWrapper";
+import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
+import "./styles.css";
 
 type Props = {};
 
-export const EthicsChampionLandingPage = (props: Props) => {
+export const EthicsDefaulters = (props: Props) => {
   return (
     <EmployeeWrapper>
       <PageWrapper>
         <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo.png"
-          text="Ethics Champions"
+          bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-policy.png"
+          text="Ethics Defaulters"
         />
-        <div className={styles.titleH3}>
-          <h3>Ethics Champions</h3>
+        <div className="titleH3">
+          <h3>Ethics Defaulters</h3>
         </div>
         <Box
           style={{
@@ -33,6 +30,7 @@ export const EthicsChampionLandingPage = (props: Props) => {
             backgroundSize: "cover",
             borderRadius: "2rem",
             overflow: "hidden",
+            marginBottom: "3.5rem",
           }}
         >
           {homeItems.map((item) => (
@@ -42,8 +40,7 @@ export const EthicsChampionLandingPage = (props: Props) => {
                 <Box className="mtn__coverImage">
                   <div className="mtn__CoverImageSpan">
                     <span>
-                      Name:
-                      <h5>Fonsus Ali</h5>
+                      Name: <h5>Fonsus Ali</h5>
                     </span>
                     <span>
                       Division:
@@ -66,9 +63,6 @@ export const EthicsChampionLandingPage = (props: Props) => {
             </>
           ))}
         </Box>
-        <div className={styles.paginationPage}>
-          <div>Pagination</div>
-        </div>
       </PageWrapper>
     </EmployeeWrapper>
   );
@@ -77,30 +71,20 @@ export const EthicsChampionLandingPage = (props: Props) => {
 const homeItems = [
   {
     id: 1,
-    title: "",
-    link: "",
+    name: "",
+    division: "",
+    location: "",
+    ethicalMessage: "",
     image:
       "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
   },
   {
     id: 2,
-    title: "",
-    link: "",
+    name: "",
+    division: "",
+    location: "",
+    ethicalMessage: "",
     image:
       "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo3.png",
-  },
-  {
-    id: 3,
-    title: "",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo4.png",
-  },
-  {
-    id: 4,
-    title: "",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
   },
 ];

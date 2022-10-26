@@ -183,19 +183,19 @@ const MenuItems = [
     id: 5,
     text: "Trainings",
     isActive: false,
-    link: "#",
+    link: "/trainings/traininglandingpage",
   },
   {
     id: 6,
     text: "Policy Breaches",
     isActive: false,
-    link: "#",
+    link: "/ethics/policybreaches",
   },
   {
     id: 7,
     text: "Ethics Articles",
     isActive: false,
-    link: "#",
+    link: "/ethics/articleslandingpage",
   },
   {
     id: 8,
