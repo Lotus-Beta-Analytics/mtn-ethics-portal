@@ -70,7 +70,6 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
   },
 }));
 
-<<<<<<< HEAD
 export const ImageContainerEthics = styled.div<{ bg: string; cl: string }>(
   (props) => ({
     backgroundImage: `url(${props.bg})`,
@@ -79,29 +78,6 @@ export const ImageContainerEthics = styled.div<{ bg: string; cl: string }>(
     backgroundSize: "contain",
     // backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-=======
-export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `url(${props.bg})`,
-  width: "280px",
-  height: "100%",
-  backgroundSize: "contain",
-  // backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
-  display: "flex",
-  flexDirection: "column",
-  color: theme.palette.common.black,
-  boxSizing: "border-box",
-  position: "relative",
-  // justifyContent: "space-between",
-  "&:hover": {
-    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
-    backgroundSize: "cover",
-    borderRadius: "10px",
-    // transform: "scale(1.1)",
-    // transform: "translateY(0px)",
-  },
-  "&:hover > *": {
->>>>>>> 25de918cfdbe0c55dd2cde198804c45ad1ddfde1
     display: "flex",
     flexDirection: "column",
     color: "whitesmoke",

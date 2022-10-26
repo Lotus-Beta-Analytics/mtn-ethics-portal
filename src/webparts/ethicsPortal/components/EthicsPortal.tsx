@@ -24,7 +24,6 @@ import { useHistory, Outlet } from "react-router-dom";
 import { ChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ChampionLandingPage";
 import { EthicsChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ethics-champions/EthicsChampionLandingPage";
 import { EthicsChampionsActivties } from "./modules/employee/pages/recognition/champion-recognition/ethics-champion-activties/EthicsChampionsActivties";
-<<<<<<< HEAD
 import { EthicsTrainings } from "./modules/employee/pages/training/ethic-trainings/EthicsTrainings";
 import { BusinessEthics } from "./modules/employee/pages/training/training-ethics-business/BusinessEthics";
 import { MtnTrainingVideo } from "./modules/employee/pages/training/mtn-ethics-video/MtnTrainingVideo";
@@ -33,19 +32,8 @@ import { PolicyBreaches } from "./modules/employee/pages/policy-breaches/policyb
 import { EthicsDefaulters } from "./modules/employee/pages/policy-breaches/ethics-defaulters/EthicsDefaulters";
 import { ArticlesLandingPage } from "./modules/employee/pages/ethics-articles/ethics-articles-page/ArticlesLandingPage";
 import { LeadershipSeries } from "./modules/employee/pages/ethics-articles/ethics-leadership-series/LeadershipSeries";
-=======
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/context/AdminQuizContext";
-import { PostEditor } from "./modules/admin/components/blog-set-up/PostEditor";
-import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
->>>>>>> 25de918cfdbe0c55dd2cde198804c45ad1ddfde1
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -104,92 +92,74 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
                   <Route exact path="/blog/post/:id" component={Post} />
 
-<<<<<<< HEAD
-              <Route
-                exact
-                path="/conflict/landing"
-                component={ConflictOfInterestLanding}
-              />
-              <Route
-                exact
-                path="/conflict/writeup"
-                component={ConflictOfInterestWriteUpLanding}
-              />
-              <Route
-                exact
-                path="/recognition/champion"
-                component={ChampionLandingPage}
-              />
-              <Route
-                exact
-                path="/recognition/ethicschampion"
-                component={EthicsChampionLandingPage}
-              />
-              <Route
-                exact
-                path="/recognition/ethicschampion/activties"
-                component={EthicsChampionsActivties}
-              />
-              <Route
-                exact
-                path="/trainings/traininglandingpage"
-                component={EthicsTrainings}
-              />
-              <Route
-                exact
-                path="/ethics/training/businessethics"
-                component={BusinessEthics}
-              />
-              <Route
-                exact
-                path="/ethics/training/mtnethicstrainingvideos"
-                component={MtnTrainingVideo}
-              />
-              <Route
-                exact
-                path="/ethics/training/organizationalethics"
-                component={OrganizationEthics}
-              />
-
-              <Route
-                exact
-                path="/ethics/policybreaches"
-                component={PolicyBreaches}
-              />
-
-              <Route
-                exact
-                path="/policybreaches/ethicsdefaulters"
-                component={EthicsDefaulters}
-              />
-              <Route
-                exact
-                path="/ethics/articleslandingpage"
-                component={ArticlesLandingPage}
-              />
-
-              <Route
-                exact
-                path="/ethical/leadership/series"
-                component={LeadershipSeries}
-              />
-=======
                   <Route
-                    path="/admin/manage-quiz"
                     exact
-                    render={() => <ManageQuizPage />}
+                    path="/conflict/landing"
+                    component={ConflictOfInterestLanding}
                   />
                   <Route
-                    path="/admin/create-quiz"
                     exact
-                    render={() => <CreateQuizPage />}
+                    path="/conflict/writeup"
+                    component={ConflictOfInterestWriteUpLanding}
                   />
                   <Route
-                    path="/admin/create-post"
                     exact
-                    render={() => <CreateBlogPost context={context} />}
+                    path="/recognition/champion"
+                    component={ChampionLandingPage}
                   />
->>>>>>> 25de918cfdbe0c55dd2cde198804c45ad1ddfde1
+                  <Route
+                    exact
+                    path="/recognition/ethicschampion"
+                    component={EthicsChampionLandingPage}
+                  />
+                  <Route
+                    exact
+                    path="/recognition/ethicschampion/activties"
+                    component={EthicsChampionsActivties}
+                  />
+                  <Route
+                    exact
+                    path="/trainings/traininglandingpage"
+                    component={EthicsTrainings}
+                  />
+                  <Route
+                    exact
+                    path="/ethics/training/businessethics"
+                    component={BusinessEthics}
+                  />
+                  <Route
+                    exact
+                    path="/ethics/training/mtnethicstrainingvideos"
+                    component={MtnTrainingVideo}
+                  />
+                  <Route
+                    exact
+                    path="/ethics/training/organizationalethics"
+                    component={OrganizationEthics}
+                  />
+
+                  <Route
+                    exact
+                    path="/ethics/policybreaches"
+                    component={PolicyBreaches}
+                  />
+
+                  <Route
+                    exact
+                    path="/policybreaches/ethicsdefaulters"
+                    component={EthicsDefaulters}
+                  />
+                  <Route
+                    exact
+                    path="/ethics/articleslandingpage"
+                    component={ArticlesLandingPage}
+                  />
+
+                  <Route
+                    exact
+                    path="/ethical/leadership/series"
+                    component={LeadershipSeries}
+                  />
 
                   <Route
                     exact
