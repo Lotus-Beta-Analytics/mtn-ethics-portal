@@ -20,10 +20,11 @@ import { QuizPage } from "./modules/employee/pages/quiz/QuizPage";
 import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
 import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
 import { QuizResultPage } from "./modules/employee/pages/quiz/QuizResultPage";
-import { useHistory } from "react-router-dom";
+import { useHistory, Outlet } from "react-router-dom";
 import { ChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ChampionLandingPage";
 import { EthicsChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ethics-champions/EthicsChampionLandingPage";
 import { EthicsChampionsActivties } from "./modules/employee/pages/recognition/champion-recognition/ethics-champion-activties/EthicsChampionsActivties";
+<<<<<<< HEAD
 import { EthicsTrainings } from "./modules/employee/pages/training/ethic-trainings/EthicsTrainings";
 import { BusinessEthics } from "./modules/employee/pages/training/training-ethics-business/BusinessEthics";
 import { MtnTrainingVideo } from "./modules/employee/pages/training/mtn-ethics-video/MtnTrainingVideo";
@@ -32,6 +33,19 @@ import { PolicyBreaches } from "./modules/employee/pages/policy-breaches/policyb
 import { EthicsDefaulters } from "./modules/employee/pages/policy-breaches/ethics-defaulters/EthicsDefaulters";
 import { ArticlesLandingPage } from "./modules/employee/pages/ethics-articles/ethics-articles-page/ArticlesLandingPage";
 import { LeadershipSeries } from "./modules/employee/pages/ethics-articles/ethics-leadership-series/LeadershipSeries";
+=======
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
+import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/context/AdminQuizContext";
+import { PostEditor } from "./modules/admin/components/blog-set-up/PostEditor";
+import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
+>>>>>>> 25de918cfdbe0c55dd2cde198804c45ad1ddfde1
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -42,25 +56,55 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
   const { context } = props;
   const history = useHistory();
+  const queryClient = new QueryClient();
 
   return (
-    <ToastProvider>
-      <ThemeProvider theme={theme}>
-        <Router>
-          <QuizContextProvider>
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route
-                exact
-                path="/employee/photo-categories"
-                component={PhotoCategories}
-              />
-              <Route
-                exact
-                path="/employee/video-categories"
-                component={VideoCategories}
-              />
+    <QueryClientProvider client={queryClient}>
+      <ToastProvider>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <CreateAdminQuizContextProvider>
+              <QuizContextProvider>
+                <Switch>
+                  <Route exact path="/" component={LandingPage} />
+                  <Route
+                    exact
+                    path="/employee/photo-categories"
+                    component={PhotoCategories}
+                  />
+                  <Route
+                    exact
+                    path="/employee/video-categories"
+                    component={VideoCategories}
+                  />
+                  <Route
+                    exact
+                    path="/conflict/landing"
+                    component={ConflictOfInterestLanding}
+                  />
+                  <Route
+                    exact
+                    path="/recognition/champion"
+                    component={ChampionLandingPage}
+                  />
+                  <Route
+                    exact
+                    path="/recognition/ethicschampion"
+                    component={EthicsChampionLandingPage}
+                  />
+                  <Route
+                    exact
+                    path="/recognition/ethicschampion/activties"
+                    component={EthicsChampionsActivties}
+                  />
+                  <Route
+                    exact
+                    path="/conflict/writeup"
+                    component={ConflictOfInterestWriteUpLanding}
+                  />
+                  <Route exact path="/blog/post/:id" component={Post} />
 
+<<<<<<< HEAD
               <Route
                 exact
                 path="/conflict/landing"
@@ -129,34 +173,53 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                 path="/ethical/leadership/series"
                 component={LeadershipSeries}
               />
+=======
+                  <Route
+                    path="/admin/manage-quiz"
+                    exact
+                    render={() => <ManageQuizPage />}
+                  />
+                  <Route
+                    path="/admin/create-quiz"
+                    exact
+                    render={() => <CreateQuizPage />}
+                  />
+                  <Route
+                    path="/admin/create-post"
+                    exact
+                    render={() => <CreateBlogPost context={context} />}
+                  />
+>>>>>>> 25de918cfdbe0c55dd2cde198804c45ad1ddfde1
 
-              <Route exact path="/blog/post/:id" component={Post} />
+                  <Route
+                    exact
+                    path="/employee/quiz/landing"
+                    component={QuizLandingPage}
+                  />
 
-              <Route path="/admin" render={() => <Box>Quiz</Box>} />
-              <Route path="/admin/quiz" render={() => <Box>Quiz</Box>} />
-              <Route
-                exact
-                path="/employee/quiz/landing"
-                component={QuizLandingPage}
-              />
-
-              <Route
-                exact
-                path="/employee/take-quiz"
-                render={() => <QuizPage />}
-              />
-              <Route exact path="/employee/review" component={QuizReviewPage} />
-              <Route
-                exact
-                path="/employee/quiz-result"
-                component={QuizResultPage}
-              />
-              <Route path="*" component={NotFound} />
-            </Switch>
-          </QuizContextProvider>
-        </Router>
-      </ThemeProvider>
-    </ToastProvider>
+                  <Route
+                    exact
+                    path="/employee/take-quiz"
+                    render={() => <QuizPage />}
+                  />
+                  <Route
+                    exact
+                    path="/employee/review"
+                    component={QuizReviewPage}
+                  />
+                  <Route
+                    exact
+                    path="/employee/quiz-result"
+                    component={QuizResultPage}
+                  />
+                  <Route path="*" component={NotFound} />
+                </Switch>
+              </QuizContextProvider>
+            </CreateAdminQuizContextProvider>
+          </Router>
+        </ThemeProvider>
+      </ToastProvider>
+    </QueryClientProvider>
   );
 };
 

@@ -14,6 +14,10 @@ import {
   ShowPrevNavButton,
   ShowSubmitButton,
 } from "./components/showNavButtons";
+import { sp } from "@pnp/sp";
+import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
+import { QuizTime } from "./components/QuizTime";
 
 export const QuizPage = () => {
   const {
@@ -24,15 +28,50 @@ export const QuizPage = () => {
     setTotal,
     total,
     questions,
-    score,
     getting,
+    startTimer,
+    quizInfo,
+    seconds,
+    submitQuiz,
+    staff,
   } = getQuizContextState();
 
-  const toast = useToasts().addToast;
+  const history = useHistory();
+
+  React.useEffect(() => {
+    startTimer();
+  }, []);
 
   React.useMemo(() => {
-    console.log(score);
-  }, [score]);
+    if (quizInfo?.duration === 0 && seconds < 1) {
+      submitQuiz({
+        ...staff,
+        responses,
+      });
+    }
+  }, [quizInfo?.duration, seconds]);
+
+  React.useEffect(() => {
+    if (!staff) return;
+    sp.web.lists
+      .getByTitle("QuizResponse")
+      .items.filter(`StaffEmail eq '${staff?.email}'`)
+      .get()
+      .then((items) => {
+        if (items.length > 0) {
+          swal({
+            closeOnEsc: false,
+            closeOnClickOutside: false,
+            text: "You have taken the Quiz.",
+            dangerMode: true,
+            icon: "error",
+            title: "Error",
+          }).then(() => {
+            history.push("/");
+          });
+        }
+      });
+  }, []);
 
   return (
     <EmployeeWrapper showFooter={false} backButton={false}>
@@ -42,6 +81,7 @@ export const QuizPage = () => {
           text="Ethics Quiz"
         />
         <QuizWrapper>
+          <QuizTime />
           <>
             {getting ? (
               <CircularProgress
@@ -99,7 +139,7 @@ export const QuizPage = () => {
                                             id: questions[page]?.id,
                                             question: questions[page]?.question,
                                             answer: value,
-                                            responseTime: "2s",
+                                            responseTime: `${quizInfo?.duration}m:${seconds}s`,
                                             isCorrect:
                                               questions[page]?.answer === value,
                                             point: questions[page]?.point,
@@ -122,7 +162,7 @@ export const QuizPage = () => {
                                             id: questions[page]?.id,
                                             question: questions[page]?.question,
                                             answer: value,
-                                            responseTime: "2s",
+                                            responseTime: `${quizInfo?.duration}m:${seconds}s`,
                                             isCorrect:
                                               questions[page]?.answer === value,
                                             point: questions[page]?.point,
