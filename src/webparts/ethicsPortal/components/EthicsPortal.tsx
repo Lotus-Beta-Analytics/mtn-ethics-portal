@@ -32,17 +32,10 @@ import { PolicyBreaches } from "./modules/employee/pages/policy-breaches/policyb
 import { EthicsDefaulters } from "./modules/employee/pages/policy-breaches/ethics-defaulters/EthicsDefaulters";
 import { ArticlesLandingPage } from "./modules/employee/pages/ethics-articles/ethics-articles-page/ArticlesLandingPage";
 import { LeadershipSeries } from "./modules/employee/pages/ethics-articles/ethics-leadership-series/LeadershipSeries";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/context/AdminQuizContext";
-import { PostEditor } from "./modules/admin/components/blog-set-up/PostEditor";
 import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
+import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -64,6 +57,23 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
               <QuizContextProvider>
                 <Switch>
                   <Route exact path="/" component={LandingPage} />
+
+                  <Route
+                    exact
+                    path="/admin/create-post"
+                    render={() => <CreateBlogPost context={context} />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/create-quiz"
+                    render={() => <CreateQuizPage />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/manage-quiz"
+                    render={() => <ManageQuizPage />}
+                  />
+
                   <Route
                     exact
                     path="/employee/photo-categories"
@@ -168,21 +178,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     exact
                     path="/ethical/leadership/series"
                     component={LeadershipSeries}
-                  />
-                  <Route
-                    path="/admin/manage-quiz"
-                    exact
-                    render={() => <ManageQuizPage />}
-                  />
-                  <Route
-                    path="/admin/create-quiz"
-                    exact
-                    render={() => <CreateQuizPage />}
-                  />
-                  <Route
-                    path="/admin/create-post"
-                    exact
-                    render={() => <CreateBlogPost context={context} />}
                   />
 
                   <Route

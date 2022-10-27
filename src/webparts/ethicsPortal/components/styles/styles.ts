@@ -92,24 +92,9 @@ export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
   },
   "&:hover > *": {
     display: "flex",
-    flexDirection: "column",
-    color: "whitesmoke",
-    boxSizing: "border-box",
-    position: "relative",
-    // justifyContent: "space-between",
-    "&:hover": {
-      backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
-      backgroundSize: "cover",
-      borderRadius: "10px",
-      // transform: "scale(1.1)",
-      // transform: "translateY(0px)",
-    },
-    "&:hover > *": {
-      display: "flex",
 
-      // transition: "all .8s",
-      // borderRadius: "10px",
-    },
+    // transition: "all .8s",
+    // borderRadius: "10px",
   },
 }));
 
