@@ -1,4 +1,4 @@
-import { colors } from "@material-ui/core";
+import { colors, Typography } from "@material-ui/core";
 import * as React from "react";
 import { AdminNavigation } from "../../Navigation/admin-navigation/AdminNavigation";
 
@@ -10,12 +10,12 @@ export const AdminWrapper = ({ children }) => {
       style={{
         position: "relative",
         width: "100%",
-        height: "100%",
+        minHeight: "100vh",
         backgroundColor: colors.grey[100],
       }}
     >
       <AdminNavigation />
-      <div
+      <Typography
         style={{
           margin: "auto",
           textAlign: "center",
@@ -26,19 +26,21 @@ export const AdminWrapper = ({ children }) => {
           width: "100%",
           height: "50px",
         }}
+        variant="h5"
       >
         Ethics Portal Management
-      </div>
+      </Typography>
       <div
         style={{
           position: "relative",
           width: "100%",
-          height: "100%",
+          minHeight: "100%",
           display: "grid",
-          gridTemplateColumns: ".5fr auto",
+          gridTemplateColumns: "auto",
+          boxSizing: "border-box",
+          paddingLeft: "20%",
         }}
       >
-        <div></div>
         <div>{children}</div>
       </div>
     </div>

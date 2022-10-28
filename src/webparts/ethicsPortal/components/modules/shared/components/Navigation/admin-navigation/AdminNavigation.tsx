@@ -10,12 +10,14 @@ import {
 } from "react-icons/fa";
 import { adminNavItems } from "./menu";
 import "./styles.css";
+import { useHistory } from "react-router-dom";
 
 type Props = {};
 
 export const AdminNavigation = (props: Props) => {
   const [activeMainMenu, setActiveMainMenu] = React.useState(0);
   const [activeSubMenu, setActiveSubMenu] = React.useState(0);
+  const history = useHistory();
   return (
     <ul
       style={{
@@ -46,7 +48,10 @@ export const AdminNavigation = (props: Props) => {
                 minHeight: "40px",
                 padding: "0 .5rem",
               }}
-              onClick={() => setActiveMainMenu(index)}
+              onClick={() => {
+                setActiveMainMenu(index);
+                history.push(mainMenu?.link);
+              }}
               className={activeMainMenu === index ? "active" : ""}
             >
               <Box>
@@ -68,7 +73,10 @@ export const AdminNavigation = (props: Props) => {
                   {adminNavItems[activeMainMenu]?.subNav?.map((sub, i) => {
                     return (
                       <li
-                        onClick={() => setActiveSubMenu(i)}
+                        onClick={() => {
+                          setActiveSubMenu(i);
+                          history.push(sub?.link);
+                        }}
                         style={{
                           display: "flex",
                           alignItems: "center",
