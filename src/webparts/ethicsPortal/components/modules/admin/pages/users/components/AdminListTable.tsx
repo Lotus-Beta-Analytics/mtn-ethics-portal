@@ -1,4 +1,4 @@
-import { Box, Checkbox, Switch } from "@material-ui/core";
+import { Box, Checkbox, IconButton } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -15,7 +15,6 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import MaterialTable, { MTableToolbar } from "material-table";
-import { IconButton } from "office-ui-fabric-react";
 import * as React from "react";
 import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
 import { useToasts } from "react-toast-notifications";
@@ -171,48 +170,29 @@ export const AdminListTable: React.FC<Props> = ({ users, loading }) => {
               });
             },
           },
-          {
-            icon: "visibility",
-            iconProps: {
-              style: { fontSize: "20px", color: "gold" },
-            },
-            tooltip: "view",
-
-            onClick: (event, rowData) => {},
-          },
         ]}
         components={{
           Action: (props) => {
             return (
-              <Box display="flex" alignItems="center" style={{ gap: "1rem" }}>
-                <IconButton
-                  onClick={(event) => props.action.onClick(event, props.data)}
-                  style={{
-                    width: "25px",
-                    height: "25px",
-                    fontSize: ".5rem",
-                    padding: "1rem",
-                    position: "relative",
-                  }}
-                  color={
-                    props.action.tooltip === "view"
-                      ? "primary"
-                      : props.action.tooltip === "edit"
-                      ? "default"
-                      : "secondary"
-                  }
-                >
-                  {props.action.tooltip === "view" ? (
-                    <RemoveRedEye />
-                  ) : props.action.tooltip === "edit" ? (
-                    <Edit />
-                  ) : props.action.tooltip === "remove" ? (
-                    <CloseSharp />
-                  ) : (
-                    <></>
-                  )}
-                </IconButton>
-              </Box>
+              <IconButton
+                onClick={(event) => props.action.onClick(event, props.data)}
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  fontSize: ".5rem",
+                  padding: "1rem",
+                  position: "relative",
+                }}
+                color={
+                  props.action.tooltip === "view"
+                    ? "primary"
+                    : props.action.tooltip === "edit"
+                    ? "secondary"
+                    : "default"
+                }
+              >
+                {props.action.tooltip === "edit" ? <Edit /> : <CloseSharp />}
+              </IconButton>
             );
           },
         }}

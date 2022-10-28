@@ -158,17 +158,12 @@ export const adminNavItems = [
   {
     title: "Configure Users",
     icon: FaAngrycreative,
-    link: "/admin/users-manage",
+    link: "/admin/user/create",
     subNav: [
       {
         title: "Create Admin",
         icon: FaAngrycreative,
         link: "/admin/user/create",
-      },
-      {
-        title: "View Admins",
-        icon: FaAngrycreative,
-        link: "/admin/users-manage",
       },
     ],
   },

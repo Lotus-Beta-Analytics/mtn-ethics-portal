@@ -38,10 +38,10 @@ export const UpdateAdminModal: React.FC<Props> = ({
       return updateAdmin(data.adminId, data.data);
     },
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
         successAlert(toast, "Admin updated successfully");
-        queryClient.invalidateQueries(["getAdmins"]);
         onClose();
+        queryClient.invalidateQueries(["getAdmins"]);
       },
       onError: (error) => {
         console.log(error);
@@ -64,7 +64,10 @@ export const UpdateAdminModal: React.FC<Props> = ({
           onClick={() => {
             mutation.mutate({
               adminId: id,
-              data: admin,
+              data: {
+                StaffEmail: admin?.StaffEmail,
+                StaffName: admin?.StaffName,
+              },
             });
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
