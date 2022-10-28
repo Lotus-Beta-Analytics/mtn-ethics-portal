@@ -66,16 +66,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     path="/admin/user/create"
                     render={() => <CreateAdminPage />}
                   />
-                  <Route
-                    exact
-                    path="/admin/users-manage"
-                    render={() => <ManageAdminPage />}
-                  />
-                  <Route
-                    exact
-                    path="/admin/user/:userId/update"
-                    render={() => <UpdateAdminPage />}
-                  />
+
                   <Route
                     exact
                     path="/admin/create-post"

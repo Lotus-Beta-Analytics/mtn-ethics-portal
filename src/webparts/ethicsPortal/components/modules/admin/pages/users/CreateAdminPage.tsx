@@ -1,37 +1,46 @@
 import { Box, Button, CircularProgress } from "@material-ui/core";
 import { sp } from "@pnp/sp";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { fetchAdmins } from "./apis/fetchAdmin";
 import { User, UserForm } from "./forms/UserForm";
+import { ManageAdminPage } from "./ManageAdminPage";
 
 export const CreateAdminPage = () => {
   const [admin, setAdmin] = React.useState<User>({
     StaffEmail: "",
     StaffName: "",
   });
-  const [submitting, setSubmitting] = React.useState(false);
-  const toast = useToasts().addToast;
-
+  const res = useQuery<User[]>(["getAdmins"], fetchAdmins);
   const addAdminHandler = async () => {
-    setSubmitting(true);
     if (!admin?.StaffEmail && !admin?.StaffName) return;
     try {
-      await sp.web.lists.getByTitle("Admin").items.add({
+      const res = await sp.web.lists.getByTitle("Admin").items.add({
         ...admin,
       });
+      return res;
+    } catch (e) {
+      return e;
+    }
+  };
+  const toast = useToasts().addToast;
+  const queryClient = useQueryClient();
+  const mutation = useMutation(() => addAdminHandler(), {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["getAdmins"]);
       successAlert(toast, "Admin added successfully");
-      setSubmitting(false);
       setAdmin({
         StaffEmail: "",
         StaffName: "",
       });
-    } catch (e) {
-      setSubmitting(false);
+    },
+    onError: () => {
       errorAlert(toast);
-    }
-  };
+    },
+  });
 
   return (
     <AdminWrapper>
@@ -55,13 +64,19 @@ export const CreateAdminPage = () => {
           </Button>
           <Button
             disabled={!admin?.StaffEmail && !admin?.StaffName}
-            onClick={addAdminHandler}
-            endIcon={submitting ? <CircularProgress size={20} /> : <></>}
+            onClick={() => mutation.mutate()}
+            endIcon={
+              mutation.isLoading ? <CircularProgress size={20} /> : <></>
+            }
             variant="contained"
             color="secondary"
           >
             Create Admin
           </Button>
+        </Box>
+
+        <Box>
+          <ManageAdminPage users={res?.data} isLoading={res?.isLoading} />
         </Box>
       </Box>
     </AdminWrapper>
