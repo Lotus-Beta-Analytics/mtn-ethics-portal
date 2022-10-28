@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../../utils/toast-messages";
+import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { QuizTable } from "./components/QuizTable";
 import { CreateAdminQuizContextProvider } from "./context/AdminQuizContext";
 
@@ -29,8 +30,8 @@ export const ManageQuizPage = (props: Props) => {
   };
 
   return (
-    <div>
+    <AdminWrapper>
       <QuizTable quizzes={quizzes} onUpdate={(res) => fetchQuizzes()} />
-    </div>
+    </AdminWrapper>
   );
 };

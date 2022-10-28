@@ -81,18 +81,18 @@ export const adminNavItems = [
   {
     title: "Ethics Quiz",
     icon: FaAngrycreative,
-    link: "/admin/quiz",
+    link: "/admin/manage-quiz",
 
     subNav: [
       {
         title: "Create Quiz",
         icon: FaVideo,
-        link: "/admin/gallery/videos",
+        link: "/admin/create-quiz",
       },
       {
         title: "Reports",
         icon: FaImages,
-        link: "/admin/gallery/images",
+        link: "/admin/manage-quiz",
       },
 
       {
@@ -158,7 +158,19 @@ export const adminNavItems = [
   {
     title: "Configure Users",
     icon: FaAngrycreative,
-    link: "/admin/training",
+    link: "/admin/users-manage",
+    subNav: [
+      {
+        title: "Create Admin",
+        icon: FaAngrycreative,
+        link: "/admin/user/create",
+      },
+      {
+        title: "View Admins",
+        icon: FaAngrycreative,
+        link: "/admin/users-manage",
+      },
+    ],
   },
   {
     title: "Ethics Articles",

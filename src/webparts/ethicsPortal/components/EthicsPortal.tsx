@@ -36,6 +36,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/context/AdminQuizContext";
 import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
 import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
+import { CreateAdminPage } from "./modules/admin/pages/users/CreateAdminPage";
+import { UpdateAdminPage } from "./modules/admin/pages/users/UpdateAdminPage";
+import { ManageAdminPage } from "./modules/admin/pages/users/ManageAdminPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -58,6 +61,21 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                 <Switch>
                   <Route exact path="/" component={LandingPage} />
 
+                  <Route
+                    exact
+                    path="/admin/user/create"
+                    render={() => <CreateAdminPage />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/users-manage"
+                    render={() => <ManageAdminPage />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/user/:userId/update"
+                    render={() => <UpdateAdminPage />}
+                  />
                   <Route
                     exact
                     path="/admin/create-post"
