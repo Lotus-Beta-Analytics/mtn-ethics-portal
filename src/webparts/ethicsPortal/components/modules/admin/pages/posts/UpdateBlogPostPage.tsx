@@ -7,60 +7,70 @@ import {
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
-import { sp } from "@pnp/sp";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
-import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
 import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 import { CreateSection } from "../../components/blog-set-up/sections/CreateSection";
+import { editPost } from "./apis/editPost";
+import { getPost } from "./apis/getAllPosts";
 
-type Props = {
-  context: WebPartContext;
-};
+export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
+  context,
+}) => {
+  const { postId } = useParams();
 
-export const CreateBlogPost: React.FC<Props> = ({ context }) => {
-  const [file, setFile] = React.useState("");
-  const [section, setSection] = React.useState("");
-  const [content, setContent] = React.useState<any>();
-  const [postTitle, setPostTitle] = React.useState("");
   const queryClient = useQueryClient();
-
   const toast = useToasts().addToast;
-  const submitHandler = async () => {
-    try {
-      const res = await sp.web.lists.getByTitle("Post").items.add({
+
+  const data = useQuery<any>(
+    ["getPost", { id: postId }],
+    () => {
+      getPost(postId);
+    },
+    {
+      enabled: !!postId,
+    }
+  );
+
+  const history = useHistory();
+
+  const [file, setFile] = React.useState(data?.data?.FileURL);
+  const [section, setSection] = React.useState(data?.data?.section);
+  const parsed = data?.data?.content;
+  const [content, setContent] = React.useState<any>(JSON.parse(parsed));
+  const [postTitle, setPostTitle] = React.useState(data?.data?.PostTitle);
+
+  const mutation = useMutation(
+    () =>
+      editPost(postId, {
         PostTitle: postTitle,
         content: JSON.stringify(content),
         PostSection: section,
         FileUrl: file,
-      });
-
-      return res;
-    } catch (e) {
-      return e;
+      }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getAllPosts"]);
+        successAlert(toast, "Post Updated Successfully");
+        history.goBack();
+      },
+      onError: () => {
+        errorAlert(toast);
+      },
     }
-  };
+  );
 
-  const mutation = useMutation(submitHandler, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getPosts"]);
-      successAlert(toast, "Post Added");
-      setFile(null);
-      setPostTitle("");
-      setSection("");
-      setContent(null);
-    },
-    onError: () => {
-      errorAlert(toast);
-    },
-  });
+  if (data?.isError) return <>An error occured</>;
+
+  if (data?.isLoading) return <>Loading...</>;
 
   return (
-    <AdminWrapper>
+    <div>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -73,7 +83,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           padding: "1.5rem 1rem",
         }}
       >
-        <Typography>Create Blog Post</Typography>
+        <Typography>Update Blog Post | {data?.data?.PostTitle}</Typography>
         <TextField
           variant="outlined"
           value={postTitle}
@@ -123,10 +133,10 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
             }
             disabled={mutation.isLoading}
           >
-            Create
+            Update
           </Button>
         </Box>
       </form>
-    </AdminWrapper>
+    </div>
   );
 };

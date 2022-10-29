@@ -81,7 +81,6 @@ export const FileUpload: React.FC<Props> = ({
 
       <Dropzone
         onDrop={(acceptedFiles, error) => {
-          console.log(error);
           if (error?.length) return;
           fileHandler(acceptedFiles[0]);
         }}
