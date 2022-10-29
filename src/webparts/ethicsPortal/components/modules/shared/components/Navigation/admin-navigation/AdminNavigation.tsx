@@ -27,11 +27,11 @@ export const AdminNavigation = (props: Props) => {
         flexDirection: "column",
         gap: "1rem",
         backgroundColor: "#fff",
-        boxShadow: "2px 2p 3px rgba(0, 0, 0, 0.5)",
+        boxShadow: "2px 2p 5px rgba(0, 0, 0, 0.5)",
         boxSizing: "border-box",
         padding: "1rem .5rem",
         position: "absolute",
-        zIndex: 9999,
+        zIndex: 99,
         top: 0,
       }}
     >

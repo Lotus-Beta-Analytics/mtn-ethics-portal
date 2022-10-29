@@ -36,7 +36,7 @@ export const RemoveAdminModal: React.FC<Props> = ({
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Delete successfully");
+        successAlert(toast, "Delete successful");
         queryClient.invalidateQueries(["getAdmins"]);
         onClose();
       },
