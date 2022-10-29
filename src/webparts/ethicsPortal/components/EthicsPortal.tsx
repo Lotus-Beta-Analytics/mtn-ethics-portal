@@ -39,6 +39,8 @@ import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
 import { CreateAdminPage } from "./modules/admin/pages/users/CreateAdminPage";
 import { UpdateAdminPage } from "./modules/admin/pages/users/UpdateAdminPage";
 import { ManageAdminPage } from "./modules/admin/pages/users/ManageAdminPage";
+import { UpdateBlogPostPage } from "./modules/admin/pages/posts/UpdateBlogPostPage";
+import { ManageBlogPostsPage } from "./modules/admin/pages/posts/ManageBlogPostsPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -71,6 +73,16 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     exact
                     path="/admin/create-post"
                     render={() => <CreateBlogPost context={context} />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/post/:postId/create-post"
+                    render={() => <UpdateBlogPostPage context={context} />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/manage-posts"
+                    render={() => <ManageBlogPostsPage />}
                   />
                   <Route
                     exact
