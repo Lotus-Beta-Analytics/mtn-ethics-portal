@@ -170,17 +170,12 @@ export const adminNavItems = [
   {
     title: "Ethics Articles",
     icon: FaAngrycreative,
-    link: "/admin/training",
+    link: "/admin/create-post",
     subNav: [
-      {
-        title: "Create Article",
-        icon: FaAngrycreative,
-        link: "/admin/training",
-      },
       {
         title: "Manage Articles",
         icon: FaAngrycreative,
-        link: "/admin/training",
+        link: "/admin/manage-articles",
       },
     ],
   },

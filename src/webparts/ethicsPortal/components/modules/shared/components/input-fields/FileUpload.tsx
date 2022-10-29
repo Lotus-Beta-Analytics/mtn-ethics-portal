@@ -80,10 +80,14 @@ export const FileUpload: React.FC<Props> = ({
       )}
 
       <Dropzone
-        onDrop={(acceptedFiles) => {
+        onDrop={(acceptedFiles, error) => {
+          console.log(error);
+          if (error?.length) return;
           fileHandler(acceptedFiles[0]);
         }}
-        // accept={Accept}
+        accept={{
+          "image/*": [".png", ".jpg", ".jpeg"],
+        }}
         multiple={false}
         maxSize={10000000}
         onDropRejected={(error) => {
@@ -112,7 +116,7 @@ export const FileUpload: React.FC<Props> = ({
                 style={{ margin: 0, textTransform: "none" }}
                 variant="contained"
                 color="secondary"
-                endIcon={upload ? <CircularProgress /> : <FaFile />}
+                endIcon={upload ? <CircularProgress size={20} /> : <FaFile />}
                 size="large"
               >
                 Browse Computer Files
