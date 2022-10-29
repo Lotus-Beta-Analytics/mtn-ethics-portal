@@ -11,9 +11,7 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
 import { deleteAdmin } from "../apis/deleteAdmin";
-import { updateAdmin } from "../apis/updateAdmin";
-import { User, UserForm } from "../forms/UserForm";
-import { Data } from "../ManageAdminPage";
+import { User } from "../forms/UserForm";
 
 type Props = {
   open: boolean;
