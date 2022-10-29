@@ -31,7 +31,8 @@ export const AdminNavigation = (props: Props) => {
         boxSizing: "border-box",
         padding: "1rem .5rem",
         position: "absolute",
-        zIndex: 999,
+        zIndex: 9999,
+        top: 0,
       }}
     >
       {adminNavItems.map((mainMenu, index) => {
