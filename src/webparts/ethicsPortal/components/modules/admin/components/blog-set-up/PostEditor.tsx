@@ -5,13 +5,17 @@ import { DocumentEditor } from "./editor/DocumentEditor";
 
 type Props = {
   onUpdate: React.Dispatch<any>;
+  initialContent?: any;
 };
 
-export const PostEditor: React.FC<Props> = ({ onUpdate }) => {
+export const PostEditor: React.FC<Props> = ({ onUpdate, initialContent }) => {
   return (
     <>
       <Box mt={5} height="300px" width="100%">
-        <DocumentEditor onChange={(data, type) => onUpdate({ data, type })} />
+        <DocumentEditor
+          initialContent={initialContent}
+          onChange={(data, type) => onUpdate({ data, type })}
+        />
       </Box>
     </>
   );

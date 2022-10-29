@@ -19,7 +19,7 @@ type Props = {
   id: number;
 };
 
-export const RemoveAdminModal: React.FC<Props> = ({
+export const RemoveBlogPostModal: React.FC<Props> = ({
   open,
   onClose,
   post,

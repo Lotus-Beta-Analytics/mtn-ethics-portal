@@ -12,6 +12,8 @@ export const getAllPosts = async () => {
 export const getPost = async (id: number) => {
   try {
     const res = await sp.web.lists.getByTitle("Post").items.getById(id).get();
+    console.log(res, "from api");
+
     return res;
   } catch (err) {
     return err;

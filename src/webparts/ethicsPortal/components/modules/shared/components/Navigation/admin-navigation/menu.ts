@@ -1,7 +1,9 @@
+import { Settings } from "@material-ui/icons";
 import {
   FaAd,
   FaAngrycreative,
   FaChevronDown,
+  FaDochub,
   FaImages,
   FaUserAstronaut,
   FaVideo,
@@ -30,7 +32,7 @@ export const adminNavItems = [
       },
       {
         title: "Images",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
     ],
@@ -53,12 +55,12 @@ export const adminNavItems = [
       },
       {
         title: "Conduct Passport",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
       {
         title: "Whistle Blowing",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
       {
@@ -73,14 +75,14 @@ export const adminNavItems = [
       },
       {
         title: "Manage",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
     ],
   },
   {
     title: "Ethics Quiz",
-    icon: FaAngrycreative,
+    icon: Settings,
     link: "/admin/manage-quiz",
 
     subNav: [
@@ -97,7 +99,7 @@ export const adminNavItems = [
 
       {
         title: "Manage",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
     ],
@@ -169,13 +171,13 @@ export const adminNavItems = [
   },
   {
     title: "Ethics Articles",
-    icon: FaAngrycreative,
+    icon: FaDochub,
     link: "/admin/create-post",
     subNav: [
       {
         title: "Manage Articles",
-        icon: FaAngrycreative,
-        link: "/admin/manage-articles",
+        icon: Settings,
+        link: "/admin/manage-posts",
       },
     ],
   },

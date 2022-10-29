@@ -76,7 +76,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
                   <Route
                     exact
-                    path="/admin/post/:postId/create-post"
+                    path="/admin/post/:postId/update"
                     render={() => <UpdateBlogPostPage context={context} />}
                   />
                   <Route
