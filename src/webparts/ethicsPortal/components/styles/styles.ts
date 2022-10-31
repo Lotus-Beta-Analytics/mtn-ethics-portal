@@ -5,7 +5,7 @@ import { theme } from "../themes/themes";
 
 export const AppContainer = styled(Box)({
   width: "85vw",
-  height: "100vh",
+  minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",

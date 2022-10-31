@@ -11,7 +11,7 @@ type Props = {
 
 export const PostPreviewItem: React.FC<Props> = ({ post }) => {
   return (
-    <Box width="auto" height="70%" mb={1}>
+    <Box width="auto" height="100%" mb={1}>
       <PreviewContainer bg={post?.FileUrl}>
         <Typography>{post?.PostTitle}</Typography>
         <MLink to={`/blog/post/${post.Id}`}>

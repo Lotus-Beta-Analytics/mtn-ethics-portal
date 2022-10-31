@@ -49,7 +49,7 @@ export const EmployeeWrapper: React.FC<{
           />
         </Box>
       )}
-      {children}
+      <Box>{children}</Box>
       {showFooter && <Footer />}
     </AppContainer>
   );
