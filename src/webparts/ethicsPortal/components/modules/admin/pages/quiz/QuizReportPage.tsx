@@ -1,8 +1,8 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import * as React from "react";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
@@ -13,7 +13,7 @@ export const QuizReportPage = () => {
   const { quizId } = useParams();
   const [quizReport, setQuizReport] = React.useState<any>();
   const toast = useToasts().addToast;
-
+  const history = useHistory();
   React.useEffect(() => {
     (async () => {
       try {
@@ -106,24 +106,20 @@ export const QuizReportPage = () => {
     { title: "Staff Name", field: "StaffName" },
     { title: "Staff Email Address", field: "StaffEmail" },
     { title: "Quiz Title", field: "Quiz[QuizTitle]" },
-    {
-      title: "Quiz Status",
-      field: "Quiz[status]",
-      render: (rowData) => {
-        return (
-          <>
-            {rowData?.Quiz["status"] === QuizStatus.Is_Enabled
-              ? "Enabled and Running"
-              : "Disabled and Stopped"}
-          </>
-        );
-      },
-    },
     ...field,
   ];
 
   return (
     <AdminWrapper>
+      <Box display="flex" justifyContent="flex-start" my={2}>
+        <Button
+          onClick={() => history.goBack()}
+          variant="contained"
+          color="secondary"
+        >
+          Go back
+        </Button>
+      </Box>
       <Box my={2}>
         {quizReport ? (
           <QuizReportTable quizReport={[quizReport]} column={columns} />

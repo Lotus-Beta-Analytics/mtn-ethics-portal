@@ -47,52 +47,6 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
   const [item, setItem] = React.useState<number>();
   const [itemToRemove, setItemToRemove] = React.useState<any>();
 
-  const [quizReport, setQuizReport] = React.useState<any[]>([]);
-
-  React.useEffect(() => {
-    (async () => {
-      try {
-        const res = await sp.web.lists
-          .getByTitle("QuizResponse")
-          .items.select(
-            "Quiz/QuizTitle, Quiz/ID,  Quiz/duration, Quiz/status, StaffName, responses, StaffEmail"
-          )
-          .expand("Quiz")
-          .getAll();
-
-        setQuizReport(res);
-      } catch (e) {
-        errorAlert(toast);
-      }
-    })();
-  }, []);
-
-  const answersToQuestionsArr = () => {
-    const obj = [];
-
-    for (let i = 0; i < quizzes?.length; i++) {
-      obj.push({
-        title: quizzes[i].QuizTitle,
-        field: `${quizzes[i].question}`,
-        type: "string",
-        render: () => {
-          return quizReport.filter(
-            (report) => report?.Quiz["ID"] == quizzes[i].ID
-          ).length;
-        },
-        export: true,
-      });
-    }
-
-    return obj;
-  };
-
-  const [field, setField] = React.useState([]);
-
-  React.useEffect(() => {
-    quizzes?.length > 0 && setField(answersToQuestionsArr());
-  }, [quizzes]);
-
   const columns = [
     {
       title: "SN",
@@ -117,7 +71,10 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
         <>{new Date(rowData.endDate).toLocaleDateString()}</>
       ),
     },
-    ...field,
+    {
+      title: "Number of Submissions",
+      field: "count",
+    },
   ];
 
   const toast = useToasts().addToast;
@@ -244,11 +201,10 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             color: "black",
             fontSize: "16px",
           },
-          searchFieldVariant: "outlined",
         }}
         style={{
           boxShadow: "none",
-          width: "90%",
+          width: "100%",
           boxSizing: "border-box",
         }}
         actions={[
@@ -328,6 +284,10 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
               <Box display="flex" alignItems="center" style={{ gap: "1rem" }}>
                 <Tooltip title={props.action.tooltip}>
                   <IconButton
+                    disabled={
+                      props?.data?.status === QuizStatus.Is_Enabled &&
+                      props.action.tooltip === "remove"
+                    }
                     onClick={(event) => props.action.onClick(event, props.data)}
                     style={{
                       width: "25px",
