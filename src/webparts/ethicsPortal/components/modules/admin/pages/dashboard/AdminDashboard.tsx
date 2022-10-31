@@ -44,7 +44,7 @@ export const AdminDashboard = () => {
 const dashboardItems = [
   {
     title: "Gallery",
-    link: "gallery/manage",
+    link: "gallery",
     icon: FaImages,
   },
   {

@@ -9,7 +9,7 @@ import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import * as React from "react";
-import Dropzone from "react-dropzone";
+import Dropzone, { Accept } from "react-dropzone";
 import { FaFile } from "react-icons/fa";
 import { useToasts } from "react-toast-notifications";
 import { fileUploadErrorDisplay } from "../../../../utils/fileUploadErrorFeedback";
@@ -19,12 +19,14 @@ type Props = {
   fileControl: string;
   onUpdate: React.Dispatch<string>;
   context: WebPartContext;
+  accept?: Accept;
 };
 
 export const FileUpload: React.FC<Props> = ({
   fileControl,
   onUpdate,
   context,
+  accept = { "image/*": [".png", ".jpg", ".jpeg"] },
 }) => {
   const toast = useToasts().addToast;
 
@@ -84,9 +86,7 @@ export const FileUpload: React.FC<Props> = ({
           if (error?.length) return;
           fileHandler(acceptedFiles[0]);
         }}
-        accept={{
-          "image/*": [".png", ".jpg", ".jpeg"],
-        }}
+        accept={accept}
         multiple={false}
         maxSize={10000000}
         onDropRejected={(error) => {
