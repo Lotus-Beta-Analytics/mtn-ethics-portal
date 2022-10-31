@@ -41,6 +41,8 @@ import { UpdateAdminPage } from "./modules/admin/pages/users/UpdateAdminPage";
 import { ManageAdminPage } from "./modules/admin/pages/users/ManageAdminPage";
 import { UpdateBlogPostPage } from "./modules/admin/pages/posts/UpdateBlogPostPage";
 import { ManageBlogPostsPage } from "./modules/admin/pages/posts/ManageBlogPostsPage";
+import { QuizReportPage } from "./modules/admin/pages/quiz/QuizReportPage";
+import { AllQuizReportPage } from "./modules/admin/pages/quiz/AllQuizReportPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -93,6 +95,16 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     exact
                     path="/admin/manage-quiz"
                     render={() => <ManageQuizPage />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/quiz/:quizId/report"
+                    render={() => <QuizReportPage />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/quiz/report"
+                    render={() => <AllQuizReportPage />}
                   />
 
                   <Route

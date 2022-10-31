@@ -11,12 +11,13 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
 import { deleteAdmin } from "../apis/deleteAdmin";
+import { StaffData } from "../components/PeoplePicker";
 import { User } from "../forms/UserForm";
 
 type Props = {
   open: boolean;
-  onClose: (item?: User) => void;
-  user: User;
+  onClose: (item?: StaffData) => void;
+  user: StaffData;
   id: string;
 };
 
@@ -47,7 +48,7 @@ export const RemoveAdminModal: React.FC<Props> = ({
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to <strong>remove</strong> {user?.StaffName}?
+          Are you sure you want to <strong>remove</strong> {user?.DisplayName}?
           <br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.

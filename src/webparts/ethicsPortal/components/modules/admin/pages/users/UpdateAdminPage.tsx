@@ -6,9 +6,10 @@ import { User, UserForm } from "./forms/UserForm";
 import { useParams } from "react-router-dom";
 import { Box, Button, CircularProgress } from "@material-ui/core";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { StaffData } from "./components/PeoplePicker";
 
 export const UpdateAdminPage = () => {
-  const [admin, setAdmin] = React.useState<User>();
+  const [admin, setAdmin] = React.useState<StaffData>();
   const { userId } = useParams();
   const [loading, setLoading] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
@@ -24,8 +25,8 @@ export const UpdateAdminPage = () => {
       .then((item) => {
         setLoading(false);
         setAdmin({
-          StaffEmail: item?.StaffEmail,
-          StaffName: item?.StaffName,
+          Email: item?.StaffEmail,
+          DisplayName: item?.StaffName,
         });
       })
       .catch((error) => {
@@ -36,7 +37,7 @@ export const UpdateAdminPage = () => {
 
   const updateAdminHandler = async () => {
     setSubmitting(true);
-    if (!admin?.StaffEmail && !admin?.StaffName) return;
+    if (!admin?.Email && !admin?.DisplayName) return;
 
     try {
       await sp.web.lists
@@ -69,7 +70,7 @@ export const UpdateAdminPage = () => {
             >
               <Button>Cancel</Button>
               <Button
-                disabled={!admin?.StaffEmail && !admin?.StaffName}
+                disabled={!admin?.Email && !admin?.DisplayName}
                 onClick={updateAdminHandler}
                 endIcon={submitting ? <CircularProgress size={20} /> : <></>}
               >
