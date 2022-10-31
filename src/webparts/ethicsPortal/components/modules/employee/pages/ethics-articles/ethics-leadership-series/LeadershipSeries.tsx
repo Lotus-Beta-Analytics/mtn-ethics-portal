@@ -6,19 +6,46 @@ import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWit
 import "./styles.css";
 
 export const LeadershipSeries = () => {
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const current = new Date();
+  const date = `${current.getDate()} ${
+    months[current.getMonth()]
+  } ${current.getFullYear()}`;
+
   return (
-    <EmployeeWrapper>
+    <EmployeeWrapper showFooter={false}>
       <PageWrapper>
         <PageHeaderWithImage
           bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/ethicslead.png"
           text="Ethics Leadership Series"
         />
-        <Box>
+        <Box
+          style={{
+            height: "200px",
+            width: "100%",
+            padding: "1rem",
+            backgroundColor: "gray",
+          }}
+        >
           <div className="mtn__topic">
             <h3>Ethics Leadership Series</h3>
-            <h4>Publish October 12, 2022</h4>
+            <h4>Posted on {date}</h4>
           </div>
-          <Box style={{ display: "flex", height: "100px", width: "100%" }}>
+          <Box>
             <div className="mtn__blogBody">
               <h5>
                 MTN believes that being good is good business, at every level of
@@ -59,35 +86,37 @@ export const LeadershipSeries = () => {
                     ways things have always been done: being creative, original
                     and solution focused.
                   </li>
-                </ul>
-                <br />
-                <span>OUR VITAL BEHAVIOURS</span>
-                <p>
-                  As a global enterprise, we have collectively worked hard to
-                  get to where we are today. How we interact with each other,
-                  the values we uphold and the behaviours we demonstrate, shape
-                  who we are and impacts our success. The four vital behaviours
-                  that give expression to our values are:
-                </p>
-                <ul>
                   <li>
-                    3. <strong>Get it done.</strong> When I notice problems or
-                    risks, I take action to try to resolve them—or escalate when
-                    I can’t—rather than waiting for someone else to notice them.
+                    Finding new ways of doing things and continually improving
+                    ways things have always been done: being creative, original
+                    and solution focused.
                   </li>
-
                   <li>
-                    4. <strong>Active collaboration.</strong> I do not hesitate
-                    to sacrifice time and resources to support colleagues,
-                    within or outside my function, in the best interest of MTN.
+                    Finding new ways of doing things and continually improving
+                    ways things have always been done: being creative, original
+                    and solution focused.
                   </li>
-                  <br />
-                  <h4>B. EMPLOYEE CONDUCT PLEDGE</h4>
+                  <li>
+                    Finding new ways of doing things and continually improving
+                    ways things have always been done: being creative, original
+                    and solution focused.
+                  </li>
                   <p>
-                    I therefore commit myself to the following fundamental
-                    conduct expectations:
+                    Finding new ways of doing things and continually improving
+                    ways things have always been done: being creative, original
+                    and solution focused. Finding new ways of doing things and
+                    continually improving ways things have always been done:
+                    being creative, original and solution focused. Finding new
+                    ways of doing things and continually improving ways things
+                    have always been done: being creative, original and solution
+                    focused. Finding new ways of doing things and continually
+                    improving ways things have always been done: being creative,
+                    original and solution focused. Finding new ways of doing
+                    things and continually improving ways things have always
+                    been done: being creative, original and solution focused.
                   </p>
                 </ul>
+                <br />
               </h5>
             </div>
           </Box>

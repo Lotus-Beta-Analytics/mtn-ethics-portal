@@ -36,6 +36,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/context/AdminQuizContext";
 import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
 import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
+import { ContactUs } from "./modules/employee/pages/ethics-contact-us/contact-us/ContactUs";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -179,6 +180,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     path="/ethical/leadership/series"
                     component={LeadershipSeries}
                   />
+
+                  <Route exact path="/ethics/contactus" component={ContactUs} />
 
                   <Route
                     exact

@@ -201,6 +201,6 @@ const MenuItems = [
     id: 8,
     text: "Contact Us",
     isActive: false,
-    link: "#",
+    link: "/ethics/contactus",
   },
 ];
