@@ -60,6 +60,7 @@ export const QuizContextProvider = ({ children }) => {
   const [result, setResult] = React.useState<Result>(null);
   const [quizInfo, setQuizInfo] = React.useState<QuizInfo>();
   const [seconds, setSeconds] = React.useState(60);
+  const [QuizId, setQuizId] = React.useState<number>(null);
 
   const toast = useToasts().addToast;
 
@@ -89,6 +90,7 @@ export const QuizContextProvider = ({ children }) => {
               title: items[0].QuizTitle,
               topic: items[0].topic,
             });
+            setQuizId(items[0].ID);
 
             let q = items[0].questions;
             q = JSON.parse(q);
@@ -208,6 +210,7 @@ export const QuizContextProvider = ({ children }) => {
         StaffName: staff?.name,
         StaffEmail: staff?.email,
         responses: JSON.stringify(filteredData),
+        ["QuizId"]: QuizId,
       });
 
       setLoading(false);

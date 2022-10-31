@@ -6,20 +6,20 @@ import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { fetchAdmins } from "./apis/fetchAdmin";
+import { StaffData } from "./components/PeoplePicker";
 import { User, UserForm } from "./forms/UserForm";
 import { ManageAdminPage } from "./ManageAdminPage";
 
 export const CreateAdminPage = () => {
-  const [admin, setAdmin] = React.useState<User>({
-    StaffEmail: "",
-    StaffName: "",
-  });
-  const res = useQuery<User[]>(["getAdmins"], fetchAdmins);
+  const [admin, setAdmin] = React.useState<StaffData>();
+  const res = useQuery<StaffData[]>(["getAdmins"], fetchAdmins);
   const addAdminHandler = async () => {
-    if (!admin?.StaffEmail && !admin?.StaffName) return;
+    if (!admin?.Email && !admin?.DisplayName) return;
+
     try {
       const res = await sp.web.lists.getByTitle("Admin").items.add({
-        ...admin,
+        StaffName: admin?.DisplayName,
+        StaffEmail: admin?.Email,
       });
       return res;
     } catch (e) {
@@ -31,10 +31,7 @@ export const CreateAdminPage = () => {
   const mutation = useMutation(() => addAdminHandler(), {
     onSuccess: () => {
       successAlert(toast, "Admin added successfully");
-      setAdmin({
-        StaffEmail: "",
-        StaffName: "",
-      });
+      setAdmin(null);
       queryClient.invalidateQueries(["getAdmins"], { exact: true });
     },
     onError: () => {
@@ -63,7 +60,7 @@ export const CreateAdminPage = () => {
             Cancel
           </Button>
           <Button
-            disabled={!admin?.StaffEmail && !admin?.StaffName}
+            disabled={!admin?.Email && !admin?.DisplayName}
             onClick={() => mutation.mutate()}
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <></>

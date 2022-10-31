@@ -5,15 +5,16 @@ import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/Admin
 import { fetchAdmins } from "./apis/fetchAdmin";
 import { updateAdmin } from "./apis/updateAdmin";
 import { AdminListTable } from "./components/AdminListTable";
+import { StaffData } from "./components/PeoplePicker";
 import { User } from "./forms/UserForm";
 
 export interface Data {
   adminId: string;
-  data: User;
+  data: StaffData;
 }
 
 type Props = {
-  users: User[];
+  users: StaffData[];
   isLoading: boolean;
 };
 

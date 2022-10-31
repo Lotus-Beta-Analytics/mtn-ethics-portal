@@ -25,9 +25,10 @@ import { User } from "../forms/UserForm";
 import { UpdateAdminModal } from "../modals/UpdateAdminModal";
 import { Data } from "../ManageAdminPage";
 import { RemoveAdminModal } from "../modals/RemoveAdminModal";
+import { StaffData } from "./PeoplePicker";
 
 type Props = {
-  users: User[];
+  users: StaffData[];
   loading: boolean;
 };
 
@@ -121,7 +122,7 @@ export const AdminListTable: React.FC<Props> = ({ users, loading }) => {
           pageSize: 5,
           pageSizeOptions: [1, 2, 5],
           exportAllData: true,
-          exportFileName: "Projects",
+          exportFileName: "Admins",
           headerStyle: {
             backgroundColor: "#FFCC00",
             color: "black",
@@ -147,8 +148,8 @@ export const AdminListTable: React.FC<Props> = ({ users, loading }) => {
               setItemToUpdate({
                 adminId: rowData.Id,
                 data: {
-                  StaffEmail: rowData.StaffEmail,
-                  StaffName: rowData.StaffName,
+                  Email: rowData.StaffEmail,
+                  DisplayName: rowData.StaffName,
                 },
               });
             },
@@ -164,8 +165,8 @@ export const AdminListTable: React.FC<Props> = ({ users, loading }) => {
               setItemToRemove({
                 adminId: rowData.Id,
                 data: {
-                  StaffEmail: rowData.StaffEmail,
-                  StaffName: rowData.StaffName,
+                  Email: rowData.StaffEmail,
+                  DisplayName: rowData.StaffName,
                 },
               });
             },

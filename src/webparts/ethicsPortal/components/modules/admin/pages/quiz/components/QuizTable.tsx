@@ -1,4 +1,4 @@
-import { Box, Checkbox, Switch } from "@material-ui/core";
+import { Box, Checkbox, IconButton, Tooltip } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -15,7 +15,6 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import MaterialTable, { MTableToolbar } from "material-table";
-import { IconButton } from "office-ui-fabric-react";
 import * as React from "react";
 import {
   AdminQuizCreateType,
@@ -31,6 +30,7 @@ import {
 } from "../modals/EnableQuizPromptModal";
 import { CreateAdminQuizContextData } from "../context/AdminQuizContext";
 import { useHistory } from "react-router-dom";
+import { DeleteQuizModal } from "../modals/DeleteQuizModal";
 
 type Props = {
   quizzes: any[];
@@ -44,12 +44,8 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
   const [openEnablingModal, setEnablingModal] = React.useState(false);
   const [openDisablingModal, setDisablingModal] = React.useState(false);
   const [disabling, setDisabling] = React.useState(false);
-  const [isAgreedToEnable, setIsAgreedToEnable] = React.useState(false);
-  const [isAgreedToDisable, setIsAgreedToDisable] = React.useState(false);
-  const [disableSet, setDisableSet] = React.useState<Set<string>>();
-  const [enableSet, setEnableSet] = React.useState<Set<string>>();
   const [item, setItem] = React.useState<number>();
-  const [itemToUpdate, setItemToUpdate] = React.useState<any>();
+  const [itemToRemove, setItemToRemove] = React.useState<any>();
 
   const columns = [
     {
@@ -61,6 +57,24 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
     { title: "Duration", field: "duration" },
     { title: "Quiz Area", field: "area" },
     { title: "Quiz Topic", field: "topic" },
+    {
+      title: "Start Date",
+      field: "startDate",
+      render: (rowData) => (
+        <>{new Date(rowData.startDate).toLocaleDateString()}</>
+      ),
+    },
+    {
+      title: "End Date",
+      field: "endDate",
+      render: (rowData) => (
+        <>{new Date(rowData.endDate).toLocaleDateString()}</>
+      ),
+    },
+    {
+      title: "Number of Submissions",
+      field: "count",
+    },
   ];
 
   const toast = useToasts().addToast;
@@ -82,8 +96,6 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
           .update({
             status: QuizStatus.Is_Enabled,
           });
-
-        console.log(res.item, "upp");
         onUpdate(res);
         setEnabling(false);
         successAlert(toast, "Quiz now running!");
@@ -103,7 +115,6 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
         .update({
           status: QuizStatus.Is_Disabled,
         });
-      console.log(res.item, "stopped");
       onUpdate(res);
       setDisabling(false);
       successAlert(toast, "Quiz stopped!");
@@ -190,14 +201,24 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             color: "black",
             fontSize: "16px",
           },
-          searchFieldVariant: "outlined",
         }}
         style={{
           boxShadow: "none",
-          width: "90%",
+          width: "100%",
           boxSizing: "border-box",
         }}
         actions={[
+          {
+            icon: "visibility",
+            iconProps: {
+              style: { fontSize: "20px", color: "gold" },
+            },
+            tooltip: "view-report",
+
+            onClick: (event, rowData) => {
+              history.push(`quiz/${rowData?.Id}/report`);
+            },
+          },
           {
             icon: "visibility",
             iconProps: {
@@ -230,8 +251,12 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             tooltip: "remove",
 
             onClick: (event, rowData) => {
-              // setOpenDelete(true);
-              // setUser(rowData);
+              console.log(rowData, "....");
+
+              setItemToRemove({
+                QuizId: rowData.ID,
+                QuizTitle: rowData.QuizTitle,
+              });
             },
           },
           {
@@ -239,7 +264,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             iconProps: {
               style: { fontSize: "20px", color: "gold" },
             },
-            tooltip: "enable",
+            tooltip: "",
 
             onClick: (event, rowData) => {
               event.preventDefault();
@@ -257,37 +282,45 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
           Action: (props) => {
             return (
               <Box display="flex" alignItems="center" style={{ gap: "1rem" }}>
-                <IconButton
-                  onClick={(event) => props.action.onClick(event, props.data)}
-                  style={{
-                    width: "25px",
-                    height: "25px",
-                    fontSize: ".5rem",
-                    padding: "1rem",
-                    position: "relative",
-                  }}
-                  color={
-                    props.action.tooltip === "view"
-                      ? "primary"
-                      : props.action.tooltip === "edit"
-                      ? "default"
-                      : "secondary"
-                  }
-                >
-                  {props.action.tooltip === "view" ? (
-                    <RemoveRedEye />
-                  ) : props.action.tooltip === "edit" ? (
-                    <Edit />
-                  ) : props.action.tooltip === "remove" ? (
-                    <CloseSharp />
-                  ) : (
-                    <>
-                      {props?.data?.status === QuizStatus.Is_Enabled
-                        ? "Turn Off"
-                        : "Turn On"}
-                    </>
-                  )}
-                </IconButton>
+                <Tooltip title={props.action.tooltip}>
+                  <IconButton
+                    disabled={
+                      (props?.data?.status === QuizStatus.Is_Enabled &&
+                        props.action.tooltip === "remove") ||
+                      (props?.data?.status === QuizStatus.Is_Enabled &&
+                        props.action.tooltip === "edit")
+                    }
+                    onClick={(event) => props.action.onClick(event, props.data)}
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      fontSize: ".5rem",
+                      padding: "1rem",
+                      position: "relative",
+                    }}
+                    color={
+                      props.action.tooltip === "view-report"
+                        ? "primary"
+                        : props.action.tooltip === "edit"
+                        ? "default"
+                        : "secondary"
+                    }
+                  >
+                    {props.action.tooltip === "view-report" ? (
+                      <RemoveRedEye />
+                    ) : props.action.tooltip === "edit" ? (
+                      <Edit />
+                    ) : props.action.tooltip === "remove" ? (
+                      <CloseSharp />
+                    ) : (
+                      <>
+                        {props?.data?.status === QuizStatus.Is_Enabled
+                          ? "Turn Off"
+                          : "Turn On"}
+                      </>
+                    )}
+                  </IconButton>
+                </Tooltip>
               </Box>
             );
           },
@@ -316,6 +349,20 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             }
           }}
           type={"enable" as QuizStatus}
+        />
+      )}
+
+      {itemToRemove && (
+        <DeleteQuizModal
+          QuizId={itemToRemove?.QuizId}
+          QuizTitle={itemToRemove?.QuizTitle}
+          onClose={(res) => {
+            setItemToRemove(null);
+            if (res) {
+              onUpdate(res);
+            }
+          }}
+          open={true}
         />
       )}
     </>

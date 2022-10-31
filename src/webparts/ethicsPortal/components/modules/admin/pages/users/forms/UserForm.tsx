@@ -1,10 +1,10 @@
 import { Box } from "@material-ui/core";
 import * as React from "react";
-import { PeoplePicker } from "../components/PeoplePicker";
+import { PeoplePicker, StaffData } from "../components/PeoplePicker";
 
 type Props = {
-  user: User;
-  onUpdate: React.Dispatch<User>;
+  user: StaffData;
+  onUpdate: React.Dispatch<StaffData>;
 };
 
 export const UserForm: React.FC<Props> = ({ user, onUpdate }) => {
@@ -21,18 +21,8 @@ export const UserForm: React.FC<Props> = ({ user, onUpdate }) => {
       <Box my={2} width="100%">
         <PeoplePicker
           label="Admin Name"
-          value={user}
+          staff={user}
           onUpdate={(staff) => onUpdate(staff)}
-          filterItem="StaffName"
-        />
-      </Box>
-
-      <Box my={2} width="100%">
-        <PeoplePicker
-          label="Admin Email address"
-          value={user}
-          onUpdate={(staff) => onUpdate(staff)}
-          filterItem="StaffEmail"
         />
       </Box>
     </Box>

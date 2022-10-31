@@ -11,13 +11,14 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
 import { updateAdmin } from "../apis/updateAdmin";
+import { StaffData } from "../components/PeoplePicker";
 import { User, UserForm } from "../forms/UserForm";
 import { Data } from "../ManageAdminPage";
 
 type Props = {
   open: boolean;
-  onClose: (item?: User) => void;
-  user: User;
+  onClose: (item?: StaffData) => void;
+  user: StaffData;
   id: string;
 };
 
@@ -29,13 +30,13 @@ export const UpdateAdminModal: React.FC<Props> = ({
 }) => {
   const queryClient = useQueryClient();
   const toast = useToasts().addToast;
-  const [admin, setAdmin] = React.useState<User>({
-    StaffEmail: user.StaffEmail ?? "",
-    StaffName: user?.StaffName ?? "",
+  const [admin, setAdmin] = React.useState<StaffData>({
+    Email: user.Email ?? "",
+    DisplayName: user?.DisplayName ?? "",
   });
   const mutation = useMutation(
-    (data: Data) => {
-      return updateAdmin(data.adminId, data.data);
+    () => {
+      return updateAdmin(id, admin);
     },
     {
       onSuccess: (data) => {
@@ -62,13 +63,7 @@ export const UpdateAdminModal: React.FC<Props> = ({
         </Button>
         <Button
           onClick={() => {
-            mutation.mutate({
-              adminId: id,
-              data: {
-                StaffEmail: admin?.StaffEmail,
-                StaffName: admin?.StaffName,
-              },
-            });
+            mutation.mutate();
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
