@@ -98,7 +98,7 @@ export const QuizReportPage = () => {
     return obj;
   };
 
-  React.useEffect(() => {
+  React.useMemo(() => {
     questionsArr?.length > 0 && setField(answersToQuestionsArr());
   }, [questionsArr]);
 
@@ -107,6 +107,7 @@ export const QuizReportPage = () => {
     { title: "Staff Email Address", field: "StaffEmail" },
     { title: "Quiz Title", field: "Quiz[QuizTitle]" },
     ...field,
+    { title: "Quiz Status", field: "Quiz[status]" },
   ];
 
   return (

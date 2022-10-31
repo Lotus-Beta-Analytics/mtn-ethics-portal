@@ -285,8 +285,10 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
                 <Tooltip title={props.action.tooltip}>
                   <IconButton
                     disabled={
-                      props?.data?.status === QuizStatus.Is_Enabled &&
-                      props.action.tooltip === "remove"
+                      (props?.data?.status === QuizStatus.Is_Enabled &&
+                        props.action.tooltip === "remove") ||
+                      (props?.data?.status === QuizStatus.Is_Enabled &&
+                        props.action.tooltip === "edit")
                     }
                     onClick={(event) => props.action.onClick(event, props.data)}
                     style={{
