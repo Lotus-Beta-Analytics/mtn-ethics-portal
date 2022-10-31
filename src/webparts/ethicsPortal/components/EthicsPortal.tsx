@@ -37,6 +37,11 @@ import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/conte
 import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
 import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
 import { ContactUs } from "./modules/employee/pages/ethics-contact-us/contact-us/ContactUs";
+import { CreateAdminPage } from "./modules/admin/pages/users/CreateAdminPage";
+import { UpdateAdminPage } from "./modules/admin/pages/users/UpdateAdminPage";
+import { ManageAdminPage } from "./modules/admin/pages/users/ManageAdminPage";
+import { UpdateBlogPostPage } from "./modules/admin/pages/posts/UpdateBlogPostPage";
+import { ManageBlogPostsPage } from "./modules/admin/pages/posts/ManageBlogPostsPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -61,8 +66,24 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                   <Route
                     exact
+                    path="/admin/user/create"
+                    render={() => <CreateAdminPage />}
+                  />
+
+                  <Route
+                    exact
                     path="/admin/create-post"
                     render={() => <CreateBlogPost context={context} />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/post/:postId/update"
+                    render={() => <UpdateBlogPostPage context={context} />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/manage-posts"
+                    render={() => <ManageBlogPostsPage />}
                   />
                   <Route
                     exact

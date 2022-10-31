@@ -43,6 +43,7 @@ export const Post = () => {
     data: post,
     isLoading,
     isSuccess,
+    isError,
   } = useQuery<any>(["singlePost", id], async () => {
     try {
       const res = await sp.web.lists
@@ -56,6 +57,8 @@ export const Post = () => {
   });
 
   const toast = useToasts().addToast;
+
+  if (isError) return <>An error Occured</>;
 
   const [commenting, setCommenting] = React.useState<boolean>(false);
 

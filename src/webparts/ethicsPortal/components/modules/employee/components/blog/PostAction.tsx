@@ -36,6 +36,7 @@ export const PostAction: React.FC<Props> = ({
       postId && setLikePostset(new Set([postId]));
       await sp.web.lists.getByTitle("Likes").items.add({
         PostId: String(postId),
+        ["POSTID0Id"]: postId,
       });
       setLikePostset(new Set());
       setPage(-1);

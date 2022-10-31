@@ -1,7 +1,9 @@
+import { Settings } from "@material-ui/icons";
 import {
   FaAd,
   FaAngrycreative,
   FaChevronDown,
+  FaDochub,
   FaImages,
   FaUserAstronaut,
   FaVideo,
@@ -30,7 +32,7 @@ export const adminNavItems = [
       },
       {
         title: "Images",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
     ],
@@ -53,12 +55,12 @@ export const adminNavItems = [
       },
       {
         title: "Conduct Passport",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
       {
         title: "Whistle Blowing",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
       {
@@ -73,31 +75,31 @@ export const adminNavItems = [
       },
       {
         title: "Manage",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
     ],
   },
   {
     title: "Ethics Quiz",
-    icon: FaAngrycreative,
-    link: "/admin/quiz",
+    icon: Settings,
+    link: "/admin/manage-quiz",
 
     subNav: [
       {
         title: "Create Quiz",
         icon: FaVideo,
-        link: "/admin/gallery/videos",
+        link: "/admin/create-quiz",
       },
       {
         title: "Reports",
         icon: FaImages,
-        link: "/admin/gallery/images",
+        link: "/admin/manage-quiz",
       },
 
       {
         title: "Manage",
-        icon: FaUserAstronaut,
+        icon: Settings,
         link: "/admin/gallery/manage",
       },
     ],
@@ -158,22 +160,24 @@ export const adminNavItems = [
   {
     title: "Configure Users",
     icon: FaAngrycreative,
-    link: "/admin/training",
+    link: "/admin/user/create",
+    subNav: [
+      {
+        title: "Create Admin",
+        icon: FaAngrycreative,
+        link: "/admin/user/create",
+      },
+    ],
   },
   {
     title: "Ethics Articles",
-    icon: FaAngrycreative,
-    link: "/admin/training",
+    icon: FaDochub,
+    link: "/admin/create-post",
     subNav: [
       {
-        title: "Create Article",
-        icon: FaAngrycreative,
-        link: "/admin/training",
-      },
-      {
         title: "Manage Articles",
-        icon: FaAngrycreative,
-        link: "/admin/training",
+        icon: Settings,
+        link: "/admin/manage-posts",
       },
     ],
   },

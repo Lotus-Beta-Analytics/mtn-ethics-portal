@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import * as React from "react";
+import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import {
   CreateAdminQuizContextData,
   CreateAdminQuizContextProvider,
@@ -44,7 +45,7 @@ export const CreateQuizPage = () => {
     quiz,
   } = CreateAdminQuizContextData();
   return (
-    <Box>
+    <AdminWrapper>
       <div className={classes.root}>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
@@ -95,6 +96,6 @@ export const CreateQuizPage = () => {
           )}
         </div>
       </div>
-    </Box>
+    </AdminWrapper>
   );
 };

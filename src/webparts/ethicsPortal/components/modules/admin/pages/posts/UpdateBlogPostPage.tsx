@@ -10,6 +10,7 @@ import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
@@ -17,47 +18,77 @@ import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
 import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 import { CreateSection } from "../../components/blog-set-up/sections/CreateSection";
+import { editPost } from "./apis/editPost";
+import { getPost } from "./apis/getAllPosts";
 
-type Props = {
-  context: WebPartContext;
-};
+export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
+  context,
+}) => {
+  const { postId } = useParams();
 
-export const CreateBlogPost: React.FC<Props> = ({ context }) => {
+  const queryClient = useQueryClient();
+  const toast = useToasts().addToast;
+
   const [file, setFile] = React.useState("");
   const [section, setSection] = React.useState("");
+
   const [content, setContent] = React.useState<any>();
   const [postTitle, setPostTitle] = React.useState("");
-  const queryClient = useQueryClient();
 
-  const toast = useToasts().addToast;
-  const submitHandler = async () => {
-    try {
-      const res = await sp.web.lists.getByTitle("Post").items.add({
+  const { data, isLoading, isError } = useQuery<any>(
+    ["getPost", postId],
+    async () => {
+      try {
+        const res = await sp.web.lists
+          .getByTitle("Post")
+          .items.getById(postId)
+          .get();
+        setPostTitle(res?.PostTitle);
+        setFile(res?.FileURL);
+        setSection(res?.PostSection as BlogSectionEnums);
+
+        const con = JSON.parse(res?.content);
+        console.log(con);
+
+        setContent(con?.data);
+
+        return res;
+      } catch (err) {
+        return err;
+      }
+    },
+    {
+      enabled: !!postId,
+    }
+  );
+
+  const history = useHistory();
+
+  const mutation = useMutation(
+    () =>
+      editPost(postId, {
         PostTitle: postTitle,
         content: JSON.stringify(content),
         PostSection: section,
         FileUrl: file,
-      });
-
-      return res;
-    } catch (e) {
-      return e;
+      }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["getAllPosts"]);
+        successAlert(toast, "Post Updated Successfully");
+        setTimeout(() => {
+          history.goBack();
+        });
+      },
+      onError: () => {
+        errorAlert(toast);
+      },
     }
-  };
+  );
 
-  const mutation = useMutation(submitHandler, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["getPosts"]);
-      successAlert(toast, "Post Added");
-      setFile(null);
-      setPostTitle("");
-      setSection("");
-      setContent(null);
-    },
-    onError: () => {
-      errorAlert(toast);
-    },
-  });
+  if (isError) return <>An error occured</>;
+
+  if (isLoading) return <>Loading...</>;
 
   return (
     <AdminWrapper>
@@ -73,7 +104,9 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           padding: "1.5rem 1rem",
         }}
       >
-        <Typography>Create Blog Post</Typography>
+        <Typography>
+          Update Blog Post | <strong>{data?.PostTitle}</strong>
+        </Typography>
         <TextField
           variant="outlined"
           value={postTitle}
@@ -84,6 +117,15 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           style={{ margin: "1rem 0" }}
         />
         <Box>
+          {file && (
+            <img
+              src={file}
+              width="250px"
+              height="250px"
+              style={{ objectFit: "cover" }}
+            />
+          )}
+
           <Typography>Upload Image</Typography>
           <FileUpload
             fileControl={file}
@@ -99,7 +141,10 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           />
         </Box>
         <Box my={2} style={{ overflowY: "auto" }}>
-          <PostEditor onUpdate={(content) => setContent(content)} />
+          <PostEditor
+            initialContent={content}
+            onUpdate={(content) => setContent(content)}
+          />
         </Box>
 
         <Box
@@ -123,7 +168,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
             }
             disabled={mutation.isLoading}
           >
-            Create
+            Update
           </Button>
         </Box>
       </form>
