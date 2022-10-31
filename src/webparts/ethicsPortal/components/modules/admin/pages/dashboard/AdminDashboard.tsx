@@ -4,6 +4,7 @@ import {
   FaBook,
   FaDochub,
   FaImages,
+  FaPeopleArrows,
   FaPeopleCarry,
   FaQuestion,
   FaTextWidth,
@@ -26,8 +27,12 @@ export const AdminDashboard = () => {
         {dashboardItems.map((item) => {
           return (
             <DashboardCard onClick={() => history.push(`${item?.link}`)}>
-              <Typography>{item?.title}</Typography>
-              <item.icon />
+              <item.icon
+                style={{
+                  fontSize: "1.5rem",
+                }}
+              />
+              <Typography variant="body1">{item?.title}</Typography>
             </DashboardCard>
           );
         })}
@@ -77,10 +82,16 @@ const dashboardItems = [
     link: "create-post",
     icon: FaBook,
   },
+  {
+    title: "Configure Users",
+    link: "user/create",
+    icon: FaPeopleArrows,
+  },
 ];
 
 const DashboardCard = styled(Box)<BoxProps>({
   width: "auto",
+  gap: 1.5,
   height: "150px",
   display: "flex",
   alignItems: "center",
@@ -91,5 +102,6 @@ const DashboardCard = styled(Box)<BoxProps>({
   cursor: "pointer",
   "&:hover": {
     background: colors.yellow[600],
+    fontWeight: "bold",
   },
 });
