@@ -1,4 +1,4 @@
-import { Box, Tooltip } from "@material-ui/core";
+import { Box, Tooltip, IconButton } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -15,7 +15,6 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import MaterialTable, { MTableToolbar } from "material-table";
-import { IconButton } from "office-ui-fabric-react";
 import * as React from "react";
 import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
 import {
