@@ -168,14 +168,7 @@ export const adminNavItems = [
   {
     title: "Scrolling Text",
     icon: FaTextWidth,
-    link: "/admin/scrolling-text/create",
-    subNav: [
-      {
-        title: "Manage",
-        icon: Settings,
-        link: "/admin/scrolling-text/manage",
-      },
-    ],
+    link: "/admin/scrolling-text",
   },
   {
     title: "Ethics Articles",

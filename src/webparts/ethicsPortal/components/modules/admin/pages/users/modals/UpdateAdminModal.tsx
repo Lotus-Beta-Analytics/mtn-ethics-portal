@@ -12,8 +12,7 @@ import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
 import { updateAdmin } from "../apis/updateAdmin";
 import { StaffData } from "../components/PeoplePicker";
-import { User, UserForm } from "../forms/UserForm";
-import { Data } from "../ManageAdminPage";
+import { UserForm } from "../forms/UserForm";
 
 type Props = {
   open: boolean;
