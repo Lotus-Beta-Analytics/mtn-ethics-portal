@@ -17,7 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../../utils/toast-messages";
 import { QuizResponseType } from "./types/quiz-types";
-import { QuizStatus } from "../../../admin/pages/quiz/modals/EnableQuizPromptModal";
+// import { QuizStatus } from "../../../admin/pages/quiz/modals/EnableQuizPromptModal";
 
 export const QuizReviewPage = () => {
   const { page, showSubmit, total, questions, getting, doneHandler } =

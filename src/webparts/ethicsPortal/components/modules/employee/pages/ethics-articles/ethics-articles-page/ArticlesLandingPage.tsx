@@ -53,6 +53,7 @@ export const ArticlesLandingPage = () => {
                   fontSize: "20px",
                   padding: ".5rem",
                   width: "55%",
+                  color: "white",
                 }}
               >
                 {item.title}

@@ -5,7 +5,7 @@ import { theme } from "../themes/themes";
 
 export const AppContainer = styled(Box)({
   width: "85vw",
-  height: "100vh",
+  minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
@@ -70,35 +70,33 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
   },
 }));
 
-export const ImageContainerEthics = styled.div<{ bg: string; cl: string }>(
-  (props) => ({
-    backgroundImage: `url(${props.bg})`,
-    width: "280px",
-    height: "100%",
-    backgroundSize: "contain",
-    // backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
+export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
+  backgroundImage: `url(${props.bg})`,
+  width: "280px",
+  height: "100%",
+  backgroundSize: "contain",
+  // backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  display: "flex",
+  flexDirection: "column",
+  color: theme.palette.common.black,
+  boxSizing: "border-box",
+  position: "relative",
+  // justifyContent: "space-between",
+  "&:hover": {
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
+    backgroundSize: "cover",
+    borderRadius: "10px",
+    // transform: "scale(1.1)",
+    // transform: "translateY(0px)",
+  },
+  "&:hover > *": {
     display: "flex",
-    flexDirection: "column",
-    color: "whitesmoke",
-    boxSizing: "border-box",
-    position: "relative",
-    // justifyContent: "space-between",
-    "&:hover": {
-      backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url(${props.bg})`,
-      backgroundSize: "cover",
-      borderRadius: "10px",
-      // transform: "scale(1.1)",
-      // transform: "translateY(0px)",
-    },
-    "&:hover > *": {
-      display: "flex",
 
-      // transition: "all .8s",
-      // borderRadius: "10px",
-    },
-  })
-);
+    // transition: "all .8s",
+    // borderRadius: "10px",
+  },
+}));
 
 export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
