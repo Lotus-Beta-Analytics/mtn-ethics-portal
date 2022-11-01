@@ -47,11 +47,7 @@ const dashboardItems = [
     link: "gallery",
     icon: FaImages,
   },
-  {
-    title: "Ethics Policies",
-    link: "policies",
-    icon: FaBook,
-  },
+
   {
     title: "Ethics Quiz",
     link: "manage-quiz",

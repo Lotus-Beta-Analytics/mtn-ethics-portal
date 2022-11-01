@@ -5,6 +5,7 @@ import {
   FaChevronDown,
   FaDochub,
   FaImages,
+  FaTextWidth,
   FaUserAstronaut,
   FaVideo,
 } from "react-icons/fa";
@@ -71,7 +72,7 @@ export const adminNavItems = [
       {
         title: "Manage",
         icon: Settings,
-        link: "/admin/gallery/manage",
+        link: "/admin/scrolling=text/manage",
       },
     ],
   },
@@ -161,6 +162,18 @@ export const adminNavItems = [
         title: "Create Admin",
         icon: FaAngrycreative,
         link: "/admin/user/create",
+      },
+    ],
+  },
+  {
+    title: "Scrolling Text",
+    icon: FaTextWidth,
+    link: "/admin/scrolling-text/create",
+    subNav: [
+      {
+        title: "Manage",
+        icon: Settings,
+        link: "/admin/scrolling-text/manage",
       },
     ],
   },

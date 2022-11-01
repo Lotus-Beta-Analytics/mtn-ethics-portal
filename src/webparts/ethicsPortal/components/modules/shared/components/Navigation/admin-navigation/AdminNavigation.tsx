@@ -1,13 +1,6 @@
 import { Box } from "@material-ui/core";
 import * as React from "react";
-import {
-  FaAd,
-  FaAngrycreative,
-  FaChevronDown,
-  FaImages,
-  FaUserAstronaut,
-  FaVideo,
-} from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { adminNavItems } from "./menu";
 import "./styles.css";
 import { useHistory } from "react-router-dom";
@@ -16,7 +9,7 @@ type Props = {};
 
 export const AdminNavigation = (props: Props) => {
   const [activeMainMenu, setActiveMainMenu] = React.useState(-1);
-  const [activeSubMenu, setActiveSubMenu] = React.useState(-1);
+  const [activeSubMenu, setActiveSubMenu] = React.useState(0);
   const history = useHistory();
   return (
     <ul
