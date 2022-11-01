@@ -45,6 +45,8 @@ import { QuizReportPage } from "./modules/admin/pages/quiz/QuizReportPage";
 import { AdminDashboard } from "./modules/admin/pages/dashboard/AdminDashboard";
 import { ImageUploadPage } from "./modules/admin/pages/gallery/ImageUploadPage";
 import { Gallery } from "./modules/admin/pages/gallery/Gallery";
+import { VideoUploadPage } from "./modules/admin/pages/gallery/VideoUploadPage";
+import { UpdateGalleryPage } from "./modules/admin/pages/gallery/UpdateGalleryPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -115,8 +117,18 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
                   <Route
                     exact
+                    path="/admin/gallery/:uploadId/update"
+                    render={() => <UpdateGalleryPage context={context} />}
+                  />
+                  <Route
+                    exact
                     path="/admin/gallery/images"
                     render={() => <ImageUploadPage context={context} />}
+                  />
+                  <Route
+                    exact
+                    path="/admin/gallery/videos"
+                    render={() => <VideoUploadPage context={context} />}
                   />
 
                   <Route

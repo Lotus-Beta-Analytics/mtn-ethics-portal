@@ -1,8 +1,15 @@
-import { Box, Typography, Button, TextField } from "@material-ui/core";
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  CircularProgress,
+} from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 
 import * as React from "react";
+import { Accept } from "react-dropzone";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 
 export interface GalleryData {
@@ -16,7 +23,10 @@ type Props = {
   onUpdate: React.Dispatch<GalleryData>;
   context: WebPartContext;
   buttonLabel: string;
-  onSubmit: () => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  isLoading: boolean;
+  uploadLabel?: string;
+  accept?: Accept;
 };
 
 export const GalleryForm: React.FC<Props> = ({
@@ -25,17 +35,28 @@ export const GalleryForm: React.FC<Props> = ({
   context,
   buttonLabel,
   onSubmit,
+  isLoading,
+  uploadLabel = "Select Image To Upload",
+  accept,
 }) => {
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault;
-        onSubmit();
+        onSubmit(e);
+      }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "1.5rem",
+        marginTop: "1rem",
       }}
     >
       <TextField
         label="Enter a Title for this Upload"
-        value={galleryData?.imageLabel}
+        value={galleryData?.imageLabel ?? ""}
+        fullWidth
+        required
+        variant="outlined"
         onChange={(e) =>
           onUpdate({
             ...galleryData,
@@ -48,13 +69,14 @@ export const GalleryForm: React.FC<Props> = ({
         freeSolo={false}
         options={locations?.map((option) => option)}
         fullWidth
-        value={galleryData?.location}
+        value={galleryData?.location ?? ""}
         renderInput={(params) => (
           <TextField
             {...params}
             label="Choose Location"
             margin="normal"
             variant="outlined"
+            required
           />
         )}
         onChange={(e, newvalue) =>
@@ -65,7 +87,7 @@ export const GalleryForm: React.FC<Props> = ({
         }
       />
       <Box>
-        <Typography>Select Image</Typography>
+        <Typography>{uploadLabel}</Typography>
         <FileUpload
           context={context}
           fileControl={galleryData?.file}
@@ -75,6 +97,7 @@ export const GalleryForm: React.FC<Props> = ({
               file: newFile,
             })
           }
+          accept={accept}
         />
       </Box>
       <Box
@@ -83,8 +106,16 @@ export const GalleryForm: React.FC<Props> = ({
           alignItems: "center",
           justifyContent: "flex-end",
         }}
+        mt={3}
       >
-        <Button color="primary" variant="contained" type="submit">
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          endIcon={
+            isLoading ? <CircularProgress size={20} color="secondary" /> : <></>
+          }
+        >
           {buttonLabel}
         </Button>
       </Box>
@@ -92,4 +123,4 @@ export const GalleryForm: React.FC<Props> = ({
   );
 };
 
-const locations = [];
+const locations = ["Lagos/South West", "North", "East"];

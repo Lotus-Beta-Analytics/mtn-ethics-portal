@@ -26,7 +26,6 @@ type Props = {
 };
 
 export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
-  console.log(questions, "here...");
 
   const columns = [
     {

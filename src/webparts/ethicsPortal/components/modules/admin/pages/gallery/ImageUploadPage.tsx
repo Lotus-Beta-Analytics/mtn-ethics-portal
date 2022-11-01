@@ -29,6 +29,7 @@ export const ImageUploadPage: React.FC<Props> = ({ context }) => {
       onSuccess: () => {
         queryClient.invalidateQueries(["gallery"]);
         successAlert(toast, "upload Successful");
+        setGalleryData(null);
       },
 
       onError: () => {
@@ -44,9 +45,11 @@ export const ImageUploadPage: React.FC<Props> = ({ context }) => {
           buttonLabel="Add Image"
           context={context}
           galleryData={galleryData}
-          onSubmit={() => {
+          onSubmit={(e) => {
+            e.preventDefault;
             mutation.mutate();
           }}
+          isLoading={mutation.isLoading}
         />
       </Box>
     </AdminWrapper>
