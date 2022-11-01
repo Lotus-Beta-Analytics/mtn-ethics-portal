@@ -30,11 +30,6 @@ export const adminNavItems = [
         icon: FaImages,
         link: "/admin/gallery/images",
       },
-      {
-        title: "Images",
-        icon: Settings,
-        link: "/admin/gallery/manage",
-      },
     ],
   },
   {
