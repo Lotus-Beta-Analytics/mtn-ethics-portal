@@ -49,6 +49,7 @@ import { Gallery } from "./modules/admin/pages/gallery/Gallery";
 import { VideoUploadPage } from "./modules/admin/pages/gallery/VideoUploadPage";
 import { UpdateGalleryPage } from "./modules/admin/pages/gallery/UpdateGalleryPage";
 import { ScrollingTextSetUpPage } from "./modules/admin/pages/scrolling-text/ScrollingTextSetUpPage";
+import { VideoTrainingPage } from "./modules/admin/pages/training/VideoTrainingPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -137,6 +138,11 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     exact
                     path="/admin/scrolling-text"
                     component={ScrollingTextSetUpPage}
+                  />
+                  <Route
+                    exact
+                    path="/admin/training"
+                    render={() => <VideoTrainingPage context={context} />}
                   />
                   <Route
                     exact

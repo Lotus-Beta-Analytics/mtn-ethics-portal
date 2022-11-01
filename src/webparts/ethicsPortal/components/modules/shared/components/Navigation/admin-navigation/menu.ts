@@ -128,25 +128,6 @@ export const adminNavItems = [
     title: "Training",
     icon: FaAngrycreative,
     link: "/admin/training",
-
-    subNav: [
-      {
-        title: "Ethics Champion",
-        icon: FaVideo,
-        link: "/admin/gallery/videos",
-      },
-      {
-        title: "Ethics Champion Activities",
-        icon: FaImages,
-        link: "/admin/gallery/images",
-      },
-
-      {
-        title: "Manage",
-        icon: FaUserAstronaut,
-        link: "/admin/gallery/manage",
-      },
-    ],
   },
   {
     title: "Policy Breaches",
