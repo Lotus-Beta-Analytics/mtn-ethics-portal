@@ -4,6 +4,7 @@ import { sp } from "@pnp/sp";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
+import { useHistory } from "react-router-dom";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { GalleryData, GalleryForm } from "./forms/GalleryForm";
@@ -16,6 +17,7 @@ export const ImageUploadPage: React.FC<Props> = ({ context }) => {
   const [galleryData, setGalleryData] = React.useState<GalleryData>();
   const queryClient = useQueryClient();
   const toast = useToasts().addToast;
+  const history = useHistory();
   const mutation = useMutation(
     async () => {
       try {
@@ -30,6 +32,9 @@ export const ImageUploadPage: React.FC<Props> = ({ context }) => {
         queryClient.invalidateQueries(["gallery"]);
         successAlert(toast, "upload Successful");
         setGalleryData(null);
+        setTimeout(() => {
+          history.push("/admin/gallery");
+        }, 1000);
       },
 
       onError: () => {

@@ -67,14 +67,19 @@ export const FileUpload: React.FC<Props> = ({
             height: "200px",
           }}
         >
-          <img
-            src={fileControl}
-            width="200px"
-            height="150px"
-            style={{
-              objectFit: "contain",
-            }}
-          />
+          {/([A-Z])\.mp4/i.test(fileControl) ? (
+            <iframe src={fileControl} width="200px" height="150px"></iframe>
+          ) : (
+            <img
+              src={fileControl}
+              width="200px"
+              height="150px"
+              style={{
+                objectFit: "cover",
+              }}
+            />
+          )}
+
           <IconButton onClick={() => onUpdate(null)}>
             <ClearRoundedIcon />
           </IconButton>

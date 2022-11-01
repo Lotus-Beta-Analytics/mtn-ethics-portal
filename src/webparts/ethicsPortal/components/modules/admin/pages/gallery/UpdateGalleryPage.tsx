@@ -70,7 +70,7 @@ export const UpdateGalleryPage: React.FC<{ context: WebPartContext }> = ({
         setGalleryData(null);
         setTimeout(() => {
           history.goBack();
-        });
+        }, 1000);
       },
 
       onError: () => {
