@@ -39,7 +39,11 @@ export const ScrollingTextsTable: React.FC<Props> = ({
       render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
     },
     { title: "Texts", field: "scrollingText" },
-    { title: "Is Enabled", field: "isEnabled" },
+    {
+      title: "Status",
+      field: "isEnabled",
+      render: (rowData) => <>{rowData?.isEnabled ? "Running" : "Stopped"}</>,
+    },
   ];
 
   const [canEnable, setCanEnable] = React.useState(false);
