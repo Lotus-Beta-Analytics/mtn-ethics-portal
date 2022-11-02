@@ -42,7 +42,6 @@ export const ManageQuizPage = (props: Props) => {
       .getByTitle("QuizQuestions")
       .items.get()
       .then((items) => {
-        console.log(quizReport);
         const mut = items.map((item) => {
           return {
             ...item,

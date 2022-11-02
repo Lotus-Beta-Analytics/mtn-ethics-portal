@@ -1,14 +1,22 @@
-import { Box, colors, Typography, useMediaQuery } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  colors,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
 import { ToggleButton } from "@material-ui/lab";
 import * as React from "react";
 import { AdminNavigation } from "../../Navigation/admin-navigation/AdminNavigation";
+import { useHistory } from "react-router-dom";
 
 type Props = {};
 
 export const AdminWrapper = ({ children }) => {
   const md = useMediaQuery("(min-width:1240px)");
   const [openNavArea, setOpenNavArea] = React.useState(true);
+  const history = useHistory();
 
   return (
     <div
@@ -61,8 +69,25 @@ export const AdminWrapper = ({ children }) => {
           gridTemplateColumns: "auto",
           boxSizing: "border-box",
           padding: openNavArea ? "0 5% 0 20%" : "0 5%",
+          gap: "1rem",
         }}
       >
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: ".5rem",
+          }}
+        >
+          <Button
+            variant="text"
+            color="secondary"
+            onClick={() => history.push("/")}
+          >
+            Ethics Portal
+          </Button>
+        </div>
         <div>{children}</div>
       </div>
     </div>

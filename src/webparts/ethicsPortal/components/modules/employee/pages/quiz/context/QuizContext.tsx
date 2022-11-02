@@ -231,7 +231,7 @@ export const QuizContextProvider = ({ children }) => {
           [`${curr.isCorrect}`]: [...currCount, curr],
         };
       }, {});
-      setResult({
+      let userResult = {
         correct: groupedResponses["true"] ? groupedResponses["true"].length : 0,
         wrong: groupedResponses["false"] ? groupedResponses["false"].length : 0,
         skipped:
@@ -251,11 +251,19 @@ export const QuizContextProvider = ({ children }) => {
                   0 - groupedResponses["true"]?.length ??
                   0
               ),
-      });
+      };
+      setResult(userResult);
       const correctScore = groupedResponses["true"]
         ?.map(({ point }) => point)
         .reduce((prev, curr) => prev + curr, 0);
       setScore(correctScore);
+
+      await sp.web.lists
+        .getByTitle("QuizResponse")
+        .items.getById(res.data.Id)
+        .update({
+          score: JSON.stringify(userResult),
+        });
       history.push("/employee/quiz-result");
       setPage(0);
     } catch (error) {

@@ -95,85 +95,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
               <QuizContextProvider>
                 <Switch>
                   <Route exact path="/" component={LandingPage} />
-
-                  {isAdmin ? (
-                    <>
-                      <Route
-                        exact
-                        path="/admin/dashboard"
-                        render={() => <AdminDashboard />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/user/create"
-                        render={() => <CreateAdminPage />}
-                      />
-
-                      <Route
-                        exact
-                        path="/admin/create-post"
-                        render={() => <CreateBlogPost context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/post/:postId/update"
-                        render={() => <UpdateBlogPostPage context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/manage-posts"
-                        render={() => <ManageBlogPostsPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/create-quiz"
-                        render={() => <CreateQuizPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/manage-quiz"
-                        render={() => <ManageQuizPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/quiz/:quizId/report"
-                        render={() => <QuizReportPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/gallery/"
-                        render={() => <Gallery />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/gallery/:uploadId/update"
-                        render={() => <UpdateGalleryPage context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/gallery/images"
-                        render={() => <ImageUploadPage context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/gallery/videos"
-                        render={() => <VideoUploadPage context={context} />}
-                      />
-
-                      <Route
-                        exact
-                        path="/admin/scrolling-text"
-                        component={ScrollingTextSetUpPage}
-                      />
-                      <Route
-                        exact
-                        path="/admin/training"
-                        render={() => <VideoTrainingPage context={context} />}
-                      />
-                    </>
-                  ) : (
-                    <>You are not authorized to access this page.</>
-                  )}
                   <Route
                     exact
                     path="/employee/photo-categories"
@@ -303,6 +224,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     path="/employee/quiz-result"
                     component={QuizResultPage}
                   />
+<<<<<<< HEAD
                   {/* gift and entertainment */}
                   <Route
                     exact
@@ -328,6 +250,88 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
                   {/* End of gift and entertainment */}
                   <Route path="*" component={NotFound} />
+=======
+
+                  {isAdmin && (
+                    <Route>
+                      <Route
+                        exact
+                        path="/admin/dashboard"
+                        render={() => <AdminDashboard />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/user/create"
+                        render={() => <CreateAdminPage />}
+                      />
+
+                      <Route
+                        exact
+                        path="/admin/create-post"
+                        render={() => <CreateBlogPost context={context} />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/post/:postId/update"
+                        render={() => <UpdateBlogPostPage context={context} />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/manage-posts"
+                        render={() => <ManageBlogPostsPage />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/create-quiz"
+                        render={() => <CreateQuizPage />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/manage-quiz"
+                        render={() => <ManageQuizPage />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/quiz/:quizId/report"
+                        render={() => <QuizReportPage />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/gallery/"
+                        render={() => <Gallery />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/gallery/:uploadId/update"
+                        render={() => <UpdateGalleryPage context={context} />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/gallery/images"
+                        render={() => <ImageUploadPage context={context} />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/gallery/videos"
+                        render={() => <VideoUploadPage context={context} />}
+                      />
+
+                      <Route
+                        exact
+                        path="/admin/scrolling-text"
+                        component={ScrollingTextSetUpPage}
+                      />
+                      <Route
+                        exact
+                        path="/admin/training"
+                        render={() => <VideoTrainingPage context={context} />}
+                      />
+                      <Route path="*" component={NotFound} />
+                    </Route>
+                  )}
+
+                  {!isAdmin && <Route path="*" component={NotFound} />}
+>>>>>>> ba3a7763a38c72021af9757923ee04b9d194e390
                 </Switch>
               </QuizContextProvider>
             </CreateAdminQuizContextProvider>
