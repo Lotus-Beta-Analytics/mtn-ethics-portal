@@ -83,6 +83,11 @@ const dashboardItems = [
     link: "user/create",
     icon: FaPeopleArrows,
   },
+  {
+    title: "Policies",
+    link: "policies",
+    icon: FaPeopleArrows,
+  },
 ];
 
 const DashboardCard = styled(Box)<BoxProps>({
