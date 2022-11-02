@@ -1,10 +1,11 @@
 import { Typography } from "@material-ui/core";
+import { sp } from "@pnp/sp";
 import * as React from "react";
 import Marquee from "react-fast-marquee";
 import { theme } from "../../../../themes/themes";
 
 type Props = {
-  text: string;
+  text?: string;
 };
 
 enum options {
@@ -12,7 +13,26 @@ enum options {
   default = "10%",
 }
 
-export const MMarquee: React.FC<Props> = ({ text }) => {
+export const MMarquee: React.FC<Props> = () => {
+  const [activeText, setActiveText] = React.useState("");
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const active = await sp.web.lists
+          .getByTitle("ScrollingText")
+          .items.filter(`isEnabled eq '${1}'`)
+          .get();
+
+        if (active.length) {
+          setActiveText(active[0].scrollingText);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
+
   return (
     <Marquee
       gradient={false}
@@ -37,7 +57,7 @@ export const MMarquee: React.FC<Props> = ({ text }) => {
           // zIndex: "99",
         }}
       >
-        {text}
+        {activeText}
       </Typography>
     </Marquee>
   );
