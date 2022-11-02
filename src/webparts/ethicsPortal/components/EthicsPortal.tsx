@@ -224,7 +224,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     path="/employee/quiz-result"
                     component={QuizResultPage}
                   />
-<<<<<<< HEAD
                   {/* gift and entertainment */}
                   <Route
                     exact
@@ -249,8 +248,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     component={GiftEntertainmentTrainingLanding}
                   />
                   {/* End of gift and entertainment */}
-                  <Route path="*" component={NotFound} />
-=======
 
                   {isAdmin && (
                     <Route>
@@ -331,7 +328,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   )}
 
                   {!isAdmin && <Route path="*" component={NotFound} />}
->>>>>>> ba3a7763a38c72021af9757923ee04b9d194e390
                 </Switch>
               </QuizContextProvider>
             </CreateAdminQuizContextProvider>
