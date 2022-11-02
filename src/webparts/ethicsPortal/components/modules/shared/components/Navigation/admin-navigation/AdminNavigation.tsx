@@ -9,7 +9,7 @@ type Props = {};
 
 export const AdminNavigation = (props: Props) => {
   const [activeMainMenu, setActiveMainMenu] = React.useState(-1);
-  const [activeSubMenu, setActiveSubMenu] = React.useState(0);
+  const [activeSubMenu, setActiveSubMenu] = React.useState(-1);
   const history = useHistory();
   return (
     <ul
@@ -77,6 +77,7 @@ export const AdminNavigation = (props: Props) => {
                           gap: ".5rem",
                           cursor: "pointer",
                         }}
+                        className={activeSubMenu === i ? "sub__active" : ""}
                       >
                         <Box>
                           <sub.icon />

@@ -19,7 +19,7 @@ export const CreateSection: React.FC<Props> = ({ onUpdate, section }) => {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Blog Section"
+          label="Choose a section"
           margin="normal"
           variant="outlined"
         />
