@@ -32,14 +32,12 @@ export const EmployeeWrapper: React.FC<{
         <Box
           style={{
             cursor: "pointer",
-            position: "relative",
             width: "100px",
             height: "30px",
-            top: "80px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            left: "30px",
+            margin: "8% 2% 2%",
           }}
           onClick={() => history.goBack()}
         >

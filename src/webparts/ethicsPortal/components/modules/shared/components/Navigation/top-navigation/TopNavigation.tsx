@@ -4,6 +4,7 @@ import { ContextMenu } from "../../../../../contextMenu/ContextMenu";
 import { ContextMenuLink } from "../../../../../contextMenu/ContextMenuLink";
 import { MLink } from "../../../../../styles/styles";
 import { theme } from "../../../../../themes/themes";
+import { useHistory } from "react-router-dom";
 import { NavigationSearch } from "./components/NavigationSearch";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -65,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const TopNavigation = () => {
   const classes = useStyles();
   const [activeIndex, setActiveIndex] = React.useState(null);
-
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -82,7 +83,7 @@ export const TopNavigation = () => {
     <Box className={classes.container}>
       <>
         <ul className={classes.linkContainer}>
-          <Box>
+          <Box onClick={() => history.push("/")}>
             <img
               src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/logo.png"
               alt=""
@@ -90,6 +91,7 @@ export const TopNavigation = () => {
               height="50px"
               style={{
                 objectFit: "contain",
+                cursor: "pointer",
               }}
             />
           </Box>
@@ -157,7 +159,7 @@ const MenuItems = [
         link: "/conflict/landing",
       },
       { id: 2, text: "Gift and Entertainment", link: "/giftandentertainment" },
-      { id: 3, text: "Conduct Passport", link: "" },
+      { id: 3, text: "Conduct Passport", link: "/conduct-passport" },
       { id: 4, text: "Whistle Blowing", link: "" },
       { id: 5, text: "Antibribery and Corruption", link: "" },
       { id: 6, text: "Privacy and data protection", link: "" },

@@ -55,6 +55,10 @@ import { sp } from "@pnp/sp";
 import { ManagePoliciesPage } from "./modules/admin/pages/policies/ManagePoliciesPage";
 import { CreatePolicy } from "./modules/admin/pages/policies/CreatePolicy";
 import { UpdatePolicyPage } from "./modules/admin/pages/policies/UpdatePolicyPage";
+import { ConductPassportLandingPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPassportLandingPage";
+import { ConductBlogPostsPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductBlogPostsPage";
+import { ConductPolicyPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPolicyPage";
+import { ConductPassportResourcesPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPassportResourcesPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -247,6 +251,29 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     component={GiftEntertainmentTrainingLanding}
                   />
                   {/* End of gift and entertainment */}
+                  {/* Conduct Passport Routes */}
+                  <Route
+                    exact
+                    path="/conduct-passport"
+                    component={ConductPassportLandingPage}
+                  />
+                  <Route
+                    exact
+                    path="/conduct-passport/posts"
+                    component={ConductBlogPostsPage}
+                  />
+                  <Route
+                    exact
+                    path="/conduct-passport/policy"
+                    component={ConductPolicyPage}
+                  />
+                  <Route
+                    exact
+                    path="/conduct-passport/resources"
+                    component={ConductPassportResourcesPage}
+                  />
+
+                  {/* End of Conduct Passport Routes */}
 
                   {isAdmin && (
                     <Switch>

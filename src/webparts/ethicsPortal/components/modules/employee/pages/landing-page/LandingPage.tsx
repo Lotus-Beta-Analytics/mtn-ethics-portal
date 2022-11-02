@@ -5,6 +5,7 @@ import {
   createStyles,
   makeStyles,
   Theme,
+  CircularProgress,
 } from "@material-ui/core";
 import * as React from "react";
 import styled from "styled-components";
@@ -16,11 +17,14 @@ import {
   CarouselContainer,
   HomeItemContainer,
   MLink,
+  PostPreviewContainer,
 } from "../../../../styles/styles";
 import Marquee from "react-fast-marquee";
 import { MMarquee } from "../../../shared/components/marquee/MMarquee";
 import { MButton } from "../../../shared/components/buttons/MButton";
 import { sp } from "@pnp/sp";
+import { useQuery } from "@tanstack/react-query";
+import { PostPreviewItem } from "../../components/blog/PostPreviewItem";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,11 +38,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const LandingPage = () => {
-  const classes = useStyles();
   const [pageMenu, setPageMenu] = React.useState<any[]>([
     { id: 1, text: "Declare a gift", link: "" },
     { id: 2, text: "Declare conflict of interest", link: "" },
   ]);
+  const { data, isLoading } = useQuery<any[]>(["item"], async () => {
+    try {
+      const res = await sp.web.lists.getByTitle("Post").items.getAll();
+      const sliced = res.slice(0, 3);
+
+      return sliced;
+    } catch (e) {}
+  });
 
   React.useEffect(() => {
     (async () => {
@@ -90,29 +101,22 @@ export const LandingPage = () => {
             alignItems: "center",
             justifyContent: "space-around",
             flexWrap: "nowrap",
-            height: "230px",
+            minHeight: "230px",
             gap: "2.5rem",
             margin: "auto",
           }}
         >
-          {homeItems.map((item) => (
-            <HomeItemContainer bg={item.image}>
-              <Box></Box>
-              <Typography
-                variant="h5"
-                style={{
-                  fontStyle: "italic",
-                  paddingRight: "15rem",
-                  boxSizing: "border-box",
-                }}
-              >
-                {item.title}
-              </Typography>
-              <MLink to={item.link}>
-                <MButton endIcon={<FaAngleDoubleRight />} text="Read More..." />
-              </MLink>
-            </HomeItemContainer>
-          ))}
+          <PostPreviewContainer>
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
+              <>
+                {data?.map((post) => (
+                  <PostPreviewItem post={post} key={post.Id} />
+                ))}
+              </>
+            )}
+          </PostPreviewContainer>
         </Box>
       </Container>
     </EmployeeWrapper>
@@ -141,35 +145,12 @@ const carouselItems = [
       "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/banner2.png",
     subtitle: "Tone",
   },
-];
-
-const homeItems = [
-  {
-    id: 1,
-    title: "Meet your ethics Champion",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/wawq%202.png",
-  },
-  {
-    id: 2,
-    title: "Did you know?",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/few%202.png",
-  },
   {
     id: 3,
-    title: "Eyes wide open",
+    title: "At The Top",
     link: "",
     image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/Rectangle%2020.png",
-  },
-  {
-    id: 4,
-    title: "Eyes wide open",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/Rectangle%2020.png",
+      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/banner2.png",
+    subtitle: "Tone",
   },
 ];

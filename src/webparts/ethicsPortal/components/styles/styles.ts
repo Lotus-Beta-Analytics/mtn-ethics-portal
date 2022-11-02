@@ -21,7 +21,7 @@ export const TopContainer = styled.div<{ bg: string; height: string }>(
   (props) => ({
     backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
     width: "100%",
-    height: "200px",
+    minHeight: "200px",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -30,7 +30,6 @@ export const TopContainer = styled.div<{ bg: string; height: string }>(
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     borderRadius: "10px",
-    margin: "0 auto",
   })
 );
 export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
