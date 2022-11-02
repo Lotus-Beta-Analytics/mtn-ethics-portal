@@ -5,7 +5,7 @@ import { ResourcesDisplayComponent } from "../../../components/resources/Resourc
 export const ConductPassportResourcesPage = () => {
   return (
     <ResourcesDisplayComponent
-      backgroundImage=""
+      backgroundImage="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/happy-excited-colleagues-using-laptop-video-call.png"
       pageTitle="Conduct Passport Resources"
       filter={TrainingCategoryEnum.Conduct_Passport}
     />

@@ -59,6 +59,10 @@ import { ConductPassportLandingPage } from "./modules/employee/pages/ethics-poli
 import { ConductBlogPostsPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductBlogPostsPage";
 import { ConductPolicyPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPolicyPage";
 import { ConductPassportResourcesPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPassportResourcesPage";
+import { PrivacyLandingPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyLandingPage";
+import { PrivacyBlogPostsPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyBlogPostsPage";
+import { PrivacyPolicyPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyPolicyPage";
+import { PrivacyResourcesPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyResourcesPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -274,6 +278,25 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
 
                   {/* End of Conduct Passport Routes */}
+                  {/* Privacy and Data Protection Routes */}
+                  <Route exact path="/privacy" component={PrivacyLandingPage} />
+                  <Route
+                    exact
+                    path="/privacy/posts"
+                    component={PrivacyBlogPostsPage}
+                  />
+                  <Route
+                    exact
+                    path="/privacy/policy"
+                    component={PrivacyPolicyPage}
+                  />
+                  <Route
+                    exact
+                    path="/privacy/resources"
+                    component={PrivacyResourcesPage}
+                  />
+
+                  {/* End of Privacy and Data Protection Routes*/}
 
                   {isAdmin && (
                     <Switch>

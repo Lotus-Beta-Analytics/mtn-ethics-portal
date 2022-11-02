@@ -7,22 +7,22 @@ import { PageNav } from "../../../../shared/components/Navigation/page-navigatio
 const pageMenu: PageNav[] = [
   {
     id: 1,
-    text: "Conduct Passport write-up",
-    link: "conduct-passport/posts",
+    text: "Data Protection write-up",
+    link: "privacy/posts",
   },
   {
     id: 2,
     text: "Conduct Passport Policy",
-    link: "conduct-passport/policy",
+    link: "privacy/policy",
   },
   {
     id: 3,
     text: "Conduct Passport Resources",
-    link: "conduct-passport/resources",
+    link: "privacy/resources",
   },
 ];
 
-export const ConductPassportLandingPage = () => {
+export const PrivacyLandingPage = () => {
   return (
     <EmployeeWrapper
       pageMenu={pageMenu}
@@ -30,8 +30,8 @@ export const ConductPassportLandingPage = () => {
       backButton={false}
     >
       <LandingPageHeaderWithImage
-        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/happy-excited-colleagues-using-laptop-video-call.png"
-        text="Conduct Passport"
+        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/privacy.png"
+        text="Privacy and Data Protection"
       />
       <Box> </Box>
     </EmployeeWrapper>
