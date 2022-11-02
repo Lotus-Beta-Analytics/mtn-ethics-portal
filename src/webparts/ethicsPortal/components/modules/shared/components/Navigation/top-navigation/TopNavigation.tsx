@@ -156,7 +156,7 @@ const MenuItems = [
         text: "Conflict of Interest",
         link: "/conflict/landing",
       },
-      { id: 2, text: "Gift and Entertainment", link: "" },
+      { id: 2, text: "Gift and Entertainment", link: "/giftandentertainment" },
       { id: 3, text: "Conduct Passport", link: "" },
       { id: 4, text: "Whistle Blowing", link: "" },
       { id: 5, text: "Antibribery and Corruption", link: "" },

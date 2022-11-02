@@ -230,7 +230,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     path="/giftandentertainment"
                     component={GiftandEntertainment}
                   />
-                  <Route exact path="/blog/post/:id" component={Post} />
 
                   <Route
                     exact
@@ -248,10 +247,9 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     component={GiftEntertainmentTrainingLanding}
                   />
                   {/* End of gift and entertainment */}
-                  <Route path="*" component={NotFound} />
 
                   {isAdmin && (
-                    <Route>
+                    <Switch>
                       <Route
                         exact
                         path="/admin/dashboard"
@@ -325,7 +323,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                         render={() => <VideoTrainingPage context={context} />}
                       />
                       <Route path="*" component={NotFound} />
-                    </Route>
+                    </Switch>
                   )}
 
                   {!isAdmin && <Route path="*" component={NotFound} />}
