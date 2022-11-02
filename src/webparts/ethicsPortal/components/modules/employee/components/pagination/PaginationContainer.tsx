@@ -46,7 +46,7 @@ export const PaginationContainer: React.FC<Props> = ({
         }}
         my={2}
       >
-        {paginateArr.length > 0 &&
+        {paginateArr.length > 1 &&
           paginateArr.map((item, index) => (
             <Button
               style={{ width: "50px", borderRadius: "0" }}

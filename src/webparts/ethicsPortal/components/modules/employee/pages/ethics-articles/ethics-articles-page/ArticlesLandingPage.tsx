@@ -1,21 +1,13 @@
 import * as React from "react";
 import { sp } from "@pnp/sp";
-import { Box, Button, CircularProgress, Typography } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { useQuery } from "@tanstack/react-query";
-import { FaAngleDoubleRight } from "react-icons/fa";
-import {
-  ImageContainerEthics,
-  MLink,
-  PostPreviewContainer,
-} from "../../../../../styles/styles";
+import { PostPreviewContainer } from "../../../../../styles/styles";
 import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { MButton } from "../../../../shared/components/buttons/MButton";
 import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
 import { PostPreviewItem } from "../../../components/blog/PostPreviewItem";
-import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 import { errorAlert } from "../../../../../utils/toast-messages";
 import { useToasts } from "react-toast-notifications";
-import { Pagination } from "@material-ui/lab";
 import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
 
 const pageMenu = [
@@ -24,7 +16,7 @@ const pageMenu = [
 
 export const ArticlesLandingPage = () => {
   const [pageSize, setPageSize] = React.useState(null);
-  const rowsPerPage = 3;
+  const rowsPerPage = 6;
   const [items, setItems] = React.useState([]);
 
   const { data, isLoading } = useQuery<any>(["post"], async () => {
