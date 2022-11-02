@@ -230,7 +230,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     path="/giftandentertainment"
                     component={GiftandEntertainment}
                   />
-                  <Route exact path="/blog/post/:id" component={Post} />
 
                   <Route
                     exact
