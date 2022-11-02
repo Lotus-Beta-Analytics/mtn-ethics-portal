@@ -222,7 +222,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
 
                   {isAdmin && (
-                    <Route>
+                    <Switch>
                       <Route
                         exact
                         path="/admin/dashboard"
@@ -296,7 +296,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                         render={() => <VideoTrainingPage context={context} />}
                       />
                       <Route path="*" component={NotFound} />
-                    </Route>
+                    </Switch>
                   )}
 
                   {!isAdmin && <Route path="*" component={NotFound} />}

@@ -68,7 +68,7 @@ export const LandingPage = () => {
       backButton={false}
     >
       <Container>
-        <MMarquee text="hello" />
+        <MMarquee />
         <Carousel isRTL={false}>
           {carouselItems.map((item) => (
             <CarouselContainer bg={item.image}>
@@ -95,34 +95,24 @@ export const LandingPage = () => {
             margin: "auto",
           }}
         >
-          <Marquee
-            gradient={false}
-            speed={10}
-            direction="right"
-            style={{ width: "85%" }}
-          >
-            {homeItems.map((item) => (
-              <HomeItemContainer bg={item.image}>
-                <Box></Box>
-                <Typography
-                  variant="h5"
-                  style={{
-                    fontStyle: "italic",
-                    paddingRight: "15rem",
-                    boxSizing: "border-box",
-                  }}
-                >
-                  {item.title}
-                </Typography>
-                <MLink to={item.link}>
-                  <MButton
-                    endIcon={<FaAngleDoubleRight />}
-                    text="Read More..."
-                  />
-                </MLink>
-              </HomeItemContainer>
-            ))}
-          </Marquee>
+          {homeItems.map((item) => (
+            <HomeItemContainer bg={item.image}>
+              <Box></Box>
+              <Typography
+                variant="h5"
+                style={{
+                  fontStyle: "italic",
+                  paddingRight: "15rem",
+                  boxSizing: "border-box",
+                }}
+              >
+                {item.title}
+              </Typography>
+              <MLink to={item.link}>
+                <MButton endIcon={<FaAngleDoubleRight />} text="Read More..." />
+              </MLink>
+            </HomeItemContainer>
+          ))}
         </Box>
       </Container>
     </EmployeeWrapper>
