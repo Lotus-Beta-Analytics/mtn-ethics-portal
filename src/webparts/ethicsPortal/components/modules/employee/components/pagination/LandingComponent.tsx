@@ -3,17 +3,25 @@ import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
-import { PostPreviewContainer } from "../../../../../styles/styles";
-import { errorAlert } from "../../../../../utils/toast-messages";
-import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
+import { PostPreviewContainer } from "../../../../styles/styles";
+import { errorAlert } from "../../../../utils/toast-messages";
+import { BlogSectionEnums } from "../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
+import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
+import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithImage";
+import { PostPreviewItem } from "../blog/PostPreviewItem";
+import { PaginationContainer } from "./PaginationContainer";
 
-import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/PageWrapper";
-import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
-import { PostPreviewItem } from "../../../components/blog/PostPreviewItem";
-import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
+type Props = {
+  backgroundImage: string;
+  filter: BlogSectionEnums;
+  pageTitle: string;
+};
 
-export const ConflictOfInterestWriteUpLanding = () => {
+export const LandingComponent: React.FC<Props> = ({
+  backgroundImage,
+  filter,
+  pageTitle,
+}) => {
   const [pageSize, setPageSize] = React.useState(null);
   const rowsPerPage = 6;
   const [items, setItems] = React.useState([]);
@@ -21,7 +29,7 @@ export const ConflictOfInterestWriteUpLanding = () => {
     try {
       const res = await sp.web.lists
         .getByTitle("Post")
-        .items.filter(`PostSection eq '${BlogSectionEnums.Conflict}'`)
+        .items.filter(`PostSection eq '${filter}'`)
         .get();
       setPageSize(Math.floor(res.length / rowsPerPage));
       return res;
@@ -34,10 +42,7 @@ export const ConflictOfInterestWriteUpLanding = () => {
   return (
     <EmployeeWrapper>
       <Box width="90%" m="auto">
-        <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png"
-          text="Conflict Of Interest Write-Ups"
-        />
+        <PageHeaderWithImage bg={`'${backgroundImage}'`} text={pageTitle} />
       </Box>
 
       <PaginationContainer

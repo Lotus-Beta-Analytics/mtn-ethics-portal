@@ -122,14 +122,12 @@ export const Post = () => {
   }, [page]);
 
   return (
-    <EmployeeWrapper showFooter={false} backButton={false}>
-      <PageWrapper>
-        {post && (
-          <PageHeaderWithImage
-            bg={`${post?.FileUrl}`}
-            text={`${post?.PostTitle}`}
-          />
-        )}
+    <EmployeeWrapper showFooter={true} backButton={true}>
+      <Box width="90%" m="auto">
+        <PageHeaderWithImage
+          bg={`${post?.FileUrl}`}
+          text={`${post?.PostTitle}`}
+        />
 
         {isLoading ? (
           <CircularProgress />
@@ -231,7 +229,7 @@ export const Post = () => {
             </Box>
           </Box>
         )}
-      </PageWrapper>
+      </Box>
     </EmployeeWrapper>
   );
 };
