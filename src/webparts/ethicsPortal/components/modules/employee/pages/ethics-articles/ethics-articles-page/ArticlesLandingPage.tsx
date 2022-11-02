@@ -1,16 +1,37 @@
-import { Box, Typography } from "@material-ui/core";
 import * as React from "react";
+import { sp } from "@pnp/sp";
+import { Box, CircularProgress, Typography } from "@material-ui/core";
+import { useQuery } from "@tanstack/react-query";
 import { FaAngleDoubleRight } from "react-icons/fa";
-import { ImageContainerEthics, MLink } from "../../../../../styles/styles";
+import {
+  ImageContainerEthics,
+  MLink,
+  PostPreviewContainer,
+} from "../../../../../styles/styles";
 import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { MButton } from "../../../../shared/components/buttons/MButton";
 import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
+import { PostPreviewItem } from "../../../components/blog/PostPreviewItem";
+import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
+import { errorAlert } from "../../../../../utils/toast-messages";
+import { useToasts } from "react-toast-notifications";
+import { Pagination } from "@material-ui/lab";
 
 const pageMenu = [
   { id: 1, text: "Ethics Articles Blog", link: "/ethics/article/blog" },
 ];
 
 export const ArticlesLandingPage = () => {
+  const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
+    try {
+      const res = await sp.web.lists.getByTitle("Post").items.getAll();
+      return res;
+    } catch (e) {
+      errorAlert(toast);
+    }
+  });
+  const toast = useToasts().addToast;
+
   return (
     <EmployeeWrapper
       pageNavigation={true}
@@ -22,55 +43,28 @@ export const ArticlesLandingPage = () => {
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/article-ethics.png"
         text="Ethics Articles"
       />
-      <Box
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          // width: "980px",
-          height: "400px",
-          margin: "auto",
-          marginTop: "20px",
-          position: "relative",
-          marginBottom: "20px",
-          padding: "0.5rem",
-          gap: "1.5rem",
-          backgroundSize: "cover",
-          borderRadius: "2rem",
-          overflow: "hidden",
-        }}
-      >
-        {homeItems.map((item) => (
+      <PostPreviewContainer>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
           <>
-            <ImageContainerEthics bg={item.image}>
-              <Box></Box>
-              <Typography
-                variant="h5"
-                style={{
-                  fontStyle: "italic",
-                  // paddingRight: "13rem",
-                  boxSizing: "border-box",
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                  padding: ".5rem",
-                  width: "55%",
-                  color: "white",
-                }}
-              >
-                {item.title}
-              </Typography>
-              <MLink
-                to={item.link}
-                style={{
-                  marginTop: "60px",
-                  padding: ".5rem",
-                }}
-              >
-                <MButton endIcon={<FaAngleDoubleRight />} text="Read More..." />
-              </MLink>
-            </ImageContainerEthics>
+            {data.map((post) => (
+              <PostPreviewItem post={post} key={post.Id} />
+            ))}
+            <Pagination
+              count={5}
+              showFirstButton={true}
+              showLastButton={true}
+              page={1}
+              hideNextButton={false}
+              hidePrevButton={false}
+              siblingCount={1}
+              size="large"
+              color="primary"
+            />
           </>
-        ))}
-      </Box>
+        )}
+      </PostPreviewContainer>
     </EmployeeWrapper>
   );
 };
