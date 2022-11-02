@@ -162,7 +162,7 @@ const MenuItems = [
       { id: 3, text: "Conduct Passport", link: "/conduct-passport" },
       { id: 4, text: "Whistle Blowing", link: "" },
       { id: 5, text: "Antibribery and Corruption", link: "" },
-      { id: 6, text: "Privacy and data protection", link: "" },
+      { id: 6, text: "Privacy and data protection", link: "/privacy" },
     ],
   },
   {

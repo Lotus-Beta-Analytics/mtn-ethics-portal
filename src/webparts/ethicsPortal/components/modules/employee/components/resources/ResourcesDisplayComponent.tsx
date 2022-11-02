@@ -3,7 +3,6 @@ import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
-import { PostPreviewContainer } from "../../../../styles/styles";
 import { errorAlert } from "../../../../utils/toast-messages";
 import { TrainingCategoryEnum } from "../../../admin/pages/training/enums/TrainingCategoryEnum";
 import { TrainingType } from "../../../admin/pages/training/types/TrainingTypes";
