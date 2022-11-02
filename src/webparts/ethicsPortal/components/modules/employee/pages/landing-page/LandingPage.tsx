@@ -20,6 +20,7 @@ import {
 import Marquee from "react-fast-marquee";
 import { MMarquee } from "../../../shared/components/marquee/MMarquee";
 import { MButton } from "../../../shared/components/buttons/MButton";
+import { sp } from "@pnp/sp";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,13 +33,34 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const pageMenu = [
-  { id: 1, text: "Declare a gift", link: "" },
-  { id: 2, text: "Declare conflict of interest", link: "" },
-];
-
 export const LandingPage = () => {
   const classes = useStyles();
+  const [pageMenu, setPageMenu] = React.useState<any[]>([
+    { id: 1, text: "Declare a gift", link: "" },
+    { id: 2, text: "Declare conflict of interest", link: "" },
+  ]);
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const email = await sp.utility.getCurrentUserEmailAddresses();
+
+        const findAdmin = await sp.web.lists
+          .getByTitle("Admin")
+          .items.filter(`StaffEmail eq '${email}'`)
+          .get();
+
+        if (findAdmin?.length > 0) {
+          setPageMenu([
+            ...pageMenu,
+            { id: 3, text: "Admin", link: "/admin/dashboard" },
+          ]);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
   return (
     <EmployeeWrapper
       pageNavigation={true}
