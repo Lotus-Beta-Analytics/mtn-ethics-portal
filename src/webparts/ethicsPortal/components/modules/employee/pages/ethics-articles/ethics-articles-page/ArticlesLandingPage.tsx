@@ -1,6 +1,6 @@
 import * as React from "react";
 import { sp } from "@pnp/sp";
-import { Box, CircularProgress, Typography } from "@material-ui/core";
+import { Box, Button, CircularProgress, Typography } from "@material-ui/core";
 import { useQuery } from "@tanstack/react-query";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import {
@@ -16,15 +16,21 @@ import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/secti
 import { errorAlert } from "../../../../../utils/toast-messages";
 import { useToasts } from "react-toast-notifications";
 import { Pagination } from "@material-ui/lab";
+import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
 
 const pageMenu = [
   { id: 1, text: "Ethics Articles Blog", link: "/ethics/article/blog" },
 ];
 
 export const ArticlesLandingPage = () => {
-  const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
+  const [pageSize, setPageSize] = React.useState(null);
+  const rowsPerPage = 3;
+  const [items, setItems] = React.useState([]);
+
+  const { data, isLoading } = useQuery<any>(["post"], async () => {
     try {
       const res = await sp.web.lists.getByTitle("Post").items.getAll();
+      setPageSize(Math.floor(res.length / rowsPerPage));
       return res;
     } catch (e) {
       errorAlert(toast);
@@ -43,52 +49,24 @@ export const ArticlesLandingPage = () => {
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/article-ethics.png"
         text="Ethics Articles"
       />
-      <PostPreviewContainer>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <>
-            {data.map((post) => (
-              <PostPreviewItem post={post} key={post.Id} />
-            ))}
-            <Pagination
-              count={5}
-              showFirstButton={true}
-              showLastButton={true}
-              page={1}
-              hideNextButton={false}
-              hidePrevButton={false}
-              siblingCount={1}
-              size="large"
-              color="primary"
-            />
-          </>
-        )}
-      </PostPreviewContainer>
+      <PaginationContainer
+        data={data}
+        onUpdate={(splicedItems) => setItems(splicedItems)}
+        pageSize={pageSize}
+        rowsPerPage={rowsPerPage}
+      >
+        <PostPreviewContainer>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              {items?.map((post) => (
+                <PostPreviewItem post={post} key={post.Id} />
+              ))}
+            </>
+          )}
+        </PostPreviewContainer>
+      </PaginationContainer>
     </EmployeeWrapper>
   );
 };
-
-const homeItems = [
-  {
-    id: 1,
-    title: "Ethical Leadership Series",
-    link: "/ethical/leadership/series",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/article1.png",
-  },
-  {
-    id: 1,
-    title: "Dealing with Harassement at Work",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/article2.png",
-  },
-  {
-    id: 1,
-    title: "Ethical Leadership Series",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/article3.png",
-  },
-];
