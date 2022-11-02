@@ -1,15 +1,15 @@
-import { Box, CircularProgress } from "@material-ui/core";
+import { Box, CircularProgress, Typography } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
-import { PostPreviewContainer } from "../../../../styles/styles";
-import { errorAlert } from "../../../../utils/toast-messages";
-import { BlogSectionEnums } from "../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
-import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithImage";
-import { PostPreviewItem } from "../blog/PostPreviewItem";
-import { PaginationContainer } from "./PaginationContainer";
+import { PostPreviewContainer } from "../../../styles/styles";
+import { errorAlert } from "../../../utils/toast-messages";
+import { BlogSectionEnums } from "../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
+import { EmployeeWrapper } from "../../shared/components/app-wrapper/employee/EmployeeWrapper";
+import { PageHeaderWithImage } from "../../shared/components/PageHeaderWithImage";
+import { PostPreviewItem } from "./blog/PostPreviewItem";
+import { PaginationContainer } from "./pagination/PaginationContainer";
 
 type Props = {
   backgroundImage: string;
@@ -17,7 +17,7 @@ type Props = {
   pageTitle: string;
 };
 
-export const LandingComponent: React.FC<Props> = ({
+export const WriteUpLandingComponent: React.FC<Props> = ({
   backgroundImage,
   filter,
   pageTitle,
@@ -25,7 +25,7 @@ export const LandingComponent: React.FC<Props> = ({
   const [pageSize, setPageSize] = React.useState(null);
   const rowsPerPage = 6;
   const [items, setItems] = React.useState([]);
-  const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
+  const { data, isLoading, isSuccess } = useQuery<any[]>(["post"], async () => {
     try {
       const res = await sp.web.lists
         .getByTitle("Post")
@@ -41,9 +41,17 @@ export const LandingComponent: React.FC<Props> = ({
 
   return (
     <EmployeeWrapper>
-      <Box width="90%" m="auto">
-        <PageHeaderWithImage bg={`'${backgroundImage}'`} text={pageTitle} />
+      <Box width="90%" m="0 auto">
+        <PageHeaderWithImage bg={backgroundImage} text={pageTitle} />
       </Box>
+
+      {!isLoading && data?.length === 0 && (
+        <Box style={{ width: "90%", height: "450px" }} mt={3} ml="5%">
+          <Typography variant="h6">
+            No <strong>Post</strong> at this time.<br></br> Please check back.
+          </Typography>
+        </Box>
+      )}
 
       <PaginationContainer
         data={data}
