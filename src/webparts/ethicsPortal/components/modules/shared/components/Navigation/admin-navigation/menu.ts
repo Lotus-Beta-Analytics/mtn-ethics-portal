@@ -2,6 +2,7 @@ import { Settings } from "@material-ui/icons";
 import {
   FaAd,
   FaAngrycreative,
+  FaBook,
   FaChevronDown,
   FaDochub,
   FaImages,
@@ -9,6 +10,7 @@ import {
   FaUserAstronaut,
   FaVideo,
 } from "react-icons/fa";
+import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 
 export const adminNavItems = [
   {
@@ -36,43 +38,43 @@ export const adminNavItems = [
   {
     title: "Ethics Policies",
     icon: FaAngrycreative,
-    link: "/admin/blog",
+    link: "/admin/policies",
 
     subNav: [
       {
         title: "Conflict of Interest",
-        icon: FaVideo,
-        link: "/admin/gallery/videos",
+        icon: FaBook,
+        link: `/admin/policies?section=${BlogSectionEnums.Conflict}`,
       },
       {
         title: "Gifts and Entertainment",
-        icon: FaImages,
-        link: "/admin/gallery/images",
+        icon: FaBook,
+        link: `/admin/policies?section=${BlogSectionEnums.Gift}`,
       },
       {
         title: "Conduct Passport",
-        icon: Settings,
-        link: "/admin/gallery/manage",
+        icon: FaBook,
+        link: `/admin/policies?section=${BlogSectionEnums.Conduct}`,
       },
       {
         title: "Whistle Blowing",
-        icon: Settings,
-        link: "/admin/gallery/manage",
+        icon: FaBook,
+        link: `/admin/policies?section=${BlogSectionEnums.Whistle_Blowing}`,
       },
       {
         title: "Anti Bribery and Corruption",
-        icon: FaUserAstronaut,
-        link: "/admin/gallery/manage",
+        icon: FaBook,
+        link: `/admin/policies?section=${BlogSectionEnums.Anti_bribery}`,
       },
       {
         title: "Privacy and Data Protection",
-        icon: FaUserAstronaut,
-        link: "/admin/gallery/manage",
+        icon: FaBook,
+        link: `/admin/policies?section=${BlogSectionEnums.Privacy}`,
       },
       {
-        title: "Manage",
+        title: "Create Policy",
         icon: Settings,
-        link: "/admin/scrolling=text/manage",
+        link: "/admin/create-policy",
       },
     ],
   },

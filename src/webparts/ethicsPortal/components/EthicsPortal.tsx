@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as jQuery from "jquery";
 import { IEthicsPortalProps } from "./IEthicsPortalProps";
-import { Box, ThemeProvider } from "@material-ui/core";
+import { ThemeProvider } from "@material-ui/core";
 import { ToastProvider } from "react-toast-notifications";
 import { theme } from "./themes/themes";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
@@ -10,7 +10,6 @@ import { NotFound } from "./notFound/NotFound";
 import { LandingPage } from "./modules/employee/pages/landing-page/LandingPage";
 import { PhotoCategories } from "./modules/employee/pages/gallery/photo-categories/PhotoCategories";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
-
 import "./styles.css";
 import { ConflictOfInterestLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestLanding";
 import { ConflictOfInterestWriteUpLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestWriteUpLanding";
@@ -20,7 +19,7 @@ import { QuizPage } from "./modules/employee/pages/quiz/QuizPage";
 import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
 import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
 import { QuizResultPage } from "./modules/employee/pages/quiz/QuizResultPage";
-import { useHistory, Outlet } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { ChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ChampionLandingPage";
 import { EthicsChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ethics-champions/EthicsChampionLandingPage";
 import { EthicsChampionsActivties } from "./modules/employee/pages/recognition/champion-recognition/ethics-champion-activties/EthicsChampionsActivties";
@@ -38,8 +37,6 @@ import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
 import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
 import { ContactUs } from "./modules/employee/pages/ethics-contact-us/contact-us/ContactUs";
 import { CreateAdminPage } from "./modules/admin/pages/users/CreateAdminPage";
-import { UpdateAdminPage } from "./modules/admin/pages/users/UpdateAdminPage";
-import { ManageAdminPage } from "./modules/admin/pages/users/ManageAdminPage";
 import { UpdateBlogPostPage } from "./modules/admin/pages/posts/UpdateBlogPostPage";
 import { ManageBlogPostsPage } from "./modules/admin/pages/posts/ManageBlogPostsPage";
 import { QuizReportPage } from "./modules/admin/pages/quiz/QuizReportPage";
@@ -55,6 +52,9 @@ import { GiftEntertainmentTrainingLanding } from "./modules/employee/pages/gift-
 import { ScrollingTextSetUpPage } from "./modules/admin/pages/scrolling-text/ScrollingTextSetUpPage";
 import { VideoTrainingPage } from "./modules/admin/pages/training/VideoTrainingPage";
 import { sp } from "@pnp/sp";
+import { ManagePoliciesPage } from "./modules/admin/pages/policies/ManagePoliciesPage";
+import { CreatePolicy } from "./modules/admin/pages/policies/CreatePolicy";
+import { UpdatePolicyPage } from "./modules/admin/pages/policies/UpdatePolicyPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -321,6 +321,21 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                         exact
                         path="/admin/training"
                         render={() => <VideoTrainingPage context={context} />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/policies"
+                        render={() => <ManagePoliciesPage />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/policy/:policyId/update"
+                        render={() => <UpdatePolicyPage context={context} />}
+                      />
+                      <Route
+                        exact
+                        path="/admin/create-policy"
+                        render={() => <CreatePolicy context={context} />}
                       />
                       <Route path="*" component={NotFound} />
                     </Switch>
