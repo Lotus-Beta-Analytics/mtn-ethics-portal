@@ -48,6 +48,10 @@ import { ImageUploadPage } from "./modules/admin/pages/gallery/ImageUploadPage";
 import { Gallery } from "./modules/admin/pages/gallery/Gallery";
 import { VideoUploadPage } from "./modules/admin/pages/gallery/VideoUploadPage";
 import { UpdateGalleryPage } from "./modules/admin/pages/gallery/UpdateGalleryPage";
+import { GiftandEntertainment } from "./modules/employee/pages/gift-and-entertainment/gift&EntertainmentLandingPage";
+import { GiftEntertainmentWriteUpLanding } from "./modules/employee/pages/gift-and-entertainment/gift-and-entertainment-article-writeup/GiftEntertainmentArticleWriteUp";
+import { GiftandEntertainmentPolicy } from "./modules/employee/pages/gift-and-entertainment/gift-and-entertainmnet-policy/GiftEntertainmentPolicy";
+import { GiftEntertainmentTrainingLanding } from "./modules/employee/pages/gift-and-entertainment/gift-and-entertainment-training/gift-and-entertainment-training";
 import { ScrollingTextSetUpPage } from "./modules/admin/pages/scrolling-text/ScrollingTextSetUpPage";
 import { VideoTrainingPage } from "./modules/admin/pages/training/VideoTrainingPage";
 import { sp } from "@pnp/sp";
@@ -220,6 +224,29 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     path="/employee/quiz-result"
                     component={QuizResultPage}
                   />
+                  {/* gift and entertainment */}
+                  <Route
+                    exact
+                    path="/giftandentertainment"
+                    component={GiftandEntertainment}
+                  />
+
+                  <Route
+                    exact
+                    path="/giftandentertainment/writeup"
+                    component={GiftEntertainmentWriteUpLanding}
+                  />
+                  <Route
+                    exact
+                    path="/giftandentertainment/policy"
+                    component={GiftandEntertainmentPolicy}
+                  />
+                  <Route
+                    exact
+                    path="/giftandentertainment/trainingslides"
+                    component={GiftEntertainmentTrainingLanding}
+                  />
+                  {/* End of gift and entertainment */}
 
                   {isAdmin && (
                     <Route>
