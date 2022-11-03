@@ -13,12 +13,12 @@ import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/
 import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
 import { PostPreviewItem } from "../../../components/blog/PostPreviewItem";
 
-export const GiftEntertainmentTrainingLanding = () => {
+export const WhistleBlowingTrainingLanding = () => {
   const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
     try {
       const res = await sp.web.lists
         .getByTitle("Training")
-        .items.filter(`Category eq '${TrainingCategoryEnum.Gift_Entertainment}'`)
+        .items.filter(`Category eq '${TrainingCategoryEnum.Whistle_Blowing}'`)
         .get();
         console.log(res)
       return res;
@@ -34,8 +34,8 @@ console.log("this us",post.Video)
     <EmployeeWrapper>
       <PageWrapper>
         <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/gift%26entertainmnet.png?csf=1&web=1&e=ANsodQ"
-          text="Gifts and Entertainment Training"
+          bg="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/classic-gold-metal-coaches-whistle-white-background-3d-rendering.png?csf=1&web=1&e=hfJAnE"
+          text="Whistle Blowing Training Slides"
         />
 
         <PostPreviewContainer>
