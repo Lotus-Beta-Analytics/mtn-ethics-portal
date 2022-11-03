@@ -78,7 +78,8 @@ export const DocumentEditor: React.FC<{
     content,
     onUpdate: (props) =>
       onChange(JSON.stringify(props.editor.getJSON()), "remirror/json"),
-    autofocus: false,
+    autofocus: true,
+    injectCSS: true,
   });
 
   return (
@@ -99,10 +100,7 @@ export const DocumentEditor: React.FC<{
           boxSizing: "border-box",
         }}
       >
-        <EditorContent
-          editor={editor}
-          style={{ width: "100%", border: "1px solid red" }}
-        />
+        <EditorContent editor={editor} style={{ width: "100%" }} />
       </Box>
     </>
   );
