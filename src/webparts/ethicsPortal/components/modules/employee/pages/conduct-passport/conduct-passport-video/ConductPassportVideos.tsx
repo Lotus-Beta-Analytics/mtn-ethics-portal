@@ -13,7 +13,7 @@ import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/
 import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
 import { PostPreviewItem } from "../../../components/blog/PostPreviewItem";
 
-export const GiftEntertainmentTrainingLanding = () => {
+export const ConductPassportVideoLanding = () => {
   const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
     try {
       const res = await sp.web.lists
@@ -34,8 +34,8 @@ console.log("this us",post.Video)
     <EmployeeWrapper>
       <PageWrapper>
         <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/gift%26entertainmnet.png?csf=1&web=1&e=ANsodQ"
-          text="Gifts and Entertainment Training"
+          bg="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/happy-excited-colleagues-using-laptop-video-call.png?csf=1&web=1&e=2Ygsjp"
+          text="Conduct Passport Training"
         />
 
         <PostPreviewContainer>
