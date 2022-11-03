@@ -16,13 +16,13 @@ const pageMenu = [
 
 export const ArticlesLandingPage = () => {
   const [pageSize, setPageSize] = React.useState(null);
-  const rowsPerPage = 6;
+  const rowsPerPage = 4;
   const [items, setItems] = React.useState([]);
 
   const { data, isLoading } = useQuery<any>(["post"], async () => {
     try {
       const res = await sp.web.lists.getByTitle("Post").items.getAll();
-      setPageSize(Math.floor(res.length / rowsPerPage));
+      setPageSize(Math.ceil(res.length / rowsPerPage));
       return res;
     } catch (e) {
       errorAlert(toast);

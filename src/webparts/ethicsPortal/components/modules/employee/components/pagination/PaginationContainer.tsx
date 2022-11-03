@@ -19,6 +19,7 @@ export const PaginationContainer: React.FC<Props> = ({
   const [page, setPage] = React.useState(0);
   const [active, setActive] = React.useState(0);
   const [paginateArr, setPaginateArr] = React.useState([]);
+  const [offset, setOffset] = React.useState(null);
   const handleChangePage = (page: number) => {
     setPage(page);
   };
@@ -29,9 +30,11 @@ export const PaginationContainer: React.FC<Props> = ({
     }
   }, [pageSize]);
   React.useEffect(() => {
-    const splice = data?.slice(page, rowsPerPage);
+    const splice = data?.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+
     onUpdate(splice);
   }, [page, data]);
+
   return (
     <>
       {children}
@@ -51,7 +54,7 @@ export const PaginationContainer: React.FC<Props> = ({
             <Button
               style={{ width: "50px", borderRadius: "0" }}
               onClick={() => {
-                handleChangePage(item);
+                handleChangePage(index);
                 setActive(index);
               }}
               color={active === index ? "primary" : "secondary"}
