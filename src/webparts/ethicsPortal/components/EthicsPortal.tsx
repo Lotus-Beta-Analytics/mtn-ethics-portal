@@ -71,6 +71,7 @@ import { PrivacyLandingPage } from "./modules/employee/pages/ethics-policies/pri
 import { PrivacyBlogPostsPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyBlogPostsPage";
 import { PrivacyPolicyPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyPolicyPage";
 import { PrivacyResourcesPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyResourcesPage";
+import { ViewEthicsTraining } from "./modules/employee/pages/training/ethic-trainings/view-ethics-trainings/ViewEthicsTraining";
 import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictResourcesPage";
 import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
 
@@ -230,6 +231,12 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
 
                   <Route exact path="/ethics/contactus" component={ContactUs} />
+
+                  <Route
+                    exact
+                    path="/view/category/training/:id"
+                    component={ViewEthicsTraining}
+                  />
 
                   <Route
                     exact

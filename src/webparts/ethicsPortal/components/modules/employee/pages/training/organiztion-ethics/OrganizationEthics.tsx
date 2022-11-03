@@ -1,21 +1,20 @@
+import { Box } from "@material-ui/core";
 import * as React from "react";
-import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
+import { TrainingCategoryEnum } from "../../../../admin/pages/training/enums/TrainingCategoryEnum";
 import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/PageWrapper";
-import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
+import { ResourcesDisplayComponent } from "../../../components/resources/ResourcesDisplayComponent";
 import "./styles.css";
 
 export const OrganizationEthics = () => {
   return (
-    <EmployeeWrapper>
-      <PageWrapper>
-        <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-training.png"
-          text="Training"
+    <PageWrapper>
+      <Box>
+        <ResourcesDisplayComponent
+          backgroundImage="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-training.png"
+          pageTitle="Organization Ethics Video"
+          filter={TrainingCategoryEnum.Organisation_Ethics}
         />
-        <div className="titleH3">
-          <h3>Organization Ethics Video</h3>
-        </div>
-      </PageWrapper>
-    </EmployeeWrapper>
+      </Box>
+    </PageWrapper>
   );
 };
