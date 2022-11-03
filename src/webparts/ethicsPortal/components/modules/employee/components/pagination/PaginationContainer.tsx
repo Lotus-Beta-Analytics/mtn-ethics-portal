@@ -19,7 +19,6 @@ export const PaginationContainer: React.FC<Props> = ({
   const [page, setPage] = React.useState(0);
   const [active, setActive] = React.useState(0);
   const [paginateArr, setPaginateArr] = React.useState([]);
-  const [offset, setOffset] = React.useState(null);
   const handleChangePage = (page: number) => {
     setPage(page);
   };
