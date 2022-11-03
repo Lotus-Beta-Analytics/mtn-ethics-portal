@@ -55,10 +55,6 @@ import { sp } from "@pnp/sp";
 import { ManagePoliciesPage } from "./modules/admin/pages/policies/ManagePoliciesPage";
 import { CreatePolicy } from "./modules/admin/pages/policies/CreatePolicy";
 import { UpdatePolicyPage } from "./modules/admin/pages/policies/UpdatePolicyPage";
-import { ConductPassport } from "./modules/employee/pages/conduct-passport/ConductPassportLandingPage";
-import { ConductPassportWriteUpLanding } from "./modules/employee/pages/conduct-passport/conduct-passport-article/ConductPassportArticleWriteUp";
-import { ConductPassportPolicy } from "./modules/employee/pages/conduct-passport/conduct-passport-policy/ConductPassportPolicy";
-import { ConductPassportVideoLanding } from "./modules/employee/pages/conduct-passport/conduct-passport-video/ConductPassportVideos";
 import { WhistleBLowing } from "./modules/employee/pages/whistle-blowing/WhistleBlowingLandingPage";
 import { WhistleBlowingWriteUpLanding } from "./modules/employee/pages/whistle-blowing/whistle-blowing-article/WhistleBLowingArticle";
 import { WhistleBlowingPolicy } from "./modules/employee/pages/whistle-blowing/whistle-blowing-policy/WhistleBlowingPolicy";
@@ -76,6 +72,8 @@ import { PrivacyBlogPostsPage } from "./modules/employee/pages/ethics-policies/p
 import { PrivacyPolicyPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyPolicyPage";
 import { PrivacyResourcesPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyResourcesPage";
 import { ViewEthicsTraining } from "./modules/employee/pages/training/ethic-trainings/view-ethics-trainings/ViewEthicsTraining";
+import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictResourcesPage";
+import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -162,6 +160,16 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     exact
                     path="/conflict/writeup"
                     component={ConflictOfInterestWriteUpLanding}
+                  />
+                  <Route
+                    exact
+                    path="/conflict/policy"
+                    component={ConflictPolicyPage}
+                  />
+                  <Route
+                    exact
+                    path="/conflict/resources"
+                    component={ConflictResourcesPage}
                   />
                   <Route
                     exact
@@ -316,30 +324,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
 
                   {/* End of Privacy and Data Protection Routes*/}
-
-                  {/* conduct passport */}
-                  <Route
-                    exact
-                    path="/conductpassport"
-                    component={ConductPassport}
-                  />
-
-                  <Route
-                    exact
-                    path="/conductpassport/writeup"
-                    component={ConductPassportWriteUpLanding}
-                  />
-                  <Route
-                    exact
-                    path="/conductpassport/policy"
-                    component={ConductPassportPolicy}
-                  />
-                  <Route
-                    exact
-                    path="/conductpassport/videos"
-                    component={ConductPassportVideoLanding}
-                  />
-                  {/* conduct passport */}
 
                   {/* whistle blowing */}
                   <Route

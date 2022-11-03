@@ -7,6 +7,9 @@ import "./styles.css";
 import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import { GrView } from "react-icons/gr";
+import { TrainingType } from "../../../../admin/pages/training/types/TrainingTypes";
+import { DocumentViewer } from "../../../../shared/components/document-viewer/DocumentViewer";
+import { TrainingCategoryEnum } from "../../../../admin/pages/training/enums/TrainingCategoryEnum";
 
 const pageMenu = [
   {
@@ -38,12 +41,17 @@ export const EthicsTrainings = ({ match }) => {
     { title: "Training Video", field: "Video", type: "string" as const },
   ]);
 
+  const [itemsVideo, setItemsVideo] = React.useState<TrainingType>();
+
   const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
     sp.web.lists
       .getByTitle(`Training`)
-      .items.getAll()
+      .items.filter(
+        `Category eq '${TrainingCategoryEnum.Business_Ethics}' or Category eq '${TrainingCategoryEnum.Mtn_Ethics}' or Category eq '${TrainingCategoryEnum.Organisation_Ethics}'`
+      )
+      .getAll()
       .then((res) => {
         setData(res);
       });
@@ -96,7 +104,7 @@ export const EthicsTrainings = ({ match }) => {
                 tooltip: "View Video",
 
                 onClick: (event, rowData) => {
-                  history.push(`/view/category/training/${rowData.ID}`);
+                  setItemsVideo(rowData);
                 },
               },
             ]}
@@ -111,6 +119,13 @@ export const EthicsTrainings = ({ match }) => {
             //   ),
             // }}
           />
+          {itemsVideo && (
+            <DocumentViewer
+              onClose={() => setItemsVideo(null)}
+              open={true}
+              url={itemsVideo?.Video}
+            />
+          )}
         </div>
       </Box>
     </EmployeeWrapper>

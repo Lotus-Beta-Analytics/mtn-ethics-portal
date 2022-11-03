@@ -6,56 +6,15 @@ import { useToasts } from "react-toast-notifications";
 import { PostPreviewContainer } from "../../../../../styles/styles";
 import { errorAlert } from "../../../../../utils/toast-messages";
 import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
-import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
-import { PostPreviewItem } from "../../../components/blog/PostPreviewItem";
-import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
+import { WriteUpLandingComponent } from "../../../components/WriteUpLandingComponent";
 
 export const GiftEntertainmentWriteUpLanding = () => {
-  const [pageSize, setPageSize] = React.useState(null);
-  const rowsPerPage = 6;
-  const [items, setItems] = React.useState([]);
-  const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
-    try {
-      const res = await sp.web.lists
-        .getByTitle("Post")
-        .items.filter(`PostSection eq '${BlogSectionEnums.Gift}'`)
-        .get();
-      setPageSize(Math.floor(res.length / rowsPerPage));
-      return res;
-    } catch (e) {
-      errorAlert(toast);
-    }
-  });
-  const toast = useToasts().addToast;
-
+ 
   return (
-    <EmployeeWrapper>
-      <Box width="90%" m="auto">
-        <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/gift%26entertainmnet.png?csf=1&web=1&e=ANsodQ"
-          text="Gifts and Entertainment"
-        />
-      </Box>
-
-      <PaginationContainer
-        data={data}
-        onUpdate={(splicedItems) => setItems(splicedItems)}
-        pageSize={pageSize}
-        rowsPerPage={rowsPerPage}
-      >
-        <PostPreviewContainer>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <>
-              {items?.map((post) => (
-                <PostPreviewItem post={post} key={post.Id} />
-              ))}
-            </>
-          )}
-        </PostPreviewContainer>
-      </PaginationContainer>
-    </EmployeeWrapper>
+    <WriteUpLandingComponent
+    backgroundImage="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/gift%26entertainmnet.png?csf=1&web=1&e=ANsodQ"
+    pageTitle="Gift and Entertainment"
+    filter={BlogSectionEnums.Gift}
+    />
   );
 };

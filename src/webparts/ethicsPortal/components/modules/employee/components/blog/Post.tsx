@@ -126,7 +126,7 @@ export const Post = () => {
       <Box width="90%" m="auto">
         <PageHeaderWithImage
           bg={`${post?.FileUrl}`}
-          text={`${post?.PostTitle}`}
+          text={`${post?.PostTitle ?? ""}`}
         />
 
         {isLoading ? (
@@ -144,7 +144,9 @@ export const Post = () => {
               </Typography>
             </Box>
             <Box>
-              <BlogContent post={JSON.parse(post?.content)} />
+              {post?.content && (
+                <BlogContent post={JSON.parse(post?.content)} />
+              )}
             </Box>
             <Box
               display="flex"
