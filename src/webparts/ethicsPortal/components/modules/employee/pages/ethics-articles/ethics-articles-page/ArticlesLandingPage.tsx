@@ -22,7 +22,7 @@ export const ArticlesLandingPage = () => {
   const { data, isLoading } = useQuery<any>(["post"], async () => {
     try {
       const res = await sp.web.lists.getByTitle("Post").items.getAll();
-      setPageSize(Math.floor(res.length / rowsPerPage));
+      setPageSize(Math.ceil(res.length / rowsPerPage));
       return res;
     } catch (e) {
       errorAlert(toast);
