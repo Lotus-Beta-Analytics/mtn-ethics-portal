@@ -55,6 +55,18 @@ import { sp } from "@pnp/sp";
 import { ManagePoliciesPage } from "./modules/admin/pages/policies/ManagePoliciesPage";
 import { CreatePolicy } from "./modules/admin/pages/policies/CreatePolicy";
 import { UpdatePolicyPage } from "./modules/admin/pages/policies/UpdatePolicyPage";
+import { ConductPassport } from "./modules/employee/pages/conduct-passport/ConductPassportLandingPage";
+import { ConductPassportWriteUpLanding } from "./modules/employee/pages/conduct-passport/conduct-passport-article/ConductPassportArticleWriteUp";
+import { ConductPassportPolicy } from "./modules/employee/pages/conduct-passport/conduct-passport-policy/ConductPassportPolicy";
+import { ConductPassportVideoLanding } from "./modules/employee/pages/conduct-passport/conduct-passport-video/ConductPassportVideos";
+import { WhistleBLowing } from "./modules/employee/pages/whistle-blowing/WhistleBlowingLandingPage";
+import { WhistleBlowingWriteUpLanding } from "./modules/employee/pages/whistle-blowing/whistle-blowing-article/WhistleBLowingArticle";
+import { WhistleBlowingPolicy } from "./modules/employee/pages/whistle-blowing/whistle-blowing-policy/WhistleBlowingPolicy";
+import { WhistleBlowingTrainingLanding } from "./modules/employee/pages/whistle-blowing/whistle-blowing-training/WhistleBlowingTraining";
+import { AntiBribery } from "./modules/employee/pages/anti-bribery/AntiBriberyLandingPage";
+import { AntiBriberyWriteUpLanding } from "./modules/employee/pages/anti-bribery/anti-bribery-article/AntiBriberyArticle";
+import { AntiBriberyPolicy } from "./modules/employee/pages/anti-bribery/anti-bribery-policy/AntiBriberyPolicy";
+import { AntiBriberyTrainingLanding } from "./modules/employee/pages/anti-bribery/anti-bribery-training/AntiBriberyTraining";
 import { ConductPassportLandingPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPassportLandingPage";
 import { ConductBlogPostsPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductBlogPostsPage";
 import { ConductPolicyPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPolicyPage";
@@ -297,6 +309,77 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
 
                   {/* End of Privacy and Data Protection Routes*/}
+
+                   {/* conduct passport */}
+                   <Route
+                    exact
+                    path="/conductpassport"
+                    component={ConductPassport}
+                  />
+
+                  <Route
+                    exact
+                    path="/conductpassport/writeup"
+                    component={ConductPassportWriteUpLanding}
+                  />
+                  <Route
+                    exact
+                    path="/conductpassport/policy"
+                    component={ConductPassportPolicy}
+                  />
+                  <Route
+                    exact
+                    path="/conductpassport/videos"
+                    component={ConductPassportVideoLanding}
+                  />
+                  {/* conduct passport */}
+
+                   {/* whistle blowing */}
+                   <Route
+                    exact
+                    path="/whistleblowing"
+                    component={WhistleBLowing}
+                  />
+
+                  <Route
+                    exact
+                    path="/whistleblowing/writeup"
+                    component={WhistleBlowingWriteUpLanding}
+                  />
+                  <Route
+                    exact
+                    path="/whistleblowing/policy"
+                    component={WhistleBlowingPolicy}
+                  />
+                  <Route
+                    exact
+                    path="/whistleblowing/training"
+                    component={WhistleBlowingTrainingLanding}
+                  />
+                  {/* End of whistle blowing */}
+                   {/* bribery */}
+                   <Route
+                    exact
+                    path="/antibribery"
+                    component={AntiBribery}
+                  />
+
+                  <Route
+                    exact
+                    path="/antibribery/writeup"
+                    component={AntiBriberyWriteUpLanding}
+                  />
+                  <Route
+                    exact
+                    path="/antibribery/policy"
+                    component={AntiBriberyPolicy}
+                  />
+                  <Route
+                    exact
+                    path="/antibribery/training"
+                    component={AntiBriberyTrainingLanding}
+                  />
+                  {/* End of antibribery */}
 
                   {isAdmin && (
                     <Switch>
