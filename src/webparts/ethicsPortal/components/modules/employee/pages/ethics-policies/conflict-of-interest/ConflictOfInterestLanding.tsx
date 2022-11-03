@@ -15,12 +15,12 @@ const pageMenu: PageNav[] = [
   {
     id: 2,
     text: "Conflict of interest policy",
-    link: "",
+    link: "policy",
   },
   {
     id: 3,
     text: "Conflict of interest training slides",
-    link: "",
+    link: "resources",
   },
   {
     id: 4,

@@ -71,6 +71,8 @@ import { PrivacyLandingPage } from "./modules/employee/pages/ethics-policies/pri
 import { PrivacyBlogPostsPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyBlogPostsPage";
 import { PrivacyPolicyPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyPolicyPage";
 import { PrivacyResourcesPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyResourcesPage";
+import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictResourcesPage";
+import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -157,6 +159,16 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     exact
                     path="/conflict/writeup"
                     component={ConflictOfInterestWriteUpLanding}
+                  />
+                  <Route
+                    exact
+                    path="/conflict/policy"
+                    component={ConflictPolicyPage}
+                  />
+                  <Route
+                    exact
+                    path="/conflict/resources"
+                    component={ConflictResourcesPage}
                   />
                   <Route
                     exact
@@ -306,9 +318,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                   {/* End of Privacy and Data Protection Routes*/}
 
-
-                   {/* whistle blowing */}
-                   <Route
+                  {/* whistle blowing */}
+                  <Route
                     exact
                     path="/whistleblowing"
                     component={WhistleBLowing}
@@ -330,12 +341,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     component={WhistleBlowingTrainingLanding}
                   />
                   {/* End of whistle blowing */}
-                   {/* bribery */}
-                   <Route
-                    exact
-                    path="/antibribery"
-                    component={AntiBribery}
-                  />
+                  {/* bribery */}
+                  <Route exact path="/antibribery" component={AntiBribery} />
 
                   <Route
                     exact
