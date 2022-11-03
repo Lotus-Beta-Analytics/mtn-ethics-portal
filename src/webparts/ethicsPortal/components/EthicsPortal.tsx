@@ -55,10 +55,6 @@ import { sp } from "@pnp/sp";
 import { ManagePoliciesPage } from "./modules/admin/pages/policies/ManagePoliciesPage";
 import { CreatePolicy } from "./modules/admin/pages/policies/CreatePolicy";
 import { UpdatePolicyPage } from "./modules/admin/pages/policies/UpdatePolicyPage";
-import { ConductPassport } from "./modules/employee/pages/conduct-passport/ConductPassportLandingPage";
-import { ConductPassportWriteUpLanding } from "./modules/employee/pages/conduct-passport/conduct-passport-article/ConductPassportArticleWriteUp";
-import { ConductPassportPolicy } from "./modules/employee/pages/conduct-passport/conduct-passport-policy/ConductPassportPolicy";
-import { ConductPassportVideoLanding } from "./modules/employee/pages/conduct-passport/conduct-passport-video/ConductPassportVideos";
 import { WhistleBLowing } from "./modules/employee/pages/whistle-blowing/WhistleBlowingLandingPage";
 import { WhistleBlowingWriteUpLanding } from "./modules/employee/pages/whistle-blowing/whistle-blowing-article/WhistleBLowingArticle";
 import { WhistleBlowingPolicy } from "./modules/employee/pages/whistle-blowing/whistle-blowing-policy/WhistleBlowingPolicy";
@@ -310,29 +306,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                   {/* End of Privacy and Data Protection Routes*/}
 
-                   {/* conduct passport */}
-                   <Route
-                    exact
-                    path="/conductpassport"
-                    component={ConductPassport}
-                  />
-
-                  <Route
-                    exact
-                    path="/conductpassport/writeup"
-                    component={ConductPassportWriteUpLanding}
-                  />
-                  <Route
-                    exact
-                    path="/conductpassport/policy"
-                    component={ConductPassportPolicy}
-                  />
-                  <Route
-                    exact
-                    path="/conductpassport/videos"
-                    component={ConductPassportVideoLanding}
-                  />
-                  {/* conduct passport */}
 
                    {/* whistle blowing */}
                    <Route

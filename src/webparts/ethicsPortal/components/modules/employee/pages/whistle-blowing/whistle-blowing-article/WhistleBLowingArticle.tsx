@@ -11,41 +11,16 @@ import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/emplo
 import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/PageWrapper";
 import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
 import { PostPreviewItem } from "../../../components/blog/PostPreviewItem";
+import { WriteUpLandingComponent } from "../../../components/WriteUpLandingComponent";
 
 export const WhistleBlowingWriteUpLanding = () => {
-  const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
-    try {
-      const res = await sp.web.lists
-        .getByTitle("Post")
-        .items.filter(`PostSection eq '${BlogSectionEnums.Whistle_Blowing}'`)
-        .get();
-      return res;
-    } catch (e) {
-      errorAlert(toast);
-    }
-  });
-  const toast = useToasts().addToast;
-
+ 
   return (
-    <EmployeeWrapper>
-      <PageWrapper>
-        <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/classic-gold-metal-coaches-whistle-white-background-3d-rendering.png?csf=1&web=1&e=hfJAnE"
-          text="Whistle Blowing Write up"
-        />
-
-        <PostPreviewContainer>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <>
-              {data.map((post) => (
-                <PostPreviewItem post={post} key={post.Id} />
-              ))}
-            </>
-          )}
-        </PostPreviewContainer>
-      </PageWrapper>
-    </EmployeeWrapper>
+    <WriteUpLandingComponent
+backgroundImage="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/classic-gold-metal-coaches-whistle-white-background-3d-rendering.png?csf=1&web=1&e=hfJAnE"
+pageTitle="Whistle Blowing Write up"
+filter={BlogSectionEnums.Whistle_Blowing}
+/>
   );
 };
+

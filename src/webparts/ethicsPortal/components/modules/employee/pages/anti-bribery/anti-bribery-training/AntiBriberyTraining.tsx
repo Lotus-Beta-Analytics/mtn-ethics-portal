@@ -12,48 +12,16 @@ import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/emplo
 import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/PageWrapper";
 import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
 import { PostPreviewItem } from "../../../components/blog/PostPreviewItem";
+import { ResourcesDisplayComponent } from "../../../components/resources/ResourcesDisplayComponent";
 
 export const AntiBriberyTrainingLanding = () => {
-  const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
-    try {
-      const res = await sp.web.lists
-        .getByTitle("Training")
-        .items.filter(`Category eq '${TrainingCategoryEnum.Bribery_Corruption}'`)
-        .get();
-        console.log(res)
-      return res;
-    } catch (e) {
-      errorAlert(toast);
-    }
-  });
-  const toast = useToasts().addToast;
-const viewHandler = (post) => {
-console.log("this us",post.Video)
-}
+ 
+ 
   return (
-    <EmployeeWrapper>
-      <PageWrapper>
-        <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/government-officials-receiving-bribe-money-from-businessman-concept-corruption-antibribery.png?csf=1&web=1&e=AUOvdx"
-          text="Anti Bribery and Corruption Training"
-        />
-
-        <PostPreviewContainer>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <>
-              {data.map((post) => (
-                // <PostPreviewItem post={post} key={post.Id} />
-                <div  key={post.Id}>
-                  <h1>{post.TrainingTitle}</h1>
-                  <button onClick={(post)=>viewHandler(post)}>{post.Video}</button>
-                  </div>
-              ))}
-            </>
-          )}
-        </PostPreviewContainer>
-      </PageWrapper>
-    </EmployeeWrapper>
+    <ResourcesDisplayComponent
+      backgroundImage="https://mtncloud.sharepoint.com/:i:/r/sites/MTNAppDevelopment/ethicsportal/assets/government-officials-receiving-bribe-money-from-businessman-concept-corruption-antibribery.png?csf=1&web=1&e=AUOvdx"
+      pageTitle="Anti Bribery and Corruption Training Slides"
+      filter={TrainingCategoryEnum.Bribery_Corruption}
+    />
   );
 };
