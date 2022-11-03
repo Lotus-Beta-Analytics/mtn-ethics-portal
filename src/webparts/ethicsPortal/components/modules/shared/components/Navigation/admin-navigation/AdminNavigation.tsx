@@ -53,6 +53,7 @@ export const AdminNavigation = (props: Props) => {
                 boxSizing: "border-box",
                 minHeight: "40px",
                 padding: "0 .5rem",
+                userSelect: "none",
               }}
               onClick={() => {
                 setActiveMainMenu(index);
@@ -88,6 +89,7 @@ export const AdminNavigation = (props: Props) => {
                           alignItems: "center",
                           gap: ".5rem",
                           cursor: "pointer",
+                          userSelect: "none",
                         }}
                         className={activeSubMenu === i ? "sub__active" : ""}
                       >

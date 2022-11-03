@@ -123,4 +123,14 @@ export const GalleryForm: React.FC<Props> = ({
   );
 };
 
-const locations = ["Lagos/South West", "North", "East"];
+export enum Locations {
+  Lagos_South_West = "Lagos/South West",
+  North = "North",
+  East = "East",
+}
+
+export const locations = [
+  Locations.Lagos_South_West,
+  Locations.North,
+  Locations.East,
+];
