@@ -7,7 +7,6 @@ import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../utils/toast-messages";
 import { BlogContent } from "../../admin/components/blog-set-up/BlogContent";
 import { BlogSectionEnums } from "../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
-import { TrainingType } from "../../admin/pages/training/types/TrainingTypes";
 import { EmployeeWrapper } from "../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { PageHeaderWithImage } from "../../shared/components/PageHeaderWithImage";
 
