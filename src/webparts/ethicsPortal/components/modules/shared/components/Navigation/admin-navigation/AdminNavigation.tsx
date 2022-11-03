@@ -28,6 +28,18 @@ export const AdminNavigation = (props: Props) => {
         top: 0,
       }}
     >
+      <Box onClick={() => history.push("/")}>
+        <img
+          src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/logo.png"
+          alt=""
+          width="150px"
+          height="50px"
+          style={{
+            objectFit: "contain",
+            cursor: "pointer",
+          }}
+        />
+      </Box>
       {adminNavItems.map((mainMenu, index) => {
         return (
           <>

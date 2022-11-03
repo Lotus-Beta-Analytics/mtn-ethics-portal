@@ -67,6 +67,14 @@ import { AntiBribery } from "./modules/employee/pages/anti-bribery/AntiBriberyLa
 import { AntiBriberyWriteUpLanding } from "./modules/employee/pages/anti-bribery/anti-bribery-article/AntiBriberyArticle";
 import { AntiBriberyPolicy } from "./modules/employee/pages/anti-bribery/anti-bribery-policy/AntiBriberyPolicy";
 import { AntiBriberyTrainingLanding } from "./modules/employee/pages/anti-bribery/anti-bribery-training/AntiBriberyTraining";
+import { ConductPassportLandingPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPassportLandingPage";
+import { ConductBlogPostsPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductBlogPostsPage";
+import { ConductPolicyPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPolicyPage";
+import { ConductPassportResourcesPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPassportResourcesPage";
+import { PrivacyLandingPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyLandingPage";
+import { PrivacyBlogPostsPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyBlogPostsPage";
+import { PrivacyPolicyPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyPolicyPage";
+import { PrivacyResourcesPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyResourcesPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -259,6 +267,48 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     component={GiftEntertainmentTrainingLanding}
                   />
                   {/* End of gift and entertainment */}
+                  {/* Conduct Passport Routes */}
+                  <Route
+                    exact
+                    path="/conduct-passport"
+                    component={ConductPassportLandingPage}
+                  />
+                  <Route
+                    exact
+                    path="/conduct-passport/posts"
+                    component={ConductBlogPostsPage}
+                  />
+                  <Route
+                    exact
+                    path="/conduct-passport/policy"
+                    component={ConductPolicyPage}
+                  />
+                  <Route
+                    exact
+                    path="/conduct-passport/resources"
+                    component={ConductPassportResourcesPage}
+                  />
+
+                  {/* End of Conduct Passport Routes */}
+                  {/* Privacy and Data Protection Routes */}
+                  <Route exact path="/privacy" component={PrivacyLandingPage} />
+                  <Route
+                    exact
+                    path="/privacy/posts"
+                    component={PrivacyBlogPostsPage}
+                  />
+                  <Route
+                    exact
+                    path="/privacy/policy"
+                    component={PrivacyPolicyPage}
+                  />
+                  <Route
+                    exact
+                    path="/privacy/resources"
+                    component={PrivacyResourcesPage}
+                  />
+
+                  {/* End of Privacy and Data Protection Routes*/}
 
                    {/* conduct passport */}
                    <Route
