@@ -43,7 +43,7 @@ export const EthicsTrainings = ({ match }) => {
   React.useEffect(() => {
     sp.web.lists
       .getByTitle(`Training`)
-      .items.get()
+      .items.getAll()
       .then((res) => {
         setData(res);
       });
@@ -96,7 +96,7 @@ export const EthicsTrainings = ({ match }) => {
                 tooltip: "View Video",
 
                 onClick: (event, rowData) => {
-                  history.push(`/ethics/training/${rowData.ID}`);
+                  history.push(`/view/category/training/${rowData.ID}`);
                 },
               },
             ]}

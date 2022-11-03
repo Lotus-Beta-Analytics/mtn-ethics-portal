@@ -75,6 +75,7 @@ import { PrivacyLandingPage } from "./modules/employee/pages/ethics-policies/pri
 import { PrivacyBlogPostsPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyBlogPostsPage";
 import { PrivacyPolicyPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyPolicyPage";
 import { PrivacyResourcesPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyResourcesPage";
+import { ViewEthicsTraining } from "./modules/employee/pages/training/ethic-trainings/view-ethics-trainings/ViewEthicsTraining";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -225,6 +226,12 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                   <Route
                     exact
+                    path="/view/category/training/:id"
+                    component={ViewEthicsTraining}
+                  />
+
+                  <Route
+                    exact
                     path="/employee/quiz/landing"
                     component={QuizLandingPage}
                   />
@@ -310,8 +317,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                   {/* End of Privacy and Data Protection Routes*/}
 
-                   {/* conduct passport */}
-                   <Route
+                  {/* conduct passport */}
+                  <Route
                     exact
                     path="/conductpassport"
                     component={ConductPassport}
@@ -334,8 +341,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                   />
                   {/* conduct passport */}
 
-                   {/* whistle blowing */}
-                   <Route
+                  {/* whistle blowing */}
+                  <Route
                     exact
                     path="/whistleblowing"
                     component={WhistleBLowing}
@@ -357,12 +364,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     component={WhistleBlowingTrainingLanding}
                   />
                   {/* End of whistle blowing */}
-                   {/* bribery */}
-                   <Route
-                    exact
-                    path="/antibribery"
-                    component={AntiBribery}
-                  />
+                  {/* bribery */}
+                  <Route exact path="/antibribery" component={AntiBribery} />
 
                   <Route
                     exact
