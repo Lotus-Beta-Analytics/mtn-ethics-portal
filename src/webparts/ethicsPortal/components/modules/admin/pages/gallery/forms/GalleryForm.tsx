@@ -129,4 +129,8 @@ export enum Locations {
   East = "East",
 }
 
-const locations = [Locations.Lagos_South_West, Locations.North, Locations.East];
+export const locations = [
+  Locations.Lagos_South_West,
+  Locations.North,
+  Locations.East,
+];

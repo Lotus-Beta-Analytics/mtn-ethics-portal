@@ -31,7 +31,7 @@ export const WriteUpLandingComponent: React.FC<Props> = ({
         .getByTitle("Post")
         .items.filter(`PostSection eq '${filter}'`)
         .get();
-      setPageSize(Math.floor(res.length / rowsPerPage));
+      setPageSize(Math.ceil(res.length / rowsPerPage));
       return res;
     } catch (e) {
       errorAlert(toast);

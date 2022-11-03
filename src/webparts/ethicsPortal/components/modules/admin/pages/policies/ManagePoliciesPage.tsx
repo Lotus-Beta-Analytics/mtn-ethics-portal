@@ -5,7 +5,7 @@ import { getAllPolicies } from "./apis/getAllPolicies";
 import { PoliciesTable } from "./components/PoliciesTable";
 import { useLocation } from "react-router-dom";
 
-interface ReadOnlyURLSearchParams extends URLSearchParams {
+export interface ReadOnlyURLSearchParams extends URLSearchParams {
   append: never;
   set: never;
   delete: never;
@@ -18,7 +18,6 @@ export const ManagePoliciesPage = () => {
     () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
     [search]
   );
-  const [filteredPolicies, setFilteredPolicies] = React.useState([]);
   const [policies, setPolicies] = React.useState([]);
 
   const { data, isLoading, isError } = useQuery<any[]>(

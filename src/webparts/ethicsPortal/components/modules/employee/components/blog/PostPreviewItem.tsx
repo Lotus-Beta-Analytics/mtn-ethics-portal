@@ -37,7 +37,7 @@ export const PostPreviewItem: React.FC<Props> = ({ post }) => {
   );
 };
 
-const PreviewContainer = styled.div<{
+export const PreviewContainer = styled.div<{
   bg: string;
   height: string;
 }>((props) => ({

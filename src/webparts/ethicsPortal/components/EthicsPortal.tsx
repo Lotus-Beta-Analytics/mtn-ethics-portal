@@ -9,7 +9,7 @@ import { CreateQuizPage } from "./modules/admin/pages/quiz/CreateQuizPage";
 import { NotFound } from "./notFound/NotFound";
 import { LandingPage } from "./modules/employee/pages/landing-page/LandingPage";
 import { PhotoCategories } from "./modules/employee/pages/gallery/photo-categories/PhotoCategories";
-import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
+import {  VideoGallery } from "./modules/employee/pages/gallery/VideoGallery";
 import "./styles.css";
 import { ConflictOfInterestLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestLanding";
 import { ConflictOfInterestWriteUpLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestWriteUpLanding";
@@ -73,6 +73,8 @@ import { PrivacyPolicyPage } from "./modules/employee/pages/ethics-policies/priv
 import { PrivacyResourcesPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyResourcesPage";
 import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictResourcesPage";
 import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
+import { PhotoGallery } from "./modules/employee/pages/gallery/PhotoGallery";
+import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -118,6 +120,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     path="/employee/photo-categories"
                     component={PhotoCategories}
                   />
+                  <Route exact path="/gallery/photo" component={PhotoGallery} />
+                  <Route exact path="/gallery/video" component={VideoGallery} />
                   <Route
                     exact
                     path="/employee/video-categories"
