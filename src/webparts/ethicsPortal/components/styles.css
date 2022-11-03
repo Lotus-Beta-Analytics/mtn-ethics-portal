@@ -19,8 +19,8 @@ body {
   z-index: 9;
 }
 .rec.rec-pagination {
-  position: absolute;
-  top: 55%;
+  /* position: absolute; */
+  top: 30%;
 }
 .rec.rec-dot {
   background: rgba(44, 43, 43, 0.7) !important;

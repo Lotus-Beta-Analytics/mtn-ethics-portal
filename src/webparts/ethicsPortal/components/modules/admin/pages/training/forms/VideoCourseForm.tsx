@@ -72,7 +72,11 @@ export const VideoCourseForm: React.FC<Props> = ({
             Video: newValue,
           })
         }
-        accept={{ "video/mp4": [".mp4"] }}
+        accept={{
+          "video/mp4": [".mp4"],
+          "application/vnd.ms-powerpoint": [".pptx"],
+          "application/pdf": [".pdf"],
+        }}
       />
       <Box>
         <Button
@@ -92,4 +96,10 @@ const courseCategories = [
   TrainingCategoryEnum.Business_Ethics,
   TrainingCategoryEnum.Mtn_Ethics,
   TrainingCategoryEnum.Organisation_Ethics,
+  TrainingCategoryEnum.Gift_Entertainment,
+  TrainingCategoryEnum.Bribery_Corruption,
+  TrainingCategoryEnum.Whistle_Blowing,
+  TrainingCategoryEnum.Privacy_Data_Protection,
+  TrainingCategoryEnum.Conflict_Interest,
+  TrainingCategoryEnum.Conduct_Passport,
 ];

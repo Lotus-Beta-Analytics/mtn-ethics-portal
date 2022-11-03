@@ -48,7 +48,7 @@ export const QuizReportPage = () => {
           questions?.questions ? JSON.parse(questions?.questions) : []
         );
       });
-  }, []);
+  }, [quizId]);
 
   const answersToQuestionsArr = () => {
     const obj = [];
@@ -99,14 +99,24 @@ export const QuizReportPage = () => {
   };
 
   React.useMemo(() => {
-    questionsArr?.length > 0 && setField(answersToQuestionsArr());
-  }, [questionsArr]);
+    questionsArr?.length && setField(answersToQuestionsArr());
+  }, [questionsArr, quizReport]);
 
   const columns = [
     { title: "Staff Name", field: "StaffName" },
     { title: "Staff Email Address", field: "StaffEmail" },
     { title: "Quiz Title", field: "Quiz[QuizTitle]" },
-    { title: "Quiz Status", field: "Quiz[status]" },
+    {
+      title: "Quiz Status",
+      field: "Quiz[status]",
+      render: (rowData) => (
+        <>
+          {rowData?.Quiz?.status === QuizStatus.Is_Enabled
+            ? "Running"
+            : "Disabled"}
+        </>
+      ),
+    },
     ...field,
     {
       title: "Quiz Result",

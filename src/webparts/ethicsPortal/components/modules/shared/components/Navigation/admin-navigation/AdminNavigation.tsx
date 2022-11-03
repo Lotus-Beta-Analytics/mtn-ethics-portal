@@ -9,7 +9,7 @@ type Props = {};
 
 export const AdminNavigation = (props: Props) => {
   const [activeMainMenu, setActiveMainMenu] = React.useState(-1);
-  const [activeSubMenu, setActiveSubMenu] = React.useState(0);
+  const [activeSubMenu, setActiveSubMenu] = React.useState(-1);
   const history = useHistory();
   return (
     <ul
@@ -28,6 +28,18 @@ export const AdminNavigation = (props: Props) => {
         top: 0,
       }}
     >
+      <Box onClick={() => history.push("/")}>
+        <img
+          src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/logo.png"
+          alt=""
+          width="150px"
+          height="50px"
+          style={{
+            objectFit: "contain",
+            cursor: "pointer",
+          }}
+        />
+      </Box>
       {adminNavItems.map((mainMenu, index) => {
         return (
           <>
@@ -77,6 +89,7 @@ export const AdminNavigation = (props: Props) => {
                           gap: ".5rem",
                           cursor: "pointer",
                         }}
+                        className={activeSubMenu === i ? "sub__active" : ""}
                       >
                         <Box>
                           <sub.icon />

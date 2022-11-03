@@ -6,6 +6,7 @@ import { useToasts } from "react-toast-notifications";
 import { PostPreviewContainer } from "../../../../../styles/styles";
 import { errorAlert } from "../../../../../utils/toast-messages";
 import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
+import { TrainingCategoryEnum } from "../../../../admin/pages/training/enums/TrainingCategoryEnum";
 
 import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/PageWrapper";
@@ -16,16 +17,19 @@ export const GiftEntertainmentTrainingLanding = () => {
   const { data, isLoading, isSuccess } = useQuery<any>(["post"], async () => {
     try {
       const res = await sp.web.lists
-        .getByTitle("Post")
-        .items.filter(`PostSection eq '${BlogSectionEnums.Gift}'`)
+        .getByTitle("Training")
+        .items.filter(`Category eq '${TrainingCategoryEnum.Gift_Entertainment}'`)
         .get();
+        console.log(res)
       return res;
     } catch (e) {
       errorAlert(toast);
     }
   });
   const toast = useToasts().addToast;
-
+const viewHandler = (post) => {
+console.log("this us",post.Video)
+}
   return (
     <EmployeeWrapper>
       <PageWrapper>
@@ -40,7 +44,11 @@ export const GiftEntertainmentTrainingLanding = () => {
           ) : (
             <>
               {data.map((post) => (
-                <PostPreviewItem post={post} key={post.Id} />
+                // <PostPreviewItem post={post} key={post.Id} />
+                <div  key={post.Id}>
+                  <h1>{post.TrainingTitle}</h1>
+                  <button onClick={(post)=>viewHandler(post)}>{post.Video}</button>
+                  </div>
               ))}
             </>
           )}
