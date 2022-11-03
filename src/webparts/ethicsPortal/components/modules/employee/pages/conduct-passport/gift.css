@@ -1,9 +1,0 @@
-.giftHomeContainer{
-    display: flex;
-    flex-direction: column;
-    padding: 4%;
-}
-
-.giftHomeContainer p {
-    margin-top: 20px;
-}
