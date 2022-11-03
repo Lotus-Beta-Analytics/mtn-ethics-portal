@@ -7,6 +7,7 @@ import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../utils/toast-messages";
 import { BlogContent } from "../../admin/components/blog-set-up/BlogContent";
 import { BlogSectionEnums } from "../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
+import { TrainingType } from "../../admin/pages/training/types/TrainingTypes";
 import { EmployeeWrapper } from "../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { PageHeaderWithImage } from "../../shared/components/PageHeaderWithImage";
 
@@ -30,6 +31,7 @@ export const PolicyComponent: React.FC<Props> = ({ section }) => {
       if (res.length) {
         return res[res.length - 1];
       }
+      return {} as any;
     } catch (e) {
       errorAlert(toast);
     }
@@ -37,29 +39,45 @@ export const PolicyComponent: React.FC<Props> = ({ section }) => {
   return (
     <EmployeeWrapper showFooter={true} backButton={true}>
       <Box width="90%" m="auto">
-        <PageHeaderWithImage
-          bg={`${policy?.FileUrl}`}
-          text={`${policy?.PolicyTitle}`}
-        />
+        {!isLoading && policy && (
+          <PageHeaderWithImage
+            bg={`${policy?.FileUrl}`}
+            text={policy?.PolicyTitle ?? ""}
+          />
+        )}
+
+        {!isLoading && !!policy && (
+          <Box style={{ width: "90%", height: "450px" }} mt={3} ml="5%">
+            <Typography variant="h6">
+              No <strong>Item</strong> at this time.<br></br> Please check back.
+            </Typography>
+          </Box>
+        )}
 
         {isLoading ? (
           <CircularProgress />
         ) : (
-          <Box minHeight="450px">
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography variant="h5">{policy?.PolicyTitle}</Typography>
-              <Typography>
-                Posted On: {dayjs(policy?.Created).format("MMMM DD, YYYY")}
-              </Typography>
-            </Box>
-            <Box>
-              <BlogContent post={JSON.parse(policy?.content)} />
-            </Box>
-          </Box>
+          <>
+            {policy && (
+              <Box minHeight="450px">
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Typography variant="h5">{policy?.PolicyTitle}</Typography>
+                  <Typography>
+                    Posted On: {dayjs(policy?.Created).format("MMMM DD, YYYY")}
+                  </Typography>
+                </Box>
+                <Box>
+                  {policy?.content && (
+                    <BlogContent post={JSON.parse(policy?.content)} />
+                  )}
+                </Box>
+              </Box>
+            )}
+          </>
         )}
       </Box>
     </EmployeeWrapper>

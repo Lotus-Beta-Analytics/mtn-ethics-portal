@@ -42,7 +42,7 @@ export const WriteUpLandingComponent: React.FC<Props> = ({
   return (
     <EmployeeWrapper>
       <Box width="90%" m="0 auto">
-        <PageHeaderWithImage bg={backgroundImage} text={pageTitle} />
+        <PageHeaderWithImage bg={backgroundImage} text={pageTitle ?? ""} />
       </Box>
 
       {!isLoading && data?.length === 0 && (
