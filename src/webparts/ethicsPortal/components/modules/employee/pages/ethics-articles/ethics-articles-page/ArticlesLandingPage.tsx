@@ -16,7 +16,7 @@ const pageMenu = [
 
 export const ArticlesLandingPage = () => {
   const [pageSize, setPageSize] = React.useState(null);
-  const rowsPerPage = 4;
+  const rowsPerPage = 6;
   const [items, setItems] = React.useState([]);
 
   const { data, isLoading } = useQuery<any>(["post"], async () => {
