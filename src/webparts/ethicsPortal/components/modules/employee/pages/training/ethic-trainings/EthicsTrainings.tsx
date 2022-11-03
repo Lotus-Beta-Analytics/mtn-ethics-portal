@@ -1,12 +1,12 @@
 import MaterialTable from "material-table";
 import * as React from "react";
+import { sp } from "@pnp/sp";
 import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
 import "./styles.css";
 import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import { FaPlay } from "react-icons/fa";
-import { BsDownload } from "react-icons/bs";
+import { GrView } from "react-icons/gr";
 
 const pageMenu = [
   {
@@ -26,32 +26,28 @@ const pageMenu = [
   },
 ];
 
-export const EthicsTrainings = () => {
+export const EthicsTrainings = ({ match }) => {
+  let itemID = match.params.id;
+  console.log(itemID);
+
   const history = useHistory();
 
   const [columns, setColumns] = React.useState([
-    { title: "Title", field: "TitleName", type: "string" as const },
-    { title: "Category", field: "CategoryName", type: "string" as const },
-    { title: "Size(MB)", field: "FileSize", type: "string" as const },
+    { title: "Title", field: "TrainingTitle", type: "string" as const },
+    { title: "Category", field: "Category", type: "string" as const },
+    { title: "Training Video", field: "Video", type: "string" as const },
   ]);
 
-  const [data, setData] = React.useState([
-    {
-      TitleName: "Training of Ethics Business",
-      CategoryName: "Business Ethics Everyone's Responsibilities",
-      FileSize: "1.5GB",
-    },
-    {
-      TitleName: "Ethics And Personal Statistics",
-      CategoryName: "MTN Ethics training Videos",
-      FileSize: "19.5GB",
-    },
-    {
-      TitleName: "Ethics and Organizational Standards",
-      CategoryName: "Organizational Ethics",
-      FileSize: "500MB",
-    },
-  ]);
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    sp.web.lists
+      .getByTitle(`Training`)
+      .items.get()
+      .then((res) => {
+        setData(res);
+      });
+  }, []);
 
   return (
     <EmployeeWrapper
@@ -95,21 +91,12 @@ export const EthicsTrainings = () => {
             }}
             actions={[
               {
-                icon: FaPlay,
+                icon: GrView,
                 iconProps: { style: { fontSize: "15px" } },
-                tooltip: "Play Video",
+                tooltip: "View Video",
 
                 onClick: (event, rowData) => {
-                  history.push();
-                },
-              },
-              {
-                icon: BsDownload,
-                iconProps: { style: { fontSize: "15px" } },
-                tooltip: "Download Video",
-
-                onClick: (event, rowData) => {
-                  history.push();
+                  history.push(`/ethics/training/${rowData.ID}`);
                 },
               },
             ]}

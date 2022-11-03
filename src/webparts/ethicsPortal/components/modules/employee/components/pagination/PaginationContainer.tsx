@@ -49,7 +49,7 @@ export const PaginationContainer: React.FC<Props> = ({
         {paginateArr.length > 1 &&
           paginateArr.map((item, index) => (
             <Button
-              style={{ width: "50px", borderRadius: "0" }}
+              style={{ width: "50px", borderRadius: "26px" }}
               onClick={() => {
                 handleChangePage(item);
                 setActive(index);
