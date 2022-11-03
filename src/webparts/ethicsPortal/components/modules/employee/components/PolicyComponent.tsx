@@ -45,7 +45,7 @@ export const PolicyComponent: React.FC<Props> = ({ section }) => {
           />
         )}
 
-        {!isLoading && !!policy && (
+        {!isLoading && !policy?.PolicyTitle && (
           <Box style={{ width: "90%", height: "450px" }} mt={3} ml="5%">
             <Typography variant="h6">
               No <strong>Item</strong> at this time.<br></br> Please check back.
