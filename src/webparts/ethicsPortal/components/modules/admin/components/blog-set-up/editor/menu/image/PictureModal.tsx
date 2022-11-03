@@ -35,13 +35,18 @@ export const PictureModal: React.FC<{
 
   const toast = useToasts().addToast;
 
-  const onDrop = (acceptedFiles) => {
+  const onDrop = (acceptedFiles, error) => {
+    if (error.length) return;
     setFile(acceptedFiles[0]);
   };
   const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
     noClick: true,
     onDrop,
-    // accept: [],
+    accept: { "image/*": [".png", ".jpg"] },
+    maxSize: 1000000,
+    onDropRejected: () => {
+      alert("file format not supported or file is greater than 10mb");
+    },
   });
 
   const handleClose = async () => {
@@ -126,6 +131,8 @@ export const PictureModal: React.FC<{
                 style={{ margin: 0, textTransform: "none" }}
                 onClick={open}
                 startIcon={<ImageRoundedIcon style={{ color: "#92278F" }} />}
+                variant="contained"
+                color="secondary"
               >
                 Browse Computer Files
               </Button>

@@ -6,8 +6,13 @@
   border-top-right-radius: 0.75rem; */
 }
 
-.ProseMirror>*+* {
+.ProseMirror > * + * {
   margin-top: 0.75em;
+}
+
+.ProseMirror {
+  padding: 0.5em;
+  min-height: 100%;
 }
 
 .ProseMirror ul,
@@ -30,9 +35,9 @@
 }
 
 .ProseMirror pre {
-  background: #0D0D0D;
-  color: #FFF;
-  font-family: 'JetBrainsMono', monospace;
+  background: #0d0d0d;
+  color: #fff;
+  font-family: "JetBrainsMono", monospace;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
 }
@@ -47,6 +52,7 @@
 .ProseMirror img {
   max-width: 100%;
   height: auto;
+  margin: 0.2em 0;
 }
 
 .ProseMirror blockquote {
