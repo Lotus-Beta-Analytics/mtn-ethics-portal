@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(6),
       backgroundColor: theme.palette.common.black,
-      width: "90%",
+      width: "100%",
       height: "200px",
       color: theme.palette.common.white,
       boxSizing: "border-box",
