@@ -76,7 +76,7 @@ import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/
 import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
 import { PhotoGallery } from "./modules/employee/pages/gallery/PhotoGallery";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
-import { CreatePolicyBreaches } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/CreatePolicyBreaches";
+import { WebPartContext } from "@microsoft/sp-webpart-base";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -111,379 +111,394 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
   return (
     <QueryClientProvider client={queryClient}>
       <ToastProvider>
-        <ThemeProvider theme={theme}>
-          <Router>
-            <CreateAdminQuizContextProvider>
-              <QuizContextProvider>
-                <Switch>
-                  <Route exact path="/" component={LandingPage} />
-                  <Route
-                    exact
-                    path="/employee/photo-categories"
-                    component={PhotoCategories}
-                  />
-                  <Route exact path="/gallery/photo" component={PhotoGallery} />
-                  <Route exact path="/gallery/video" component={VideoGallery} />
-                  <Route
-                    exact
-                    path="/employee/video-categories"
-                    component={VideoCategories}
-                  />
-                  <Route
-                    exact
-                    path="/conflict/landing"
-                    component={ConflictOfInterestLanding}
-                  />
-                  <Route
-                    exact
-                    path="/recognition/champion"
-                    component={ChampionLandingPage}
-                  />
-                  <Route
-                    exact
-                    path="/recognition/ethicschampion"
-                    component={EthicsChampionLandingPage}
-                  />
-                  <Route
-                    exact
-                    path="/recognition/ethicschampion/activties"
-                    component={EthicsChampionsActivties}
-                  />
-                  <Route
-                    exact
-                    path="/conflict/writeup"
-                    component={ConflictOfInterestWriteUpLanding}
-                  />
-                  <Route exact path="/blog/post/:id" component={Post} />
+        <WebContext.Provider value={{ context }}>
+          <ThemeProvider theme={theme}>
+            <Router>
+              <CreateAdminQuizContextProvider>
+                <QuizContextProvider>
+                  <Switch>
+                    <Route exact path="/" component={LandingPage} />
+                    <Route
+                      exact
+                      path="/employee/photo-categories"
+                      component={PhotoCategories}
+                    />
+                    <Route
+                      exact
+                      path="/gallery/photo"
+                      component={PhotoGallery}
+                    />
+                    <Route
+                      exact
+                      path="/gallery/video"
+                      component={VideoGallery}
+                    />
+                    <Route
+                      exact
+                      path="/employee/video-categories"
+                      component={VideoCategories}
+                    />
+                    <Route
+                      exact
+                      path="/conflict/landing"
+                      component={ConflictOfInterestLanding}
+                    />
+                    <Route
+                      exact
+                      path="/recognition/champion"
+                      component={ChampionLandingPage}
+                    />
+                    <Route
+                      exact
+                      path="/recognition/ethicschampion"
+                      component={EthicsChampionLandingPage}
+                    />
+                    <Route
+                      exact
+                      path="/recognition/ethicschampion/activties"
+                      component={EthicsChampionsActivties}
+                    />
+                    <Route
+                      exact
+                      path="/conflict/writeup"
+                      component={ConflictOfInterestWriteUpLanding}
+                    />
+                    <Route exact path="/blog/post/:id" component={Post} />
 
-                  <Route
-                    exact
-                    path="/conflict/landing"
-                    component={ConflictOfInterestLanding}
-                  />
-                  <Route
-                    exact
-                    path="/conflict/writeup"
-                    component={ConflictOfInterestWriteUpLanding}
-                  />
-                  <Route
-                    exact
-                    path="/conflict/policy"
-                    component={ConflictPolicyPage}
-                  />
-                  <Route
-                    exact
-                    path="/conflict/resources"
-                    component={ConflictResourcesPage}
-                  />
-                  <Route
-                    exact
-                    path="/recognition/champion"
-                    component={ChampionLandingPage}
-                  />
-                  <Route
-                    exact
-                    path="/recognition/ethicschampion"
-                    component={EthicsChampionLandingPage}
-                  />
-                  <Route
-                    exact
-                    path="/recognition/ethicschampion/activties"
-                    component={EthicsChampionsActivties}
-                  />
-                  <Route
-                    exact
-                    path="/trainings/traininglandingpage"
-                    component={EthicsTrainings}
-                  />
-                  <Route
-                    exact
-                    path="/ethics/training/businessethics"
-                    component={BusinessEthics}
-                  />
-                  <Route
-                    exact
-                    path="/ethics/training/mtnethicstrainingvideos"
-                    component={MtnTrainingVideo}
-                  />
-                  <Route
-                    exact
-                    path="/ethics/training/organizationalethics"
-                    component={OrganizationEthics}
-                  />
+                    <Route
+                      exact
+                      path="/conflict/landing"
+                      component={ConflictOfInterestLanding}
+                    />
+                    <Route
+                      exact
+                      path="/conflict/writeup"
+                      component={ConflictOfInterestWriteUpLanding}
+                    />
+                    <Route
+                      exact
+                      path="/conflict/policy"
+                      component={ConflictPolicyPage}
+                    />
+                    <Route
+                      exact
+                      path="/conflict/resources"
+                      component={ConflictResourcesPage}
+                    />
+                    <Route
+                      exact
+                      path="/recognition/champion"
+                      component={ChampionLandingPage}
+                    />
+                    <Route
+                      exact
+                      path="/recognition/ethicschampion"
+                      component={EthicsChampionLandingPage}
+                    />
+                    <Route
+                      exact
+                      path="/recognition/ethicschampion/activties"
+                      component={EthicsChampionsActivties}
+                    />
+                    <Route
+                      exact
+                      path="/trainings/traininglandingpage"
+                      component={EthicsTrainings}
+                    />
+                    <Route
+                      exact
+                      path="/ethics/training/businessethics"
+                      component={BusinessEthics}
+                    />
+                    <Route
+                      exact
+                      path="/ethics/training/mtnethicstrainingvideos"
+                      component={MtnTrainingVideo}
+                    />
+                    <Route
+                      exact
+                      path="/ethics/training/organizationalethics"
+                      component={OrganizationEthics}
+                    />
 
-                  <Route
-                    exact
-                    path="/ethics/policybreaches"
-                    component={PolicyBreaches}
-                  />
+                    <Route
+                      exact
+                      path="/ethics/policybreaches"
+                      component={PolicyBreaches}
+                    />
 
-                  <Route
-                    exact
-                    path="/policybreaches/ethicsdefaulters"
-                    component={EthicsDefaulters}
-                  />
-                  <Route
-                    exact
-                    path="/ethics/articleslandingpage"
-                    component={ArticlesLandingPage}
-                  />
+                    <Route
+                      exact
+                      path="/policybreaches/ethicsdefaulters"
+                      component={EthicsDefaulters}
+                    />
+                    <Route
+                      exact
+                      path="/ethics/articleslandingpage"
+                      component={ArticlesLandingPage}
+                    />
 
-                  <Route
-                    exact
-                    path="/ethical/leadership/series"
-                    component={LeadershipSeries}
-                  />
+                    <Route
+                      exact
+                      path="/ethical/leadership/series"
+                      component={LeadershipSeries}
+                    />
 
-                  <Route exact path="/ethics/contactus" component={ContactUs} />
+                    <Route
+                      exact
+                      path="/ethics/contactus"
+                      component={ContactUs}
+                    />
 
-                  <Route
-                    exact
-                    path="/view/category/training/:id"
-                    component={ViewEthicsTraining}
-                  />
+                    <Route
+                      exact
+                      path="/view/category/training/:id"
+                      component={ViewEthicsTraining}
+                    />
 
-                  <Route
-                    exact
-                    path="/employee/quiz/landing"
-                    component={QuizLandingPage}
-                  />
+                    <Route
+                      exact
+                      path="/employee/quiz/landing"
+                      component={QuizLandingPage}
+                    />
 
-                  <Route
-                    exact
-                    path="/employee/take-quiz"
-                    render={() => <QuizPage />}
-                  />
-                  <Route
-                    exact
-                    path="/employee/review"
-                    component={QuizReviewPage}
-                  />
-                  <Route
-                    exact
-                    path="/employee/quiz-result"
-                    component={QuizResultPage}
-                  />
-                  {/* gift and entertainment */}
-                  <Route
-                    exact
-                    path="/giftandentertainment"
-                    component={GiftandEntertainment}
-                  />
+                    <Route
+                      exact
+                      path="/employee/take-quiz"
+                      render={() => <QuizPage />}
+                    />
+                    <Route
+                      exact
+                      path="/employee/review"
+                      component={QuizReviewPage}
+                    />
+                    <Route
+                      exact
+                      path="/employee/quiz-result"
+                      component={QuizResultPage}
+                    />
+                    {/* gift and entertainment */}
+                    <Route
+                      exact
+                      path="/giftandentertainment"
+                      component={GiftandEntertainment}
+                    />
 
-                  <Route
-                    exact
-                    path="/giftandentertainment/writeup"
-                    component={GiftEntertainmentWriteUpLanding}
-                  />
-                  <Route
-                    exact
-                    path="/giftandentertainment/policy"
-                    component={GiftandEntertainmentPolicy}
-                  />
-                  <Route
-                    exact
-                    path="/giftandentertainment/trainingslides"
-                    component={GiftEntertainmentTrainingLanding}
-                  />
-                  {/* End of gift and entertainment */}
-                  {/* Conduct Passport Routes */}
-                  <Route
-                    exact
-                    path="/conduct-passport"
-                    component={ConductPassportLandingPage}
-                  />
-                  <Route
-                    exact
-                    path="/conduct-passport/posts"
-                    component={ConductBlogPostsPage}
-                  />
-                  <Route
-                    exact
-                    path="/conduct-passport/policy"
-                    component={ConductPolicyPage}
-                  />
-                  <Route
-                    exact
-                    path="/conduct-passport/resources"
-                    component={ConductPassportResourcesPage}
-                  />
+                    <Route
+                      exact
+                      path="/giftandentertainment/writeup"
+                      component={GiftEntertainmentWriteUpLanding}
+                    />
+                    <Route
+                      exact
+                      path="/giftandentertainment/policy"
+                      component={GiftandEntertainmentPolicy}
+                    />
+                    <Route
+                      exact
+                      path="/giftandentertainment/trainingslides"
+                      component={GiftEntertainmentTrainingLanding}
+                    />
+                    {/* End of gift and entertainment */}
+                    {/* Conduct Passport Routes */}
+                    <Route
+                      exact
+                      path="/conduct-passport"
+                      component={ConductPassportLandingPage}
+                    />
+                    <Route
+                      exact
+                      path="/conduct-passport/posts"
+                      component={ConductBlogPostsPage}
+                    />
+                    <Route
+                      exact
+                      path="/conduct-passport/policy"
+                      component={ConductPolicyPage}
+                    />
+                    <Route
+                      exact
+                      path="/conduct-passport/resources"
+                      component={ConductPassportResourcesPage}
+                    />
 
-                  {/* End of Conduct Passport Routes */}
-                  {/* Privacy and Data Protection Routes */}
-                  <Route exact path="/privacy" component={PrivacyLandingPage} />
-                  <Route
-                    exact
-                    path="/privacy/posts"
-                    component={PrivacyBlogPostsPage}
-                  />
-                  <Route
-                    exact
-                    path="/privacy/policy"
-                    component={PrivacyPolicyPage}
-                  />
-                  <Route
-                    exact
-                    path="/privacy/resources"
-                    component={PrivacyResourcesPage}
-                  />
+                    {/* End of Conduct Passport Routes */}
+                    {/* Privacy and Data Protection Routes */}
+                    <Route
+                      exact
+                      path="/privacy"
+                      component={PrivacyLandingPage}
+                    />
+                    <Route
+                      exact
+                      path="/privacy/posts"
+                      component={PrivacyBlogPostsPage}
+                    />
+                    <Route
+                      exact
+                      path="/privacy/policy"
+                      component={PrivacyPolicyPage}
+                    />
+                    <Route
+                      exact
+                      path="/privacy/resources"
+                      component={PrivacyResourcesPage}
+                    />
 
-                  {/* End of Privacy and Data Protection Routes*/}
+                    {/* End of Privacy and Data Protection Routes*/}
 
-                  {/* whistle blowing */}
-                  <Route
-                    exact
-                    path="/whistleblowing"
-                    component={WhistleBLowing}
-                  />
+                    {/* whistle blowing */}
+                    <Route
+                      exact
+                      path="/whistleblowing"
+                      component={WhistleBLowing}
+                    />
 
-                  <Route
-                    exact
-                    path="/whistleblowing/writeup"
-                    component={WhistleBlowingWriteUpLanding}
-                  />
-                  <Route
-                    exact
-                    path="/whistleblowing/policy"
-                    component={WhistleBlowingPolicy}
-                  />
-                  <Route
-                    exact
-                    path="/whistleblowing/training"
-                    component={WhistleBlowingTrainingLanding}
-                  />
-                  {/* End of whistle blowing */}
-                  {/* bribery */}
-                  <Route exact path="/antibribery" component={AntiBribery} />
+                    <Route
+                      exact
+                      path="/whistleblowing/writeup"
+                      component={WhistleBlowingWriteUpLanding}
+                    />
+                    <Route
+                      exact
+                      path="/whistleblowing/policy"
+                      component={WhistleBlowingPolicy}
+                    />
+                    <Route
+                      exact
+                      path="/whistleblowing/training"
+                      component={WhistleBlowingTrainingLanding}
+                    />
+                    {/* End of whistle blowing */}
+                    {/* bribery */}
+                    <Route exact path="/antibribery" component={AntiBribery} />
 
-                  <Route
-                    exact
-                    path="/antibribery/writeup"
-                    component={AntiBriberyWriteUpLanding}
-                  />
-                  <Route
-                    exact
-                    path="/antibribery/policy"
-                    component={AntiBriberyPolicy}
-                  />
-                  <Route
-                    exact
-                    path="/antibribery/training"
-                    component={AntiBriberyTrainingLanding}
-                  />
-                  {/* End of antibribery */}
+                    <Route
+                      exact
+                      path="/antibribery/writeup"
+                      component={AntiBriberyWriteUpLanding}
+                    />
+                    <Route
+                      exact
+                      path="/antibribery/policy"
+                      component={AntiBriberyPolicy}
+                    />
+                    <Route
+                      exact
+                      path="/antibribery/training"
+                      component={AntiBriberyTrainingLanding}
+                    />
+                    {/* End of antibribery */}
 
-                  {isAdmin && (
-                    <Switch>
-                      <Route
-                        exact
-                        path="/admin/dashboard"
-                        render={() => <AdminDashboard />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/user/create"
-                        render={() => <CreateAdminPage />}
-                      />
+                    {isAdmin && (
+                      <Switch>
+                        <Route
+                          exact
+                          path="/admin/dashboard"
+                          render={() => <AdminDashboard />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/user/create"
+                          render={() => <CreateAdminPage />}
+                        />
 
-                      <Route
-                        exact
-                        path="/admin/create-post"
-                        render={() => <CreateBlogPost context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/post/:postId/update"
-                        render={() => <UpdateBlogPostPage context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/manage-posts"
-                        render={() => <ManageBlogPostsPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/create-quiz"
-                        render={() => <CreateQuizPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/manage-quiz"
-                        render={() => <ManageQuizPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/quiz/:quizId/report"
-                        render={() => <QuizReportPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/gallery/"
-                        render={() => <Gallery />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/gallery/:uploadId/update"
-                        render={() => <UpdateGalleryPage context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/gallery/images"
-                        render={() => <ImageUploadPage context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/gallery/videos"
-                        render={() => <VideoUploadPage context={context} />}
-                      />
+                        <Route
+                          exact
+                          path="/admin/create-post"
+                          render={() => <CreateBlogPost context={context} />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/post/:postId/update"
+                          render={() => (
+                            <UpdateBlogPostPage context={context} />
+                          )}
+                        />
+                        <Route
+                          exact
+                          path="/admin/manage-posts"
+                          render={() => <ManageBlogPostsPage />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/create-quiz"
+                          render={() => <CreateQuizPage />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/manage-quiz"
+                          render={() => <ManageQuizPage />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/quiz/:quizId/report"
+                          render={() => <QuizReportPage />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/gallery/"
+                          render={() => <Gallery />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/gallery/:uploadId/update"
+                          render={() => <UpdateGalleryPage context={context} />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/gallery/images"
+                          render={() => <ImageUploadPage context={context} />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/gallery/videos"
+                          render={() => <VideoUploadPage context={context} />}
+                        />
 
-                      <Route
-                        exact
-                        path="/admin/scrolling-text"
-                        component={ScrollingTextSetUpPage}
-                      />
-                      <Route
-                        exact
-                        path="/admin/training"
-                        render={() => <VideoTrainingPage context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/policies"
-                        render={() => <ManagePoliciesPage />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/policy/:policyId/update"
-                        render={() => <UpdatePolicyPage context={context} />}
-                      />
-                      <Route
-                        exact
-                        path="/admin/create-policy"
-                        render={() => <CreatePolicy context={context} />}
-                      />
+                        <Route
+                          exact
+                          path="/admin/scrolling-text"
+                          component={ScrollingTextSetUpPage}
+                        />
+                        <Route
+                          exact
+                          path="/admin/training"
+                          render={() => <VideoTrainingPage context={context} />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/policies"
+                          render={() => <ManagePoliciesPage />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/policy/:policyId/update"
+                          render={() => <UpdatePolicyPage context={context} />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/create-policy"
+                          render={() => <CreatePolicy context={context} />}
+                        />
+                        <Route path="*" component={NotFound} />
+                      </Switch>
+                    )}
 
-                      {/* Start of Policy Breaches */}
-
-                      <Route
-                        exact
-                        path="/admin/policy/breaches"
-                        component={CreatePolicyBreaches}
-                      />
-
-                      <Route path="*" component={NotFound} />
-                    </Switch>
-                  )}
-
-                  {!isAdmin && <Route path="*" component={NotFound} />}
-                </Switch>
-              </QuizContextProvider>
-            </CreateAdminQuizContextProvider>
-          </Router>
-        </ThemeProvider>
+                    {!isAdmin && <Route path="*" component={NotFound} />}
+                  </Switch>
+                </QuizContextProvider>
+              </CreateAdminQuizContextProvider>
+            </Router>
+          </ThemeProvider>
+        </WebContext.Provider>
       </ToastProvider>
     </QueryClientProvider>
   );
 };
 
 export default EthicsPortal;
+
+export const WebContext = React.createContext<{
+  context: WebPartContext;
+} | null>(null);
