@@ -15,7 +15,7 @@ type Props = {};
 
 export const AdminWrapper = ({ children }) => {
   const md = useMediaQuery("(min-width:1240px)");
-  const [openNavArea, setOpenNavArea] = React.useState(true);
+  const [openNavArea, setOpenNavArea] = React.useState(false);
   const history = useHistory();
 
   return (
@@ -46,16 +46,15 @@ export const AdminWrapper = ({ children }) => {
         >
           Ethics Portal Management
         </Typography>
-        {!md && (
-          <ToggleButton
-            style={{
-              marginLeft: "auto",
-            }}
-            onClick={() => setOpenNavArea(!openNavArea)}
-          >
-            <Menu />
-          </ToggleButton>
-        )}
+
+        <ToggleButton
+          style={{
+            marginLeft: "auto",
+          }}
+          onClick={() => setOpenNavArea(!openNavArea)}
+        >
+          <Menu />
+        </ToggleButton>
       </Box>
 
       {openNavArea && <AdminNavigation />}

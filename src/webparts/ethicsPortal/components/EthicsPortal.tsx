@@ -83,9 +83,9 @@ import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateR
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
 ) => {
-  jQuery("#workbenchPageContent").prop("style", "min-width: 100%");
-  jQuery(".SPCanvas-canvas").prop("style", "min-width: 100%");
-  jQuery(".CanvasZone").prop("style", "min-width: 100%");
+  jQuery("#workbenchPageContent").prop("style", "max-width: none");
+  jQuery(".SPCanvas-canvas").prop("style", "max-width: none");
+  jQuery(".CanvasZone").prop("style", "max-width: none");
 
   const { context } = props;
   const history = useHistory();
