@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     container: {
-      width: "80vw",
+      width: "85vw",
       boxSizing: "border-box",
       padding: theme.spacing(4),
       backgroundColor: theme.palette.primary.main,
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       listStyle: "none",
       alignItems: "center",
       boxSizing: "border-box",
-      gap: "2.5rem",
+      gap: "3.5rem",
       zIndex: "inherit",
     },
     list: {
