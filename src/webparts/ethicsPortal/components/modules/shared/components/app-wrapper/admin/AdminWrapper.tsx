@@ -22,7 +22,7 @@ export const AdminWrapper = ({ children }) => {
     <div
       style={{
         position: "relative",
-        width: "100%",
+        width: "90vw",
         minHeight: "100vh",
         backgroundColor: colors.grey[100],
       }}

@@ -12,11 +12,12 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(6),
       backgroundColor: theme.palette.common.black,
-      width: "100%",
+      width: "90%",
       height: "200px",
       color: theme.palette.common.white,
       boxSizing: "border-box",
       borderRadius: "26px 26px 0 0",
+      margin: "0 auto",
     },
     footerLogoSection: {
       display: "flex",
