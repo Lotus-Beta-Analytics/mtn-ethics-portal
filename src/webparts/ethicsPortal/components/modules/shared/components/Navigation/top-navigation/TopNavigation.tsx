@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "60px",
       position: "absolute",
       display: "flex",
-      top: "3%",
+      top: "5%",
       alignItems: "center",
       color: theme.palette.common.black,
       zIndex: 1,
-      left: "3%",
+      left: "5%",
       borderRadius: "9px",
     },
     linkContainer: {

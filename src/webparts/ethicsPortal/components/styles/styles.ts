@@ -10,6 +10,9 @@ export const AppContainer = styled(Box)({
   flexDirection: "column",
   justifyContent: "space-between",
   backgroundColor: theme.palette.common.white,
+  marginRight: "auto",
+  boxSizing: "border-box",
+  padding: "0.5rem",
 });
 
 export const MLink = styled(Link)({
@@ -130,7 +133,7 @@ export const PageNavigationContainer = styled.div<{ open: boolean }>(
     position: "absolute",
     top: "20%",
     minHeight: "300px",
-    left: props?.open ? "85%" : "100%",
+    left: props?.open ? "95%" : "110%",
     boxShadow: "3px 2px 5px rgba(0, 0, 0, 0.25)",
     borderRadius: "26px",
     transition: "all .2s ease-in-out",
