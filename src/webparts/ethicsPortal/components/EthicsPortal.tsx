@@ -9,7 +9,7 @@ import { CreateQuizPage } from "./modules/admin/pages/quiz/CreateQuizPage";
 import { NotFound } from "./notFound/NotFound";
 import { LandingPage } from "./modules/employee/pages/landing-page/LandingPage";
 import { PhotoCategories } from "./modules/employee/pages/gallery/photo-categories/PhotoCategories";
-import {  VideoGallery } from "./modules/employee/pages/gallery/VideoGallery";
+import { VideoGallery } from "./modules/employee/pages/gallery/VideoGallery";
 import "./styles.css";
 import { ConflictOfInterestLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestLanding";
 import { ConflictOfInterestWriteUpLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestWriteUpLanding";
@@ -76,6 +76,7 @@ import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/
 import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
 import { PhotoGallery } from "./modules/employee/pages/gallery/PhotoGallery";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
+import { CreatePolicyBreaches } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/CreatePolicyBreaches";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -461,6 +462,15 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                         path="/admin/create-policy"
                         render={() => <CreatePolicy context={context} />}
                       />
+
+                      {/* Start of Policy Breaches */}
+
+                      <Route
+                        exact
+                        path="/admin/policy/breaches"
+                        component={CreatePolicyBreaches}
+                      />
+
                       <Route path="*" component={NotFound} />
                     </Switch>
                   )}
