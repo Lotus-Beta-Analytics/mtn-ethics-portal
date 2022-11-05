@@ -78,13 +78,16 @@ import { PhotoGallery } from "./modules/employee/pages/gallery/PhotoGallery";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
 import { CreatePolicyBreaches } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/CreatePolicyBreaches";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { CreateRecognition } from "./modules/admin/pages/recognition/CreateRecognitionPage";
+import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateRecognitionPage";
+import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
 ) => {
-  jQuery("#workbenchPageContent").prop("style", "min-width: 100%");
-  jQuery(".SPCanvas-canvas").prop("style", "min-width: 100%");
-  jQuery(".CanvasZone").prop("style", "min-width: 100%");
+  jQuery("#workbenchPageContent").prop("style", "max-width: none");
+  jQuery(".SPCanvas-canvas").prop("style", "max-width: none");
+  jQuery(".CanvasZone").prop("style", "max-width: none");
 
   const { context } = props;
   const history = useHistory();
@@ -455,6 +458,22 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           exact
                           path="/admin/gallery/videos"
                           render={() => <VideoUploadPage context={context} />}
+                        />
+                         <Route
+                          exact
+                          path="/admin/recognition/create"
+                          render={() => <CreateRecognition context={context} />}
+                        />
+                         <Route
+                          exact
+                          path="/admin/recognition/manage"
+                          render={() => <ManageRecognitionPage />}
+                        />
+
+<Route
+                          exact
+                          path="/admin/recognition/:recognitionId/update"
+                          render={() => <UpdateRecognitionPage context={context} />}
                         />
 
                         <Route

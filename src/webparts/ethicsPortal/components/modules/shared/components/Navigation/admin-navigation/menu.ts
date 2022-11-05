@@ -105,24 +105,18 @@ export const adminNavItems = [
   {
     title: "Recognition",
     icon: FaAngrycreative,
-    link: "/admin/quiz",
+    link: "/admin/recognition/create",
 
     subNav: [
       {
-        title: "Ethics Champion",
-        icon: FaVideo,
-        link: "/admin/gallery/videos",
+        title: "Manage",
+        icon: Settings,
+        link: "/admin/recognition/manage",
       },
       {
         title: "Ethics Champion Activities",
         icon: FaImages,
-        link: "/admin/gallery/images",
-      },
-
-      {
-        title: "Manage",
-        icon: FaUserAstronaut,
-        link: "/admin/gallery/manage",
+        link: "/admin/recognition/activities/add",
       },
     ],
   },

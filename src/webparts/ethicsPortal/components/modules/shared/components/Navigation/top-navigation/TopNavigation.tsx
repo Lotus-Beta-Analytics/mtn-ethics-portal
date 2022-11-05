@@ -11,18 +11,18 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     container: {
-      width: "80vw",
+      width: "85vw",
       boxSizing: "border-box",
       padding: theme.spacing(4),
       backgroundColor: theme.palette.primary.main,
       height: "60px",
       position: "absolute",
       display: "flex",
-      top: "3%",
+      top: "5%",
       alignItems: "center",
       color: theme.palette.common.black,
       zIndex: 1,
-      left: "3%",
+      left: "5%",
       borderRadius: "9px",
     },
     linkContainer: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       listStyle: "none",
       alignItems: "center",
       boxSizing: "border-box",
-      gap: "2.5rem",
+      gap: "3.5rem",
       zIndex: "inherit",
     },
     list: {
