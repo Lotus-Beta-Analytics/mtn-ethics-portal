@@ -76,11 +76,11 @@ import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/
 import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
 import { PhotoGallery } from "./modules/employee/pages/gallery/PhotoGallery";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
-import { CreatePolicyBreaches } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/CreatePolicyBreaches";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { CreateRecognition } from "./modules/admin/pages/recognition/CreateRecognitionPage";
 import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateRecognitionPage";
 import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
+import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/policy-breach-form/PolicyBreachesForm";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -459,21 +459,23 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           path="/admin/gallery/videos"
                           render={() => <VideoUploadPage context={context} />}
                         />
-                         <Route
+                        <Route
                           exact
                           path="/admin/recognition/create"
                           render={() => <CreateRecognition context={context} />}
                         />
-                         <Route
+                        <Route
                           exact
                           path="/admin/recognition/manage"
                           render={() => <ManageRecognitionPage />}
                         />
 
-<Route
+                        <Route
                           exact
                           path="/admin/recognition/:recognitionId/update"
-                          render={() => <UpdateRecognitionPage context={context} />}
+                          render={() => (
+                            <UpdateRecognitionPage context={context} />
+                          )}
                         />
 
                         <Route
@@ -507,7 +509,9 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                         <Route
                           exact
                           path="/admin/policy/breaches"
-                          component={CreatePolicyBreaches}
+                          render={() => (
+                            <PolicyBreachesForm context={context} />
+                          )}
                         />
 
                         <Route path="*" component={NotFound} />
