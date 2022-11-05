@@ -70,7 +70,7 @@ const dashboardItems = [
   },
   {
     title: "Ethics Policy Breaches",
-    link: "policy-breaches",
+    link: "policy/breaches",
     icon: FaPeopleCarry,
   },
   {

@@ -76,6 +76,7 @@ import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/
 import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
 import { PhotoGallery } from "./modules/employee/pages/gallery/PhotoGallery";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
+import { CreatePolicyBreaches } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/CreatePolicyBreaches";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
@@ -481,6 +482,15 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           path="/admin/create-policy"
                           render={() => <CreatePolicy context={context} />}
                         />
+
+                        {/* Start of Policy Breaches */}
+
+                        <Route
+                          exact
+                          path="/admin/policy/breaches"
+                          component={CreatePolicyBreaches}
+                        />
+
                         <Route path="*" component={NotFound} />
                       </Switch>
                     )}
@@ -492,6 +502,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
             </Router>
           </ThemeProvider>
         </WebContext.Provider>
+        s
       </ToastProvider>
     </QueryClientProvider>
   );
