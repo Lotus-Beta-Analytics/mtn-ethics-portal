@@ -12,10 +12,10 @@ export interface ReadOnlyURLSearchParams extends URLSearchParams {
 }
 
 export const ManageRecognitionPage = () => {
- 
-    const { data, isLoading, isError } = useQuery<any>(
-        ["getAllRecognition",getAllRecognition ])
-  
+  const { data, isLoading, isError } = useQuery<any>(
+    ["getAllRecognition"],
+    getAllRecognition
+  );
 
   if (isError) return <>An Error Occured...</>;
   return (
@@ -23,7 +23,7 @@ export const ManageRecognitionPage = () => {
       <RecognitionTable
         recognition={data}
         loading={isLoading}
-        title={"test"}
+        title="Ethics Champions"
       />
     </AdminWrapper>
   );

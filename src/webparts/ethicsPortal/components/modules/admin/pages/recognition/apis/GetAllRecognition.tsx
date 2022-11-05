@@ -3,8 +3,9 @@ import { useQueryClient } from "@tanstack/react-query";
 
 export const getAllRecognition = async () => {
   try {
-    const res = await sp.web.lists.getByTitle("EthicsRecognition").items.getAll();
-    console.log(res)
+    const res = await sp.web.lists
+      .getByTitle("EthicsRecognition")
+      .items.getAll();
     return res;
   } catch (err) {
     return err;
