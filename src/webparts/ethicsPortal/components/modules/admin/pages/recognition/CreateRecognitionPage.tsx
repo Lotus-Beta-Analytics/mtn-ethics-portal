@@ -109,7 +109,7 @@ import {
           <TextField
             variant="outlined"
             value={ethicalMessage}
-            minRows={10}
+            minRows={6}
             onChange={(e) => setEthicalMessage(e.target.value)}
             label="Ethical Message"
             fullWidth

@@ -79,6 +79,7 @@ import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategorie
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { CreateRecognition } from "./modules/admin/pages/recognition/CreateRecognitionPage";
 import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateRecognitionPage";
+import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -462,10 +463,15 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           path="/admin/recognition/create"
                           render={() => <CreateRecognition context={context} />}
                         />
+                         <Route
+                          exact
+                          path="/admin/recognition/manage"
+                          render={() => <ManageRecognitionPage />}
+                        />
 
 <Route
                           exact
-                          path="/admin/recognition/update"
+                          path="/admin/recognition/:recognitionId/update"
                           render={() => <UpdateRecognitionPage context={context} />}
                         />
 

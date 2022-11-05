@@ -142,14 +142,14 @@ import { editRecognition } from "./apis/EditRecognition";
             style={{ margin: "1rem 0" }}
           />
           <Box>
-            {file && (
+            {/* {file && (
               <img
                 src={file}
                 width="250px"
                 height="250px"
                 style={{ objectFit: "cover" }}
               />
-            )}
+            )} */}
   
             <Typography>Upload Image</Typography>
             <FileUpload
@@ -162,7 +162,7 @@ import { editRecognition } from "./apis/EditRecognition";
           
           
           <Box
-            style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
+            style={{ display: "flex", justifyContent: "flex-end", gap: "1rem",marginTop:"20px" }}
           >
             <Button
               variant="outlined"

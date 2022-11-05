@@ -47,13 +47,7 @@ export const RecognitionTable: React.FC<Props> = ({
       title: "Full Name",
       field: "Name",
     },
-    {
-      title: "Date created",
-      field: "Created",
-      render: (rowData) => (
-        <div>{new Date(rowData.Created).toDateString()}</div>
-      ),
-    },
+   
   ];
 
   return (
