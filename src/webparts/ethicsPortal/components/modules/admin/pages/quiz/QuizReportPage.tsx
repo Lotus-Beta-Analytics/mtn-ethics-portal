@@ -144,15 +144,6 @@ export const QuizReportPage = () => {
 
   return (
     <AdminWrapper>
-      <Box display="flex" justifyContent="flex-start" my={2}>
-        <Button
-          onClick={() => history.goBack()}
-          variant="contained"
-          color="secondary"
-        >
-          Go back
-        </Button>
-      </Box>
       <Box my={2}>
         {quizReport ? (
           <QuizReportTable quizReport={[quizReport]} column={columns} />

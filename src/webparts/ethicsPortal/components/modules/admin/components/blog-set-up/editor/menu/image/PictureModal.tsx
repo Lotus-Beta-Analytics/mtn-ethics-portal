@@ -42,7 +42,7 @@ export const PictureModal: React.FC<{
   const { getRootProps, getInputProps, open, isDragActive } = useDropzone({
     noClick: true,
     onDrop,
-    accept: { "image/*": [".png", ".jpg"] },
+    accept: { "image/*": [".jpg", ".jpeg"] },
     maxSize: 1000000,
     onDropRejected: () => {
       alert("file format not supported or file is greater than 10mb");

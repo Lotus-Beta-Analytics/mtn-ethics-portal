@@ -458,21 +458,23 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           path="/admin/gallery/videos"
                           render={() => <VideoUploadPage context={context} />}
                         />
-                         <Route
+                        <Route
                           exact
                           path="/admin/recognition/create"
                           render={() => <CreateRecognition context={context} />}
                         />
-                         <Route
+                        <Route
                           exact
                           path="/admin/recognition/manage"
                           render={() => <ManageRecognitionPage />}
                         />
 
-<Route
+                        <Route
                           exact
                           path="/admin/recognition/:recognitionId/update"
-                          render={() => <UpdateRecognitionPage context={context} />}
+                          render={() => (
+                            <UpdateRecognitionPage context={context} />
+                          )}
                         />
 
                         <Route

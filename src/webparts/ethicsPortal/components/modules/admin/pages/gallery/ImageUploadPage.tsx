@@ -51,7 +51,7 @@ export const ImageUploadPage: React.FC<Props> = ({ context }) => {
           context={context}
           galleryData={galleryData}
           onSubmit={(e) => {
-            e.preventDefault;
+            e.preventDefault();
             mutation.mutate();
           }}
           isLoading={mutation.isLoading}
