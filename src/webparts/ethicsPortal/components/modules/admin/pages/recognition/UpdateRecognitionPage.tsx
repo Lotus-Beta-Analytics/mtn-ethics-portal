@@ -139,17 +139,9 @@ export const UpdateRecognitionPage: React.FC<{ context: WebPartContext }> = ({
           fullWidth
           required
           style={{ margin: "1rem 0" }}
+          multiline
         />
         <Box>
-          {/* {file && (
-              <img
-                src={file}
-                width="250px"
-                height="250px"
-                style={{ objectFit: "cover" }}
-              />
-            )} */}
-
           <Typography>Upload Image</Typography>
           <FileUpload
             fileControl={file}
