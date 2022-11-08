@@ -8,6 +8,7 @@ import { QuizWrapper } from "./components/QuizWrapper";
 import { getQuizContextState } from "./context/QuizContext";
 import { useHistory } from "react-router-dom";
 import "./styles.css";
+import { LandingPageHeaderWithImage } from "../../../shared/components/LandingPageHeaderWithImage";
 
 type Props = {};
 
@@ -15,33 +16,31 @@ export const QuizResultPage = (props: Props) => {
   const { questions, result } = getQuizContextState();
   const history = useHistory();
   return (
-    <EmployeeWrapper showFooter={false} backButton={false}>
-      <PageWrapper>
-        <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png"
-          text="Ethics Quiz"
-        />
-        <QuizWrapper>
-          <Box className="result-container">
-            <Box>
-              <PieChart />
-            </Box>
-            <Box>
-              <Typography>
-                {result?.correct}/{questions.length}
-              </Typography>
-              <Typography></Typography>
-              <Typography></Typography>
-              <Box
-                onClick={() => history.push("/employee/review")}
-                className="review-button"
-              >
-                Review Questions
-              </Box>
+    <EmployeeWrapper  backButton={false}>
+      <LandingPageHeaderWithImage
+        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/ask-question-online-concept-businessman-hand-hold-interface-question-marks-sign-web-question-marks-drawn-black-background-concept-searching-answer-uncertainty-problem-solving%203.png"
+        text="Ethics Quiz"
+      />
+      <QuizWrapper>
+        <Box className="result-container">
+          <Box>
+            <PieChart />
+          </Box>
+          <Box>
+            <Typography>
+              {result?.correct}/{questions.length}
+            </Typography>
+            <Typography></Typography>
+            <Typography></Typography>
+            <Box
+              onClick={() => history.push("/employee/review")}
+              className="review-button"
+            >
+              Review Questions
             </Box>
           </Box>
-        </QuizWrapper>
-      </PageWrapper>
+        </Box>
+      </QuizWrapper>
     </EmployeeWrapper>
   );
 };

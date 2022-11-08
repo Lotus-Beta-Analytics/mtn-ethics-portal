@@ -26,7 +26,7 @@ export const FileUpload: React.FC<Props> = ({
   fileControl,
   onUpdate,
   context,
-  accept = { "image/*": [".png", ".jpg", ".jpeg"] },
+  accept = { "image/*": [".jpg", ".jpeg"] },
 }) => {
   const toast = useToasts().addToast;
 

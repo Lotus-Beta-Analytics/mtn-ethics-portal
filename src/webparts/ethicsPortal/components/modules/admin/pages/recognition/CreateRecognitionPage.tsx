@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
+import { Autocomplete } from "@material-ui/lab";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -14,6 +15,8 @@ import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
+import { locations } from "../gallery/forms/GalleryForm";
+import { PeoplePicker, StaffData } from "../users/components/PeoplePicker";
 
 type Props = {
   context: WebPartContext;
@@ -25,15 +28,20 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
   const [name, setName] = React.useState("");
   const [location, setLocation] = React.useState("");
   const [ethicalMessage, setEthicalMessage] = React.useState("");
+  const [champion, setChampion] = React.useState<StaffData>({
+    DisplayName: "",
+    Email: "",
+    Department: "",
+  });
   const queryClient = useQueryClient();
 
   const toast = useToasts().addToast;
   const submitHandler = async () => {
     try {
       const res = await sp.web.lists.getByTitle("EthicsRecognition").items.add({
-        Name: name,
+        Name: champion?.DisplayName,
         Location: location,
-        Division: division,
+        Division: champion?.Department,
         EthicalMessage: ethicalMessage,
         RecognitionImage: file,
       });
@@ -53,6 +61,11 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
       setDivision("");
       setEthicalMessage("");
       setName("");
+      setChampion({
+        DisplayName: "",
+        Email: "",
+        Department: "",
+      });
     },
     onError: () => {
       errorAlert(toast);
@@ -74,37 +87,41 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
         }}
       >
         <Typography>Ethics Champion</Typography>
-        <TextField
-          variant="outlined"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+        <PeoplePicker
+          staff={champion}
+          onUpdate={(user) => {
+            setChampion(user);
+          }}
           label="Full Name"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
         />
 
-        <Typography>Location</Typography>
         <TextField
           variant="outlined"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          label="Location"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-        />
-
-        <Typography>Division</Typography>
-        <TextField
-          variant="outlined"
-          value={division}
-          onChange={(e) => setDivision(e.target.value)}
+          value={champion?.Department}
           label="Division"
           fullWidth
           required
           style={{ margin: "1rem 0" }}
+          onChange={() => {}}
         />
+        <Autocomplete
+          id="type"
+          freeSolo={false}
+          options={locations?.map((option) => option)}
+          fullWidth
+          value={location}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Choose Location"
+              margin="normal"
+              variant="outlined"
+              required
+            />
+          )}
+          onChange={(e, newvalue) => setLocation(newvalue)}
+        />
+
         <Typography>Ethical Message</Typography>
         <TextField
           variant="outlined"
@@ -114,6 +131,7 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
           label="Ethical Message"
           fullWidth
           required
+          multiline
           style={{ margin: "1rem 0" }}
         />
 

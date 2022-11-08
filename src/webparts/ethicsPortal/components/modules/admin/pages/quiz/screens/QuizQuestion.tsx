@@ -236,7 +236,13 @@ export const QuizQuestionSetUp = (props: Props) => {
               ],
             });
 
-            setQuestion(null);
+            setQuestion({
+              answer: "",
+              options: [],
+              question: "",
+              type: "",
+              point: null,
+            });
           }}
           className="action-btn"
         >

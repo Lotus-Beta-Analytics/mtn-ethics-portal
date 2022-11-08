@@ -15,7 +15,7 @@ type Props = {};
 
 export const AdminWrapper = ({ children }) => {
   const md = useMediaQuery("(min-width:1240px)");
-  const [openNavArea, setOpenNavArea] = React.useState(false);
+  const [openNavArea, setOpenNavArea] = React.useState(true);
   const history = useHistory();
 
   return (
@@ -75,10 +75,19 @@ export const AdminWrapper = ({ children }) => {
           style={{
             width: "100%",
             display: "flex",
-            justifyContent: "flex-end",
+            justifyContent: "space-between",
             marginTop: ".5rem",
           }}
         >
+          <Box display="flex" justifyContent="flex-start" my={2}>
+            <Button
+              onClick={() => history.goBack()}
+              variant="contained"
+              color="secondary"
+            >
+              Go back
+            </Button>
+          </Box>
           <Button
             variant="text"
             color="secondary"
