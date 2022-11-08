@@ -12,8 +12,7 @@
 .options-container {
   display: flex;
   align-items: center;
-  gap: 3rem;
-  margin-left: 3rem;
+  gap: 1.5rem;
   box-sizing: border-box;
 }
 .correct {

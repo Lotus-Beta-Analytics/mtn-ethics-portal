@@ -18,6 +18,7 @@ import { sp } from "@pnp/sp";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { QuizTime } from "./components/QuizTime";
+import { LandingPageHeaderWithImage } from "../../../shared/components/LandingPageHeaderWithImage";
 
 export const QuizPage = () => {
   const {
@@ -58,145 +59,154 @@ export const QuizPage = () => {
       .items.filter(`StaffEmail eq '${staff?.email}'`)
       .get()
       .then((items) => {
-        if (items.length > 0) {
-          swal({
-            closeOnEsc: false,
-            closeOnClickOutside: false,
-            text: "You have taken the Quiz.",
-            dangerMode: true,
-            icon: "error",
-            title: "Error",
-          }).then(() => {
-            history.push("/");
-          });
-        }
+        // if (items.length > 0) {
+        //   swal({
+        //     closeOnEsc: false,
+        //     closeOnClickOutside: false,
+        //     text: "You have taken the Quiz.",
+        //     dangerMode: true,
+        //     icon: "error",
+        //     title: "Error",
+        //   }).then(() => {
+        //     history.push("/");
+        //   });
+        // }
       });
   }, []);
 
   return (
-    <EmployeeWrapper showFooter={false} backButton={false}>
-      <PageWrapper>
-        <PageHeaderWithImage
-          bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png"
-          text="Ethics Quiz"
-        />
-        <QuizWrapper>
-          <QuizTime />
-          <>
-            {getting ? (
-              <CircularProgress
-                className="center-item"
-                style={{ color: "#000" }}
-              />
-            ) : (
-              <>
-                {questions?.length > 0 ? (
+    <EmployeeWrapper backButton={false}>
+      <LandingPageHeaderWithImage
+        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/ask-question-online-concept-businessman-hand-hold-interface-question-marks-sign-web-question-marks-drawn-black-background-concept-searching-answer-uncertainty-problem-solving%203.png"
+        text="Ethics Quiz"
+      />
+
+      <QuizWrapper>
+        <QuizTime />
+        <>
+          {getting ? (
+            <CircularProgress
+              className="center-item"
+              style={{ color: "#000" }}
+            />
+          ) : (
+            <>
+              {questions?.length > 0 ? (
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  height="100%"
+                >
+                  <Box>
+                    <ShowPrevNavButton />
+                  </Box>
                   <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    height="100%"
+                    style={{
+                      width: "90%",
+                      display: "flex",
+                      alignItems: "flex-start",
+                      flexDirection: "column",
+                      boxSizing: "border-box",
+                      paddingLeft: "1rem",
+                    }}
                   >
                     <Box>
-                      <ShowPrevNavButton />
-                    </Box>
-                    <Box style={{ textAlign: "center" }}>
                       <Typography>
                         Question {page + 1} of {total}
                       </Typography>
-                      <Typography variant="h5">Question {page + 1}</Typography>
-                      <Box>
-                        <Typography variant="h4">
-                          {questions[page]?.question}
-                        </Typography>
-                        <Box className="options">
-                          {questions[page]?.options?.map((option) => {
-                            return (
-                              <Box className="options-container">
-                                <input
-                                  type={questions[page]?.type}
-                                  name={`option${page}`}
-                                  value={option}
-                                  checked={
-                                    option == isChecked(responses, page, option)
-                                      ? true
-                                      : null
-                                  }
-                                  onChange={(e) => {
-                                    const value = e?.target?.value;
-
-                                    if (questions[page]?.type === "checkbox") {
-                                      setResponses((prev) => {
-                                        return prev.filter(
-                                          ({ answer }) => answer != option
-                                        );
-                                      });
-
-                                      if (e?.target?.checked) {
-                                        setResponses((prev) => [
-                                          ...prev,
-                                          {
-                                            id: questions[page]?.id,
-                                            question: questions[page]?.question,
-                                            answer: value,
-                                            responseTime: `${quizInfo?.duration}m:${seconds}s`,
-                                            isCorrect:
-                                              questions[page]?.answer === value,
-                                            point: questions[page]?.point,
-                                          },
-                                        ]);
-                                      }
-                                    } else if (
-                                      questions[page]?.type === "radio"
-                                    ) {
-                                      setResponses((prev) => {
-                                        return prev.filter(
-                                          ({ id }) => id != questions[page]?.id
-                                        );
-                                      });
-
-                                      if (e.target.checked) {
-                                        setResponses((prev) => [
-                                          ...prev,
-                                          {
-                                            id: questions[page]?.id,
-                                            question: questions[page]?.question,
-                                            answer: value,
-                                            responseTime: `${quizInfo?.duration}m:${seconds}s`,
-                                            isCorrect:
-                                              questions[page]?.answer === value,
-                                            point: questions[page]?.point,
-                                          },
-                                        ]);
-                                      }
-                                    }
-                                  }}
-                                />
-                                <label>{option}</label>
-                              </Box>
-                            );
-                          })}
-                        </Box>
-                      </Box>
+                      <Typography variant="h4">
+                        {questions[page]?.question}
+                      </Typography>
                     </Box>
                     <Box>
-                      {!showSubmit(page) ? (
-                        <ShowNextNavButton />
-                      ) : (
-                        <ShowSubmitButton />
-                      )}
+                      <Box className="options">
+                        {questions[page]?.options?.map((option) => {
+                          return (
+                            <Box className="options-container">
+                              <input
+                                type={questions[page]?.type}
+                                name={`option${page}`}
+                                value={option}
+                                checked={
+                                  option == isChecked(responses, page, option)
+                                    ? true
+                                    : null
+                                }
+                                onChange={(e) => {
+                                  const value = e?.target?.value;
+
+                                  if (questions[page]?.type === "checkbox") {
+                                    setResponses((prev) => {
+                                      return prev.filter(
+                                        ({ answer }) => answer != option
+                                      );
+                                    });
+
+                                    if (e?.target?.checked) {
+                                      setResponses((prev) => [
+                                        ...prev,
+                                        {
+                                          id: questions[page]?.id,
+                                          question: questions[page]?.question,
+                                          answer: value,
+                                          responseTime: `${quizInfo?.duration}m:${seconds}s`,
+                                          isCorrect:
+                                            questions[page]?.answer === value,
+                                          point: questions[page]?.point,
+                                        },
+                                      ]);
+                                    }
+                                  } else if (
+                                    questions[page]?.type === "radio"
+                                  ) {
+                                    setResponses((prev) => {
+                                      return prev.filter(
+                                        ({ id }) => id != questions[page]?.id
+                                      );
+                                    });
+
+                                    if (e.target.checked) {
+                                      setResponses((prev) => [
+                                        ...prev,
+                                        {
+                                          id: questions[page]?.id,
+                                          question: questions[page]?.question,
+                                          answer: value,
+                                          responseTime: `${quizInfo?.duration}m:${seconds}s`,
+                                          isCorrect:
+                                            questions[page]?.answer === value,
+                                          point: questions[page]?.point,
+                                        },
+                                      ]);
+                                    }
+                                  }
+                                }}
+                              />
+                              <label>{option}</label>
+                            </Box>
+                          );
+                        })}
+                      </Box>
                     </Box>
                   </Box>
-                ) : (
-                  <Box className="center-item">
-                    <Typography>No Quiz</Typography>
+                  <Box>
+                    {!showSubmit(page) ? (
+                      <ShowNextNavButton />
+                    ) : (
+                      <ShowSubmitButton />
+                    )}
                   </Box>
-                )}
-              </>
-            )}
-          </>
-        </QuizWrapper>
-      </PageWrapper>
+                </Box>
+              ) : (
+                <Box className="center-item">
+                  <Typography>No Quiz</Typography>
+                </Box>
+              )}
+            </>
+          )}
+        </>
+      </QuizWrapper>
     </EmployeeWrapper>
   );
 };

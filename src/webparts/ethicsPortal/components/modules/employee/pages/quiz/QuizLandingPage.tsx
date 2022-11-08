@@ -30,13 +30,17 @@ export const QuizLandingPage = () => {
   });
   const toast = useToasts().addToast;
 
-  const [isTakenQuiz, setIsTakenQuiz] = React.useState(true);
+  const [isTakenQuiz, setIsTakenQuiz] = React.useState(false);
 
   React.useEffect(() => {
     if (!data) return;
     sp.web.lists
       .getByTitle("QuizResponse")
-      .items.filter(`StaffEmail eq '${data?.email}'`)
+      .items.select("StaffEmail, Quiz/status")
+      .expand("Quiz")
+      .filter(
+        `StaffEmail eq '${data?.email}' and Quiz/status eq '${QuizStatus.Is_Enabled}'`
+      )
       .get()
       .then((items) => {
         setIsTakenQuiz(items.length > 0);
@@ -44,9 +48,9 @@ export const QuizLandingPage = () => {
   }, [data?.email]);
 
   return (
-    <EmployeeWrapper backButton={false} showFooter={false}>
+    <EmployeeWrapper backButton={false}>
       <LandingPageHeaderWithImage
-        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png"
+        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/ask-question-online-concept-businessman-hand-hold-interface-question-marks-sign-web-question-marks-drawn-black-background-concept-searching-answer-uncertainty-problem-solving%203.png"
         text="Ethics Quiz"
       />
       <QuizWrapper>
@@ -72,7 +76,7 @@ export const QuizLandingPage = () => {
             ) : (
               <>
                 <Box>
-                  <Typography></Typography>
+                  <Typography>Today's Quiz on:</Typography>
                   <Typography>{quizInfo?.title}</Typography>
                   <Typography>
                     This Quiz will end on &nbsp;

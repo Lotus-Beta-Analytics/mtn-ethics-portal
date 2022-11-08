@@ -253,10 +253,6 @@ export const QuizContextProvider = ({ children }) => {
               ),
       };
       setResult(userResult);
-      const correctScore = groupedResponses["true"]
-        ?.map(({ point }) => point)
-        .reduce((prev, curr) => prev + curr, 0);
-      setScore(correctScore);
 
       await sp.web.lists
         .getByTitle("QuizResponse")
