@@ -20,6 +20,8 @@ import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
 
 import { useHistory } from "react-router-dom";
 import { RemovePolicyModal } from "../../policies/modals/RemovePolicyModal";
+import { RemoveRecognitionModal } from "../modal/RemoveRecognitionModal";
+
 
 type Props = {
   recognition: any[];
@@ -45,6 +47,13 @@ export const RecognitionTable: React.FC<Props> = ({
     {
       title: "Full Name",
       field: "Name",
+    },
+    {
+      title: "Date created",
+      field: "Created",
+      render: (rowData) => (
+        <div>{new Date(rowData.Created).toDateString()}</div>
+      ),
     },
   ];
 
@@ -104,7 +113,7 @@ export const RecognitionTable: React.FC<Props> = ({
             <ViewColumn {...props} ref={ref} />
           )),
         }}
-        title={title}
+        title={title || "All Policies"}
         columns={columns}
         data={recognition}
         isLoading={loading}
@@ -189,15 +198,14 @@ export const RecognitionTable: React.FC<Props> = ({
       />
 
       {itemToRemove && (
-        // <RemovePolicyModal
-        //   open={true}
-        //   onClose={(item) => {
-        //     setItemToRemove(null);
-        //   }}
-        //   id={itemToRemove?.Id}
-        //   policy={itemToRemove?.data}
-        // />
-        <></>
+        <RemoveRecognitionModal
+          open={true}
+          onClose={(item) => {
+            setItemToRemove(null);
+          }}
+          id={itemToRemove?.Id}
+          policy={itemToRemove?.data}
+        />
       )}
     </>
   );
