@@ -211,6 +211,7 @@ export const QuizContextProvider = ({ children }) => {
         StaffEmail: staff?.email,
         responses: JSON.stringify(filteredData),
         ["QuizId"]: QuizId,
+        duration: `${quizInfo?.duration}m:${seconds}s`,
       });
 
       setLoading(false);
