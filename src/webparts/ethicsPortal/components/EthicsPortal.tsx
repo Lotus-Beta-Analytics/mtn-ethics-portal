@@ -80,6 +80,7 @@ import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { CreateRecognition } from "./modules/admin/pages/recognition/CreateRecognitionPage";
 import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateRecognitionPage";
 import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
+import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -462,6 +463,11 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           exact
                           path="/admin/recognition/create"
                           render={() => <CreateRecognition context={context} />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/recognition/activities/add"
+                          render={() => <EthicsChampionsActivtiesCreate />}
                         />
                         <Route
                           exact
