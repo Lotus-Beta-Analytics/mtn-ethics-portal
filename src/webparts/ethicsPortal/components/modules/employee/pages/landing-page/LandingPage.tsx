@@ -39,8 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const LandingPage = () => {
   const [pageMenu, setPageMenu] = React.useState<any[]>([
-    { id: 1, text: "Declare a gift", link: "" },
-    { id: 2, text: "Declare conflict of interest", link: "" },
+    { id: 1, text: "Quick Links", link: "" },
+    { id: 2, text: "Click to Declare a gift", link: "" },
+    { id: 3, text: "Click to Declare conflict of interest", link: "" },
   ]);
   const { data, isLoading } = useQuery<any[]>(["item"], async () => {
     try {
@@ -79,8 +80,7 @@ export const LandingPage = () => {
       backButton={false}
     >
       <Container>
-        <MMarquee />
-        <Carousel isRTL={false}>
+        <Carousel isRTL={false} enableAutoPlay>
           {carouselItems.map((item) => (
             <CarouselContainer bg={item.image}>
               <Typography style={{ fontStyle: "italic", fontSize: "24px" }}>
@@ -118,6 +118,8 @@ export const LandingPage = () => {
             )}
           </PostPreviewContainer>
         </Box>
+
+        <MMarquee />
       </Container>
     </EmployeeWrapper>
   );

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { theme } from "../themes/themes";
 
 export const AppContainer = styled(Box)({
-  width: "95vw",
+  minWidth: "95vw",
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",

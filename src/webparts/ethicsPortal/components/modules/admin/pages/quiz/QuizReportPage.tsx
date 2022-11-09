@@ -103,6 +103,11 @@ export const QuizReportPage = () => {
   }, [questionsArr, quizReport]);
 
   const columns = [
+    {
+      title: "SN",
+      field: "tableData",
+      render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
+    },
     { title: "Staff Name", field: "StaffName" },
     { title: "Staff Email Address", field: "StaffEmail" },
     { title: "Quiz Title", field: "Quiz[QuizTitle]" },

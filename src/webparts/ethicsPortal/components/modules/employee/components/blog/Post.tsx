@@ -164,7 +164,7 @@ export const Post = () => {
               />
             </Box>
             <Box className="comment-container">
-              <Typography variant="h6">Comments</Typography>
+              <Typography variant="body1">Comments</Typography>
               <Box
                 display="flex"
                 style={{
@@ -178,7 +178,7 @@ export const Post = () => {
               </Box>
             </Box>
             <Box width="100%" mb={1}>
-              <Typography variant="h6">Add Comment</Typography>
+              <Typography variant="body1">Add Comment</Typography>
               <Box
                 style={{
                   display: "flex",

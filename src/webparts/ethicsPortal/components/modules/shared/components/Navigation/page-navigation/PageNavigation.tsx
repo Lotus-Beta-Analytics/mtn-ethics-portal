@@ -78,6 +78,7 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
                     classes.itemLink
                   }`}
                   onClick={() => setActive(index)}
+                  fontSize=".7rem"
                 >
                   <MLink to={`${item.link}`}>{item?.text}</MLink>
                 </Box>

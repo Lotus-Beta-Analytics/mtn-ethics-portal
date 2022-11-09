@@ -33,14 +33,16 @@ export const PostComment: React.FC<Props> = ({ comment, comments }) => {
           <Avatar
             src={user?.photoUrl ?? ""}
             style={{
-              width: "40px",
-              height: "40px",
+              width: "30px",
+              height: "30px",
             }}
           />
-          <Typography variant="caption">{user?.name || "N/A"}</Typography>
+          <Typography variant="caption">
+            {user?.name.split("")[0] || "N/A"}
+          </Typography>
         </Box>
 
-        <Typography>{comment?.comment}</Typography>
+        <Typography variant="body2">{comment?.comment}</Typography>
       </Box>
       <Typography
         variant="caption"
