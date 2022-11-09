@@ -84,7 +84,7 @@ import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageR
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
 ) => {
-  jQuery("#workbenchPageContent").prop("style", "max-width: none");
+  jQuery("#workbenchPageContent").prop("style", "max-width:none");
   jQuery(".SPCanvas-canvas").prop("style", "max-width: none");
   jQuery(".CanvasZone").prop("style", "max-width: none");
 

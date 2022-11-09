@@ -22,9 +22,9 @@ export const AdminWrapper = ({ children }) => {
     <div
       style={{
         position: "relative",
-        width: "90vw",
+        maxWidth: "100%",
         minHeight: "100vh",
-        backgroundColor: colors.grey[100],
+        backgroundColor: colors.grey[150],
       }}
     >
       <Box

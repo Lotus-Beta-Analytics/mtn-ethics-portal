@@ -33,7 +33,7 @@ export const ConductPassportLandingPage = () => {
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/happy-excited-colleagues-using-laptop-video-call.png"
         text="Conduct Passport"
       />
-      <Box> </Box>
+      <Box minHeight="500px"> </Box>
     </EmployeeWrapper>
   );
 };

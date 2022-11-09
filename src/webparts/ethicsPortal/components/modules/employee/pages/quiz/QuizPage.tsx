@@ -92,11 +92,21 @@ export const QuizPage = () => {
           ) : (
             <>
               {questions?.length > 0 ? (
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  height="100%"
+                <form
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    height: "100%",
+                  }}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const data = {
+                      ...staff,
+                      responses,
+                    };
+                    submitQuiz(data);
+                  }}
                 >
                   <Box>
                     <ShowPrevNavButton />
@@ -127,6 +137,7 @@ export const QuizPage = () => {
                               <input
                                 type={questions[page]?.type}
                                 name={`option${page}`}
+                                required
                                 value={option}
                                 checked={
                                   option == isChecked(responses, page, option)
@@ -147,7 +158,7 @@ export const QuizPage = () => {
                                       setResponses((prev) => [
                                         ...prev,
                                         {
-                                          id: questions[page]?.id,
+                                          id: questions[page]?.tableData?.id,
                                           question: questions[page]?.question,
                                           answer: value,
                                           responseTime: `${quizInfo?.duration}m:${seconds}s`,
@@ -162,7 +173,8 @@ export const QuizPage = () => {
                                   ) {
                                     setResponses((prev) => {
                                       return prev.filter(
-                                        ({ id }) => id != questions[page]?.id
+                                        ({ id }) =>
+                                          id != questions[page]?.tableData?.id
                                       );
                                     });
 
@@ -170,7 +182,7 @@ export const QuizPage = () => {
                                       setResponses((prev) => [
                                         ...prev,
                                         {
-                                          id: questions[page]?.id,
+                                          id: questions[page]?.tableData?.id,
                                           question: questions[page]?.question,
                                           answer: value,
                                           responseTime: `${quizInfo?.duration}m:${seconds}s`,
@@ -197,7 +209,7 @@ export const QuizPage = () => {
                       <ShowSubmitButton />
                     )}
                   </Box>
-                </Box>
+                </form>
               ) : (
                 <Box className="center-item">
                   <Typography>No Quiz</Typography>

@@ -33,7 +33,7 @@ export const PrivacyLandingPage = () => {
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/privacy.png"
         text="Privacy and Data Protection"
       />
-      <Box> </Box>
+      <Box minHeight="500px"> </Box>
     </EmployeeWrapper>
   );
 };

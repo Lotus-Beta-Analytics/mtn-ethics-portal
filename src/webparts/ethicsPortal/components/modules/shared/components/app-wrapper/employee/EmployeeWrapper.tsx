@@ -37,7 +37,7 @@ export const EmployeeWrapper: React.FC<{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            margin: "8% 2% 2%",
+            // margin: "2% 2% 2%",
           }}
           onClick={() => history.goBack()}
         >

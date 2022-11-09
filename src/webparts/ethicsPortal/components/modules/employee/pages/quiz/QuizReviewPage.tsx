@@ -48,11 +48,12 @@ export const QuizReviewPage = () => {
       .get()
       .then((items) => {
         setLoading(false);
-        let userResponses = items;
-        userResponses = JSON.parse(userResponses[0].responses);
-        setStaffResponses(
-          userResponses.filter((response) => !response?.isCorrect)
-        );
+        if (items.length) {
+          const userResponses = JSON.parse(items[0].responses);
+          setStaffResponses(
+            userResponses.filter((response) => !response?.isCorrect)
+          );
+        }
       });
   }, [data?.email]);
 
@@ -76,7 +77,10 @@ export const QuizReviewPage = () => {
                   <Box>
                     <Typography variant="body1">
                       Thank you for taking the Quiz. You answered &nbsp;
-                      <strong>{staffResponses.length}</strong> out of &nbsp;
+                      <strong>
+                        {questions.length - staffResponses.length}
+                      </strong>{" "}
+                      out of &nbsp;
                       <strong>{questions.length}</strong> correct.
                     </Typography>
                     <Typography variant="body2" style={{ fontWeight: "bold" }}>
@@ -96,7 +100,8 @@ export const QuizReviewPage = () => {
                             <strong>Q{i + 1}:</strong>&nbsp;{response?.question}
                           </Typography>
                           <Typography>
-                            <strong>Answer:</strong>&nbsp;{response?.answer}
+                            <strong>Answer:</strong>&nbsp;
+                            {questions[response?.id]?.answer}
                           </Typography>
                         </Box>
                       );
@@ -105,7 +110,12 @@ export const QuizReviewPage = () => {
                 </Box>
               ) : (
                 <Box className="center-item">
-                  <Typography>No Quiz</Typography>
+                  <Box>
+                    <Typography variant="body1">
+                      Thank you for taking the Quiz. You answered all questions
+                      correct.
+                    </Typography>
+                  </Box>
                 </Box>
               )}
             </>

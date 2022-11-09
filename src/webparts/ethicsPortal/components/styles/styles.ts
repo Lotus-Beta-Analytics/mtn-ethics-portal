@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 import { theme } from "../themes/themes";
 
 export const AppContainer = styled(Box)({
-  width: "95vw",
+  maxWidth: "100vw",
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
   justifyContent: "space-between",
   backgroundColor: theme.palette.common.white,
-  marginRight: "auto",
   boxSizing: "border-box",
   padding: "0.5rem",
 });
@@ -48,7 +47,7 @@ export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     position: "relative",
-    top: 0,
+    top: -20,
   })
 );
 
@@ -126,7 +125,7 @@ export const PostPreviewContainer = styled(Box)({
 
 export const PageNavigationContainer = styled.div<{ open: boolean }>(
   (props) => ({
-    minWidth: props?.open ? "350px" : "100px",
+    width: props?.open ? "350px" : "100px",
     display: "flex",
     alignItems: "center",
     backgroundColor: theme.palette.primary.main,

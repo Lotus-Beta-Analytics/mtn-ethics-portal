@@ -4,8 +4,8 @@
 
 .center-item {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 40%;
   translate: transform(-50%, -50%);
 }
 

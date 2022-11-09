@@ -46,7 +46,7 @@ export const WriteUpLandingComponent: React.FC<Props> = ({
       </Box>
 
       {!isLoading && data?.length === 0 && (
-        <Box style={{ width: "90%", height: "450px" }} mt={3} ml="5%">
+        <Box style={{ width: "100%", height: "450px" }} mt={3} ml="5%">
           <Typography variant="h6">
             No <strong>Post</strong> at this time.<br></br> Please check back.
           </Typography>

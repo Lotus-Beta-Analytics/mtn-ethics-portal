@@ -3,13 +3,21 @@ import Box from "@material-ui/core/Box/Box";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import * as React from "react";
 import { FaBook } from "react-icons/fa";
+import uuid from "react-uuid";
 import { CreateAdminQuizContextData } from "../context/AdminQuizContext";
 
 type Props = {};
 
 export const QuizTopic = (props: Props) => {
   const { quiz, handleChange, setQuiz } = CreateAdminQuizContextData();
-  console.log(quiz, "............");
+
+  React.useEffect(() => {
+    const id = uuid();
+    setQuiz({
+      ...quiz,
+      QuizId: id.substring(0, 8),
+    });
+  }, [uuid]);
 
   return (
     <Box component="form" position="relative">
@@ -33,6 +41,18 @@ export const QuizTopic = (props: Props) => {
         >
           Quiz Topic
         </Typography>
+
+        <TextField
+          variant="outlined"
+          fullWidth
+          label="Quiz ID"
+          value={quiz?.QuizId ?? ""}
+          name="QuizId"
+          onChange={(e) => handleChange(e)}
+          InputProps={{
+            readOnly: true,
+          }}
+        />
 
         <TextField
           variant="outlined"

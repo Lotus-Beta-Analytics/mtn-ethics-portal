@@ -40,7 +40,7 @@ export const ConflictOfInterestLanding = () => {
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png"
         text="Conflict Of Interest"
       />
-      <Box> </Box>
+      <Box minHeight="500px"> </Box>
     </EmployeeWrapper>
   );
 };

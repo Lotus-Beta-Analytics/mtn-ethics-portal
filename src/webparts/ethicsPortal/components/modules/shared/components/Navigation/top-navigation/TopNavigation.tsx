@@ -11,19 +11,17 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     container: {
-      width: "100%",
+      maxWidth: "100%",
       boxSizing: "border-box",
       padding: theme.spacing(4),
       backgroundColor: theme.palette.primary.main,
       height: "60px",
-      position: "absolute",
       display: "flex",
-      top: "2%",
       alignItems: "center",
       color: theme.palette.common.black,
+
       zIndex: 1,
-      left: "3%",
-      borderRadius: "9px",
+      borderRadius: "2px",
     },
     linkContainer: {
       width: "100%",
@@ -32,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) =>
       listStyle: "none",
       alignItems: "center",
       boxSizing: "border-box",
-      gap: "3.5rem",
       zIndex: "inherit",
+      justifyContent: "space-around",
     },
     list: {
       listStyle: "none",
@@ -87,7 +85,7 @@ export const TopNavigation = () => {
             <img
               src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/logo.png"
               alt=""
-              width="150px"
+              width="100px"
               height="50px"
               style={{
                 objectFit: "contain",
@@ -178,7 +176,6 @@ const MenuItems = [
     link: "#",
     subMenu: [
       { id: 1, text: "Champion Recognition", link: "/recognition/champion" },
-      { id: 2, text: "Employee Recognition", link: "" },
     ],
   },
   {
