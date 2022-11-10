@@ -80,6 +80,8 @@ import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { CreateRecognition } from "./modules/admin/pages/recognition/CreateRecognitionPage";
 import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateRecognitionPage";
 import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
+import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/policy-breach-form/PolicyBreachesForm";
+import { AdminEthicsDefaulter } from "./modules/admin/pages/policy-breaches/ethics-defaulter/AdminEthicsDefaulter";
 import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
@@ -466,11 +468,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                         />
                         <Route
                           exact
-                          path="/admin/recognition/activities/add"
-                          render={() => <EthicsChampionsActivtiesCreate />}
-                        />
-                        <Route
-                          exact
                           path="/admin/recognition/manage"
                           render={() => <ManageRecognitionPage />}
                         />
@@ -508,6 +505,25 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           path="/admin/create-policy"
                           render={() => <CreatePolicy context={context} />}
                         />
+
+                        {/* Start of Policy Breaches */}
+
+                        <Route
+                          exact
+                          path="/admin/policy/breaches"
+                          render={() => (
+                            <PolicyBreachesForm context={context} />
+                          )}
+                        />
+
+                        <Route
+                          exact
+                          path="/admin/ethicsdefaulters"
+                          render={() => (
+                            <AdminEthicsDefaulter context={context} />
+                          )}
+                        />
+
                         <Route path="*" component={NotFound} />
                       </Switch>
                     )}
@@ -519,6 +535,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
             </Router>
           </ThemeProvider>
         </WebContext.Provider>
+        s
       </ToastProvider>
     </QueryClientProvider>
   );

@@ -128,7 +128,15 @@ export const adminNavItems = [
   {
     title: "Policy Breaches",
     icon: FaAngrycreative,
-    link: "/admin/training",
+    link: "/admin/policy/breaches",
+
+    subNav: [
+      {
+        title: "Ethics Defaulters",
+        icon: FaDochub,
+        link: "/admin/ethicsdefaulters",
+      },
+    ],
   },
   {
     title: "Configure Users",
