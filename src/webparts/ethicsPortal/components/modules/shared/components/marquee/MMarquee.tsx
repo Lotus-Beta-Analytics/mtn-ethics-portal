@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import * as React from "react";
 import Marquee from "react-fast-marquee";
@@ -33,32 +33,39 @@ export const MMarquee: React.FC<Props> = () => {
     })();
   }, []);
 
-  return (
-    <Marquee
-      gradient={false}
-      style={{
-        position: "absolute",
-        top: options.default,
-        width: "100%",
-        minHeight: "60px",
-      }}
-    >
-      <Typography
-        color="primary"
-        variant="h5"
-        style={{
-          position: "relative",
-          width: "100%",
-          //   backgroundColor: theme.palette.common.black,
-          minHeight: "inherit",
-          display: "flex",
-          alignItems: "center",
+  if (!activeText) return <></>;
 
-          // zIndex: "99",
+  return (
+    <Box
+      my={2}
+      width="100%"
+      height="50px"
+      style={{ backgroundColor: "#000", display: "flex", alignItems: "center" }}
+    >
+      <Marquee
+        gradient={false}
+        style={{
+          width: "100%",
+          minHeight: "60px",
         }}
       >
-        {activeText}
-      </Typography>
-    </Marquee>
+        <Typography
+          color="primary"
+          variant="h5"
+          style={{
+            position: "relative",
+            width: "100%",
+            //   backgroundColor: theme.palette.common.black,
+            minHeight: "inherit",
+            display: "flex",
+            alignItems: "center",
+
+            // zIndex: "99",
+          }}
+        >
+          {activeText}
+        </Typography>
+      </Marquee>
+    </Box>
   );
 };

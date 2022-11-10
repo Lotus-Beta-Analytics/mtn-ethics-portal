@@ -93,12 +93,12 @@ export const QuizReportTable: React.FC<Props> = ({ quizReport, column }) => {
           color: "black",
           fontSize: "16px",
         },
-        searchFieldVariant: "outlined",
       }}
       style={{
         boxShadow: "none",
-        width: "100%",
+        maxWidth: "90%",
         boxSizing: "border-box",
+        overflow: "scroll",
       }}
     />
   );
