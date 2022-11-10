@@ -136,6 +136,11 @@ export const adminNavItems = [
         icon: FaDochub,
         link: "/admin/ethicsdefaulters",
       },
+      {
+        title: "Manage Defaulters",
+        icon: FaDochub,
+        link: "/admin/ethics/managedefaulters",
+      },
     ],
   },
   {

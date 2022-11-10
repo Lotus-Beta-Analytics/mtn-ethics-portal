@@ -83,6 +83,8 @@ import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageR
 import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/policy-breach-form/PolicyBreachesForm";
 import { AdminEthicsDefaulter } from "./modules/admin/pages/policy-breaches/ethics-defaulter/AdminEthicsDefaulter";
 import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
+import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-defaulters/ManageDeafulters";
+import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -521,6 +523,20 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           path="/admin/ethicsdefaulters"
                           render={() => (
                             <AdminEthicsDefaulter context={context} />
+                          )}
+                        />
+
+                        <Route
+                          exact
+                          path="/admin/ethics/managedefaulters"
+                          render={() => <ManageDeafulters />}
+                        />
+
+                        <Route
+                          exact
+                          path="/admin/ethics/defaulters/:defaultersId/update"
+                          render={() => (
+                            <UpdateEthicsDefaulters context={context} />
                           )}
                         />
 

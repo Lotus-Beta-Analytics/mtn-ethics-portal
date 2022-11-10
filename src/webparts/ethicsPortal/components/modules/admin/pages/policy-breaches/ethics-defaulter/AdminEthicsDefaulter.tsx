@@ -49,7 +49,7 @@ export const AdminEthicsDefaulter = ({ context }) => {
   };
 
   const manageHandler = () => {
-    history.push("/admin/manage/ethicsdefaulters");
+    history.push("/admin/ethics/managedefaulters");
   };
 
   const mutation = useMutation(submitHandler, {
