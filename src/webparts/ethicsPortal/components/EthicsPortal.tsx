@@ -82,6 +82,7 @@ import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateR
 import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
 import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/policy-breach-form/PolicyBreachesForm";
 import { AdminEthicsDefaulter } from "./modules/admin/pages/policy-breaches/ethics-defaulter/AdminEthicsDefaulter";
+import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
