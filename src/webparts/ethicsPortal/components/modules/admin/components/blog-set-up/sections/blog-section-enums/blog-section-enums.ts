@@ -5,4 +5,5 @@ export enum BlogSectionEnums {
   Whistle_Blowing = "Whitsle Blowing",
   Anti_bribery = "Anti Bribery and Corruption",
   Privacy = "Privacy and Data Protection",
+  Policy_breaches = "Policy Breaches",
 }

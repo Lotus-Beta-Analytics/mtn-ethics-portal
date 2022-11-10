@@ -81,6 +81,7 @@ import { CreateRecognition } from "./modules/admin/pages/recognition/CreateRecog
 import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateRecognitionPage";
 import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
 import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/policy-breach-form/PolicyBreachesForm";
+import { AdminEthicsDefaulter } from "./modules/admin/pages/policy-breaches/ethics-defaulter/AdminEthicsDefaulter";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -511,6 +512,14 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           path="/admin/policy/breaches"
                           render={() => (
                             <PolicyBreachesForm context={context} />
+                          )}
+                        />
+
+                        <Route
+                          exact
+                          path="/admin/ethicsdefaulters"
+                          render={() => (
+                            <AdminEthicsDefaulter context={context} />
                           )}
                         />
 
