@@ -147,7 +147,7 @@ export const QuizPage = () => {
                                       setResponses((prev) => [
                                         ...prev,
                                         {
-                                          id: questions[page]?.id,
+                                          id: questions[page]?.tableData?.id,
                                           question: questions[page]?.question,
                                           answer: value,
                                           responseTime: `${quizInfo?.duration}m:${seconds}s`,
@@ -162,15 +162,17 @@ export const QuizPage = () => {
                                   ) {
                                     setResponses((prev) => {
                                       return prev.filter(
-                                        ({ id }) => id != questions[page]?.id
+                                        ({ id }) =>
+                                          id != questions[page]?.tableData?.id
                                       );
                                     });
 
                                     if (e.target.checked) {
+                                      console.log(questions[page]);
                                       setResponses((prev) => [
                                         ...prev,
                                         {
-                                          id: questions[page]?.id,
+                                          id: questions[page]?.tableData?.id,
                                           question: questions[page]?.question,
                                           answer: value,
                                           responseTime: `${quizInfo?.duration}m:${seconds}s`,
