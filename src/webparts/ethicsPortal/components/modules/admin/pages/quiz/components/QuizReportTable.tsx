@@ -96,7 +96,7 @@ export const QuizReportTable: React.FC<Props> = ({ quizReport, column }) => {
       }}
       style={{
         boxShadow: "none",
-        maxWidth: "90%",
+        maxWidth: "100%",
         boxSizing: "border-box",
         overflow: "scroll",
       }}

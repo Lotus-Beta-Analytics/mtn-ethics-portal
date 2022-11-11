@@ -83,6 +83,7 @@ import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageR
 import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/policy-breach-form/PolicyBreachesForm";
 import { AdminEthicsDefaulter } from "./modules/admin/pages/policy-breaches/ethics-defaulter/AdminEthicsDefaulter";
 import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
+import { PolicyLandingComponent } from "./modules/employee/components/PolicyLandingComponent";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -282,6 +283,11 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       exact
                       path="/employee/quiz-result"
                       component={QuizResultPage}
+                    />
+                    <Route
+                      exact
+                      path="/employee/policy/:policyId"
+                      component={PolicyLandingComponent}
                     />
                     {/* gift and entertainment */}
                     <Route
@@ -535,7 +541,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
             </Router>
           </ThemeProvider>
         </WebContext.Provider>
-        s
       </ToastProvider>
     </QueryClientProvider>
   );

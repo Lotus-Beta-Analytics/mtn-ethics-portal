@@ -26,7 +26,6 @@ type Props = {
 };
 
 export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
-
   const columns = [
     {
       title: "SN",
@@ -150,10 +149,7 @@ export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
           },
           tooltip: "remove",
 
-          onClick: (event, rowData) => {
-            // setOpenDelete(true);
-            // setUser(rowData);
-          },
+          onClick: (event, rowData) => {},
         },
       ]}
       components={{

@@ -20,7 +20,7 @@ export const QuizReportPage = () => {
         const res = await sp.web.lists
           .getByTitle("QuizResponse")
           .items.select(
-            "Quiz/QuizTitle, Quiz/duration, Quiz/status, StaffName, responses, StaffEmail, score"
+            "Quiz/QuizTitle, Quiz/duration, Quiz/status, StaffName, responses, StaffEmail, score, TotalPoints"
           )
           .expand("Quiz")
           .filter(`QuizId eq '${quizId}'`)
@@ -125,25 +125,7 @@ export const QuizReportPage = () => {
     ...field,
     {
       title: "Quiz Result",
-      field: "score",
-      render: (rowData) => {
-        const score = rowData?.score ? JSON.parse(rowData?.score) : null;
-        return (
-          <Box>
-            <Box>
-              <Typography>
-                Correct Responses: <strong>{score?.correct}</strong>
-              </Typography>
-              <Typography>
-                Wrong Responses: <strong>{score?.wrong}</strong>
-              </Typography>
-              <Typography>
-                Skipped Responses: <strong>{score?.skipped}</strong>
-              </Typography>
-            </Box>
-          </Box>
-        );
-      },
+      field: "TotalPoints",
     },
   ];
 

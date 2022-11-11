@@ -26,7 +26,7 @@ export const QuizPage = () => {
     responses,
     setResponses,
     showSubmit,
-    setTotal,
+    setPoints,
     total,
     questions,
     getting,
@@ -168,7 +168,6 @@ export const QuizPage = () => {
                                     });
 
                                     if (e.target.checked) {
-                                      console.log(questions[page]);
                                       setResponses((prev) => [
                                         ...prev,
                                         {
@@ -181,6 +180,15 @@ export const QuizPage = () => {
                                           point: questions[page]?.point,
                                         },
                                       ]);
+                                      if (questions[page]?.answer === value) {
+                                        setPoints((prev: number) => {
+                                          let total =
+                                            Number(prev) +
+                                            Number(questions[page]?.point);
+
+                                          return total;
+                                        });
+                                      }
                                     }
                                   }
                                 }}

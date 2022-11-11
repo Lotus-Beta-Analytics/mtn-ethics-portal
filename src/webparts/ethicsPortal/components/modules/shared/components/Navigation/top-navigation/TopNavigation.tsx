@@ -6,6 +6,7 @@ import { MLink } from "../../../../../styles/styles";
 import { theme } from "../../../../../themes/themes";
 import { useHistory } from "react-router-dom";
 import { NavigationSearch } from "./components/NavigationSearch";
+import { policyContextData } from "../../../../../contexts/EmployeePolicyContext";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,7 +77,75 @@ export const TopNavigation = () => {
   const id = open ? `${activeIndex + 1}item` : undefined;
   const [subMenuIndex, setSubMenuIndex] = React.useState(null);
 
+  const { policies } = policyContextData();
+
   const handleClickAway = () => {};
+
+  const MenuItems = [
+    {
+      id: 1,
+      text: "Gallery",
+      isActive: false,
+      link: "#",
+      subMenu: [
+        { id: 1, text: "Photo Categories", link: "/employee/photo-categories" },
+        { id: 2, text: "Video Categories", link: "/employee/video-categories" },
+      ],
+    },
+    {
+      id: 2,
+      text: "Ethics Policies",
+      isActive: false,
+      link: "#",
+      subMenu: policies.map((policy) => {
+        return {
+          id: policy.Id,
+          text: policy.PolicyTitle,
+          link: `/employee/policy/${policy.Id}`,
+        };
+      }),
+    },
+    {
+      id: 3,
+      text: "Ethics Quiz",
+      isActive: false,
+      link: "/employee/quiz/landing",
+    },
+    {
+      id: 4,
+      text: "Recognition",
+      isActive: false,
+      link: "#",
+      subMenu: [
+        { id: 1, text: "Champion Recognition", link: "/recognition/champion" },
+        { id: 2, text: "Employee Recognition", link: "" },
+      ],
+    },
+    {
+      id: 5,
+      text: "Trainings",
+      isActive: false,
+      link: "/trainings/traininglandingpage",
+    },
+    {
+      id: 6,
+      text: "Policy Breaches",
+      isActive: false,
+      link: "/ethics/policybreaches",
+    },
+    {
+      id: 7,
+      text: "Ethics Articles",
+      isActive: false,
+      link: "/ethics/articleslandingpage",
+    },
+    {
+      id: 8,
+      text: "Contact Us",
+      isActive: false,
+      link: "/ethics/contactus",
+    },
+  ];
 
   return (
     <Box className={classes.container}>
@@ -134,74 +203,3 @@ export const TopNavigation = () => {
     </Box>
   );
 };
-
-const MenuItems = [
-  {
-    id: 1,
-    text: "Gallery",
-    isActive: false,
-    link: "#",
-    subMenu: [
-      { id: 1, text: "Photo Categories", link: "/employee/photo-categories" },
-      { id: 2, text: "Video Categories", link: "/employee/video-categories" },
-    ],
-  },
-  {
-    id: 2,
-    text: "Ethics Policies",
-    isActive: false,
-    link: "#",
-    subMenu: [
-      {
-        id: 1,
-        text: "Conflict of Interest",
-        link: "/conflict/landing",
-      },
-      { id: 2, text: "Gift and Entertainment", link: "/giftandentertainment" },
-      { id: 3, text: "Conduct Passport", link: "/conduct-passport" },
-      { id: 4, text: "Whistle Blowing", link: "/whistleblowing" },
-      { id: 5, text: "Antibribery and Corruption", link: "/antibribery" },
-      { id: 6, text: "Privacy and data protection", link: "/privacy" },
-    ],
-  },
-  {
-    id: 3,
-    text: "Ethics Quiz",
-    isActive: false,
-    link: "/employee/quiz/landing",
-  },
-  {
-    id: 4,
-    text: "Recognition",
-    isActive: false,
-    link: "#",
-    subMenu: [
-      { id: 1, text: "Champion Recognition", link: "/recognition/champion" },
-      { id: 2, text: "Employee Recognition", link: "" },
-    ],
-  },
-  {
-    id: 5,
-    text: "Trainings",
-    isActive: false,
-    link: "/trainings/traininglandingpage",
-  },
-  {
-    id: 6,
-    text: "Policy Breaches",
-    isActive: false,
-    link: "/ethics/policybreaches",
-  },
-  {
-    id: 7,
-    text: "Ethics Articles",
-    isActive: false,
-    link: "/ethics/articleslandingpage",
-  },
-  {
-    id: 8,
-    text: "Contact Us",
-    isActive: false,
-    link: "/ethics/contactus",
-  },
-];

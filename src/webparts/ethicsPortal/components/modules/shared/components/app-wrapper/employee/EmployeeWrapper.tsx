@@ -8,6 +8,7 @@ import { PageNavigation } from "../../Navigation/page-navigation/PageNavigation"
 import { TopNavigation } from "../../Navigation/top-navigation/TopNavigation";
 import { useHistory } from "react-router-dom";
 import { StyledButton } from "../../buttons/MButton";
+import { PolicyContextProvider } from "../../../../../contexts/EmployeePolicyContext";
 
 export const EmployeeWrapper: React.FC<{
   children;
@@ -24,31 +25,33 @@ export const EmployeeWrapper: React.FC<{
 }) => {
   const history = useHistory();
   return (
-    <AppContainer>
-      {pageNavigation && <PageNavigation nav={pageMenu} />}
-      <TopNavigation />
+    <PolicyContextProvider>
+      <AppContainer>
+        {pageNavigation && <PageNavigation nav={pageMenu} />}
+        <TopNavigation />
 
-      {backButton && (
-        <Box
-          style={{
-            cursor: "pointer",
-            width: "100px",
-            height: "30px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "8% 2% 2%",
-          }}
-          onClick={() => history.goBack()}
-        >
-          <FaAngleDoubleLeft
-            color={theme.palette.common.black}
-            fontSize="20px"
-          />
-        </Box>
-      )}
-      <Box>{children}</Box>
-      {showFooter && <Footer />}
-    </AppContainer>
+        {backButton && (
+          <Box
+            style={{
+              cursor: "pointer",
+              width: "100px",
+              height: "30px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              margin: "8% 2% 2%",
+            }}
+            onClick={() => history.goBack()}
+          >
+            <FaAngleDoubleLeft
+              color={theme.palette.common.black}
+              fontSize="20px"
+            />
+          </Box>
+        )}
+        <Box>{children}</Box>
+        {showFooter && <Footer />}
+      </AppContainer>
+    </PolicyContextProvider>
   );
 };
