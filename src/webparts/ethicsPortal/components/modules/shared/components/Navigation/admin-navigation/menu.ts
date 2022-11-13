@@ -44,41 +44,10 @@ export const adminNavItems = [
     title: "Ethics Policies",
     icon: FaAngrycreative,
     link: "/admin/policies",
-
     subNav: [
       {
-        title: "Conflict of Interest",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Conflict}`,
-      },
-      {
-        title: "Gifts and Entertainment",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Gift}`,
-      },
-      {
-        title: "Conduct Passport",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Conduct}`,
-      },
-      {
-        title: "Whistle Blowing",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Whistle_Blowing}`,
-      },
-      {
-        title: "Anti Bribery and Corruption",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Anti_bribery}`,
-      },
-      {
-        title: "Privacy and Data Protection",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Privacy}`,
-      },
-      {
         title: "Create Policy",
-        icon: Settings,
+        icon: FaVideo,
         link: "/admin/create-policy",
       },
     ],
@@ -103,7 +72,7 @@ export const adminNavItems = [
       {
         title: "Manage",
         icon: Settings,
-        link: "/admin/gallery/manage",
+        link: "",
       },
     ],
   },
