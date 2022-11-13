@@ -10,6 +10,7 @@ import { QuizTopic } from "../screens/QuizTopic";
 import { QuizMetaData } from "../screens/QuizMetaData";
 import { QuizQuestionSetUp } from "../screens/QuizQuestion";
 import { useHistory } from "react-router-dom";
+import uuid from "react-uuid";
 
 type QuizContextType = {
   quiz: AdminQuizCreateType;
@@ -113,6 +114,8 @@ export const CreateAdminQuizContextProvider: React.FC<{
         QuizTitle: quiz?.title,
         instruction: quiz?.instruction,
         topic: quiz?.topic,
+        area: quiz?.area,
+        QuizId: uuid().substring(0, 8),
       });
       successAlert(toast);
       setLoading(false);

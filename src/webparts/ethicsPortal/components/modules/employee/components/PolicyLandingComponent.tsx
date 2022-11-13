@@ -8,14 +8,16 @@ import { errorAlert } from "../../../utils/toast-messages";
 import { BlogContent } from "../../admin/components/blog-set-up/BlogContent";
 import { EmployeeWrapper } from "../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { LandingPageHeaderWithImage } from "../../shared/components/LandingPageHeaderWithImage";
+import { PageNav } from "../../shared/components/Navigation/page-navigation/PageNavigation";
 
 export const PolicyLandingComponent = () => {
   const { policyId } = useParams();
   const [policyResponse, setPolicyResponse] = React.useState<Policy>();
+  const [pageMenu, setPageMenu] = React.useState<PageNav[]>([]);
   const history = useHistory();
   const toast = useToasts().addToast;
   const { isLoading } = useQuery(
-    ["policyFetch"],
+    ["policyFetch", policyId],
     async () => {
       return await sp.web.lists
         .getByTitle("PolicyConfiguration")
@@ -23,9 +25,26 @@ export const PolicyLandingComponent = () => {
         .get();
     },
     {
-      enabled: !!policyId,
-      onSuccess(data) {
+      onSuccess(data: Policy) {
         setPolicyResponse(data);
+        setPageMenu([
+          {
+            id: 1,
+            text: `${data?.PolicyTitle} Write Ups`,
+            link: `/page/writeup/${data?.Id}`,
+          },
+          {
+            id: 2,
+            text: `${data?.PolicyTitle} Policy`,
+            link: `/page/policy/${data?.Id}`,
+          },
+          {
+            id: 3,
+            text: `${data?.PolicyTitle} resources`,
+            link: `/page/resources/${data?.Id}`,
+          },
+        ]);
+        return data;
       },
       onError(err) {
         errorAlert(toast);
@@ -55,7 +74,11 @@ export const PolicyLandingComponent = () => {
   }
 
   return (
-    <EmployeeWrapper pageMenu={[]} pageNavigation={true} backButton={false}>
+    <EmployeeWrapper
+      pageMenu={pageMenu}
+      pageNavigation={true}
+      backButton={false}
+    >
       <LandingPageHeaderWithImage
         bg={policyResponse?.ImageUrl}
         text={policyResponse?.PolicyTitle}

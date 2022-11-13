@@ -6,6 +6,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import { uniqueId } from "lodash";
 import * as React from "react";
 import { FaBook, FaEdit, FaTrash } from "react-icons/fa";
 import { QuestionsTable } from "../components/QuestionsTable";
@@ -26,6 +27,7 @@ export const QuizQuestionSetUp = (props: Props) => {
     question: "",
     type: "",
     point: null,
+    id: "",
   });
 
   //delete an option
@@ -232,6 +234,7 @@ export const QuizQuestionSetUp = (props: Props) => {
                 ...(quiz?.questions ?? []),
                 {
                   ...question,
+                  id: uniqueId(),
                 },
               ],
             });
@@ -242,6 +245,7 @@ export const QuizQuestionSetUp = (props: Props) => {
               question: "",
               type: "",
               point: null,
+              id: "",
             });
           }}
           className="action-btn"

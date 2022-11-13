@@ -17,6 +17,9 @@ import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
 import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 import { CreateSection } from "../../components/blog-set-up/sections/CreateSection";
+import { ReadOnlyURLSearchParams } from "./ManagePoliciesPage";
+import { useLocation } from "react-router-dom";
+import { Policy } from "../../../employee/components/PolicyLandingComponent";
 
 type Props = {
   context: WebPartContext;
@@ -24,10 +27,15 @@ type Props = {
 
 export const CreatePolicy: React.FC<Props> = ({ context }) => {
   const [file, setFile] = React.useState("");
-  const [section, setSection] = React.useState("");
+  const [section, setSection] = React.useState<Policy>();
   const [content, setContent] = React.useState<any>();
   const [postTitle, setPostTitle] = React.useState("");
   const queryClient = useQueryClient();
+  const { search } = useLocation();
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
+    [search]
+  );
 
   const toast = useToasts().addToast;
   const submitHandler = async () => {
@@ -35,8 +43,11 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
       const res = await sp.web.lists.getByTitle("Policies").items.add({
         PolicyTitle: postTitle,
         content: JSON.stringify(content),
-        PolicySection: section,
+        PolicySection: section?.PolicyTitle,
         FileUrl: file,
+        ["SectionIdId"]: searchParams.get("sectionId")
+          ? Number(searchParams.get("sectionId"))
+          : section?.Id,
       });
 
       return res;
@@ -51,7 +62,7 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
       successAlert(toast, "Policy Added");
       setFile(null);
       setPostTitle("");
-      setSection("");
+      setSection(null);
       setContent(null);
     },
     onError: () => {
@@ -94,8 +105,8 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
 
         <Box my={2}>
           <CreateSection
-            section={section as BlogSectionEnums}
-            onUpdate={(section) => setSection(section as BlogSectionEnums)}
+            section={section}
+            onUpdate={(section) => setSection(section)}
           />
         </Box>
         <Box my={2} style={{ overflowY: "auto" }}>

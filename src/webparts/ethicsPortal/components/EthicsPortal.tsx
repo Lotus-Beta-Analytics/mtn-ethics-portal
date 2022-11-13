@@ -11,8 +11,6 @@ import { LandingPage } from "./modules/employee/pages/landing-page/LandingPage";
 import { PhotoCategories } from "./modules/employee/pages/gallery/photo-categories/PhotoCategories";
 import { VideoGallery } from "./modules/employee/pages/gallery/VideoGallery";
 import "./styles.css";
-import { ConflictOfInterestLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestLanding";
-import { ConflictOfInterestWriteUpLanding } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictOfInterestWriteUpLanding";
 import { Post } from "./modules/employee/components/blog/Post";
 import { QuizLandingPage } from "./modules/employee/pages/quiz/QuizLandingPage";
 import { QuizPage } from "./modules/employee/pages/quiz/QuizPage";
@@ -63,17 +61,8 @@ import { AntiBribery } from "./modules/employee/pages/anti-bribery/AntiBriberyLa
 import { AntiBriberyWriteUpLanding } from "./modules/employee/pages/anti-bribery/anti-bribery-article/AntiBriberyArticle";
 import { AntiBriberyPolicy } from "./modules/employee/pages/anti-bribery/anti-bribery-policy/AntiBriberyPolicy";
 import { AntiBriberyTrainingLanding } from "./modules/employee/pages/anti-bribery/anti-bribery-training/AntiBriberyTraining";
-import { ConductPassportLandingPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPassportLandingPage";
-import { ConductBlogPostsPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductBlogPostsPage";
-import { ConductPolicyPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPolicyPage";
-import { ConductPassportResourcesPage } from "./modules/employee/pages/ethics-policies/conduct-passport/ConductPassportResourcesPage";
-import { PrivacyLandingPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyLandingPage";
-import { PrivacyBlogPostsPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyBlogPostsPage";
-import { PrivacyPolicyPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyPolicyPage";
-import { PrivacyResourcesPage } from "./modules/employee/pages/ethics-policies/privacy/PrivacyResourcesPage";
 import { ViewEthicsTraining } from "./modules/employee/pages/training/ethic-trainings/view-ethics-trainings/ViewEthicsTraining";
-import { ConflictResourcesPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictResourcesPage";
-import { ConflictPolicyPage } from "./modules/employee/pages/ethics-policies/conflict-of-interest/ConflictPolicyPage";
+
 import { PhotoGallery } from "./modules/employee/pages/gallery/PhotoGallery";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
@@ -84,6 +73,10 @@ import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy
 import { AdminEthicsDefaulter } from "./modules/admin/pages/policy-breaches/ethics-defaulter/AdminEthicsDefaulter";
 import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
 import { PolicyLandingComponent } from "./modules/employee/components/PolicyLandingComponent";
+import { PolicyDetailPage } from "./modules/admin/pages/ethics-policies-management/pages/PolicyDetailPage";
+import { ManageAdminPolicyPage } from "./modules/admin/pages/ethics-policies-management/pages/ManagePolicyPage";
+import { WriteUpPage } from "./modules/employee/pages/ethics-policies/WriteUpPage";
+import { PolicyPage } from "./modules/employee/pages/ethics-policies/PolicyPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -145,11 +138,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       path="/employee/video-categories"
                       component={VideoCategories}
                     />
-                    <Route
-                      exact
-                      path="/conflict/landing"
-                      component={ConflictOfInterestLanding}
-                    />
+
                     <Route
                       exact
                       path="/recognition/champion"
@@ -165,33 +154,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       path="/recognition/ethicschampion/activties"
                       component={EthicsChampionsActivties}
                     />
-                    <Route
-                      exact
-                      path="/conflict/writeup"
-                      component={ConflictOfInterestWriteUpLanding}
-                    />
-                    <Route exact path="/blog/post/:id" component={Post} />
 
-                    <Route
-                      exact
-                      path="/conflict/landing"
-                      component={ConflictOfInterestLanding}
-                    />
-                    <Route
-                      exact
-                      path="/conflict/writeup"
-                      component={ConflictOfInterestWriteUpLanding}
-                    />
-                    <Route
-                      exact
-                      path="/conflict/policy"
-                      component={ConflictPolicyPage}
-                    />
-                    <Route
-                      exact
-                      path="/conflict/resources"
-                      component={ConflictResourcesPage}
-                    />
                     <Route
                       exact
                       path="/recognition/champion"
@@ -284,123 +247,28 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       path="/employee/quiz-result"
                       component={QuizResultPage}
                     />
+                    <Route exact path="/blog/post/:id" component={Post} />
                     <Route
                       exact
                       path="/employee/policy/:policyId"
                       component={PolicyLandingComponent}
                     />
-                    {/* gift and entertainment */}
-                    <Route
-                      exact
-                      path="/giftandentertainment"
-                      component={GiftandEntertainment}
-                    />
 
                     <Route
                       exact
-                      path="/giftandentertainment/writeup"
-                      component={GiftEntertainmentWriteUpLanding}
+                      path="/page/writeup/:sectionId"
+                      component={WriteUpPage}
                     />
                     <Route
                       exact
-                      path="/giftandentertainment/policy"
-                      component={GiftandEntertainmentPolicy}
+                      path="/page/policy/:sectionId"
+                      component={PolicyPage}
                     />
                     <Route
                       exact
-                      path="/giftandentertainment/trainingslides"
-                      component={GiftEntertainmentTrainingLanding}
+                      path="/page/resources/:sectionId"
+                      component={WriteUpPage}
                     />
-                    {/* End of gift and entertainment */}
-                    {/* Conduct Passport Routes */}
-                    <Route
-                      exact
-                      path="/conduct-passport"
-                      component={ConductPassportLandingPage}
-                    />
-                    <Route
-                      exact
-                      path="/conduct-passport/posts"
-                      component={ConductBlogPostsPage}
-                    />
-                    <Route
-                      exact
-                      path="/conduct-passport/policy"
-                      component={ConductPolicyPage}
-                    />
-                    <Route
-                      exact
-                      path="/conduct-passport/resources"
-                      component={ConductPassportResourcesPage}
-                    />
-
-                    {/* End of Conduct Passport Routes */}
-                    {/* Privacy and Data Protection Routes */}
-                    <Route
-                      exact
-                      path="/privacy"
-                      component={PrivacyLandingPage}
-                    />
-                    <Route
-                      exact
-                      path="/privacy/posts"
-                      component={PrivacyBlogPostsPage}
-                    />
-                    <Route
-                      exact
-                      path="/privacy/policy"
-                      component={PrivacyPolicyPage}
-                    />
-                    <Route
-                      exact
-                      path="/privacy/resources"
-                      component={PrivacyResourcesPage}
-                    />
-
-                    {/* End of Privacy and Data Protection Routes*/}
-
-                    {/* whistle blowing */}
-                    <Route
-                      exact
-                      path="/whistleblowing"
-                      component={WhistleBLowing}
-                    />
-
-                    <Route
-                      exact
-                      path="/whistleblowing/writeup"
-                      component={WhistleBlowingWriteUpLanding}
-                    />
-                    <Route
-                      exact
-                      path="/whistleblowing/policy"
-                      component={WhistleBlowingPolicy}
-                    />
-                    <Route
-                      exact
-                      path="/whistleblowing/training"
-                      component={WhistleBlowingTrainingLanding}
-                    />
-                    {/* End of whistle blowing */}
-                    {/* bribery */}
-                    <Route exact path="/antibribery" component={AntiBribery} />
-
-                    <Route
-                      exact
-                      path="/antibribery/writeup"
-                      component={AntiBriberyWriteUpLanding}
-                    />
-                    <Route
-                      exact
-                      path="/antibribery/policy"
-                      component={AntiBriberyPolicy}
-                    />
-                    <Route
-                      exact
-                      path="/antibribery/training"
-                      component={AntiBriberyTrainingLanding}
-                    />
-                    {/* End of antibribery */}
 
                     {isAdmin && (
                       <Switch>
@@ -510,6 +378,16 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           exact
                           path="/admin/create-policy"
                           render={() => <CreatePolicy context={context} />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/manage-policy"
+                          render={() => <ManageAdminPolicyPage />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/policy/:policyId"
+                          render={() => <PolicyDetailPage />}
                         />
 
                         {/* Start of Policy Breaches */}

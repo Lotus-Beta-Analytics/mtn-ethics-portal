@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Typography } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
-import * as dayjs from "dayjs";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../utils/toast-messages";
@@ -11,39 +10,47 @@ import { EmployeeWrapper } from "../../shared/components/app-wrapper/employee/Em
 import { PageHeaderWithImage } from "../../shared/components/PageHeaderWithImage";
 
 type Props = {
-  section: BlogSectionEnums;
+  section?: BlogSectionEnums;
+  sectionId?: string;
 };
 
-export const PolicyComponent: React.FC<Props> = ({ section }) => {
+export const PolicyComponent: React.FC<Props> = ({ section, sectionId }) => {
   const toast = useToasts().addToast;
-  const {
-    data: policy,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useQuery<any>(["policy", section], async () => {
-    try {
-      const res = await sp.web.lists
+  const [policy, setPolicy] = React.useState<any>();
+  const { data, isLoading } = useQuery<any>(
+    ["policy"],
+    async () => {
+      return await sp.web.lists
         .getByTitle("Policies")
-        .items.filter(`PolicySection eq '${section}'`)
+        .items.select(
+          "PolicyTitle, content, FileUrl, SectionId/ID, SectionId/PolicyTitle, SectionId/ImageUrl"
+        )
+        .expand("SectionId")
+        .filter(`SectionId eq '${sectionId}'`)
         .get();
-      if (res.length) {
-        return res[res.length - 1];
-      }
-      return {} as any;
-    } catch (e) {
-      errorAlert(toast);
+    },
+    {
+      enabled: !!sectionId,
+      onSuccess(data: any[]) {
+        if (data.length) {
+          setPolicy(data[data.length - 1]);
+          return data[data.length - 1];
+        }
+        return data;
+      },
+      onError(err: Error) {
+        errorAlert(toast, err.message);
+      },
     }
-  });
+  );
+
   return (
     <EmployeeWrapper showFooter={true} backButton={true}>
       <Box width="90%" m="auto">
-        {!isLoading && policy && (
-          <PageHeaderWithImage
-            bg={`${policy?.FileUrl}`}
-            text={policy?.PolicyTitle ?? ""}
-          />
-        )}
+        <PageHeaderWithImage
+          bg={`${policy?.FileUrl}`}
+          text={policy?.PolicyTitle ?? ""}
+        />
 
         {!isLoading && !policy?.PolicyTitle && (
           <Box style={{ width: "90%", height: "450px" }} mt={3} ml="5%">
@@ -65,9 +72,7 @@ export const PolicyComponent: React.FC<Props> = ({ section }) => {
                   justifyContent="space-between"
                 >
                   <Typography variant="h5">{policy?.PolicyTitle}</Typography>
-                  <Typography>
-                    Posted On: {dayjs(policy?.Created).format("MMMM DD, YYYY")}
-                  </Typography>
+                  <Box></Box>
                 </Box>
                 <Box>
                   {policy?.content && (

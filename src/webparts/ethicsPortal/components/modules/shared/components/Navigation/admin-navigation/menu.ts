@@ -19,6 +19,11 @@ export const adminNavItems = [
     link: "/admin/dashboard",
   },
   {
+    title: "Manage Polices",
+    icon: FaAd,
+    link: "/admin/manage-policy",
+  },
+  {
     title: "Gallery",
     icon: FaImages,
     link: "/admin/gallery",
