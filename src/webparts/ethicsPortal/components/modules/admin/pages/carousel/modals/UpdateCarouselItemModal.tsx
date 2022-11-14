@@ -25,7 +25,11 @@ export const UpdateCarouselItemModal: React.FC<Props> = ({
       return sp.web.lists
         .getByTitle("CarouselItems")
         .items.getById(itemToUpdate?.Id)
-        .update(formData);
+        .update({
+          CarouselImage: formData?.CarouselImage,
+          CarouselTitle: formData?.CarouselTitle,
+          LinkTo: formData?.LinkTo,
+        } as CarouselData);
     },
     {
       onSuccess(data, variables, context) {
@@ -49,8 +53,8 @@ export const UpdateCarouselItemModal: React.FC<Props> = ({
             e.preventDefault();
             mutate();
           }}
-                  buttonLabel="Update"
-                  onClose={onClose}
+          buttonLabel="Update"
+          onClose={onClose}
         />
       </DialogContent>
     </Dialog>

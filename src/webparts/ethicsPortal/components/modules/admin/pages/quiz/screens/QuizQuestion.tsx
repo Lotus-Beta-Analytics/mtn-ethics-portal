@@ -1,9 +1,9 @@
 import {
   Box,
   Typography,
-  InputAdornment,
   TextField,
   IconButton,
+  colors,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { uniqueId } from "lodash";
@@ -184,10 +184,20 @@ export const QuizQuestionSetUp = (props: Props) => {
                   <Typography>{option}</Typography>
                   <Box display="flex" alignItems="center" gridGap={2}>
                     <IconButton onClick={() => onEditOption(i)}>
-                      <FaEdit />
+                      <FaEdit
+                        fontSize="1rem"
+                        style={{
+                          color: colors.blue["200"],
+                        }}
+                      />
                     </IconButton>
                     <IconButton onClick={() => onDeleteOption(i)}>
-                      <FaTrash />
+                      <FaTrash
+                        fontSize="1rem"
+                        style={{
+                          color: colors.red["200"],
+                        }}
+                      />
                     </IconButton>
                   </Box>
                 </Box>
