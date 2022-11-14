@@ -30,7 +30,7 @@ export const QuizLandingPage = () => {
   });
   const toast = useToasts().addToast;
 
-  const [isTakenQuiz, setIsTakenQuiz] = React.useState(false);
+  const [isTakenQuiz, setIsTakenQuiz] = React.useState(true);
 
   React.useEffect(() => {
     if (!data) return;
@@ -46,6 +46,8 @@ export const QuizLandingPage = () => {
         setIsTakenQuiz(items.length > 0);
       });
   }, [data?.email]);
+
+  console.log(questions);
 
   return (
     <EmployeeWrapper backButton={false}>

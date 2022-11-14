@@ -12,15 +12,17 @@ import { PostPreviewItem } from "./blog/PostPreviewItem";
 import { PaginationContainer } from "./pagination/PaginationContainer";
 
 type Props = {
-  backgroundImage: string;
-  filter: BlogSectionEnums;
-  pageTitle: string;
+  backgroundImage?: string;
+  filter?: BlogSectionEnums;
+  sectionId?: number;
+  pageTitle?: string;
 };
 
 export const WriteUpLandingComponent: React.FC<Props> = ({
   backgroundImage,
   filter,
   pageTitle,
+  sectionId,
 }) => {
   const [pageSize, setPageSize] = React.useState(null);
   const rowsPerPage = 6;
@@ -29,7 +31,11 @@ export const WriteUpLandingComponent: React.FC<Props> = ({
     try {
       const res = await sp.web.lists
         .getByTitle("Post")
-        .items.filter(`PostSection eq '${filter}'`)
+        .items.select(
+          "PostTitle, content, FileUrl, SectionId/ID, SectionId/PolicyTitle, SectionId/ImageUrl"
+        )
+        .expand("SectionId")
+        .filter(`SectionId eq '${sectionId}'`)
         .get();
       setPageSize(Math.ceil(res.length / rowsPerPage));
       return res;
@@ -41,9 +47,14 @@ export const WriteUpLandingComponent: React.FC<Props> = ({
 
   return (
     <EmployeeWrapper>
-      <Box width="90%" m="0 auto">
-        <PageHeaderWithImage bg={backgroundImage} text={pageTitle ?? ""} />
-      </Box>
+      {items?.length > 0 && (
+        <Box width="90%" m="0 auto">
+          <PageHeaderWithImage
+            bg={items[0].SectionId["ImageUrl"]}
+            text={items[0].SectionId["PolicyTitle"] ?? ""}
+          />
+        </Box>
+      )}
 
       {!isLoading && data?.length === 0 && (
         <Box style={{ width: "90%", height: "450px" }} mt={3} ml="5%">

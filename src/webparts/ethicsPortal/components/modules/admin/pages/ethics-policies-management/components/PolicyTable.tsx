@@ -1,4 +1,4 @@
-import { Box, Checkbox, IconButton } from "@material-ui/core";
+import { Box, Button, Checkbox, IconButton, Tooltip } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -19,31 +19,34 @@ import * as React from "react";
 import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
 
 import { useHistory } from "react-router-dom";
-import { RemoveBlogPostModal } from "../modals/RemoveBlogPostModal";
+import { FaPlusCircle } from "react-icons/fa";
+import { AddPolicyModal } from "../modals/AddPolicyModal";
+import { Policy } from "../../../../employee/components/PolicyLandingComponent";
+import { UpdatePolicyModal } from "../modals/UpdatePolicyModal";
+import { DeletePolicyModal } from "../modals/DeletePolicyModal";
 
 type Props = {
-  posts: any[];
+  policies: any[];
   loading: boolean;
+  title?: string;
 };
 
-export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
-  const [itemToRemove, setItemToRemove] = React.useState<any>();
+export const PolicyTable: React.FC<Props> = ({ policies, loading, title }) => {
+  const [itemToRemove, setItemToRemove] = React.useState<Policy>();
+  const [itemToUpdate, setItemToUpdate] = React.useState<Policy>();
+  const [adding, setAdding] = React.useState<boolean>(false);
 
   const history = useHistory();
 
   const columns = [
     {
       title: "SN",
-      field: "tableData",
+      field: "tableData[id]",
       render: (rowData) => <div>{rowData.tableData.id + 1}</div>,
     },
     {
-      title: "Post Title",
-      field: "PostTitle",
-    },
-    {
-      title: "Section",
-      field: "SectionId[PolicyTitle]",
+      title: "Policy Title",
+      field: "PolicyTitle",
     },
     {
       title: "Date created",
@@ -110,9 +113,9 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
             <ViewColumn {...props} ref={ref} />
           )),
         }}
-        title={`Articles`}
+        title={"All Policies"}
         columns={columns}
-        data={posts}
+        data={policies}
         isLoading={loading}
         options={{
           exportButton: { csv: true, pdf: false },
@@ -147,7 +150,18 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
             tooltip: "edit",
 
             onClick: (event, rowData) => {
-              history.push(`/admin/post/${rowData?.ID}/update`);
+              setItemToUpdate(rowData);
+            },
+          },
+          {
+            icon: "visibility",
+            iconProps: {
+              style: { fontSize: "20px", color: "gold" },
+            },
+            tooltip: "view",
+
+            onClick: (event, rowData) => {
+              history.push(`/admin/policy/${rowData.Id}`);
             },
           },
           {
@@ -158,50 +172,87 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
             tooltip: "remove",
 
             onClick: (event, rowData) => {
-              setItemToRemove({
-                Id: rowData.ID,
-                data: {
-                  PostTitle: rowData.PostTitle,
-                },
-              });
+              setItemToRemove(rowData);
             },
           },
         ]}
         components={{
           Action: (props) => {
             return (
-              <IconButton
-                onClick={(event) => props.action.onClick(event, props.data)}
-                style={{
-                  width: "25px",
-                  height: "25px",
-                  fontSize: ".5rem",
-                  padding: "1rem",
-                  position: "relative",
-                }}
-                color={
-                  props.action.tooltip === "view"
-                    ? "primary"
-                    : props.action.tooltip === "edit"
-                    ? "secondary"
-                    : "default"
-                }
-              >
-                {props.action.tooltip === "edit" ? <Edit /> : <CloseSharp />}
-              </IconButton>
+              <Tooltip title={props.action.tooltip}>
+                <IconButton
+                  onClick={(event) => props.action.onClick(event, props.data)}
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    fontSize: ".5rem",
+                    padding: "1rem",
+                    position: "relative",
+                  }}
+                  color={
+                    props.action.tooltip === "view"
+                      ? "primary"
+                      : props.action.tooltip === "edit"
+                      ? "secondary"
+                      : "default"
+                  }
+                >
+                  {(() => {
+                    if (props.action.tooltip === "edit") {
+                      return <Edit />;
+                    } else if (props.action.tooltip === "view") {
+                      return <RemoveRedEye />;
+                    } else {
+                      return <CloseSharp />;
+                    }
+                  })()}
+                </IconButton>
+              </Tooltip>
+            );
+          },
+          Toolbar: (props) => {
+            return (
+              <Box>
+                <MTableToolbar {...props} />
+                <Box
+                  width="100%"
+                  height="50px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="flex-end"
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<FaPlusCircle />}
+                    onClick={() => setAdding(true)}
+                  >
+                    Add Policy
+                  </Button>
+                </Box>
+              </Box>
             );
           },
         }}
       />
 
       {itemToRemove && (
-        <RemoveBlogPostModal
+        <DeletePolicyModal
           open={true}
           onClose={(item) => {
             setItemToRemove(null);
           }}
-          id={itemToRemove?.Id}
-          post={itemToRemove?.data}
+          policy={itemToRemove}
+        />
+      )}
+      {adding && (
+        <AddPolicyModal onClose={() => setAdding(false)} open={true} />
+      )}
+      {itemToUpdate && (
+        <UpdatePolicyModal
+          onClose={() => setItemToUpdate(null)}
+          open={true}
+          policy={itemToUpdate}
         />
       )}
     </>

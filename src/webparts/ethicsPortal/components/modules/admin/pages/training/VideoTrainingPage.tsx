@@ -6,10 +6,12 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { ReadOnlyURLSearchParams } from "../policies/ManagePoliciesPage";
 import { TrainingTable } from "./components/TrainingTable";
 import { TrainingCategoryEnum } from "./enums/TrainingCategoryEnum";
 import { VideoCourseForm } from "./forms/VideoCourseForm";
 import { TrainingType } from "./types/TrainingTypes";
+import { useLocation } from "react-router-dom";
 
 export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
   context,
@@ -28,6 +30,11 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
 
   const queryClient = useQueryClient();
   const toast = useToasts().addToast;
+  const { search } = useLocation();
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
+    [search]
+  );
 
   const [training, setTraining] = React.useState<TrainingType>({
     Category: "" as TrainingCategoryEnum,
@@ -36,14 +43,10 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
   });
   const mutation = useMutation(
     async () => {
-      try {
-        const res = await sp.web.lists
-          .getByTitle("Training")
-          .items.add(training);
-        return res;
-      } catch (e) {
-        return e;
-      }
+      return await sp.web.lists.getByTitle("Training").items.add({
+        ...training,
+        ["SectionIdId"]: Number(searchParams.get("sectionId")),
+      });
     },
     {
       onSuccess: () => {

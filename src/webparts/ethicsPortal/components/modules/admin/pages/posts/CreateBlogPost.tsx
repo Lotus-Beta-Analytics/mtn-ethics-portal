@@ -17,6 +17,9 @@ import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
 import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 import { CreateSection } from "../../components/blog-set-up/sections/CreateSection";
+import { useLocation } from "react-router-dom";
+import { ReadOnlyURLSearchParams } from "../policies/ManagePoliciesPage";
+import { Policy } from "../../../employee/components/PolicyLandingComponent";
 
 type Props = {
   context: WebPartContext;
@@ -24,25 +27,26 @@ type Props = {
 
 export const CreateBlogPost: React.FC<Props> = ({ context }) => {
   const [file, setFile] = React.useState("");
-  const [section, setSection] = React.useState("");
+  const [section, setSection] = React.useState<Policy>();
   const [content, setContent] = React.useState<any>();
   const [postTitle, setPostTitle] = React.useState("");
   const queryClient = useQueryClient();
-
+  const { search } = useLocation();
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
+    [search]
+  );
   const toast = useToasts().addToast;
   const submitHandler = async () => {
-    try {
-      const res = await sp.web.lists.getByTitle("Post").items.add({
-        PostTitle: postTitle,
-        content: JSON.stringify(content),
-        PostSection: section,
-        FileUrl: file,
-      });
-
-      return res;
-    } catch (e) {
-      return e;
-    }
+    return await sp.web.lists.getByTitle("Post").items.add({
+      PostTitle: postTitle,
+      content: JSON.stringify(content),
+      PostSection: section?.PolicyTitle,
+      FileUrl: file,
+      ["SectionIdId"]: searchParams.get("sectionId")
+        ? Number(searchParams.get("sectionId"))
+        : section?.Id,
+    });
   };
 
   const mutation = useMutation(submitHandler, {
@@ -51,7 +55,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
       successAlert(toast, "Post Added");
       setFile(null);
       setPostTitle("");
-      setSection("");
+      setSection(null);
       setContent(null);
     },
     onError: () => {
@@ -94,8 +98,8 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
 
         <Box my={2}>
           <CreateSection
-            section={section as BlogSectionEnums}
-            onUpdate={(section) => setSection(section as BlogSectionEnums)}
+            section={section}
+            onUpdate={(section) => setSection(section)}
           />
         </Box>
         <Box my={2} style={{ overflowY: "auto" }}>

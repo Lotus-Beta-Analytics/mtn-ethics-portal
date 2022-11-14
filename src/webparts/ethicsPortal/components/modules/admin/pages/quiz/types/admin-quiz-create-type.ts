@@ -16,4 +16,5 @@ export interface QuizQuestion {
   answer: string;
   point?: number;
   question: string;
+  id: string;
 }

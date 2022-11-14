@@ -112,8 +112,6 @@ export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
   flexDirection: "column",
   paddingLeft: theme.spacing(16),
   color: theme.palette.common.white,
-  position: "relative",
-  top: 0,
 }));
 
 export const PostPreviewContainer = styled(Box)({
@@ -133,7 +131,7 @@ export const PageNavigationContainer = styled.div<{ open: boolean }>(
     position: "absolute",
     top: "20%",
     minHeight: "300px",
-    left: props?.open ? "100%" : "115%",
+    left: props?.open ? "80%" : "100%",
     boxShadow: "3px 2px 5px rgba(0, 0, 0, 0.25)",
     borderRadius: "26px",
     transition: "all .2s ease-in-out",

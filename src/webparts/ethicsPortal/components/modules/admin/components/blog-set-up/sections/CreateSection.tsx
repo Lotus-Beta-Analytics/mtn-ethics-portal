@@ -1,21 +1,34 @@
 import { TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import { sp } from "@pnp/sp";
 import * as React from "react";
-import { BlogSectionEnums } from "./blog-section-enums/blog-section-enums";
+import { Policy } from "../../../../employee/components/PolicyLandingComponent";
 
 type Props = {
-  section: BlogSectionEnums;
-  onUpdate: React.Dispatch<BlogSectionEnums>;
+  section: Policy;
+  onUpdate: React.Dispatch<Policy>;
 };
 
 export const CreateSection: React.FC<Props> = ({ onUpdate, section }) => {
+  const [sectionsNew, setSections] = React.useState<Policy[]>([]);
+
+  React.useEffect(() => {
+    (async () => {
+      const res = await sp.web.lists
+        .getByTitle("PolicyConfiguration")
+        .items.getAll();
+      setSections(res);
+    })();
+  }, []);
+
   return (
     <Autocomplete
       id="type"
       freeSolo={false}
-      options={sections?.map((option) => option)}
+      options={sectionsNew}
       fullWidth
       value={section}
+      getOptionLabel={(option) => option.PolicyTitle}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -28,12 +41,3 @@ export const CreateSection: React.FC<Props> = ({ onUpdate, section }) => {
     />
   );
 };
-
-const sections = [
-  BlogSectionEnums.Anti_bribery,
-  BlogSectionEnums.Conduct,
-  BlogSectionEnums.Conflict,
-  BlogSectionEnums.Gift,
-  BlogSectionEnums.Privacy,
-  BlogSectionEnums.Whistle_Blowing,
-];

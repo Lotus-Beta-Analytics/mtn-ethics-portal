@@ -20,7 +20,7 @@ export const QuizReportPage = () => {
         const res = await sp.web.lists
           .getByTitle("QuizResponse")
           .items.select(
-            "Quiz/QuizTitle, Quiz/duration, Quiz/status, StaffName, responses, StaffEmail, score, TotalPoints"
+            "Quiz/QuizTitle, Quiz/duration, Quiz/status, StaffName, responses, StaffEmail, score, TotalPoints, ExpectedScore"
           )
           .expand("Quiz")
           .filter(`QuizId eq '${quizId}'`)
@@ -124,8 +124,12 @@ export const QuizReportPage = () => {
     },
     ...field,
     {
-      title: "Quiz Result",
+      title: "Staff Score",
       field: "TotalPoints",
+    },
+    {
+      title: "Expected Score",
+      field: "ExpectedScore",
     },
   ];
 

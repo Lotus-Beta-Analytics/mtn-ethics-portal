@@ -1,4 +1,4 @@
-import { Box, Checkbox, IconButton } from "@material-ui/core";
+import { Box, Tooltip, IconButton, Button } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -17,42 +17,34 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import MaterialTable, { MTableToolbar } from "material-table";
 import * as React from "react";
 import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
-
-import { useHistory } from "react-router-dom";
-import { RemoveBlogPostModal } from "../modals/RemoveBlogPostModal";
+import { CarouselData } from "../forms/CarouselItemForm";
+import { FaPlusCircle } from "react-icons/fa";
+import { AddCarouselItemModal } from "../modals/AddCarouselItemModal";
+import { UpdateCarouselItemModal } from "../modals/UpdateCarouselItemModal";
+import { DeleteCarouselItemModal } from "../modals/DeleteCarouselItemModal";
+import { DocumentViewer } from "../../../../shared/components/document-viewer/DocumentViewer";
 
 type Props = {
-  posts: any[];
+  carouselItems: CarouselData[];
   loading: boolean;
 };
 
-export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
-  const [itemToRemove, setItemToRemove] = React.useState<any>();
-
-  const history = useHistory();
-
+export const CarouselTable: React.FC<Props> = ({ carouselItems, loading }) => {
   const columns = [
     {
       title: "SN",
-      field: "tableData",
-      render: (rowData) => <div>{rowData.tableData.id + 1}</div>,
+      field: "tableData[id]",
+      render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
     },
-    {
-      title: "Post Title",
-      field: "PostTitle",
-    },
-    {
-      title: "Section",
-      field: "SectionId[PolicyTitle]",
-    },
-    {
-      title: "Date created",
-      field: "Created",
-      render: (rowData) => (
-        <div>{new Date(rowData.Created).toDateString()}</div>
-      ),
-    },
+    { title: "Title", field: "CarouselTitle" },
+    { title: "Link", field: "LinkTo" },
+    { title: "Created", field: "Created", type: "date" as const },
   ];
+
+  const [itemToRemove, setItemToRemove] = React.useState<any>();
+  const [itemToUpdate, setItemToUpdate] = React.useState<any>();
+  const [itemToView, setItemToView] = React.useState<CarouselData>();
+  const [adding, setAdding] = React.useState<boolean>();
 
   return (
     <>
@@ -110,9 +102,9 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
             <ViewColumn {...props} ref={ref} />
           )),
         }}
-        title={`Articles`}
+        title={`Carousel Items`}
         columns={columns}
-        data={posts}
+        data={carouselItems}
         isLoading={loading}
         options={{
           exportButton: { csv: true, pdf: false },
@@ -122,9 +114,10 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
 
           actionsColumnIndex: -1,
           pageSize: 5,
-          pageSizeOptions: [1, 2, 5],
+          pageSizeOptions: [5, 10, 20],
+          search: false,
           exportAllData: true,
-          exportFileName: "Projects",
+          exportFileName: "Scrolls",
           headerStyle: {
             backgroundColor: "#FFCC00",
             color: "black",
@@ -136,7 +129,6 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
           boxShadow: "none",
           width: "100%",
           boxSizing: "border-box",
-          padding: "1rem",
         }}
         actions={[
           {
@@ -147,7 +139,18 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
             tooltip: "edit",
 
             onClick: (event, rowData) => {
-              history.push(`/admin/post/${rowData?.ID}/update`);
+              setItemToUpdate(rowData);
+            },
+          },
+          {
+            icon: "visibility",
+            iconProps: {
+              style: { fontSize: "20px", color: "gold" },
+            },
+            tooltip: "view",
+
+            onClick: (event, rowData) => {
+              setItemToView(rowData);
             },
           },
           {
@@ -158,50 +161,87 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
             tooltip: "remove",
 
             onClick: (event, rowData) => {
-              setItemToRemove({
-                Id: rowData.ID,
-                data: {
-                  PostTitle: rowData.PostTitle,
-                },
-              });
+              setItemToRemove(rowData);
             },
           },
         ]}
         components={{
-          Action: (props) => {
-            return (
+          Action: (props) => (
+            <Tooltip title={props?.action?.tooltip}>
               <IconButton
-                onClick={(event) => props.action.onClick(event, props.data)}
+                onClick={(event) => props?.action?.onClick(event, props?.data)}
                 style={{
                   width: "25px",
                   height: "25px",
                   fontSize: ".5rem",
                   padding: "1rem",
-                  position: "relative",
                 }}
                 color={
-                  props.action.tooltip === "view"
+                  props?.action?.tooltip === "view"
                     ? "primary"
-                    : props.action.tooltip === "edit"
-                    ? "secondary"
-                    : "default"
+                    : props?.action?.tooltip === "edit"
+                    ? "default"
+                    : "secondary"
                 }
               >
-                {props.action.tooltip === "edit" ? <Edit /> : <CloseSharp />}
+                {props?.action?.tooltip === "view" ? (
+                  <RemoveRedEye />
+                ) : props?.action?.tooltip === "edit" ? (
+                  <Edit />
+                ) : (
+                  <CloseSharp />
+                )}
               </IconButton>
+            </Tooltip>
+          ),
+          Toolbar: (props) => {
+            return (
+              <Box>
+                <MTableToolbar {...props} />
+                <Box
+                  width="100%"
+                  height="50px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="flex-end"
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<FaPlusCircle />}
+                    onClick={() => setAdding(true)}
+                  >
+                    Add Carousel Item
+                  </Button>
+                </Box>
+              </Box>
             );
           },
         }}
       />
+      {adding && (
+        <AddCarouselItemModal open={true} onClose={() => setAdding(false)} />
+      )}
 
-      {itemToRemove && (
-        <RemoveBlogPostModal
+      {itemToUpdate && (
+        <UpdateCarouselItemModal
           open={true}
-          onClose={(item) => {
-            setItemToRemove(null);
-          }}
-          id={itemToRemove?.Id}
-          post={itemToRemove?.data}
+          onClose={() => setItemToUpdate(null)}
+          formData={itemToUpdate}
+        />
+      )}
+      {itemToRemove && (
+        <DeleteCarouselItemModal
+          open={true}
+          onClose={() => setItemToRemove(null)}
+          item={itemToRemove}
+        />
+      )}
+      {itemToView && (
+        <DocumentViewer
+          open={true}
+          onClose={() => setItemToView(null)}
+          url={itemToView?.CarouselImage}
         />
       )}
     </>

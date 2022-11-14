@@ -54,6 +54,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
       render: (rowData) => <div>{rowData.tableData.id + 1}</div>,
     },
     { title: "Quiz Title", field: "QuizTitle" },
+    { title: "Quiz ID", field: "QuizID" },
     { title: "Duration", field: "duration" },
     { title: "Quiz Area", field: "area" },
     { title: "Quiz Topic", field: "topic" },

@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "outDir": "lib",
     "inlineSources": false,
+    "allowSyntheticDefaultImports": true,
     "strictNullChecks": false,
     "noUnusedLocals": false,
     "typeRoots": ["./node_modules/@types", "./node_modules/@microsoft"],

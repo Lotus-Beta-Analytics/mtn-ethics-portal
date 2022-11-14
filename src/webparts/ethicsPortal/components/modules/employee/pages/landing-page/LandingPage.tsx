@@ -1,30 +1,26 @@
 import {
   Box,
   Typography,
-  Button,
   createStyles,
   makeStyles,
   Theme,
   CircularProgress,
 } from "@material-ui/core";
 import * as React from "react";
-import styled from "styled-components";
-import { theme } from "../../../../themes/themes";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import Carousel from "react-elastic-carousel";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import {
   CarouselContainer,
-  HomeItemContainer,
   MLink,
   PostPreviewContainer,
 } from "../../../../styles/styles";
-import Marquee from "react-fast-marquee";
 import { MMarquee } from "../../../shared/components/marquee/MMarquee";
 import { MButton } from "../../../shared/components/buttons/MButton";
 import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
 import { PostPreviewItem } from "../../components/blog/PostPreviewItem";
+import Slider from "react-slick";
+import { CarouselData } from "../../../admin/pages/carousel/forms/CarouselItemForm";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +32,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
+
+const settings = {
+  dots: true,
+  infinite: true,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+  pauseOnHover: true,
+};
 
 export const LandingPage = () => {
   const [pageMenu, setPageMenu] = React.useState<any[]>([
@@ -52,26 +58,37 @@ export const LandingPage = () => {
     } catch (e) {}
   });
 
+  const [carouselItems, setCarouselItems] = React.useState<CarouselData[]>([]);
+
   React.useEffect(() => {
-    (async () => {
-      try {
-        const email = await sp.utility.getCurrentUserEmailAddresses();
+    Promise.all([
+      (async () => {
+        try {
+          const email = await sp.utility.getCurrentUserEmailAddresses();
 
-        const findAdmin = await sp.web.lists
-          .getByTitle("Admin")
-          .items.filter(`StaffEmail eq '${email}'`)
-          .get();
+          const findAdmin = await sp.web.lists
+            .getByTitle("Admin")
+            .items.filter(`StaffEmail eq '${email}'`)
+            .get();
 
-        if (findAdmin?.length > 0) {
-          setPageMenu([
-            ...pageMenu,
-            { id: 3, text: "Admin", link: "/admin/dashboard" },
-          ]);
+          if (findAdmin?.length > 0) {
+            setPageMenu([
+              ...pageMenu,
+              { id: 3, text: "Admin", link: "/admin/dashboard" },
+            ]);
+          }
+        } catch (e) {
+          console.log(e);
         }
-      } catch (e) {
-        console.log(e);
-      }
-    })();
+      })(),
+      (async () => {
+        const res = await sp.web.lists
+          .getByTitle("CarouselItems")
+          .items.getAll();
+        const sliced = res.slice(0, 4);
+        setCarouselItems(sliced);
+      })(),
+    ]);
   }, []);
   return (
     <EmployeeWrapper
@@ -79,22 +96,41 @@ export const LandingPage = () => {
       pageMenu={pageMenu}
       backButton={false}
     >
-      <Container>
-        <Carousel isRTL={false} enableAutoPlay>
+      <>
+        <Slider {...settings}>
           {carouselItems.map((item) => (
-            <CarouselContainer bg={item.image}>
-              <Typography style={{ fontStyle: "italic", fontSize: "24px" }}>
-                {item.subtitle}
-              </Typography>
-              <Typography variant="h1" style={{ fontStyle: "italic" }}>
-                {item.title}
-              </Typography>
-              <MLink to={item.link}>
-                <MButton endIcon={<FaAngleDoubleRight />} text="Read More..." />
-              </MLink>
+            <CarouselContainer bg={item?.CarouselImage}>
+              <Box
+                mt={3}
+                height="100%"
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                width="100%"
+              >
+                <Typography
+                  variant="h4"
+                  style={{
+                    fontStyle: "italic",
+                    width: "50%",
+                    boxSizing: "border-box",
+                    paddingRight: "1rem",
+                  }}
+                >
+                  {item?.CarouselTitle}
+                </Typography>
+                <Box>
+                  <MLink to={item?.LinkTo}>
+                    <MButton
+                      endIcon={<FaAngleDoubleRight />}
+                      text="Read More..."
+                    />
+                  </MLink>
+                </Box>
+              </Box>
             </CarouselContainer>
           ))}
-        </Carousel>
+        </Slider>
         <Box
           style={{
             display: "flex",
@@ -120,39 +156,7 @@ export const LandingPage = () => {
         </Box>
 
         <MMarquee />
-      </Container>
+      </>
     </EmployeeWrapper>
   );
 };
-
-const Container = styled.div`
-  width: 100%;
-  min-height: 100%;
-`;
-
-const carouselItems = [
-  {
-    id: 1,
-    title: "Ethics Portal",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/landing.png",
-    subtitle: "Welcome to the",
-  },
-  {
-    id: 2,
-    title: "At The Top",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/banner2.png",
-    subtitle: "Tone",
-  },
-  {
-    id: 3,
-    title: "At The Top",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/banner2.png",
-    subtitle: "Tone",
-  },
-];

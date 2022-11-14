@@ -88,6 +88,16 @@ const dashboardItems = [
     link: "policies",
     icon: FaPeopleArrows,
   },
+  {
+    title: "Ethics Policies",
+    link: "manage-policy",
+    icon: FaPeopleArrows,
+  },
+  {
+    title: "Carousel",
+    link: "carousel",
+    icon: FaPeopleArrows,
+  },
 ];
 
 const DashboardCard = styled(Box)<BoxProps>({

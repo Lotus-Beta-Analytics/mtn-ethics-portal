@@ -13,6 +13,7 @@ import * as React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
+import { Policy } from "../../../employee/components/PolicyLandingComponent";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
@@ -30,7 +31,7 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
   const toast = useToasts().addToast;
 
   const [file, setFile] = React.useState("");
-  const [section, setSection] = React.useState("");
+  const [section, setSection] = React.useState<Policy>();
 
   const [content, setContent] = React.useState<any>();
   const [postTitle, setPostTitle] = React.useState("");
@@ -42,16 +43,22 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
         const res = await sp.web.lists
           .getByTitle("Post")
           .items.getById(postId)
+          .select(
+            "content, PostTitle, FileUrl, SectionId/ID, SectionId/PolicyTitle"
+          )
+          .expand("SectionId")
           .get();
         setPostTitle(res?.PostTitle);
         setFile(res?.FileURL);
-        setSection(res?.PostSection as BlogSectionEnums);
+        setSection({
+          Content: "",
+          Id: res?.SectionId["ID"],
+          ImageUrl: "",
+          PolicyTitle: res?.SectionId["PolicyTitle"],
+        });
 
         const con = JSON.parse(res?.content);
-        console.log(con);
-
         setContent(con?.data);
-
         return res;
       } catch (err) {
         return err;
@@ -69,8 +76,9 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
       editPost(postId, {
         PostTitle: postTitle,
         content: JSON.stringify(content),
-        PostSection: section,
+        PostSection: section?.PolicyTitle,
         FileUrl: file,
+        ["SectionIdId"]: section?.Id,
       }),
     {
       onSuccess: () => {
@@ -136,8 +144,8 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
 
         <Box my={2}>
           <CreateSection
-            section={section as BlogSectionEnums}
-            onUpdate={(section) => setSection(section as BlogSectionEnums)}
+            section={section}
+            onUpdate={(section) => setSection(section)}
           />
         </Box>
         <Box my={2} style={{ overflowY: "auto" }}>
