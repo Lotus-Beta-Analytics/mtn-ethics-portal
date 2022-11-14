@@ -19,6 +19,7 @@ import { IconButton } from "office-ui-fabric-react";
 import * as React from "react";
 import { QuizQuestion } from "../types/admin-quiz-create-type";
 import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
+import { CreateAdminQuizContextData } from "../context/AdminQuizContext";
 
 type Props = {
   questions: QuizQuestion[];
@@ -26,6 +27,7 @@ type Props = {
 };
 
 export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
+  const { quiz, setQuiz } = CreateAdminQuizContextData();
   const columns = [
     {
       title: "SN",
@@ -149,7 +151,15 @@ export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
           },
           tooltip: "remove",
 
-          onClick: (event, rowData) => {},
+          onClick: (event, rowData) => {
+            const filtered = questions.filter(
+              (question) => question !== rowData
+            );
+            setQuiz({
+              ...quiz,
+              questions: [...filtered],
+            });
+          },
         },
       ]}
       components={{
