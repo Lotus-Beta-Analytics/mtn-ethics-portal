@@ -14,6 +14,11 @@ import { LandingPageHeaderWithImage } from "../../../shared/components/LandingPa
 import { QuizStatus } from "../../../admin/pages/quiz/modals/EnableQuizPromptModal";
 import { useHistory } from "react-router-dom";
 
+interface Pts {
+  staffScore: number;
+  expectedScore: number;
+}
+
 export const QuizReviewPage = () => {
   const { questions, getting } = getQuizContextState();
   const [loading, setLoading] = React.useState(false);
@@ -34,13 +39,16 @@ export const QuizReviewPage = () => {
   const [staffResponses, setStaffResponses] = React.useState<
     QuizResponseType[]
   >([]);
+  const [points, setPoints] = React.useState<Pts>();
 
   React.useEffect(() => {
     setLoading(true);
     if (!data) return;
     sp.web.lists
       .getByTitle("QuizResponse")
-      .items.select("StaffEmail, Quiz/status, responses")
+      .items.select(
+        "StaffEmail, Quiz/status, responses, TotalPoints, ExpectedScore"
+      )
       .expand("Quiz")
       .filter(
         `StaffEmail eq '${data?.email}' and Quiz/status eq '${QuizStatus.Is_Enabled}'`
@@ -49,6 +57,10 @@ export const QuizReviewPage = () => {
       .then((items) => {
         setLoading(false);
         let userResponses = items;
+        setPoints({
+          expectedScore: userResponses[0].ExpectedScore,
+          staffScore: userResponses[0].TotalPoints,
+        });
         userResponses = JSON.parse(userResponses[0].responses);
         setStaffResponses(
           userResponses.filter((response) => !response?.isCorrect)
@@ -76,8 +88,14 @@ export const QuizReviewPage = () => {
                   <Box>
                     <Typography variant="body1">
                       Thank you for taking the Quiz. You answered &nbsp;
-                      <strong>{staffResponses.length}</strong> out of &nbsp;
+                      <strong>
+                        {questions.length - staffResponses.length}
+                      </strong>{" "}
+                      out of &nbsp;
                       <strong>{questions.length}</strong> correct.
+                    </Typography>
+                    <Typography variant="body1">
+                      Your score is {points?.staffScore}/{points?.expectedScore}
                     </Typography>
                     <Typography variant="body2" style={{ fontWeight: "bold" }}>
                       See answers to the questions you missed below
@@ -96,7 +114,7 @@ export const QuizReviewPage = () => {
                             <strong>Q{i + 1}:</strong>&nbsp;{response?.question}
                           </Typography>
                           <Typography>
-                            <strong>Answer:</strong>&nbsp;{response?.answer}
+                            <strong>Answer:</strong>&nbsp;{questions[i].answer}
                           </Typography>
                         </Box>
                       );
@@ -105,7 +123,19 @@ export const QuizReviewPage = () => {
                 </Box>
               ) : (
                 <Box className="center-item">
-                  <Typography>No Quiz</Typography>
+                  <Box>
+                    <Typography variant="body1">
+                      Thank you for taking the Quiz. You answered &nbsp;
+                      <strong>
+                        {questions.length - staffResponses.length}
+                      </strong>{" "}
+                      out of &nbsp;
+                      <strong>{questions.length}</strong> correct.
+                    </Typography>
+                    <Typography variant="body1">
+                      Your score is {points?.staffScore}/{points?.expectedScore}
+                    </Typography>
+                  </Box>
                 </Box>
               )}
             </>

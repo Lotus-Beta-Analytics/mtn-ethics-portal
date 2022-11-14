@@ -8,6 +8,7 @@ export interface AdminQuizCreateType {
   duration: number;
   questions: QuizQuestion[];
   ID?: number;
+  QuizId?: string;
 }
 
 export interface QuizQuestion {
@@ -16,4 +17,5 @@ export interface QuizQuestion {
   answer: string;
   point?: number;
   question: string;
+  id: string;
 }

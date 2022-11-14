@@ -12,12 +12,14 @@ type QuizContextType = {
   staffResponses: QuizResponseType[];
   page: number;
   total: number | null;
+  points: number | null;
   next: (page: number) => void;
   prev: (page: number) => void;
   showNext: (currentPage: number) => boolean;
   showPrev: (currentPage: number) => boolean;
   showSubmit: (currentPage: number) => boolean;
   setTotal: (item: number) => void;
+  setPoints: React.Dispatch<React.SetStateAction<number>>;
   setResponses: React.Dispatch<React.SetStateAction<QuizResponseType[]>>;
   setResponse: React.Dispatch<React.SetStateAction<QuizResponseType>>;
   setScore: React.Dispatch<React.SetStateAction<number>>;
@@ -34,6 +36,8 @@ type QuizContextType = {
   quizInfo: QuizInfo;
   seconds: number;
   startTimer: () => void;
+  expectedScore: number;
+  setExpectedScore: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const QuizContext = React.createContext<QuizContextType>(null);
@@ -48,6 +52,8 @@ export const QuizContextProvider = ({ children }) => {
   const [questions, setQuestions] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [total, setTotal] = React.useState(0);
+  const [expectedScore, setExpectedScore] = React.useState(0);
+  const [points, setPoints] = React.useState<number>(0);
   const [responses, setResponses] = React.useState<QuizResponseType[]>([]);
   const [staffResponses, setStaffResponses] = React.useState<
     QuizResponseType[]
@@ -211,6 +217,8 @@ export const QuizContextProvider = ({ children }) => {
         StaffEmail: staff?.email,
         responses: JSON.stringify(filteredData),
         ["QuizId"]: QuizId,
+        duration: `${quizInfo?.duration}m:${seconds}s`,
+        ExpectedScore: expectedScore.toString(),
       });
 
       setLoading(false);
@@ -259,6 +267,7 @@ export const QuizContextProvider = ({ children }) => {
         .items.getById(res.data.Id)
         .update({
           score: JSON.stringify(userResult),
+          TotalPoints: points.toString(),
         });
       history.push("/employee/quiz-result");
       setPage(0);
@@ -305,6 +314,10 @@ export const QuizContextProvider = ({ children }) => {
         quizInfo,
         seconds,
         startTimer,
+        points,
+        setPoints,
+        expectedScore,
+        setExpectedScore,
       }}
     >
       {children}

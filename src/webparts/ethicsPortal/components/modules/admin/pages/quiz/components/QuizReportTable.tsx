@@ -87,7 +87,7 @@ export const QuizReportTable: React.FC<Props> = ({ quizReport, column }) => {
         pageSize: 5,
         pageSizeOptions: [5, 10, 20, 30],
         exportAllData: true,
-        exportFileName: "Reports",
+        exportFileName: "Quiz Report",
         headerStyle: {
           backgroundColor: "#FFCC00",
           color: "black",
@@ -96,9 +96,9 @@ export const QuizReportTable: React.FC<Props> = ({ quizReport, column }) => {
       }}
       style={{
         boxShadow: "none",
-        maxWidth: "90%",
+        maxWidth: "100%",
         boxSizing: "border-box",
-        overflow: "scroll",
+        overflowX: "scroll",
       }}
     />
   );

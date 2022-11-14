@@ -42,6 +42,10 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
       field: "PostTitle",
     },
     {
+      title: "Section",
+      field: "SectionId[PolicyTitle]",
+    },
+    {
       title: "Date created",
       field: "Created",
       render: (rowData) => (
@@ -106,7 +110,7 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
             <ViewColumn {...props} ref={ref} />
           )),
         }}
-        title={``}
+        title={`Articles`}
         columns={columns}
         data={posts}
         isLoading={loading}
@@ -143,7 +147,7 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
             tooltip: "edit",
 
             onClick: (event, rowData) => {
-              history.push(`/admin/post/${rowData?.Id}/update`);
+              history.push(`/admin/post/${rowData?.ID}/update`);
             },
           },
           {
@@ -155,7 +159,7 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
 
             onClick: (event, rowData) => {
               setItemToRemove({
-                Id: rowData.Id,
+                Id: rowData.ID,
                 data: {
                   PostTitle: rowData.PostTitle,
                 },

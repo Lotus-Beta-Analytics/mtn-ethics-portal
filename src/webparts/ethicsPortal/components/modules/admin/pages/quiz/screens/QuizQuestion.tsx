@@ -1,11 +1,12 @@
 import {
   Box,
   Typography,
-  InputAdornment,
   TextField,
   IconButton,
+  colors,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
+import { uniqueId } from "lodash";
 import * as React from "react";
 import { FaBook, FaEdit, FaTrash } from "react-icons/fa";
 import { QuestionsTable } from "../components/QuestionsTable";
@@ -26,6 +27,7 @@ export const QuizQuestionSetUp = (props: Props) => {
     question: "",
     type: "",
     point: null,
+    id: "",
   });
 
   //delete an option
@@ -182,10 +184,20 @@ export const QuizQuestionSetUp = (props: Props) => {
                   <Typography>{option}</Typography>
                   <Box display="flex" alignItems="center" gridGap={2}>
                     <IconButton onClick={() => onEditOption(i)}>
-                      <FaEdit />
+                      <FaEdit
+                        fontSize="1rem"
+                        style={{
+                          color: colors.blue["200"],
+                        }}
+                      />
                     </IconButton>
                     <IconButton onClick={() => onDeleteOption(i)}>
-                      <FaTrash />
+                      <FaTrash
+                        fontSize="1rem"
+                        style={{
+                          color: colors.red["200"],
+                        }}
+                      />
                     </IconButton>
                   </Box>
                 </Box>
@@ -232,6 +244,7 @@ export const QuizQuestionSetUp = (props: Props) => {
                 ...(quiz?.questions ?? []),
                 {
                   ...question,
+                  id: uniqueId(),
                 },
               ],
             });
@@ -242,6 +255,7 @@ export const QuizQuestionSetUp = (props: Props) => {
               question: "",
               type: "",
               point: null,
+              id: "",
             });
           }}
           className="action-btn"

@@ -11,6 +11,7 @@ import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/emplo
 import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
 import { ImageContainerEthics } from "../../../../../styles/styles";
 import "./styles.css";
+import { sp } from "@pnp/sp";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,6 +32,21 @@ const pageMenu = [
     link: "/recognition/ethicschampion/activties",
   },
 ];
+
+const [location, setLocation] = React.useState("");
+const [division, setDivision] = React.useState("");
+const [imageUrl, setImageUrl] = React.useState("");
+const [championName, setChampionName] = React.useState("");
+const [ethicsMessage, setEthicsMessage] = React.useState("");
+
+React.useEffect(() => {
+  sp.web.lists
+    .getByTitle(`EthicsRecognition`)
+    .items.get()
+    .then((res) => {
+      console.log(res);
+    });
+}, []);
 
 export const ChampionLandingPage = () => {
   const classes = useStyles();

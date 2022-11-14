@@ -19,6 +19,7 @@ import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { QuizTime } from "./components/QuizTime";
 import { LandingPageHeaderWithImage } from "../../../shared/components/LandingPageHeaderWithImage";
+import { QuizStatus } from "../../../admin/pages/quiz/modals/EnableQuizPromptModal";
 
 export const QuizPage = () => {
   const {
@@ -26,7 +27,7 @@ export const QuizPage = () => {
     responses,
     setResponses,
     showSubmit,
-    setTotal,
+    setPoints,
     total,
     questions,
     getting,
@@ -35,6 +36,7 @@ export const QuizPage = () => {
     seconds,
     submitQuiz,
     staff,
+    setExpectedScore,
   } = getQuizContextState();
 
   const history = useHistory();
@@ -56,21 +58,16 @@ export const QuizPage = () => {
     if (!staff) return;
     sp.web.lists
       .getByTitle("QuizResponse")
-      .items.filter(`StaffEmail eq '${staff?.email}'`)
+      .items.select("StaffEmail, Quiz/status")
+      .expand("Quiz")
+      .filter(
+        `StaffEmail eq '${staff?.email}' and Quiz/status eq '${QuizStatus.Is_Enabled}'`
+      )
       .get()
-      .then((items) => {
-        // if (items.length > 0) {
-        //   swal({
-        //     closeOnEsc: false,
-        //     closeOnClickOutside: false,
-        //     text: "You have taken the Quiz.",
-        //     dangerMode: true,
-        //     icon: "error",
-        //     title: "Error",
-        //   }).then(() => {
-        //     history.push("/");
-        //   });
-        // }
+      .then(() => {
+        swal("error", "You have taken this Quiz", "Error").then(() => {
+          history.push("/");
+        });
       });
   }, []);
 
@@ -179,6 +176,22 @@ export const QuizPage = () => {
                                           point: questions[page]?.point,
                                         },
                                       ]);
+                                      setExpectedScore((prev: number) => {
+                                        let total =
+                                          Number(prev) +
+                                          Number(questions[page]?.point);
+
+                                        return total;
+                                      });
+                                      if (questions[page]?.answer === value) {
+                                        setPoints((prev: number) => {
+                                          let total =
+                                            Number(prev) +
+                                            Number(questions[page]?.point);
+
+                                          return total;
+                                        });
+                                      }
                                     }
                                   }
                                 }}

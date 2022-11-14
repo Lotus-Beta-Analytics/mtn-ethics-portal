@@ -19,6 +19,11 @@ export const adminNavItems = [
     link: "/admin/dashboard",
   },
   {
+    title: "Manage Polices",
+    icon: FaAd,
+    link: "/admin/manage-policy",
+  },
+  {
     title: "Gallery",
     icon: FaImages,
     link: "/admin/gallery",
@@ -39,41 +44,10 @@ export const adminNavItems = [
     title: "Ethics Policies",
     icon: FaAngrycreative,
     link: "/admin/policies",
-
     subNav: [
       {
-        title: "Conflict of Interest",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Conflict}`,
-      },
-      {
-        title: "Gifts and Entertainment",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Gift}`,
-      },
-      {
-        title: "Conduct Passport",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Conduct}`,
-      },
-      {
-        title: "Whistle Blowing",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Whistle_Blowing}`,
-      },
-      {
-        title: "Anti Bribery and Corruption",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Anti_bribery}`,
-      },
-      {
-        title: "Privacy and Data Protection",
-        icon: FaBook,
-        link: `/admin/policies?section=${BlogSectionEnums.Privacy}`,
-      },
-      {
         title: "Create Policy",
-        icon: Settings,
+        icon: FaVideo,
         link: "/admin/create-policy",
       },
     ],
@@ -98,7 +72,7 @@ export const adminNavItems = [
       {
         title: "Manage",
         icon: Settings,
-        link: "/admin/gallery/manage",
+        link: "",
       },
     ],
   },
@@ -159,6 +133,11 @@ export const adminNavItems = [
     title: "Scrolling Text",
     icon: FaTextWidth,
     link: "/admin/scrolling-text",
+  },
+  {
+    title: "Carousel",
+    icon: FaTextWidth,
+    link: "/admin/carousel",
   },
   {
     title: "Ethics Articles",
