@@ -58,11 +58,6 @@ import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateR
 import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
 import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/policy-breach-form/PolicyBreachesForm";
 import { AdminEthicsDefaulter } from "./modules/admin/pages/policy-breaches/ethics-defaulter/AdminEthicsDefaulter";
-<<<<<<< HEAD
-import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
-import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-defaulters/ManageDeafulters";
-import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
-=======
 import { PolicyLandingComponent } from "./modules/employee/components/PolicyLandingComponent";
 import { PolicyDetailPage } from "./modules/admin/pages/ethics-policies-management/pages/PolicyDetailPage";
 import { ManageAdminPolicyPage } from "./modules/admin/pages/ethics-policies-management/pages/ManagePolicyPage";
@@ -71,7 +66,8 @@ import { PolicyPage } from "./modules/employee/pages/ethics-policies/PolicyPage"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ManageCarouselPage } from "./modules/admin/pages/carousel/ManageCarouselPage";
->>>>>>> 5314939b5b7ecbb284522d24724a54103431f2dc
+import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-defaulters/ManageDeafulters";
+import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps

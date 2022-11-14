@@ -84,7 +84,7 @@ export const ChampionLandingPage = () => {
               <Box className="mtn__coverImage">
                 <div className="mtn__CoverImageSpan">
                   <span>
-                    Name: <h5>Fonsus Ali</h5>
+                    Name: <h5>{championName}</h5>
                   </span>
                   <span>
                     Division:
