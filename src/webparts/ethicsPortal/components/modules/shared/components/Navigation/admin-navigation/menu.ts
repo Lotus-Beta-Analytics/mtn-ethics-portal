@@ -130,6 +130,11 @@ export const adminNavItems = [
     link: "/admin/scrolling-text",
   },
   {
+    title: "Carousel",
+    icon: FaTextWidth,
+    link: "/admin/carousel",
+  },
+  {
     title: "Ethics Articles",
     icon: FaDochub,
     link: "/admin/create-post",

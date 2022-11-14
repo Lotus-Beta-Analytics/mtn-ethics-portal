@@ -75,7 +75,7 @@ const Container = styled.div`
   background: #ffffff;
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
-  height: 500px;
+  min-height: 500px;
   display: flex;
   flex-direction: column;
   gap: 1rem;

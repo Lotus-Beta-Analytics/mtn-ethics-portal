@@ -43,26 +43,13 @@ import { ImageUploadPage } from "./modules/admin/pages/gallery/ImageUploadPage";
 import { Gallery } from "./modules/admin/pages/gallery/Gallery";
 import { VideoUploadPage } from "./modules/admin/pages/gallery/VideoUploadPage";
 import { UpdateGalleryPage } from "./modules/admin/pages/gallery/UpdateGalleryPage";
-import { GiftandEntertainment } from "./modules/employee/pages/gift-and-entertainment/gift&EntertainmentLandingPage";
-import { GiftEntertainmentWriteUpLanding } from "./modules/employee/pages/gift-and-entertainment/gift-and-entertainment-article-writeup/GiftEntertainmentArticleWriteUp";
-import { GiftandEntertainmentPolicy } from "./modules/employee/pages/gift-and-entertainment/gift-and-entertainmnet-policy/GiftEntertainmentPolicy";
-import { GiftEntertainmentTrainingLanding } from "./modules/employee/pages/gift-and-entertainment/gift-and-entertainment-training/gift-and-entertainment-training";
 import { ScrollingTextSetUpPage } from "./modules/admin/pages/scrolling-text/ScrollingTextSetUpPage";
 import { VideoTrainingPage } from "./modules/admin/pages/training/VideoTrainingPage";
 import { sp } from "@pnp/sp";
 import { ManagePoliciesPage } from "./modules/admin/pages/policies/ManagePoliciesPage";
 import { CreatePolicy } from "./modules/admin/pages/policies/CreatePolicy";
 import { UpdatePolicyPage } from "./modules/admin/pages/policies/UpdatePolicyPage";
-import { WhistleBLowing } from "./modules/employee/pages/whistle-blowing/WhistleBlowingLandingPage";
-import { WhistleBlowingWriteUpLanding } from "./modules/employee/pages/whistle-blowing/whistle-blowing-article/WhistleBLowingArticle";
-import { WhistleBlowingPolicy } from "./modules/employee/pages/whistle-blowing/whistle-blowing-policy/WhistleBlowingPolicy";
-import { WhistleBlowingTrainingLanding } from "./modules/employee/pages/whistle-blowing/whistle-blowing-training/WhistleBlowingTraining";
-import { AntiBribery } from "./modules/employee/pages/anti-bribery/AntiBriberyLandingPage";
-import { AntiBriberyWriteUpLanding } from "./modules/employee/pages/anti-bribery/anti-bribery-article/AntiBriberyArticle";
-import { AntiBriberyPolicy } from "./modules/employee/pages/anti-bribery/anti-bribery-policy/AntiBriberyPolicy";
-import { AntiBriberyTrainingLanding } from "./modules/employee/pages/anti-bribery/anti-bribery-training/AntiBriberyTraining";
 import { ViewEthicsTraining } from "./modules/employee/pages/training/ethic-trainings/view-ethics-trainings/ViewEthicsTraining";
-
 import { PhotoGallery } from "./modules/employee/pages/gallery/PhotoGallery";
 import { VideoCategories } from "./modules/employee/pages/gallery/VideoCategories";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
@@ -71,12 +58,14 @@ import { UpdateRecognitionPage } from "./modules/admin/pages/recognition/UpdateR
 import { ManageRecognitionPage } from "./modules/admin/pages/recognition/ManageRecognitionPage";
 import { PolicyBreachesForm } from "./modules/admin/pages/policy-breaches/policy-breach-landingpage/policy-breach-form/PolicyBreachesForm";
 import { AdminEthicsDefaulter } from "./modules/admin/pages/policy-breaches/ethics-defaulter/AdminEthicsDefaulter";
-import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
 import { PolicyLandingComponent } from "./modules/employee/components/PolicyLandingComponent";
 import { PolicyDetailPage } from "./modules/admin/pages/ethics-policies-management/pages/PolicyDetailPage";
 import { ManageAdminPolicyPage } from "./modules/admin/pages/ethics-policies-management/pages/ManagePolicyPage";
 import { WriteUpPage } from "./modules/employee/pages/ethics-policies/WriteUpPage";
 import { PolicyPage } from "./modules/employee/pages/ethics-policies/PolicyPage";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { ManageCarouselPage } from "./modules/admin/pages/carousel/ManageCarouselPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -358,6 +347,11 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           exact
                           path="/admin/scrolling-text"
                           component={ScrollingTextSetUpPage}
+                        />
+                        <Route
+                          exact
+                          path="/admin/carousel"
+                          component={ManageCarouselPage}
                         />
                         <Route
                           exact

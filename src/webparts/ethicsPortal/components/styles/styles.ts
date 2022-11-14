@@ -112,8 +112,6 @@ export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
   flexDirection: "column",
   paddingLeft: theme.spacing(16),
   color: theme.palette.common.white,
-  position: "relative",
-  top: 0,
 }));
 
 export const PostPreviewContainer = styled(Box)({
