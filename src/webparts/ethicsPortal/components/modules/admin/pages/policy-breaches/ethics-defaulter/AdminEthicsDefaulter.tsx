@@ -32,20 +32,14 @@ export const AdminEthicsDefaulter = ({ context }) => {
 
   const toast = useToasts().addToast;
   const submitHandler = async () => {
-    try {
-      const res = await sp.web.lists.getByTitle("EthicsDefaulters").items.add({
-        FirstName: firstName,
-        LastName: lastName,
-        Location: location,
-        Division: division,
-        EthicsDefaulterMessage: ethicsMessage,
-        EthicsFileUrl: ethicsImageUrl,
-      });
-
-      return res;
-    } catch (e) {
-      return e;
-    }
+    return await sp.web.lists.getByTitle("EthicsDefaulters").items.add({
+      FirstName: firstName,
+      LastName: lastName,
+      Location: location,
+      Division: division,
+      EthicsDefaulterMessage: ethicsMessage,
+      EthicsFileUrl: ethicsImageUrl,
+    });
   };
 
   const manageHandler = () => {
@@ -54,8 +48,8 @@ export const AdminEthicsDefaulter = ({ context }) => {
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["getEthicsDefaulter"]);
-      successAlert(toast, "Ethics Defaulter Added");
+      queryClient.invalidateQueries(["getAllDefaulters"]);
+      successAlert(toast, "Ethics Defaulter Added Successfully");
       setEthicsImageUrl("");
       setLocation("");
       setDivision("");

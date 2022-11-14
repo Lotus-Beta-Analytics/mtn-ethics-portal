@@ -45,7 +45,7 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
         setEthicsImageUrl(res?.EthicsFileUrl);
         setLocation(res?.Location);
         setFirstName(res?.FirstName);
-        setEthicsMessage(res?.EthicsDefaulterMessage);
+        setEthicsMessage(res?.EthicsMessage);
 
         return res;
       } catch (err) {
@@ -66,7 +66,7 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
         LastName: lastName,
         Location: location,
         Division: division,
-        EthicsDefaulterMessage: ethicsMessage,
+        EthicsMessage: ethicsMessage,
         EthicsFileUrl: ethicsImageUrl,
       }),
     {
