@@ -115,7 +115,7 @@ export const CreateAdminQuizContextProvider: React.FC<{
         instruction: quiz?.instruction,
         topic: quiz?.topic,
         area: quiz?.area,
-        QuizId: uuid().substring(0, 8),
+        QuizId: quiz?.QuizId,
       });
       successAlert(toast);
       setLoading(false);
