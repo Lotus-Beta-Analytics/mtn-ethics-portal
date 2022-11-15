@@ -89,11 +89,21 @@ export const QuizPage = () => {
           ) : (
             <>
               {questions?.length > 0 ? (
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  height="100%"
+                <form
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    height: "100%",
+                  }}
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const data = {
+                      ...staff,
+                      responses,
+                    };
+                    submitQuiz(data);
+                  }}
                 >
                   <Box>
                     <ShowPrevNavButton />
@@ -125,6 +135,7 @@ export const QuizPage = () => {
                                 type={questions[page]?.type}
                                 name={`option${page}`}
                                 value={option}
+                                required
                                 checked={
                                   option == isChecked(responses, page, option)
                                     ? true
@@ -210,7 +221,7 @@ export const QuizPage = () => {
                       <ShowSubmitButton />
                     )}
                   </Box>
-                </Box>
+                </form>
               ) : (
                 <Box className="center-item">
                   <Typography>No Quiz</Typography>

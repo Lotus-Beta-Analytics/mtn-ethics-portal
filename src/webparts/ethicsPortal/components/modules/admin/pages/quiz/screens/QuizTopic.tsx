@@ -12,6 +12,7 @@ export const QuizTopic = (props: Props) => {
   const { quiz, handleChange, setQuiz } = CreateAdminQuizContextData();
 
   React.useEffect(() => {
+    if (quiz?.QuizId) return;
     const id = uuid();
     setQuiz({
       ...quiz,
