@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from "@material-ui/core";
+import { Box, Button, CircularProgress, colors } from "@material-ui/core";
 import * as React from "react";
 import { getQuizContextState } from "../context/QuizContext";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
@@ -43,15 +43,14 @@ export const ShowSubmitButton = () => {
   const getContent = () => {
     if (showSubmit(page)) {
       return (
-        <Box
+        <Button
           className="submit-button"
-          style={{ position: "absolute", bottom: "10px", right: "10px" }}
-          onClick={() => {
-            const data = {
-              ...staff,
-              responses,
-            };
-            submitQuiz(data);
+          type="submit"
+          style={{
+            position: "absolute",
+            bottom: "10px",
+            right: "10px",
+            backgroundColor: colors.yellow[600],
           }}
         >
           {loading ? (
@@ -59,7 +58,7 @@ export const ShowSubmitButton = () => {
           ) : (
             "Finish Quiz"
           )}
-        </Box>
+        </Button>
       );
     }
   };

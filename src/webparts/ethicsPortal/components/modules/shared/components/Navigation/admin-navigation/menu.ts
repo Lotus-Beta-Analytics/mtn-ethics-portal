@@ -22,6 +22,19 @@ export const adminNavItems = [
     title: "Manage Polices",
     icon: FaAd,
     link: "/admin/manage-policy",
+
+    subNav: [
+      {
+        title: "All Policies Content",
+        icon: FaAngrycreative,
+        link: "/admin/policies",
+      },
+      {
+        title: "Create Policy Page",
+        icon: FaVideo,
+        link: "/admin/create-policy",
+      },
+    ],
   },
   {
     title: "Gallery",
@@ -37,18 +50,6 @@ export const adminNavItems = [
         title: "Images",
         icon: FaImages,
         link: "/admin/gallery/images",
-      },
-    ],
-  },
-  {
-    title: "Ethics Policies",
-    icon: FaAngrycreative,
-    link: "/admin/policies",
-    subNav: [
-      {
-        title: "Create Policy",
-        icon: FaVideo,
-        link: "/admin/create-policy",
       },
     ],
   },

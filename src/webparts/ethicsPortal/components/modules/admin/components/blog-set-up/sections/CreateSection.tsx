@@ -7,9 +7,14 @@ import { Policy } from "../../../../employee/components/PolicyLandingComponent";
 type Props = {
   section: Policy;
   onUpdate: React.Dispatch<Policy>;
+  label?: string;
 };
 
-export const CreateSection: React.FC<Props> = ({ onUpdate, section }) => {
+export const CreateSection: React.FC<Props> = ({
+  onUpdate,
+  section,
+  label = "Create Section",
+}) => {
   const [sectionsNew, setSections] = React.useState<Policy[]>([]);
 
   React.useEffect(() => {
@@ -32,7 +37,7 @@ export const CreateSection: React.FC<Props> = ({ onUpdate, section }) => {
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Choose a section"
+          label={label}
           margin="normal"
           variant="outlined"
         />

@@ -1,4 +1,4 @@
-import { Box, Tooltip, IconButton } from "@material-ui/core";
+import { Box, Tooltip, IconButton, Button } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -17,23 +17,26 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import MaterialTable, { MTableToolbar } from "material-table";
 import * as React from "react";
 import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
-
+import { useHistory } from "react-router-dom";
 import { TrainingType } from "../types/TrainingTypes";
 import { DocumentViewer } from "../../../../shared/components/document-viewer/DocumentViewer";
 import { DeleteTrainingVideoModal } from "../modals/DeleteTrainingVideoModal";
 import { UpdateCourseVideoModal } from "../modals/UpdateCourseVideoModal";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { FaPlusCircle } from "react-icons/fa";
 
 type Props = {
   trainings: TrainingType[];
   loading: boolean;
   context: WebPartContext;
+  title?: string;
 };
 
 export const TrainingTable: React.FC<Props> = ({
   trainings,
   loading,
   context,
+  title = "All Trainings",
 }) => {
   const columns = [
     {
@@ -47,7 +50,7 @@ export const TrainingTable: React.FC<Props> = ({
       field: "Category",
     },
   ];
-
+  const history = useHistory();
   const [itemToRemove, setItemToRemove] = React.useState<any>();
   const [itemToUpdate, setItemToUpdate] = React.useState<any>();
   const [itemToView, setItemToView] = React.useState<any>();
@@ -108,7 +111,7 @@ export const TrainingTable: React.FC<Props> = ({
             <ViewColumn {...props} ref={ref} />
           )),
         }}
-        title={`All Texts`}
+        title={title}
         columns={columns}
         data={trainings}
         isLoading={loading}
@@ -200,6 +203,29 @@ export const TrainingTable: React.FC<Props> = ({
               </IconButton>
             </Tooltip>
           ),
+          Toolbar: (props) => {
+            return (
+              <Box>
+                <MTableToolbar {...props} />
+                <Box
+                  width="100%"
+                  height="50px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="flex-end"
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<FaPlusCircle />}
+                    onClick={() => history.push(`/admin/training`)}
+                  >
+                    Add Training Resource
+                  </Button>
+                </Box>
+              </Box>
+            );
+          },
         }}
       />
       {itemToRemove && (

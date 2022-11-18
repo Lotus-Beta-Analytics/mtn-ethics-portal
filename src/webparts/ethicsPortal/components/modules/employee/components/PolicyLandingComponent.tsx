@@ -95,6 +95,6 @@ export const PolicyLandingComponent = () => {
 export interface Policy {
   PolicyTitle: string;
   ImageUrl: string;
-  Content: any;
-  Id: number;
+  Content?: any;
+  Id?: number;
 }

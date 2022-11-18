@@ -23,14 +23,21 @@ export const PolicyDetailWrapper: React.FC<Props> = ({
   const [addLandingPageContent, setAddLandingPageContent] =
     React.useState<Policy>();
   const options: PolicyDetail[] = [
-    { text: "Add Articles", link: `/admin/create-post?sectionId=${id}` },
-    { text: "Add Training Slides", link: `/admin/training?sectionId=${id}` },
-    { text: "Add Policy Page", link: `/admin/create-policy?sectionId=${id}` },
     {
-      text: "Add Landing Page",
-      click() {
-        setAddLandingPageContent(policy);
-      },
+      text: "Articles",
+      link: `/admin/policy/${id}?section=post`,
+    },
+    {
+      text: "Training Slides",
+      link: `/admin/policy/${id}?section=trainingPage`,
+    },
+    {
+      text: "Policy Page",
+      link: `/admin/policy/${id}?section=policyPage`,
+    },
+    {
+      text: "Landing Page",
+      link: `/admin/policy/${id}?section=landingPage`,
     },
   ];
   return (

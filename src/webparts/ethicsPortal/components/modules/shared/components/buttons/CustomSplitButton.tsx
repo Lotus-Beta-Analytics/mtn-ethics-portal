@@ -11,27 +11,26 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import { useHistory } from "react-router-dom";
 import { PolicyDetail } from "../../../admin/pages/ethics-policies-management/components/PolicyDetailWrapper";
+import { ArrowDropUp } from "@material-ui/icons";
 
 export const CustomSplitButton: React.FC<{
   options: PolicyDetail[];
 }> = ({ options }) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const history = useHistory();
-  const handleClick = () => {
-    if (options[selectedIndex].link) {
-      history.push(options[selectedIndex].link);
-    } else {
-      options[selectedIndex].click();
-    }
-  };
 
   const handleMenuItemClick = (
     event: React.MouseEvent<HTMLLIElement, MouseEvent>,
     index: number
   ) => {
     setSelectedIndex(index);
+    if (options[index].link) {
+      history.push(options[index].link);
+    } else {
+      options[index].click();
+    }
     setOpen(false);
   };
 
@@ -54,15 +53,11 @@ export const CustomSplitButton: React.FC<{
     <Grid container direction="column" alignItems="center">
       <Grid item xs={12}>
         <ButtonGroup variant="contained" color="secondary" ref={anchorRef}>
-          <Button onClick={handleClick}>{options[selectedIndex].text}</Button>
           <Button
-            variant="contained"
-            color="secondary"
-            size="small"
             onClick={handleToggle}
-            style={{ width: "50px" }}
+            endIcon={open ? <ArrowDropUp /> : <ArrowDropDownIcon />}
           >
-            <ArrowDropDownIcon />
+            {options[selectedIndex].text}
           </Button>
         </ButtonGroup>
         <Popper
@@ -96,7 +91,9 @@ export const CustomSplitButton: React.FC<{
                       <MenuItem
                         key={index}
                         selected={index === selectedIndex}
-                        onClick={(event) => handleMenuItemClick(event, index)}
+                        onClick={(event) => {
+                          handleMenuItemClick(event, index);
+                        }}
                       >
                         {option.text}
                       </MenuItem>
