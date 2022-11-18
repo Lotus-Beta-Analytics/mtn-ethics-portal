@@ -6,8 +6,6 @@ import { TrainingCategoryEnum } from "../../admin/pages/training/enums/TrainingC
 import { sp } from "@pnp/sp";
 import { Policy } from "./PolicyLandingComponent";
 
-type Props = {};
-
 export const EthicsResourceDisplayPage = ({ match }) => {
   const { search } = useLocation();
   const searchParams = React.useMemo(
