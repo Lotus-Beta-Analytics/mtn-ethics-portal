@@ -8,8 +8,8 @@ import { Policy } from "../../../../employee/components/PolicyLandingComponent";
 import { LandingPageForm } from "../forms/LandingPageForm";
 
 type Props = {
-  open: boolean;
-  onClose: () => void;
+  open?: boolean;
+  onClose?: () => void;
   policy: Policy;
   content?: any;
   setContent?: React.Dispatch<React.SetStateAction<any>>;
@@ -65,5 +65,51 @@ export const LandingPageModal: React.FC<Props> = ({
         </Box>
       </DialogContent>
     </Dialog>
+  );
+};
+
+export const LandingPage: React.FC<Props> = ({
+  policy,
+  content,
+  setContent,
+}) => {
+  const [policyToUpdate, setPolicy] = React.useState<Policy>(policy);
+  const toast = useToasts().addToast;
+  const queryClient = useQueryClient();
+  const { isLoading, mutate } = useMutation(
+    ["getIt"],
+    async () =>
+      await sp.web.lists
+        .getByTitle("PolicyConfiguration")
+        .items.getById(policy?.Id)
+        .update({
+          Content: JSON.stringify(content),
+          ImageUrl: policyToUpdate?.ImageUrl,
+        } as Policy),
+    {
+      onSuccess(data, variables, context) {
+        successAlert(toast, "Update successful");
+        queryClient.invalidateQueries(["getIt"]);
+      },
+
+      onError(error, variables, context) {
+        errorAlert(toast);
+      },
+    }
+  );
+  return (
+    <Box height="auto">
+      <LandingPageForm
+        isLoading={isLoading}
+        policy={policyToUpdate}
+        onUpdate={(update) => setPolicy(update)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          mutate();
+        }}
+        content={content}
+        setContent={setContent}
+      />
+    </Box>
   );
 };

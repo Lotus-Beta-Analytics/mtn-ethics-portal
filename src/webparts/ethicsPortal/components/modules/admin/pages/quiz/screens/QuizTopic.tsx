@@ -4,22 +4,26 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import * as React from "react";
 import { FaBook } from "react-icons/fa";
 import uuid from "react-uuid";
+import { Policy } from "../../../../employee/components/PolicyLandingComponent";
+import { CreateSection } from "../../../components/blog-set-up/sections/CreateSection";
 import { CreateAdminQuizContextData } from "../context/AdminQuizContext";
 
 type Props = {};
 
 export const QuizTopic = (props: Props) => {
-  const { quiz, handleChange, setQuiz } = CreateAdminQuizContextData();
-
+  const { quiz, handleChange, setQuiz, isUpdating } =
+    CreateAdminQuizContextData();
+  const [quizArea, setQuizArea] = React.useState<Policy>({
+    PolicyTitle: quiz?.area,
+    ImageUrl: "",
+  });
   React.useEffect(() => {
-    if (quiz?.QuizId) return;
     const id = uuid();
     setQuiz({
       ...quiz,
       QuizId: id.substring(0, 8),
     });
   }, [uuid]);
-
   return (
     <Box component="form" position="relative">
       <Box
@@ -48,7 +52,7 @@ export const QuizTopic = (props: Props) => {
           label="Quiz ID"
           value={quiz?.QuizId ?? ""}
           name="QuizId"
-          onChange={(e) => handleChange(e)}
+          // onChange={(e) => handleChange(e)}
           InputProps={{
             readOnly: true,
           }}
@@ -69,27 +73,19 @@ export const QuizTopic = (props: Props) => {
             ),
           }}
         />
-        <Autocomplete
-          id="agency"
-          freeSolo={false}
-          options={areas.map((option) => option.name)}
-          fullWidth
-          value={quiz?.area ?? ""}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Select Quiz Area"
-              margin="normal"
-              variant="outlined"
-            />
-          )}
-          onChange={(e, newvalue) =>
+
+        <CreateSection
+          label="Select Quiz Area"
+          section={quizArea}
+          onUpdate={(section) => {
+            setQuizArea(section);
             setQuiz({
               ...quiz,
-              area: newvalue,
-            })
-          }
+              area: section?.PolicyTitle,
+            });
+          }}
         />
+
         <TextField
           variant="outlined"
           fullWidth
@@ -104,10 +100,3 @@ export const QuizTopic = (props: Props) => {
     </Box>
   );
 };
-
-const areas = [
-  {
-    name: "Conflict of Interest",
-    value: "Conflict of Interest",
-  },
-];

@@ -7,14 +7,29 @@ import { sp } from "@pnp/sp";
 import { Policy } from "../../../../employee/components/PolicyLandingComponent";
 import { useQuery } from "@tanstack/react-query";
 import { PostsTable } from "../../posts/components/PostsTable";
+import { ReadOnlyURLSearchParams } from "../../policies/ManagePoliciesPage";
+import { useLocation } from "react-router-dom";
+import { PoliciesTable } from "../../policies/components/PoliciesTable";
+import { TrainingTable } from "../../training/components/TrainingTable";
+import { WebContext } from "../../../../../EthicsPortal";
+import { LandingPage } from "../modals/LandingPageModal";
+import { UpdatePolicyContentPage } from "../../policies/UpdatePolicyPage";
 
 export const PolicyDetailPage = () => {
+  const { context } = React.useContext(WebContext);
+  const { search } = useLocation();
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
+    [search]
+  );
   const { policyId } = useParams();
   const [policyTitle, setPolicyTitle] = React.useState<Policy>();
   const [posts, setPosts] = React.useState([]);
+  const [policies, setPolicies] = React.useState([]);
+  const [trainings, setTrainings] = React.useState([]);
   const [content, setContent] = React.useState<any>();
   const { isLoading } = useQuery(
-    ["policyWriteUps", policyId],
+    ["policyWriteUps", policyId, searchParams.get("section")],
     async () =>
       await sp.web.lists
         .getByTitle("Post")
@@ -27,6 +42,48 @@ export const PolicyDetailPage = () => {
     {
       onSuccess(data) {
         setPosts(data);
+      },
+      onError(err) {
+        console.log(err);
+      },
+    }
+  );
+  const policyQueries = useQuery(
+    ["policyPage", policyId, searchParams.get("section")],
+    async () =>
+      await sp.web.lists
+        .getByTitle("Policies")
+        .items.select(
+          "PolicyTitle, Created, Id, content, ID, SectionId/ID, SectionId/PolicyTitle"
+        )
+        .expand("SectionId")
+        .filter(`SectionId eq '${policyId}'`)
+        .getAll(),
+
+    {
+      enabled: !!policyId,
+      onSuccess(data) {
+        setPolicies(data);
+      },
+      onError(err) {
+        console.log(err);
+      },
+    }
+  );
+  const trainingQueries = useQuery(
+    ["trainings-policies", policyId, searchParams.get("section")],
+    async () =>
+      await sp.web.lists
+        .getByTitle("Training")
+        .items.select(
+          "TrainingTitle, Created, Id, ID, SectionId/ID, SectionId/PolicyTitle"
+        )
+        .expand("SectionId")
+        .filter(`SectionId eq '${policyId}'`)
+        .getAll(),
+    {
+      onSuccess(data) {
+        setTrainings(data);
       },
       onError(err) {
         console.log(err);
@@ -59,7 +116,38 @@ export const PolicyDetailPage = () => {
         setContent={setContent}
       >
         <Box>
-          <PostsTable loading={isLoading} posts={posts} />
+          {(() => {
+            if (searchParams.get("section") === "policyPage") {
+              if (policyQueries.isLoading) return <></>;
+              return (
+                <UpdatePolicyContentPage
+                  context={context}
+                  sectionId={policyId}
+                  policyId={policies[policies.length - 1]?.ID}
+                />
+              );
+            }
+            if (searchParams.get("section") === "landingPage") {
+              return (
+                <LandingPage
+                  policy={policyTitle}
+                  content={content}
+                  setContent={setContent}
+                />
+              );
+            }
+            if (searchParams.get("section") === "trainingPage") {
+              return (
+                <TrainingTable
+                  loading={trainingQueries.isLoading}
+                  trainings={trainings}
+                  context={context}
+                  title="Policy Training Resources"
+                />
+              );
+            }
+            return <PostsTable loading={isLoading} posts={posts} />;
+          })()}
         </Box>
       </PolicyDetailWrapper>
     </AdminWrapper>

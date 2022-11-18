@@ -12,6 +12,7 @@ import * as React from "react";
 import Dropzone, { Accept } from "react-dropzone";
 import { FaFile } from "react-icons/fa";
 import { useToasts } from "react-toast-notifications";
+import uuid from "react-uuid";
 import { fileUploadErrorDisplay } from "../../../../utils/fileUploadErrorFeedback";
 import { errorAlert } from "../../../../utils/toast-messages";
 
@@ -31,16 +32,23 @@ export const FileUpload: React.FC<Props> = ({
   const toast = useToasts().addToast;
 
   const [upload, setUpload] = React.useState(false);
+  const [appendUUid, setUUid] = React.useState("");
+
+  React.useEffect(() => {
+    setUUid(uuid());
+  }, []);
 
   const fileHandler = (file: File) => {
     const pix = file;
     setUpload(true);
     sp.web
       .getFolderByServerRelativeUrl("assets")
-      .files.add(`${pix.name}`, pix, true)
+      .files.add(`${appendUUid}${pix.name}`, pix, true)
       .then((result) => {
         result.file.listItemAllFields.get().then((listItemAllFields) => {
-          onUpdate(`${context.pageContext.web.absoluteUrl}/assets/${pix.name}`);
+          onUpdate(
+            `${context.pageContext.web.absoluteUrl}/assets/${appendUUid}${pix.name}`
+          );
           setUpload(false);
         });
       })
@@ -85,50 +93,51 @@ export const FileUpload: React.FC<Props> = ({
           </IconButton>
         </Box>
       )}
-
-      <Dropzone
-        onDrop={(acceptedFiles, error) => {
-          if (error?.length) return;
-          fileHandler(acceptedFiles[0]);
-        }}
-        accept={accept}
-        multiple={false}
-        maxSize={10000000}
-        onDropRejected={(error) => {
-          fileUploadErrorDisplay(toast, error);
-        }}
-      >
-        {({ getRootProps, getInputProps }) => (
-          <section>
-            <Box
-              {...getRootProps()}
-              sx={{
-                border: "1px dashed #707070",
-                borderRadius: "6px",
-                padding: "1.5rem 3rem",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                textAlign: "center",
-              }}
-            >
-              <input {...getInputProps()} />
-              <p>
-                Drag and drop file <br></br> -or-{" "}
-              </p>
-              <Button
-                style={{ margin: 0, textTransform: "none" }}
-                variant="contained"
-                color="secondary"
-                endIcon={upload ? <CircularProgress size={20} /> : <FaFile />}
-                size="large"
+      {!fileControl && (
+        <Dropzone
+          onDrop={(acceptedFiles, error) => {
+            if (error?.length) return;
+            fileHandler(acceptedFiles[0]);
+          }}
+          accept={accept}
+          multiple={false}
+          maxSize={10000000}
+          onDropRejected={(error) => {
+            fileUploadErrorDisplay(toast, error);
+          }}
+        >
+          {({ getRootProps, getInputProps }) => (
+            <section>
+              <Box
+                {...getRootProps()}
+                sx={{
+                  border: "1px dashed #707070",
+                  borderRadius: "6px",
+                  padding: "1.5rem 3rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
               >
-                Browse Computer Files
-              </Button>
-            </Box>
-          </section>
-        )}
-      </Dropzone>
+                <input {...getInputProps()} />
+                <p>
+                  Drag and drop file <br></br> -or-{" "}
+                </p>
+                <Button
+                  style={{ margin: 0, textTransform: "none" }}
+                  variant="contained"
+                  color="secondary"
+                  endIcon={upload ? <CircularProgress size={20} /> : <FaFile />}
+                  size="large"
+                >
+                  Browse Computer Files
+                </Button>
+              </Box>
+            </section>
+          )}
+        </Dropzone>
+      )}
     </>
   );
 };
