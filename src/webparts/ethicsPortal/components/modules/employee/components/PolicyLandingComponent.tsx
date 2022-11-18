@@ -41,7 +41,7 @@ export const PolicyLandingComponent = () => {
           {
             id: 3,
             text: `${data?.PolicyTitle} resources`,
-            link: `/page/resources/${data?.Id}`,
+            link: `/page/resources/${data?.Id}?section=${data?.PolicyTitle}`,
           },
         ]);
         return data;
