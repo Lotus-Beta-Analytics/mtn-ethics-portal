@@ -1,6 +1,7 @@
 import { Box, Button, CircularProgress, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { sp } from "@pnp/sp";
 import * as React from "react";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { TrainingCategoryEnum } from "../enums/TrainingCategoryEnum";
@@ -23,6 +24,18 @@ export const VideoCourseForm: React.FC<Props> = ({
   label,
   isLoading,
 }) => {
+  const [sections, setSections] = React.useState([]);
+
+  React.useEffect(() => {
+    (async () => {
+      const res = await sp.web.lists
+        .getByTitle("PolicyConfiguration")
+        .items.get();
+
+      setSections(res.map((item) => item.PolicyTitle).concat(courseCategories));
+    })();
+  }, []);
+
   return (
     <form
       onSubmit={(e) => onSubmit(e)}
@@ -45,7 +58,7 @@ export const VideoCourseForm: React.FC<Props> = ({
       <Autocomplete
         id="type"
         freeSolo={false}
-        options={courseCategories?.map((option) => option)}
+        options={sections?.map((option) => option)}
         fullWidth
         value={training?.Category ?? ""}
         renderInput={(params) => (
@@ -96,10 +109,4 @@ const courseCategories = [
   TrainingCategoryEnum.Business_Ethics,
   TrainingCategoryEnum.Mtn_Ethics,
   TrainingCategoryEnum.Organisation_Ethics,
-  TrainingCategoryEnum.Gift_Entertainment,
-  TrainingCategoryEnum.Bribery_Corruption,
-  TrainingCategoryEnum.Whistle_Blowing,
-  TrainingCategoryEnum.Privacy_Data_Protection,
-  TrainingCategoryEnum.Conflict_Interest,
-  TrainingCategoryEnum.Conduct_Passport,
 ];

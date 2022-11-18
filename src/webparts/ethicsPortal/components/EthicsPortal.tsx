@@ -68,6 +68,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { ManageCarouselPage } from "./modules/admin/pages/carousel/ManageCarouselPage";
 import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-defaulters/ManageDeafulters";
 import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
+import { EthicsResourceDisplayPage } from "./modules/employee/components/EthicsResourceDisplayPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -257,8 +258,8 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     />
                     <Route
                       exact
-                      path="/page/resources/:sectionId"
-                      component={WriteUpPage}
+                      path="/page/resources/:id"
+                      component={EthicsResourceDisplayPage}
                     />
 
                     {isAdmin && (
