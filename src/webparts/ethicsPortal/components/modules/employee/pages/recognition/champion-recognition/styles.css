@@ -42,3 +42,9 @@
   font-weight: bold;
   width: 80%;
 }
+
+.titleH3 {
+  display: flex;
+  justify-items: center;
+  align-self: center;
+}

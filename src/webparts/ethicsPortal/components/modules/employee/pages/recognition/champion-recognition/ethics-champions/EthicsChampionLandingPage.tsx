@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Box, Typography } from "@material-ui/core";
+import {
+  Box,
+  createStyles,
+  makeStyles,
+  Theme,
+  Typography,
+} from "@material-ui/core";
 import { EmployeeWrapper } from "../../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { PageWrapper } from "../../../../../shared/components/app-wrapper/employee/PageWrapper";
 import { PageHeaderWithImage } from "../../../../../shared/components/PageHeaderWithImage";
@@ -8,10 +14,44 @@ import {
   ImageContainerEthics,
 } from "../../../../../../styles/styles";
 import styles from "./styles.module.scss";
+import { PaginationContainer } from "../../../../components/pagination/PaginationContainer";
+import { sp } from "@pnp/sp";
+import { useQuery } from "@tanstack/react-query";
+import { errorAlert } from "../../../../../../utils/toast-messages";
+import { useToasts } from "react-toast-notifications";
 
-type Props = {};
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      borderRadius: "100px",
+      "&:hover": {
+        backgroundColor: theme.palette.primary.light,
+      },
+    },
+  })
+);
 
-export const EthicsChampionLandingPage = (props: Props) => {
+// type Props = {};
+
+export const EthicsChampionLandingPage = () => {
+  const [pageSize, setPageSize] = React.useState(null);
+  const [items, setItems] = React.useState([]);
+  const rowsPerPage = 2;
+
+  const { data, isLoading } = useQuery<any>(["item"], async () => {
+    try {
+      const res = await sp.web.lists
+        .getByTitle("EthicsRecognition")
+        .items.getAll();
+      setPageSize(Math.ceil(res.length / rowsPerPage));
+      return res;
+    } catch (e) {
+      errorAlert(toast);
+    }
+  });
+  const toast = useToasts().addToast;
+
+  const classes = useStyles();
   return (
     <EmployeeWrapper>
       <PageWrapper>
@@ -22,85 +62,75 @@ export const EthicsChampionLandingPage = (props: Props) => {
         <div className={styles.titleH3}>
           <h3>Ethics Champions</h3>
         </div>
-        <Box
-          style={{
-            display: "flex",
-            height: "250px",
-            margin: "auto",
-            padding: "0.5rem",
-            gap: "0.5rem",
-            // position: "relative",
-            backgroundSize: "cover",
-            borderRadius: "2rem",
-            overflow: "hidden",
-          }}
+
+        <PaginationContainer
+          data={data}
+          onUpdate={(splicedItems) => setItems(splicedItems)}
+          pageSize={pageSize}
+          rowsPerPage={rowsPerPage}
         >
-          {homeItems.map((item) => (
-            <>
-              <ImageContainerEthics bg={item.image}>
-                <Box className="mtn__coverOval"></Box>
-                <Box className="mtn__coverImage">
-                  <div className="mtn__CoverImageSpan">
-                    <span>
-                      Name:
-                      <h5>Fonsus Ali</h5>
-                    </span>
-                    <span>
-                      Division:
-                      <h5>Business Solution</h5>
-                    </span>
-                    <span>
-                      Location:
-                      <h5>Lagos 1</h5>
-                    </span>
-                    <span>
-                      Ethics Message:
-                      <h5>
-                        The State of the Country is not Fun, We the People are
-                        going to take back the Power.
-                      </h5>
-                    </span>
-                  </div>
-                </Box>
-              </ImageContainerEthics>
-            </>
-          ))}
-        </Box>
-        <div className={styles.paginationPage}>
-          <div>Pagination</div>
-        </div>
+          <Box
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              // width: "980px",
+              height: "300px",
+              justifyContent: "center",
+              alignItems: "center",
+              // marginLeft: "5%",
+              padding: "0.5rem",
+              gap: "1.5rem",
+              position: "relative",
+              backgroundSize: "cover",
+              borderRadius: "2rem",
+              overflow: "hidden",
+            }}
+          >
+            {items?.map((item) => (
+              <>
+                {}
+                <ImageContainerEthics bg={item.RecognitionImage}>
+                  <Box className="mtn__coverOval"></Box>
+                  <Box className="mtn__coverImage">
+                    <div className="mtn__CoverImageSpan">
+                      <div className="eachGridbox__allContent">
+                        <header>Name:</header>
+                        <h5 className="grid__titleContent">
+                          <p className="styles.grid__titleName">{item.Name}</p>
+                        </h5>
+                      </div>
+                      <div className="eachGridbox__allContent">
+                        <header>Division:</header>
+                        <h5 className="grid__titleContent">
+                          <p className="styles.grid__titleName">
+                            {item.Division}
+                          </p>
+                        </h5>
+                      </div>
+                      <div className="eachGridbox__allContent">
+                        <header>Loaction:</header>
+                        <h5 className="grid__titleContent">
+                          <p className="styles.grid__titleName">
+                            {item.Location}
+                          </p>
+                        </h5>
+                      </div>
+                      <div className="eachGridbox__allContent">
+                        <header>Ethics Message:</header>
+                        <h5 className="grid__titleContent">
+                          <p className="styles.grid__titleName">
+                            {item.EthicalMessage}
+                          </p>
+                        </h5>
+                      </div>
+                    </div>
+                  </Box>
+                </ImageContainerEthics>
+              </>
+            ))}
+          </Box>
+        </PaginationContainer>
       </PageWrapper>
     </EmployeeWrapper>
   );
 };
-
-const homeItems = [
-  {
-    id: 1,
-    title: "",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
-  },
-  {
-    id: 2,
-    title: "",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo3.png",
-  },
-  {
-    id: 3,
-    title: "",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo4.png",
-  },
-  {
-    id: 4,
-    title: "",
-    link: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
-  },
-];
