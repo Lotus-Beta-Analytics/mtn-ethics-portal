@@ -32,7 +32,7 @@ export const WriteUpLandingComponent: React.FC<Props> = ({
       const res = await sp.web.lists
         .getByTitle("Post")
         .items.select(
-          "PostTitle, content, FileUrl, SectionId/ID, SectionId/PolicyTitle, SectionId/ImageUrl"
+          "PostTitle, content, FileUrl, SectionId/ID, ID, Id, Created, SectionId/PolicyTitle, SectionId/ImageUrl"
         )
         .expand("SectionId")
         .filter(`SectionId eq '${sectionId}'`)

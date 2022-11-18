@@ -27,6 +27,7 @@ export const PictureModal: React.FC<{
   const [file, setFile] = React.useState<File>(props.file);
   const [uploading, setUploading] = React.useState<boolean>();
   const [scale, setScale] = React.useState<number>(1);
+
   const handleImageScale = (e, scaleVal) => {
     setScale(scaleVal);
   };

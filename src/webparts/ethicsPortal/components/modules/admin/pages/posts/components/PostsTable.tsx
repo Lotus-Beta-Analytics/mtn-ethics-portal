@@ -1,4 +1,4 @@
-import { Box, Checkbox, IconButton } from "@material-ui/core";
+import { Box, Button, Checkbox, IconButton } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -20,6 +20,7 @@ import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
 
 import { useHistory } from "react-router-dom";
 import { RemoveBlogPostModal } from "../modals/RemoveBlogPostModal";
+import { FaPlusCircle } from "react-icons/fa";
 
 type Props = {
   posts: any[];
@@ -189,6 +190,29 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
               >
                 {props.action.tooltip === "edit" ? <Edit /> : <CloseSharp />}
               </IconButton>
+            );
+          },
+          Toolbar: (props) => {
+            return (
+              <Box>
+                <MTableToolbar {...props} />
+                <Box
+                  width="100%"
+                  height="50px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="flex-end"
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<FaPlusCircle />}
+                    onClick={() => history.push(`/admin/create-post`)}
+                  >
+                    Add Post
+                  </Button>
+                </Box>
+              </Box>
             );
           },
         }}
