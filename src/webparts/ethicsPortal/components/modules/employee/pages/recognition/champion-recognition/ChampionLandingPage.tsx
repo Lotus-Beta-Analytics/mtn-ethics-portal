@@ -12,6 +12,7 @@ import { LandingPageHeaderWithImage } from "../../../../shared/components/Landin
 import { ImageContainerEthics } from "../../../../../styles/styles";
 import "./styles.css";
 import { sp } from "@pnp/sp";
+import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,22 +34,25 @@ const pageMenu = [
   },
 ];
 
-const [location, setLocation] = React.useState("");
-const [division, setDivision] = React.useState("");
-const [imageUrl, setImageUrl] = React.useState("");
-const [championName, setChampionName] = React.useState("");
-const [ethicsMessage, setEthicsMessage] = React.useState("");
-
-React.useEffect(() => {
-  sp.web.lists
-    .getByTitle(`EthicsRecognition`)
-    .items.get()
-    .then((res) => {
-      console.log(res);
-    });
-}, []);
-
 export const ChampionLandingPage = () => {
+  const [champions, setChampions] = React.useState([]);
+  const [pageSize, setPageSize] = React.useState(null);
+  const [items, setItems] = React.useState([]);
+  const rowsPerPage = 4;
+
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    sp.web.lists
+      .getByTitle(`EthicsRecognition`)
+      .items.get()
+      .then((res) => {
+        setChampions(res);
+        setPageSize(Math.ceil(res.length / rowsPerPage));
+        console.log(res);
+      });
+  }, []);
+
   const classes = useStyles();
   return (
     <EmployeeWrapper
@@ -67,8 +71,10 @@ export const ChampionLandingPage = () => {
           display: "flex",
           flexWrap: "wrap",
           // width: "980px",
-          height: "260px",
-          marginLeft: "13%",
+          height: "300px",
+          justifyContent: "center",
+          alignItems: "center",
+          // marginLeft: "5%",
           padding: "0.5rem",
           gap: "0.5rem",
           position: "relative",
@@ -77,75 +83,70 @@ export const ChampionLandingPage = () => {
           overflow: "hidden",
         }}
       >
-        {homeItems.map((item) => (
-          <>
-            <ImageContainerEthics bg={item.image}>
-              <Box className="mtn__coverOval"></Box>
-              <Box className="mtn__coverImage">
-                <div className="mtn__CoverImageSpan">
-                  <span>
-                    Name: <h5>{championName}</h5>
+        <PaginationContainer
+          data={data}
+          onUpdate={(splicedItems) => setItems(splicedItems)}
+          pageSize={pageSize}
+          rowsPerPage={rowsPerPage}
+        >
+          {champions.map((item) => (
+            <>
+              <ImageContainerEthics bg={item.RecognitionImage}>
+                <Box className="mtn__coverOval"></Box>
+                <Box className="mtn__coverImage">
+                  <div className="mtn__CoverImageSpan">
+                    <div className="eachGridbox__allContent">
+                      <header>Name:</header>
+                      <h5 className="grid__titleContent">
+                        <p className="styles.grid__titleName">{item.Name}</p>
+                      </h5>
+                    </div>
+                    <div className="eachGridbox__allContent">
+                      <header>Division:</header>
+                      <h5 className="grid__titleContent">
+                        <p className="styles.grid__titleName">
+                          {item.Division}
+                        </p>
+                      </h5>
+                    </div>
+                    <div className="eachGridbox__allContent">
+                      <header>Loaction:</header>
+                      <h5 className="grid__titleContent">
+                        <p className="styles.grid__titleName">
+                          {item.Location}
+                        </p>
+                      </h5>
+                    </div>
+                    <div className="eachGridbox__allContent">
+                      <header>Ethics Message:</header>
+                      <h5 className="grid__titleContent">
+                        <p className="styles.grid__titleName">
+                          {item.EthicalMessage}
+                        </p>
+                      </h5>
+                    </div>
+                    {/* <span>
+                    Name: <h5>{item.Name}</h5>
                   </span>
                   <span>
                     Division:
-                    <h5>Business Solution</h5>
+                    <h5>{item.Division}</h5>
                   </span>
                   <span>
                     Location:
-                    <h5>Lagos 1</h5>
+                    <h5>{item.Location}</h5>
                   </span>
                   <span>
                     Ethics Message:
-                    <h5>
-                      The State of the Country is not Fun, We the People are
-                      going to take back the Power.
-                    </h5>
-                  </span>
-                </div>
-              </Box>
-            </ImageContainerEthics>
-          </>
-        ))}
+                    <h5>{item.EthicalMessage}</h5>
+                  </span> */}
+                  </div>
+                </Box>
+              </ImageContainerEthics>
+            </>
+          ))}
+        </PaginationContainer>
       </Box>
     </EmployeeWrapper>
   );
 };
-
-const homeItems = [
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
-  },
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo3.png",
-  },
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo4.png",
-  },
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
-  },
-];
