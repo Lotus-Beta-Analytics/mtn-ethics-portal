@@ -55,7 +55,7 @@ const dashboardItems = [
   },
   {
     title: "Recognition",
-    link: "recognition",
+    link: "recognition/manage",
     icon: FaPeopleCarry,
   },
   {
@@ -70,22 +70,17 @@ const dashboardItems = [
   },
   {
     title: "Ethics Policy Breaches",
-    link: "policy/breaches",
+    link: "ethics/managedefaulters",
     icon: FaPeopleCarry,
   },
   {
     title: "Ethics Articles",
-    link: "create-post",
+    link: "manage-posts",
     icon: FaBook,
   },
   {
     title: "Configure Users",
     link: "user/create",
-    icon: FaPeopleArrows,
-  },
-  {
-    title: "Policies",
-    link: "policies",
     icon: FaPeopleArrows,
   },
   {
