@@ -71,15 +71,16 @@ export const PolicyDetailPage = () => {
     }
   );
   const trainingQueries = useQuery(
-    ["trainings-policies", policyId, searchParams.get("section")],
+    [
+      "trainings-policies",
+      policyId,
+      searchParams.get("section"),
+      searchParams.get("filter"),
+    ],
     async () =>
       await sp.web.lists
         .getByTitle("Training")
-        .items.select(
-          "TrainingTitle, Created, Id, ID, SectionId/ID, SectionId/PolicyTitle"
-        )
-        .expand("SectionId")
-        .filter(`SectionId eq '${policyId}'`)
+        .items.filter(`Category eq '${searchParams.get("filter")}'`)
         .getAll(),
     {
       onSuccess(data) {

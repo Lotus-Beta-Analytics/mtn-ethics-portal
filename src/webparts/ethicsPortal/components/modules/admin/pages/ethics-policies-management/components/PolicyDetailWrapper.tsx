@@ -29,7 +29,7 @@ export const PolicyDetailWrapper: React.FC<Props> = ({
     },
     {
       text: "Training Slides",
-      link: `/admin/policy/${id}?section=trainingPage`,
+      link: `/admin/policy/${id}?section=trainingPage&filter=${policy?.PolicyTitle}`,
     },
     {
       text: "Policy Page",

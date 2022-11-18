@@ -391,7 +391,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                         <Route
                           exact
-                          path="/admin/policy/breaches"
+                          path="/admin/policy-breaches"
                           render={() => (
                             <PolicyBreachesForm context={context} />
                           )}

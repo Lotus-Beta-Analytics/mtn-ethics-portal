@@ -103,7 +103,7 @@ export const adminNavItems = [
   {
     title: "Policy Breaches",
     icon: FaAngrycreative,
-    link: "/admin/policy/breaches",
+    link: "/admin/policy-breaches",
 
     subNav: [
       {
