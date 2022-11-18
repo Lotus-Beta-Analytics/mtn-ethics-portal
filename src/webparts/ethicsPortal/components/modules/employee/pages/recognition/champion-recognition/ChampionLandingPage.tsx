@@ -35,10 +35,10 @@ const pageMenu = [
 ];
 
 export const ChampionLandingPage = () => {
-  const [champions, setChampions] = React.useState([]);
+  // const [champions, setChampions] = React.useState([]);
   const [pageSize, setPageSize] = React.useState(null);
   const [items, setItems] = React.useState([]);
-  const rowsPerPage = 4;
+  const rowsPerPage = 2;
 
   const [data, setData] = React.useState([]);
 
@@ -47,7 +47,7 @@ export const ChampionLandingPage = () => {
       .getByTitle(`EthicsRecognition`)
       .items.get()
       .then((res) => {
-        setChampions(res);
+        setItems(res);
         setPageSize(Math.ceil(res.length / rowsPerPage));
         console.log(res);
       });
@@ -66,30 +66,30 @@ export const ChampionLandingPage = () => {
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo.png"
         text="Champion Recognition"
       />
-      <Box
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          // width: "980px",
-          height: "300px",
-          justifyContent: "center",
-          alignItems: "center",
-          // marginLeft: "5%",
-          padding: "0.5rem",
-          gap: "0.5rem",
-          position: "relative",
-          backgroundSize: "cover",
-          borderRadius: "2rem",
-          overflow: "hidden",
-        }}
+      <PaginationContainer
+        data={data}
+        onUpdate={(splicedItems) => setItems(splicedItems)}
+        pageSize={pageSize}
+        rowsPerPage={rowsPerPage}
       >
-        <PaginationContainer
-          data={data}
-          onUpdate={(splicedItems) => setItems(splicedItems)}
-          pageSize={pageSize}
-          rowsPerPage={rowsPerPage}
+        <Box
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            // width: "980px",
+            height: "300px",
+            justifyContent: "center",
+            alignItems: "center",
+            // marginLeft: "5%",
+            padding: "0.5rem",
+            gap: "0.5rem",
+            position: "relative",
+            backgroundSize: "cover",
+            borderRadius: "2rem",
+            overflow: "hidden",
+          }}
         >
-          {champions.map((item) => (
+          {items?.map((item) => (
             <>
               <ImageContainerEthics bg={item.RecognitionImage}>
                 <Box className="mtn__coverOval"></Box>
@@ -125,28 +125,13 @@ export const ChampionLandingPage = () => {
                         </p>
                       </h5>
                     </div>
-                    {/* <span>
-                    Name: <h5>{item.Name}</h5>
-                  </span>
-                  <span>
-                    Division:
-                    <h5>{item.Division}</h5>
-                  </span>
-                  <span>
-                    Location:
-                    <h5>{item.Location}</h5>
-                  </span>
-                  <span>
-                    Ethics Message:
-                    <h5>{item.EthicalMessage}</h5>
-                  </span> */}
                   </div>
                 </Box>
               </ImageContainerEthics>
             </>
           ))}
-        </PaginationContainer>
-      </Box>
+        </Box>
+      </PaginationContainer>
     </EmployeeWrapper>
   );
 };
