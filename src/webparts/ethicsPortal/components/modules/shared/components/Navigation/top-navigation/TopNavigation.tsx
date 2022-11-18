@@ -118,7 +118,6 @@ export const TopNavigation = () => {
       link: "#",
       subMenu: [
         { id: 1, text: "Champion Recognition", link: "/recognition/champion" },
-        { id: 2, text: "Employee Recognition", link: "" },
       ],
     },
     {

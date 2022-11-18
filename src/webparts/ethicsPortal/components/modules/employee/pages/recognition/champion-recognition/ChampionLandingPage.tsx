@@ -27,27 +27,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const pageMenu = [
   { id: 1, text: "Ethics Champions", link: "/recognition/ethicschampion" },
-  {
-    id: 2,
-    text: "Ethics Champions Activties",
-    link: "/recognition/ethicschampion/activties",
-  },
 ];
 
 export const ChampionLandingPage = () => {
   // const [champions, setChampions] = React.useState([]);
   const [items, setItems] = React.useState([]);
-  const rowsPerPage = 2;
-
-  const [data, setData] = React.useState([]);
 
   React.useEffect(() => {
     sp.web.lists
       .getByTitle(`EthicsRecognition`)
       .items.get()
       .then((res) => {
-        setItems(res);
-        console.log(res);
+        setItems(res.slice(0, 6));
       });
   }, []);
 

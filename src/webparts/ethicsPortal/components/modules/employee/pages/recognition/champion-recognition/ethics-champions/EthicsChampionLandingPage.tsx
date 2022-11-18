@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const EthicsChampionLandingPage = () => {
   const [pageSize, setPageSize] = React.useState(null);
   const [items, setItems] = React.useState([]);
-  const rowsPerPage = 2;
+  const rowsPerPage = 6;
 
   const { data, isLoading } = useQuery<any>(["item"], async () => {
     try {
