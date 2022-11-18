@@ -11,6 +11,8 @@ import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/emplo
 import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
 import { ImageContainerEthics } from "../../../../../styles/styles";
 import "./styles.css";
+import { sp } from "@pnp/sp";
+import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +35,22 @@ const pageMenu = [
 ];
 
 export const ChampionLandingPage = () => {
+  // const [champions, setChampions] = React.useState([]);
+  const [items, setItems] = React.useState([]);
+  const rowsPerPage = 2;
+
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    sp.web.lists
+      .getByTitle(`EthicsRecognition`)
+      .items.get()
+      .then((res) => {
+        setItems(res);
+        console.log(res);
+      });
+  }, []);
+
   const classes = useStyles();
   return (
     <EmployeeWrapper
@@ -46,45 +64,56 @@ export const ChampionLandingPage = () => {
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo.png"
         text="Champion Recognition"
       />
+
       <Box
         style={{
           display: "flex",
           flexWrap: "wrap",
           // width: "980px",
-          height: "260px",
-          marginLeft: "13%",
+          height: "300px",
+          justifyContent: "center",
+          alignItems: "center",
+          // marginLeft: "5%",
           padding: "0.5rem",
-          gap: "0.5rem",
+          gap: "1.5rem",
           position: "relative",
           backgroundSize: "cover",
           borderRadius: "2rem",
           overflow: "hidden",
         }}
       >
-        {homeItems.map((item) => (
+        {items?.map((item) => (
           <>
-            <ImageContainerEthics bg={item.image}>
+            <ImageContainerEthics bg={item.RecognitionImage}>
               <Box className="mtn__coverOval"></Box>
               <Box className="mtn__coverImage">
                 <div className="mtn__CoverImageSpan">
-                  <span>
-                    Name: <h5>Fonsus Ali</h5>
-                  </span>
-                  <span>
-                    Division:
-                    <h5>Business Solution</h5>
-                  </span>
-                  <span>
-                    Location:
-                    <h5>Lagos 1</h5>
-                  </span>
-                  <span>
-                    Ethics Message:
-                    <h5>
-                      The State of the Country is not Fun, We the People are
-                      going to take back the Power.
+                  <div className="eachGridbox__allContent">
+                    <header>Name:</header>
+                    <h5 className="grid__titleContent">
+                      <p className="styles.grid__titleName">{item.Name}</p>
                     </h5>
-                  </span>
+                  </div>
+                  <div className="eachGridbox__allContent">
+                    <header>Division:</header>
+                    <h5 className="grid__titleContent">
+                      <p className="styles.grid__titleName">{item.Division}</p>
+                    </h5>
+                  </div>
+                  <div className="eachGridbox__allContent">
+                    <header>Loaction:</header>
+                    <h5 className="grid__titleContent">
+                      <p className="styles.grid__titleName">{item.Location}</p>
+                    </h5>
+                  </div>
+                  <div className="eachGridbox__allContent">
+                    <header>Ethics Message:</header>
+                    <h5 className="grid__titleContent">
+                      <p className="styles.grid__titleName">
+                        {item.EthicalMessage}
+                      </p>
+                    </h5>
+                  </div>
                 </div>
               </Box>
             </ImageContainerEthics>
@@ -94,42 +123,3 @@ export const ChampionLandingPage = () => {
     </EmployeeWrapper>
   );
 };
-
-const homeItems = [
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
-  },
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo3.png",
-  },
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo4.png",
-  },
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
-  },
-];

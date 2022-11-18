@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Box, Checkbox, IconButton } from "@material-ui/core";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -15,21 +16,18 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import MaterialTable, { MTableToolbar } from "material-table";
-import * as React from "react";
-import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
-
 import { useHistory } from "react-router-dom";
-import { RemovePolicyModal } from "../../policies/modals/RemovePolicyModal";
-import { RemoveRecognitionModal } from "../modal/RemoveRecognitionModal";
+import { CloseSharp } from "@material-ui/icons";
+import { RemoveDefaulterModal } from "../ethics-defaulter/modal/RemoveDefaulterModal";
 
 type Props = {
-  recognition: any[];
+  manageDefaulters: any[];
   loading: boolean;
   title?: string;
 };
 
-export const RecognitionTable: React.FC<Props> = ({
-  recognition,
+export const ManageDefaulterTable: React.FC<Props> = ({
+  manageDefaulters,
   loading,
   title,
 }) => {
@@ -45,7 +43,7 @@ export const RecognitionTable: React.FC<Props> = ({
     },
     {
       title: "Full Name",
-      field: "Name",
+      field: "FirstName",
     },
     {
       title: "Date created",
@@ -55,7 +53,6 @@ export const RecognitionTable: React.FC<Props> = ({
       ),
     },
   ];
-
   return (
     <>
       <MaterialTable
@@ -112,16 +109,15 @@ export const RecognitionTable: React.FC<Props> = ({
             <ViewColumn {...props} ref={ref} />
           )),
         }}
-        title={title || "All Policies"}
+        title={title || "All Ethics Defaulters"}
         columns={columns}
-        data={recognition}
+        data={manageDefaulters}
         isLoading={loading}
         options={{
           exportButton: { csv: true, pdf: false },
           actionsCellStyle: {
             color: "#FF00dd",
           },
-
           actionsColumnIndex: -1,
           pageSize: 5,
           pageSizeOptions: [1, 2, 5],
@@ -149,7 +145,7 @@ export const RecognitionTable: React.FC<Props> = ({
             tooltip: "edit",
 
             onClick: (event, rowData) => {
-              history.push(`/admin/recognition/${rowData?.Id}/update`);
+              history.push(`/admin/ethics/defaulters/${rowData?.Id}/update`);
             },
           },
           {
@@ -163,7 +159,7 @@ export const RecognitionTable: React.FC<Props> = ({
               setItemToRemove({
                 Id: rowData.Id,
                 data: {
-                  PostTitle: rowData.PostTitle,
+                  Title: rowData.Title,
                 },
               });
             },
@@ -195,15 +191,14 @@ export const RecognitionTable: React.FC<Props> = ({
           },
         }}
       />
-
       {itemToRemove && (
-        <RemoveRecognitionModal
+        <RemoveDefaulterModal
           open={true}
-          onClose={(item) => {
+          onClose={() => {
             setItemToRemove(null);
           }}
-          id={itemToRemove?.Id}
-          policy={itemToRemove?.data}
+          id={itemToRemove?.id}
+          defaulters={itemToRemove?.data}
         />
       )}
     </>

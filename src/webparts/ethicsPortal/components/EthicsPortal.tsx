@@ -66,6 +66,8 @@ import { PolicyPage } from "./modules/employee/pages/ethics-policies/PolicyPage"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ManageCarouselPage } from "./modules/admin/pages/carousel/ManageCarouselPage";
+import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-defaulters/ManageDeafulters";
+import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -399,6 +401,20 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           path="/admin/ethicsdefaulters"
                           render={() => (
                             <AdminEthicsDefaulter context={context} />
+                          )}
+                        />
+
+                        <Route
+                          exact
+                          path="/admin/ethics/managedefaulters"
+                          render={() => <ManageDeafulters />}
+                        />
+
+                        <Route
+                          exact
+                          path="/admin/ethics/defaulters/:defaultersId/update"
+                          render={() => (
+                            <UpdateEthicsDefaulters context={context} />
                           )}
                         />
 

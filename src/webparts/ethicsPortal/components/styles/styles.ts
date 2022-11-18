@@ -88,7 +88,7 @@ export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
   "&:hover": {
     backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
     backgroundSize: "cover",
-    borderRadius: "10px",
+    borderRadius: "26px",
     // transform: "scale(1.1)",
     // transform: "translateY(0px)",
   },
