@@ -19,6 +19,7 @@ import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
 import { errorAlert } from "../../../../../../utils/toast-messages";
 import { useToasts } from "react-toast-notifications";
+import { Label } from "../../../../components/Label";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,62 +72,31 @@ export const EthicsChampionLandingPage = () => {
         >
           <Box
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              // width: "980px",
-              height: "300px",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              height: "350px",
               justifyContent: "center",
               alignItems: "center",
-              // marginLeft: "5%",
               padding: "0.5rem",
-              gap: "1.5rem",
+              gap: ".5rem",
               position: "relative",
-              backgroundSize: "cover",
-              borderRadius: "2rem",
-              overflow: "hidden",
+              width: "100%",
             }}
           >
             {items?.map((item) => (
-              <>
-                {}
-                <ImageContainerEthics bg={item.RecognitionImage}>
-                  <Box className="mtn__coverOval"></Box>
-                  <Box className="mtn__coverImage">
-                    <div className="mtn__CoverImageSpan">
-                      <div className="eachGridbox__allContent">
-                        <header>Name:</header>
-                        <h5 className="grid__titleContent">
-                          <p className="styles.grid__titleName">{item.Name}</p>
-                        </h5>
-                      </div>
-                      <div className="eachGridbox__allContent">
-                        <header>Division:</header>
-                        <h5 className="grid__titleContent">
-                          <p className="styles.grid__titleName">
-                            {item.Division}
-                          </p>
-                        </h5>
-                      </div>
-                      <div className="eachGridbox__allContent">
-                        <header>Loaction:</header>
-                        <h5 className="grid__titleContent">
-                          <p className="styles.grid__titleName">
-                            {item.Location}
-                          </p>
-                        </h5>
-                      </div>
-                      <div className="eachGridbox__allContent">
-                        <header>Ethics Message:</header>
-                        <h5 className="grid__titleContent">
-                          <p className="styles.grid__titleName">
-                            {item.EthicalMessage}
-                          </p>
-                        </h5>
-                      </div>
-                    </div>
-                  </Box>
-                </ImageContainerEthics>
-              </>
+              <ImageContainerEthics bg={item?.RecognitionImage}>
+                <Box className="mtn__coverImage">
+                  <div className="mtn__CoverImageSpan">
+                    <Label header="Name" content={item?.Name} />
+                    <Label header="Division" content={item?.Division} />
+                    <Label header="Location" content={item?.Location} />
+                    <Label
+                      header="Ethics Message"
+                      content={item?.EthicalMessage}
+                    />
+                  </div>
+                </Box>
+              </ImageContainerEthics>
             ))}
           </Box>
         </PaginationContainer>

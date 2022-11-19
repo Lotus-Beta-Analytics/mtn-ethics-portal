@@ -1,22 +1,23 @@
 .mtn__coverImage {
   display: none;
-  height: 70%;
+  height: 100%;
   width: 100%;
   padding: 15px;
-  background-color: whitesmoke;
+  background-color: rgba(244, 228, 11, 0.712);
   box-sizing: border-box;
   position: absolute;
   bottom: 0;
+
   /* transition: transform 0.2s; */
 }
 
 .mtn__coverOval {
   position: absolute;
   display: none;
-  height: 50%;
+  height: 20%;
   width: 100%;
   top: 0;
-  z-index: 1;
+  z-index: -1;
   border-radius: 0 0 50% 50%;
   background: inherit;
 }
@@ -29,6 +30,7 @@
 .mtn__CoverImageSpan {
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .eachGridbox__allContent {

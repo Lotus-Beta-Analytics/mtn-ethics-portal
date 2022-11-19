@@ -1,14 +1,41 @@
 import * as React from "react";
 import { Box } from "@material-ui/core";
-import { ImageContainerEthics } from "../../../../../styles/styles";
+import { sp } from "@pnp/sp";
+import { useQuery } from "@tanstack/react-query";
+import { useToasts } from "react-toast-notifications";
+import { errorAlert } from "../../../../../utils/toast-messages";
 import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
+import { ImageContainerEthics } from "../../../../../styles/styles";
 import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/PageWrapper";
 import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
-import "./styles.css";
+import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
+import { Label } from "../../../components/Label";
 
-type Props = {};
+export const EthicsDefaulters = () => {
+  const [pageSize, setPageSize] = React.useState(null);
+  const [items, setItems] = React.useState([]);
+  const rowsPerPage = 6;
 
-export const EthicsDefaulters = (props: Props) => {
+  const { data, isLoading } = useQuery<any>(["item"], async () => {
+    try {
+      const res = await sp.web.lists
+        .getByTitle("EthicsDefaulters")
+        .items.getAll();
+      setPageSize(Math.ceil(res.length / rowsPerPage));
+      return res;
+    } catch (e) {
+      errorAlert(toast);
+    }
+  });
+  const toast = useToasts().addToast;
+
+  if (isLoading)
+    return (
+      <EmployeeWrapper>
+        <></>
+      </EmployeeWrapper>
+    );
+
   return (
     <EmployeeWrapper>
       <PageWrapper>
@@ -16,75 +43,44 @@ export const EthicsDefaulters = (props: Props) => {
           bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-policy.png"
           text="Ethics Defaulters"
         />
-        <div className="titleH3">
-          <h3>Ethics Defaulters</h3>
-        </div>
-        <Box
-          style={{
-            display: "flex",
-            height: "250px",
-            margin: "auto",
-            padding: "0.5rem",
-            gap: "0.5rem",
-            // position: "relative",
-            backgroundSize: "cover",
-            borderRadius: "2rem",
-            overflow: "hidden",
-            marginBottom: "3.5rem",
-          }}
+
+        <PaginationContainer
+          data={data}
+          onUpdate={(splicedItems) => setItems(splicedItems)}
+          pageSize={pageSize}
+          rowsPerPage={rowsPerPage}
         >
-          {homeItems.map((item) => (
-            <>
-              <ImageContainerEthics bg={item.image}>
-                <Box className="mtn__coverOval"></Box>
-                <Box className="mtn__coverImage">
+          <Box
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              height: "350px",
+              justifyContent: "center",
+              alignItems: "center",
+              padding: "0.5rem",
+              gap: ".5rem",
+              position: "relative",
+              width: "100%",
+            }}
+          >
+            {items?.map((item) => (
+              <ImageContainerEthics bg={item?.EthicsFileUrl}>
+                <Box className="mtn__coverImage" style={{ zIndex: 99 }}>
                   <div className="mtn__CoverImageSpan">
-                    <span>
-                      Name: <h5>Fonsus Ali</h5>
-                    </span>
-                    <span>
-                      Division:
-                      <h5>Business Solution</h5>
-                    </span>
-                    <span>
-                      Location:
-                      <h5>Lagos 1</h5>
-                    </span>
-                    <span>
-                      Ethics Message:
-                      <h5>
-                        The State of the Country is not Fun, We the People are
-                        going to take back the Power.
-                      </h5>
-                    </span>
+                    <Label header="Name" content={item?.FirstName} />
+                    <Label header="Division" content={item?.Division} />
+                    <Label header="Location" content={item?.Location} />
+                    <Label
+                      header="Ethics Message"
+                      content={item?.EthicsDefaulterMessage}
+                    />
                   </div>
                 </Box>
               </ImageContainerEthics>
-            </>
-          ))}
-        </Box>
+            ))}
+          </Box>
+        </PaginationContainer>
       </PageWrapper>
     </EmployeeWrapper>
   );
 };
-
-const homeItems = [
-  {
-    id: 1,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo2.png",
-  },
-  {
-    id: 2,
-    name: "",
-    division: "",
-    location: "",
-    ethicalMessage: "",
-    image:
-      "https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo3.png",
-  },
-];

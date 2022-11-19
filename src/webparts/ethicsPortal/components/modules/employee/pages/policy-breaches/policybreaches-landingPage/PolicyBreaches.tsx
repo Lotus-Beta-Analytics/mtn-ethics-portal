@@ -10,6 +10,7 @@ import { errorAlert } from "../../../../../utils/toast-messages";
 import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
 import * as dayjs from "dayjs";
 import { BlogContent } from "../../../../admin/components/blog-set-up/BlogContent";
+import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
 
 const pageMenu = [
   {
@@ -48,46 +49,38 @@ export const PolicyBreaches = () => {
       backButton={false}
       showFooter={true}
     >
-      <Box width="90%" m="auto">
-        {!isLoading && policyBreach && (
-          <PageHeaderWithImage
-            bg={`${policyBreach?.PolicyBreachImage}`}
-            text={policyBreach?.PolicyBreachTitle ?? ""}
-          />
-        )}
-        {!isLoading && !policyBreach?.PolicyBreachTitle && (
-          <Box style={{ width: "90%", height: "450px" }} mt={3} ml="5%">
-            <Typography variant="h6">
-              No <strong>Item</strong> at this time.<br></br> Please check back.
-            </Typography>
-          </Box>
-        )}
+      <LandingPageHeaderWithImage
+        bg={policyBreach?.PolicyBreachImage}
+        text={policyBreach?.PolicyBreachTitle}
+      />
 
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <>
-            {policyBreach && (
-              <Box minHeight="450px">
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Typography variant="h5">
-                    {policyBreach.PolicyBreachTitle}
-                  </Typography>
-                  <Typography>
-                    Posted On:{" "}
-                    {dayjs(policyBreach?.Created).format("MM -DD- YYYY")}
-                  </Typography>
-                </Box>
-                <Box>{policyBreach.PolicyBreachWriteUp}</Box>
+      {!isLoading && !policyBreach?.PolicyBreachTitle && (
+        <Box style={{ width: "90%", height: "450px" }} mt={3} ml="5%">
+          <Typography variant="h6">
+            No <strong>Item</strong> at this time.<br></br> Please check back.
+          </Typography>
+        </Box>
+      )}
+
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          {policyBreach && (
+            <Box minHeight="450px">
+              <Typography variant="h5">
+                {policyBreach.PolicyBreachTitle}
+              </Typography>
+
+              <Box>
+                <Typography variant="body2">
+                  {policyBreach.PolicyBreachWriteUp}
+                </Typography>
               </Box>
-            )}
-          </>
-        )}
-      </Box>
+            </Box>
+          )}
+        </>
+      )}
     </EmployeeWrapper>
   );
 };
