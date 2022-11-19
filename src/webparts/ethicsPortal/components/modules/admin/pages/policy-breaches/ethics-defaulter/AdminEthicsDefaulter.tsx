@@ -16,6 +16,7 @@ import { locations } from "../../gallery/forms/GalleryForm";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { Add } from "@material-ui/icons";
 import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
+import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
 
 export const AdminEthicsDefaulter = ({ context }) => {
   const [ethicsHandler, setEthicsHandler] = React.useState("");
@@ -166,18 +167,7 @@ export const AdminEthicsDefaulter = ({ context }) => {
           <Box
             style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
           >
-            <Button
-              style={{
-                backgroundColor: "black",
-                color: "white",
-              }}
-              variant="outlined"
-              color="secondary"
-              size="large"
-              disabled={mutation.isLoading}
-            >
-              Cancel
-            </Button>
+            <CancelButton isLoading={mutation.isLoading} />
             <Button
               style={{
                 backgroundColor: "#FFCC00",

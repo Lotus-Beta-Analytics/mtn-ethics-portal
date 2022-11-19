@@ -20,6 +20,7 @@ import { CreateSection } from "../../components/blog-set-up/sections/CreateSecti
 import { ReadOnlyURLSearchParams } from "./ManagePoliciesPage";
 import { useLocation } from "react-router-dom";
 import { Policy } from "../../../employee/components/PolicyLandingComponent";
+import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 
 type Props = {
   context: WebPartContext;
@@ -116,14 +117,7 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
         <Box
           style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
         >
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="large"
-            disabled={mutation.isLoading}
-          >
-            Cancel
-          </Button>
+          <CancelButton isLoading={mutation.isLoading} />
           <Button
             type="submit"
             variant="contained"

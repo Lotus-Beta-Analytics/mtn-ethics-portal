@@ -1,18 +1,9 @@
 import * as React from "react";
-import {
-  Box,
-  createStyles,
-  makeStyles,
-  Theme,
-  Typography,
-} from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { EmployeeWrapper } from "../../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { PageWrapper } from "../../../../../shared/components/app-wrapper/employee/PageWrapper";
 import { PageHeaderWithImage } from "../../../../../shared/components/PageHeaderWithImage";
-import {
-  HomeItemContainer,
-  ImageContainerEthics,
-} from "../../../../../../styles/styles";
+import { ImageContainerEthics } from "../../../../../../styles/styles";
 import styles from "./styles.module.scss";
 import { PaginationContainer } from "../../../../components/pagination/PaginationContainer";
 import { sp } from "@pnp/sp";
@@ -20,19 +11,6 @@ import { useQuery } from "@tanstack/react-query";
 import { errorAlert } from "../../../../../../utils/toast-messages";
 import { useToasts } from "react-toast-notifications";
 import { Label } from "../../../../components/Label";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      borderRadius: "100px",
-      "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-      },
-    },
-  })
-);
-
-// type Props = {};
 
 export const EthicsChampionLandingPage = () => {
   const [pageSize, setPageSize] = React.useState(null);
@@ -51,8 +29,6 @@ export const EthicsChampionLandingPage = () => {
     }
   });
   const toast = useToasts().addToast;
-
-  const classes = useStyles();
   return (
     <EmployeeWrapper>
       <PageWrapper>

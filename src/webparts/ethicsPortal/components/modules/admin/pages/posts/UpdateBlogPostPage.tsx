@@ -15,6 +15,7 @@ import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { Policy } from "../../../employee/components/PolicyLandingComponent";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
 import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
@@ -158,14 +159,7 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
         <Box
           style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
         >
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="large"
-            disabled={mutation.isLoading}
-          >
-            Cancel
-          </Button>
+          <CancelButton isLoading={mutation.isLoading} />
           <Button
             type="submit"
             variant="contained"

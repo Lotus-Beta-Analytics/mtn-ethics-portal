@@ -4,12 +4,8 @@ import { Box, CircularProgress, Typography } from "@material-ui/core";
 import { useToasts } from "react-toast-notifications";
 import { sp } from "@pnp/sp";
 import "./styles.css";
-import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 import { useQuery } from "@tanstack/react-query";
 import { errorAlert } from "../../../../../utils/toast-messages";
-import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
-import * as dayjs from "dayjs";
-import { BlogContent } from "../../../../admin/components/blog-set-up/BlogContent";
 import { LandingPageHeaderWithImage } from "../../../../shared/components/LandingPageHeaderWithImage";
 
 const pageMenu = [
@@ -67,12 +63,12 @@ export const PolicyBreaches = () => {
       ) : (
         <>
           {policyBreach && (
-            <Box minHeight="450px">
+            <Box minHeight="450px" mt={1}>
               <Typography variant="h5">
                 {policyBreach.PolicyBreachTitle}
               </Typography>
 
-              <Box>
+              <Box my={2}>
                 <Typography variant="body2">
                   {policyBreach.PolicyBreachWriteUp}
                 </Typography>

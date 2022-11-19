@@ -1,16 +1,11 @@
-import {
-  Typography,
-  Box,
-  CircularProgress,
-  TextField,
-  Button,
-} from "@material-ui/core";
+import { Box, CircularProgress, Button } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import * as React from "react";
 import { WebContext } from "../../../../../EthicsPortal";
 import { Policy } from "../../../../employee/components/PolicyLandingComponent";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../../components/blog-set-up/PostEditor";
+import { useHistory } from "react-router-dom";
 
 type Props = {
   policy: Policy;
@@ -32,7 +27,7 @@ export const LandingPageForm: React.FC<Props> = ({
   setContent,
 }) => {
   const { context } = React.useContext(WebContext);
-
+  const history = useHistory();
   return (
     <form
       onSubmit={(e) => {
@@ -70,6 +65,7 @@ export const LandingPageForm: React.FC<Props> = ({
           color="secondary"
           size="large"
           disabled={isLoading}
+          onClick={() => history.push("/admin/dashboard")}
         >
           Cancel
         </Button>

@@ -51,7 +51,7 @@ export const WriteUpLandingComponent: React.FC<Props> = ({
         <Box width="90%" m="0 auto">
           <PageHeaderWithImage
             bg={items[0]?.SectionId?.ImageUrl}
-            text={items[0].SectionId["PolicyTitle"] ?? ""}
+            text={items[0]?.SectionId?.PolicyTitle ?? ""}
           />
         </Box>
       )}
@@ -76,7 +76,7 @@ export const WriteUpLandingComponent: React.FC<Props> = ({
           ) : (
             <>
               {items?.map((post) => (
-                <PostPreviewItem post={post} key={post.Id} />
+                <PostPreviewItem post={post} key={post?.Id} />
               ))}
             </>
           )}

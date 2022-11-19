@@ -7,23 +7,11 @@ import "./styles.css";
 import { sp } from "@pnp/sp";
 import { Label } from "../../../components/Label";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      borderRadius: "100px",
-      "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-      },
-    },
-  })
-);
-
 const pageMenu = [
   { id: 1, text: "Ethics Champions", link: "/recognition/ethicschampion" },
 ];
 
 export const ChampionLandingPage = () => {
-  // const [champions, setChampions] = React.useState([]);
   const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
@@ -35,7 +23,6 @@ export const ChampionLandingPage = () => {
       });
   }, []);
 
-  const classes = useStyles();
   return (
     <EmployeeWrapper
       pageNavigation={true}
@@ -43,7 +30,6 @@ export const ChampionLandingPage = () => {
       backButton={false}
       showFooter={true}
     >
-      {/* <MMarquee text="Hello Champions" /> */}
       <LandingPageHeaderWithImage
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo.png"
         text="Champion Recognition"

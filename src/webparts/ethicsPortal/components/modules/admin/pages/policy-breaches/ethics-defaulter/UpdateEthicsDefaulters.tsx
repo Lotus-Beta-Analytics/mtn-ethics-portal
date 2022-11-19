@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { Add } from "@material-ui/icons";
+import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
 
 export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
   context,
@@ -169,18 +170,7 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
             marginTop: "20px",
           }}
         >
-          <Button
-            style={{
-              backgroundColor: "black",
-              color: "white",
-            }}
-            variant="outlined"
-            color="secondary"
-            size="large"
-            disabled={mutation.isLoading}
-          >
-            Cancel
-          </Button>
+          <CancelButton isLoading={mutation.isLoading} />
           <Button
             style={{
               backgroundColor: "#FFCC00",

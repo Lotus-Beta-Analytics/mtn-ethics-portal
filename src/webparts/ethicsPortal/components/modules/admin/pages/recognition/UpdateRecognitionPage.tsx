@@ -14,6 +14,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { editRecognition } from "./apis/EditRecognition";
 
@@ -158,14 +159,7 @@ export const UpdateRecognitionPage: React.FC<{ context: WebPartContext }> = ({
             marginTop: "20px",
           }}
         >
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="large"
-            disabled={mutation.isLoading}
-          >
-            Cancel
-          </Button>
+          <CancelButton isLoading={mutation.isLoading} />
           <Button
             type="submit"
             variant="contained"
