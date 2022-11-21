@@ -14,10 +14,18 @@ export const Label: React.FC<Props> = ({ header, content }) => {
       width="100%"
       color="#000"
     >
-      <Typography variant="body2" style={{ fontWeight: "bold" }}>
+      <Typography
+        variant="body2"
+        style={{ fontWeight: "bold", fontSize: "13px", marginLeft: "15px" }}
+      >
         {header}:
       </Typography>
-      <Typography variant="body2">{content}</Typography>
+      <Typography
+        variant="body2"
+        style={{ fontWeight: "bold", fontSize: "14px" }}
+      >
+        {content}
+      </Typography>
     </Box>
   );
 };

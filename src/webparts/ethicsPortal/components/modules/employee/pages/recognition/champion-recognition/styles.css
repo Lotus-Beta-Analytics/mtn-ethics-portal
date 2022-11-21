@@ -3,7 +3,7 @@
   height: 100%;
   width: 100%;
   padding: 15px;
-  background-color: rgba(244, 228, 11, 0.712);
+  background-color: #ffcc00;
   box-sizing: border-box;
   position: absolute;
   bottom: 0;
@@ -22,9 +22,10 @@
   background: inherit;
 }
 
-.mtn__CoverImageSpan h5 {
+.mtn__CoverImageSpan {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .mtn__CoverImageSpan {
