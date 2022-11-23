@@ -54,7 +54,7 @@ export const EthicsChampionLandingPage = () => {
               justifyContent: "center",
               alignItems: "center",
               padding: "0.5rem",
-              gap: ".5rem",
+              gap: "2.5rem",
               position: "relative",
               width: "100%",
             }}
