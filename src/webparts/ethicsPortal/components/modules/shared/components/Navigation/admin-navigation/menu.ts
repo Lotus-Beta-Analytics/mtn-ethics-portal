@@ -2,15 +2,11 @@ import { Settings } from "@material-ui/icons";
 import {
   FaAd,
   FaAngrycreative,
-  FaBook,
-  FaChevronDown,
   FaDochub,
   FaImages,
   FaTextWidth,
-  FaUserAstronaut,
   FaVideo,
 } from "react-icons/fa";
-import { BlogSectionEnums } from "../../../../admin/components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 
 export const adminNavItems = [
   {
@@ -28,11 +24,6 @@ export const adminNavItems = [
         title: "All Policies Content",
         icon: FaAngrycreative,
         link: "/admin/policies",
-      },
-      {
-        title: "Create Policy Page",
-        icon: FaVideo,
-        link: "/admin/create-policy",
       },
     ],
   },
@@ -67,13 +58,13 @@ export const adminNavItems = [
       {
         title: "Reports",
         icon: FaImages,
-        link: "/admin/manage-quiz",
+        link: "/admin/quiz-report",
       },
 
       {
         title: "Manage",
         icon: Settings,
-        link: "#",
+        link: "/admin/manage-quiz",
       },
     ],
   },

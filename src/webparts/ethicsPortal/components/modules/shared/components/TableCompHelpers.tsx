@@ -21,11 +21,12 @@ export const TableStyles: React.CSSProperties = {
   width: "100%",
   background: "none",
   fontSize: "13px",
+  overflowX: "scroll",
 };
 export const TableHeaderStyles: React.CSSProperties = {
   backgroundColor: "#FFCC00",
   color: "black",
-  fontSize: "16px",
+  fontSize: "13px",
 };
 
 export const TableIcons: Icons = {

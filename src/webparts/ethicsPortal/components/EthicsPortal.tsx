@@ -69,6 +69,7 @@ import { ManageCarouselPage } from "./modules/admin/pages/carousel/ManageCarouse
 import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-defaulters/ManageDeafulters";
 import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
 import { EthicsResourceDisplayPage } from "./modules/employee/components/EthicsResourceDisplayPage";
+import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -306,6 +307,11 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                           exact
                           path="/admin/quiz/:quizId/report"
                           render={() => <QuizReportPage />}
+                        />
+                        <Route
+                          exact
+                          path="/admin/quiz-report"
+                          render={() => <ReportPage />}
                         />
                         <Route
                           exact

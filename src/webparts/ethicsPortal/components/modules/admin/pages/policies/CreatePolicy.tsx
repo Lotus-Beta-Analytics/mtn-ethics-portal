@@ -72,7 +72,7 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
   });
 
   return (
-    <AdminWrapper>
+    <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -85,7 +85,7 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
           padding: "1.5rem 1rem",
         }}
       >
-        <Typography>Create Policy</Typography>
+        <Typography>Create Policy Content</Typography>
         <TextField
           variant="outlined"
           value={postTitle}
@@ -132,6 +132,6 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
           </Button>
         </Box>
       </form>
-    </AdminWrapper>
+    </>
   );
 };

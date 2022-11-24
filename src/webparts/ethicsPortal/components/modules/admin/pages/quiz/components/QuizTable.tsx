@@ -142,7 +142,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             iconProps: {
               style: { fontSize: "20px", color: "gold" },
             },
-            tooltip: "view-report",
+            tooltip: "view participants",
 
             onClick: (event, rowData) => {
               history.push(`quiz/${rowData?.Id}/report`);
@@ -180,8 +180,6 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             tooltip: "remove",
 
             onClick: (event, rowData) => {
-              console.log(rowData, "....");
-
               setItemToRemove({
                 QuizId: rowData.ID,
                 QuizTitle: rowData.QuizTitle,
@@ -228,14 +226,14 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
                       position: "relative",
                     }}
                     color={
-                      props.action.tooltip === "view-report"
+                      props.action.tooltip === "view participants"
                         ? "primary"
                         : props.action.tooltip === "edit"
                         ? "default"
                         : "secondary"
                     }
                   >
-                    {props.action.tooltip === "view-report" ? (
+                    {props.action.tooltip === "view participants" ? (
                       <RemoveRedEye />
                     ) : props.action.tooltip === "edit" ? (
                       <Edit />

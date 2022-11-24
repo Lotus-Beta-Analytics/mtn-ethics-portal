@@ -12,6 +12,7 @@ import { QuizStatus } from "./modals/EnableQuizPromptModal";
 export const QuizReportPage = () => {
   const { quizId } = useParams();
   const [quizReport, setQuizReport] = React.useState<any>();
+  const [quizTitle, setQuizTitle] = React.useState("");
   const toast = useToasts().addToast;
   const history = useHistory();
   React.useEffect(() => {
@@ -20,7 +21,7 @@ export const QuizReportPage = () => {
         const res = await sp.web.lists
           .getByTitle("QuizResponse")
           .items.select(
-            "Quiz/QuizTitle, Quiz/duration, Quiz/status, StaffName, responses, StaffEmail, score, TotalPoints, ExpectedScore"
+            "Quiz/QuizTitle, Quiz/duration, Quiz/status, StaffName, responses, StaffEmail, score, TotalPoints, ExpectedScore, Created, duration"
           )
           .expand("Quiz")
           .filter(`QuizId eq '${quizId}'`)
@@ -44,6 +45,7 @@ export const QuizReportPage = () => {
       .items.getById(quizId)
       .get()
       .then((questions) => {
+        setQuizTitle(questions?.QuizTitle);
         setQuestions(
           questions?.questions ? JSON.parse(questions?.questions) : []
         );
@@ -92,6 +94,7 @@ export const QuizReportPage = () => {
           );
         },
         export: true,
+        hidden: true,
       });
     }
 
@@ -105,7 +108,7 @@ export const QuizReportPage = () => {
   const columns = [
     {
       title: "SN",
-      field: "tableData",
+      field: "tableData[id]",
       render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
     },
     { title: "Staff Name", field: "StaffName" },
@@ -131,15 +134,32 @@ export const QuizReportPage = () => {
       title: "Expected Score",
       field: "ExpectedScore",
     },
+    {
+      title: "TimeStamp",
+      field: "Created",
+      type: "datetime",
+    },
+    {
+      title: "Time Spent",
+      field: "duration",
+    },
   ];
 
   return (
     <AdminWrapper>
       <Box my={2}>
         {quizReport ? (
-          <QuizReportTable quizReport={[quizReport]} column={columns} />
+          <QuizReportTable
+            quizReport={[quizReport]}
+            column={columns}
+            title={`${quizTitle} Quiz`}
+          />
         ) : (
-          <QuizReportTable quizReport={[]} column={columns} />
+          <QuizReportTable
+            quizReport={[]}
+            column={columns}
+            title={`${quizTitle} Quiz`}
+          />
         )}
       </Box>
     </AdminWrapper>

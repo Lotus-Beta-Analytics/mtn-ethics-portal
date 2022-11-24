@@ -118,6 +118,7 @@ export const CreateAdminQuizContextProvider: React.FC<{
         QuizId: quiz?.QuizId,
       });
       successAlert(toast);
+      history.push("/admin/manage-quiz");
       setLoading(false);
     } catch (e) {
       errorAlert(toast);
