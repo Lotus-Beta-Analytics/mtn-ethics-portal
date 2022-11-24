@@ -37,9 +37,7 @@ export const PostComment: React.FC<Props> = ({ comment, comments }) => {
               height: "30px",
             }}
           />
-          <Typography variant="caption">
-            {user?.name.split("")[0] || "N/A"}
-          </Typography>
+          <Typography variant="caption">{user?.name || "N/A"}</Typography>
         </Box>
 
         <Typography variant="body2">{comment?.comment}</Typography>

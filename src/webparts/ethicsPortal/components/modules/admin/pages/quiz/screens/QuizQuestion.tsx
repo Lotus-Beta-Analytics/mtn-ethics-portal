@@ -263,21 +263,23 @@ export const QuizQuestionSetUp = (props: Props) => {
           Add Question
         </Box>
       </Box>
-      <QuestionsTable
-        questions={quiz?.questions}
-        onUpdate={(res) => {
-          setQuiz({
-            ...quiz,
-            questions: [
-              ...quiz?.questions.filter(
-                //@ts-ignore
-                (it) => it.tableData.id !== res.tableData.id
-              ),
-            ],
-          });
-          setQuestion(res);
-        }}
-      />
+      {quiz?.questions && (
+        <QuestionsTable
+          questions={quiz?.questions}
+          onUpdate={(res) => {
+            setQuiz({
+              ...quiz,
+              questions: [
+                ...quiz?.questions.filter(
+                  //@ts-ignore
+                  (it) => it.tableData.id !== res.tableData.id
+                ),
+              ],
+            });
+            setQuestion(res);
+          }}
+        />
+      )}
     </Box>
   );
 };

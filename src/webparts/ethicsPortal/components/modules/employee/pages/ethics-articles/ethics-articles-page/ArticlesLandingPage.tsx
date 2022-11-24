@@ -10,10 +10,6 @@ import { errorAlert } from "../../../../../utils/toast-messages";
 import { useToasts } from "react-toast-notifications";
 import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
 
-const pageMenu = [
-  { id: 1, text: "Ethics Articles Blog", link: "/ethics/article/blog" },
-];
-
 export const ArticlesLandingPage = () => {
   const [pageSize, setPageSize] = React.useState(null);
   const rowsPerPage = 6;
@@ -31,12 +27,7 @@ export const ArticlesLandingPage = () => {
   const toast = useToasts().addToast;
 
   return (
-    <EmployeeWrapper
-      pageNavigation={true}
-      backButton={false}
-      showFooter={true}
-      pageMenu={pageMenu}
-    >
+    <EmployeeWrapper pageNavigation={true} backButton={false} showFooter={true}>
       <LandingPageHeaderWithImage
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/article-ethics.png"
         text="Ethics Articles"

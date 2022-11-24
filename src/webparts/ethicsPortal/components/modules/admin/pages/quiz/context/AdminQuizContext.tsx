@@ -138,6 +138,8 @@ export const CreateAdminQuizContextProvider: React.FC<{
           QuizTitle: quiz?.title,
           instruction: quiz?.instruction,
           topic: quiz?.topic,
+          area: quiz?.area,
+          QuizId: quiz?.QuizId,
         });
       successAlert(toast, "Quiz Updated");
       history.push("/admin/manage-quiz");

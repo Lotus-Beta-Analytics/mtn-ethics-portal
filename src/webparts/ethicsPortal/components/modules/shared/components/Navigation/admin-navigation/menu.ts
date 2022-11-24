@@ -73,7 +73,7 @@ export const adminNavItems = [
       {
         title: "Manage",
         icon: Settings,
-        link: "",
+        link: "#",
       },
     ],
   },
@@ -91,7 +91,7 @@ export const adminNavItems = [
       {
         title: "Ethics Champion Activities",
         icon: FaImages,
-        link: "/admin/recognition/activities/add",
+        link: "#",
       },
     ],
   },

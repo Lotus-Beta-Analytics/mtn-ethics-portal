@@ -74,6 +74,7 @@ export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
             onUpdate(rowData);
           },
         },
+
         {
           icon: "visibility",
           iconProps: {

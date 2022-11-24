@@ -64,10 +64,12 @@ export const QuizPage = () => {
         `StaffEmail eq '${staff?.email}' and Quiz/status eq '${QuizStatus.Is_Enabled}'`
       )
       .get()
-      .then(() => {
-        swal("error", "You have taken this Quiz", "Error").then(() => {
-          history.push("/");
-        });
+      .then((res) => {
+        if (res.length) {
+          swal("error", "You have taken this Quiz", "Error").then(() => {
+            history.push("/");
+          });
+        }
       });
   }, []);
 

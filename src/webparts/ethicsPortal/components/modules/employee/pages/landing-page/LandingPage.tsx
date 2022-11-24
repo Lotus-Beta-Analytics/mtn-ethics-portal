@@ -120,12 +120,16 @@ export const LandingPage = () => {
                   {item?.CarouselTitle}
                 </Typography>
                 <Box>
-                  <MLink to={item?.LinkTo}>
+                  <a
+                    href={item?.LinkTo}
+                    target="_blank"
+                    style={{ textDecoration: "none", color: "#000" }}
+                  >
                     <MButton
                       endIcon={<FaAngleDoubleRight />}
                       text="Read More..."
                     />
-                  </MLink>
+                  </a>
                 </Box>
               </Box>
             </CarouselContainer>

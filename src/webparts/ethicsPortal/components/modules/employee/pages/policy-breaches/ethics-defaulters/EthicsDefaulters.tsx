@@ -54,7 +54,7 @@ export const EthicsDefaulters = () => {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
-              height: "350px",
+              minHeight: "350px",
               justifyContent: "center",
               alignItems: "center",
               padding: "0.5rem",

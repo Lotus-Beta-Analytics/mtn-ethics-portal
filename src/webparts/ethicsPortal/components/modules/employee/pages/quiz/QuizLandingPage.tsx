@@ -47,8 +47,6 @@ export const QuizLandingPage = () => {
       });
   }, [data?.email]);
 
-  console.log(questions);
-
   return (
     <EmployeeWrapper backButton={false}>
       <LandingPageHeaderWithImage

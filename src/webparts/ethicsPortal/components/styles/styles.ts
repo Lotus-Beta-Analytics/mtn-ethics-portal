@@ -75,7 +75,7 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
 export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
   width: "auto",
-  height: "100%",
+  minHeight: "350px",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   display: "flex",
@@ -121,7 +121,7 @@ export const PageNavigationContainer = styled.div<{ open: boolean }>(
     backgroundColor: theme.palette.primary.main,
     position: "absolute",
     top: "12%",
-    minHeight: "250px",
+    minHeight: "300px",
     left: props?.open ? "90%" : "105%",
     boxShadow: "3px 2px 5px rgba(0, 0, 0, 0.25)",
     borderRadius: "10px",
