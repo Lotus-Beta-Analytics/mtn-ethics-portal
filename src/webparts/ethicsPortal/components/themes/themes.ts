@@ -6,7 +6,7 @@ export const theme = createTheme({
       main: "#FFCC00",
     },
     secondary: {
-      main: "#006993",
+      main: "#000",
     },
     common: {
       black: "#202020",
@@ -32,12 +32,11 @@ export const theme = createTheme({
   overrides: {
     MuiButton: {
       containedPrimary: {
-        width: "180px",
-        borderRadius: "26px",
         backgroundColor: "#FFCC00",
       },
       root: {
         textTransform: "capitalize",
+        borderRadius: "10px",
       },
     },
   },

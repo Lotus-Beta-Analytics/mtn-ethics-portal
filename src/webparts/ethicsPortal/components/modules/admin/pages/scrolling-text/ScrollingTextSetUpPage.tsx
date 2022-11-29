@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core";
+import { Box, MenuItem, Select } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
@@ -11,6 +11,7 @@ import { ScrollingTextInterface } from "./modals/UpdateScrollingTextModal";
 
 export const ScrollingTextSetUpPage = () => {
   const [canEnable, setCanEnable] = React.useState(false);
+  const [component, setComponent] = React.useState("form");
 
   const { data: scrollingTexts, isLoading } = useQuery<any>(
     ["getScrollTexts"],
@@ -68,24 +69,45 @@ export const ScrollingTextSetUpPage = () => {
         width="100%"
         style={{ minHeight: "100%", gap: "2rem" }}
       >
-        <ScrollingTextForm
-          scrollText={scrollText}
-          canEnable={canEnable}
-          onUpdate={(items) => {
-            setScrollText(items);
-          }}
-          isLoading={mutation?.isLoading}
-          onSubmit={(e) => {
-            e.preventDefault();
-            mutation.mutate();
-          }}
-        />
-        <Box>
-          <ScrollingTextsTable
-            scrollingTexts={scrollingTexts}
-            loading={isLoading}
-          />
+        <Box display="flex" justifyContent="space-between">
+          <Select
+            value={component}
+            onChange={(e) => setComponent(e.target.value as string)}
+          >
+            <MenuItem value="form">Upload Text</MenuItem>
+            <MenuItem value="table">Manage Text</MenuItem>
+          </Select>
+          <Box></Box>
         </Box>
+
+        {(() => {
+          if (component === "form") {
+            return (
+              <ScrollingTextForm
+                scrollText={scrollText}
+                canEnable={canEnable}
+                onUpdate={(items) => {
+                  setScrollText(items);
+                }}
+                isLoading={mutation?.isLoading}
+                isCreating={true}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  mutation.mutate();
+                }}
+              />
+            );
+          } else {
+            return (
+              <Box>
+                <ScrollingTextsTable
+                  scrollingTexts={scrollingTexts}
+                  loading={isLoading}
+                />
+              </Box>
+            );
+          }
+        })()}
       </Box>
     </AdminWrapper>
   );

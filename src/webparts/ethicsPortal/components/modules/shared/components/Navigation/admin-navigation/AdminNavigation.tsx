@@ -52,6 +52,7 @@ export const AdminNavigation = (props: Props) => {
                 alignItems: "center",
                 cursor: "pointer",
                 boxSizing: "border-box",
+                fontWeight: "bold",
                 minHeight: "40px",
                 padding: "0 .5rem",
                 userSelect: "none",
@@ -100,6 +101,7 @@ export const AdminNavigation = (props: Props) => {
                           gap: ".5rem",
                           cursor: "pointer",
                           userSelect: "none",
+                          fontWeight: "bold",
                         }}
                         className={activeSubMenu === i ? "sub__active" : ""}
                       >

@@ -66,7 +66,6 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
           exportAllData: true,
           exportFileName: "Articles",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[

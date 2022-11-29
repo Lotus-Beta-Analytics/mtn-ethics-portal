@@ -11,7 +11,7 @@ import { QuizStatus } from "./modals/EnableQuizPromptModal";
 
 export const QuizReportPage = () => {
   const { quizId } = useParams();
-  const [quizReport, setQuizReport] = React.useState<any>();
+  const [quizReport, setQuizReport] = React.useState<any[]>([]);
   const [quizTitle, setQuizTitle] = React.useState("");
   const toast = useToasts().addToast;
   const history = useHistory();
@@ -28,7 +28,7 @@ export const QuizReportPage = () => {
           .get();
 
         if (res?.length) {
-          setQuizReport(res[0]);
+          setQuizReport(res);
         }
       } catch (e) {
         errorAlert(toast);
@@ -52,49 +52,38 @@ export const QuizReportPage = () => {
       });
   }, [quizId]);
 
+  let ans = {} as any;
+  const getAnswer = (id: string | number) => {
+    if (!quizReport.length) return;
+    const found = quizReport.map(
+      (responses) => responses?.responses && JSON.parse(responses?.responses)
+    );
+    let start = 0;
+
+    while (start < found.length) {
+      const res = found[start].find((it) => it.id === id);
+      if (res) {
+        console.log(res);
+        break;
+      }
+      start++;
+    }
+    return ans;
+  };
+
+  // const optimizedFunctionToGetAnswer = React.useMemo(()=>getAnswer(id:string|number)=)
+
   const answersToQuestionsArr = () => {
     const obj = [];
 
     for (let i = 0; i < questionsArr?.length; i++) {
       obj.push({
         title: questionsArr[i].question,
-        field: `${questionsArr[i].question}`,
+        field: `${getAnswer(questionsArr[i].id)}`,
         type: "string",
-        render: () => {
-          return (
-            quizReport &&
-            JSON.parse(quizReport?.responses)
-              .filter((response) => {
-                return (
-                  response && response["question"] == questionsArr[i].question
-                );
-              })
-              .map((response) => {
-                return (
-                  <li
-                    style={{
-                      fontSize: "10px",
-                      listStyle: "none",
-                      display: "flex",
-                      padding: ".5rem",
-                      alignItems: "center",
-                      gap: ".5rem",
-                      minWidth: "40%",
-                    }}
-                  >
-                    <Typography>{response?.answer}</Typography>
-                    {response?.isCorrect ? (
-                      <FaCheck color="green" />
-                    ) : (
-                      <FaTimes color="red" />
-                    )}
-                  </li>
-                );
-              })
-          );
-        },
         export: true,
-        hidden: true,
+
+        // hidden: true,
       });
     }
 
@@ -150,7 +139,7 @@ export const QuizReportPage = () => {
       <Box my={2}>
         {quizReport ? (
           <QuizReportTable
-            quizReport={[quizReport]}
+            quizReport={quizReport}
             column={columns}
             title={`${quizTitle} Quiz`}
           />

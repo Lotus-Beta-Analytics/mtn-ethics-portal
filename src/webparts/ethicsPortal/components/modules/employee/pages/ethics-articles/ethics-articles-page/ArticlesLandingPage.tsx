@@ -27,7 +27,7 @@ export const ArticlesLandingPage = () => {
   const toast = useToasts().addToast;
 
   return (
-    <EmployeeWrapper pageNavigation={true} backButton={false} showFooter={true}>
+    <EmployeeWrapper backButton={false} showFooter={true}>
       <LandingPageHeaderWithImage
         bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/article-ethics.png"
         text="Ethics Articles"

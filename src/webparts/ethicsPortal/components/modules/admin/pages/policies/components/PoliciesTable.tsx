@@ -123,29 +123,6 @@ export const PoliciesTable: React.FC<Props> = ({
               </IconButton>
             );
           },
-          Toolbar: (props) => {
-            return (
-              <Box>
-                <MTableToolbar {...props} />
-                <Box
-                  width="100%"
-                  height="50px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<FaPlusCircle />}
-                    onClick={() => history.push("/admin/create-policy")}
-                  >
-                    Add Policy
-                  </Button>
-                </Box>
-              </Box>
-            );
-          },
         }}
       />
 

@@ -17,6 +17,7 @@ import { FileUpload } from "../../../../shared/components/input-fields/FileUploa
 import { Add } from "@material-ui/icons";
 import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
 import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
+import { ButtonContainerStyles } from "../../../../shared/components/TableCompHelpers";
 
 export const AdminEthicsDefaulter = ({ context }) => {
   const [ethicsHandler, setEthicsHandler] = React.useState("");
@@ -165,17 +166,15 @@ export const AdminEthicsDefaulter = ({ context }) => {
           />
 
           <Box
-            style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
+            style={{
+              ...ButtonContainerStyles,
+            }}
           >
             <CancelButton isLoading={mutation.isLoading} />
             <Button
-              style={{
-                backgroundColor: "#FFCC00",
-                color: "#000000",
-              }}
+              color="primary"
               type="submit"
               variant="contained"
-              size="large"
               endIcon={
                 mutation.isLoading ? <CircularProgress size={20} /> : <Add />
               }

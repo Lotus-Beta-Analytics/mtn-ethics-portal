@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core";
+import { Box, MenuItem, Select } from "@material-ui/core";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -9,7 +9,7 @@ import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/Admin
 import { ReadOnlyURLSearchParams } from "../policies/ManagePoliciesPage";
 import { TrainingTable } from "./components/TrainingTable";
 import { TrainingCategoryEnum } from "./enums/TrainingCategoryEnum";
-import { VideoCourseForm } from "./forms/VideoCourseForm";
+import { courseCategories, VideoCourseForm } from "./forms/VideoCourseForm";
 import { TrainingType } from "./types/TrainingTypes";
 import { useLocation } from "react-router-dom";
 
@@ -21,13 +21,13 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
     async () => {
       try {
         const res = await sp.web.lists.getByTitle("Training").items.getAll();
-        return res;
+        return res.filter((it) => courseCategories.includes(it.Category));
       } catch (e) {
         return e;
       }
     }
   );
-
+  const [component, setComponent] = React.useState("form");
   const queryClient = useQueryClient();
   const toast = useToasts().addToast;
   const { search } = useLocation();
@@ -68,25 +68,43 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
         width="100%"
         style={{ minHeight: "100%", gap: "2rem" }}
       >
-        <VideoCourseForm
-          training={training}
-          onUpdate={(items) => {
-            setTraining(items);
-          }}
-          isLoading={mutation?.isLoading}
-          onSubmit={(e) => {
-            e.preventDefault();
-            mutation.mutate();
-          }}
-          context={context}
-        />
-        <Box>
-          <TrainingTable
-            trainings={trainings}
-            loading={isLoading}
-            context={context}
-          />
+        <Box display="flex" justifyContent="space-between">
+          <Select
+            value={component}
+            onChange={(e) => setComponent(e.target.value as string)}
+          >
+            <MenuItem value="form">Add Training Video</MenuItem>
+            <MenuItem value="table">Manage Training Videos</MenuItem>
+          </Select>
+          <Box></Box>
         </Box>
+
+        {(() => {
+          if (component === "form")
+            return (
+              <VideoCourseForm
+                training={training}
+                onUpdate={(items) => {
+                  setTraining(items);
+                }}
+                isLoading={mutation?.isLoading}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  mutation.mutate();
+                }}
+                context={context}
+              />
+            );
+          return (
+            <Box>
+              <TrainingTable
+                trainings={trainings}
+                loading={isLoading}
+                context={context}
+              />
+            </Box>
+          );
+        })()}
       </Box>
     </AdminWrapper>
   );

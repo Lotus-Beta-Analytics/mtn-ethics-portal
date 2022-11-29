@@ -33,6 +33,7 @@ export const TopContainer = styled.div<{ bg: string; height: string }>(
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     borderRadius: "10px",
+    marginBottom: "25px",
   })
 );
 export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
@@ -44,11 +45,13 @@ export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
     alignItems: "center",
     paddingLeft: "1.5rem",
     boxSizing: "border-box",
+    objectFit: "contain",
     backgroundSize: "cover",
-    backgroundPosition: "center",
+    // backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     position: "relative",
     top: 0,
+    marginBottom: "25px",
   })
 );
 
@@ -56,7 +59,7 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `url(${props.bg})`,
   width: "280px",
   height: "100%",
-  backgroundSize: "contain",
+  backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   display: "flex",
@@ -64,6 +67,7 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
   paddingLeft: theme.spacing(6),
   paddingBottom: theme.spacing(6),
   color: theme.palette.common.black,
+  marginBottom: "25px",
   boxSizing: "border-box",
   justifyContent: "space-between",
   "&:hover": {
@@ -84,7 +88,7 @@ export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
   boxSizing: "border-box",
   position: "relative",
   borderRadius: "26px",
-
+  marginBottom: "25px",
   "&:hover > *": {
     display: "flex",
     borderRadius: "26px",
@@ -94,15 +98,17 @@ export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
 export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
   width: "100%",
-  height: "450px",
+  height: "550px",
   backgroundSize: "cover",
   backgroundPosition: "center",
+  objectFit: "contain",
   backgroundRepeat: "no-repeat",
   display: "flex",
   justifyContent: "center",
   flexDirection: "column",
   paddingLeft: theme.spacing(16),
   color: theme.palette.common.white,
+  marginBottom: "25px",
 }));
 
 export const PostPreviewContainer = styled(Box)({

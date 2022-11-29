@@ -68,10 +68,11 @@ export const ResourcesDisplayComponent: React.FC<Props> = ({
         <Box
           minHeight="450px"
           ml="5%"
+          mt="5%"
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "1rem",
+            gridTemplateColumns: "1fr 1fr 1fr 1fr",
+            gap: "2.5rem",
             width: "100%",
             padding: "2% 0",
             boxSizing: "border-box",

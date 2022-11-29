@@ -86,7 +86,7 @@ export const LandingPage = () => {
           .getByTitle("CarouselItems")
           .items.getAll();
         const sliced = res.slice(0, 4);
-        setCarouselItems(sliced);
+        setCarouselItems(res);
       })(),
     ]);
   }, []);
@@ -109,17 +109,18 @@ export const LandingPage = () => {
                 width="100%"
               >
                 <Typography
-                  variant="h4"
+                  variant="h2"
                   style={{
                     fontStyle: "italic",
                     width: "50%",
                     boxSizing: "border-box",
                     paddingRight: "1rem",
+                    fontWeight: "bold",
                   }}
                 >
                   {item?.CarouselTitle}
                 </Typography>
-                <Box>
+                <Box mt={4}>
                   <a
                     href={item?.LinkTo}
                     target="_blank"

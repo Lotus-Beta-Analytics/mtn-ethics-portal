@@ -15,24 +15,23 @@ import {
   TableIcons,
   TableStyles,
 } from "../../../../shared/components/TableCompHelpers";
+import { UpdatePolicyTrainingModal } from "../modals/UpdatePolicyTrainingModal";
 
 type Props = {
   trainings: TrainingType[];
   loading: boolean;
-  context: WebPartContext;
   title?: string;
 };
 
-export const TrainingTable: React.FC<Props> = ({
+export const TrainingTableForPolicy: React.FC<Props> = ({
   trainings,
   loading,
-  context,
   title = "All Trainings",
 }) => {
   const columns = [
     {
       title: "SN",
-      field: "tableData",
+      field: "tableData[id]",
       render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
     },
     { title: "Course Title", field: "TrainingTitle" },
@@ -133,29 +132,6 @@ export const TrainingTable: React.FC<Props> = ({
               </IconButton>
             </Tooltip>
           ),
-          Toolbar: (props) => {
-            return (
-              <Box>
-                <MTableToolbar {...props} />
-                <Box
-                  width="100%"
-                  height="50px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<FaPlusCircle />}
-                    onClick={() => history.push(`/admin/training`)}
-                  >
-                    Add Training Resource
-                  </Button>
-                </Box>
-              </Box>
-            );
-          },
         }}
       />
       {itemToRemove && (
@@ -169,14 +145,13 @@ export const TrainingTable: React.FC<Props> = ({
         />
       )}
       {itemToUpdate && (
-        <UpdateCourseVideoModal
+        <UpdatePolicyTrainingModal
           id={itemToUpdate?.Id}
           open={true}
           training={itemToUpdate}
           onClose={(item) => {
             setItemToUpdate(null);
           }}
-          context={context}
         />
       )}
       {itemToView && (

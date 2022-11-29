@@ -17,6 +17,8 @@ import {
 } from "@material-ui/core";
 import { AdminWrapper } from "../../../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { Add } from "@material-ui/icons";
+import { ButtonContainerStyles } from "../../../../../shared/components/TableCompHelpers";
+import { CancelButton } from "../../../../../shared/components/buttons/CancelButton";
 
 type Props = {
   context: WebPartContext;
@@ -103,11 +105,16 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
           //   style={{ margin: "1rem 0" }}
         />
 
-        <Box>
+        <Box
+          style={{
+            ...ButtonContainerStyles,
+          }}
+        >
+          <CancelButton />
           <Button
             type="submit"
             variant="contained"
-            color="secondary"
+            color="primary"
             size="large"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />

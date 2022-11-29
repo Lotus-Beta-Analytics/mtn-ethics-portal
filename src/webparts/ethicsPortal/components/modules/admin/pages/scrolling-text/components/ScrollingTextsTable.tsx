@@ -50,7 +50,7 @@ export const ScrollingTextsTable: React.FC<Props> = ({
     <>
       <MaterialTable
         icons={TableIcons}
-        title={`All Texts`}
+        title={``}
         columns={columns}
         data={scrollingTexts}
         isLoading={loading}
@@ -63,11 +63,9 @@ export const ScrollingTextsTable: React.FC<Props> = ({
           actionsColumnIndex: -1,
           pageSize: 5,
           pageSizeOptions: [5, 10, 20],
-          search: false,
           exportAllData: true,
           exportFileName: "Scrolls",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[

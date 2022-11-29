@@ -429,7 +429,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       </Switch>
                     )}
 
-                    {!isAdmin && <Route path="*" component={NotFound} />}
+                    <Route path="*" component={NotFound} />
                   </Switch>
                 </QuizContextProvider>
               </CreateAdminQuizContextProvider>

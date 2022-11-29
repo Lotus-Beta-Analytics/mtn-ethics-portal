@@ -15,6 +15,7 @@ import { WebContext } from "../../../../../EthicsPortal";
 import { LandingPage } from "../modals/LandingPageModal";
 import { UpdatePolicyContentPage } from "../../policies/UpdatePolicyPage";
 import { CreatePolicy } from "../../policies/CreatePolicy";
+import { PolicyTrainingPage } from "../../training/PolicyTrainingPage";
 
 export const PolicyDetailPage = () => {
   const { context } = React.useContext(WebContext);
@@ -148,11 +149,9 @@ export const PolicyDetailPage = () => {
             }
             if (searchParams.get("section") === "trainingPage") {
               return (
-                <TrainingTable
-                  loading={trainingQueries.isLoading}
+                <PolicyTrainingPage
+                  isLoading={trainingQueries.isLoading}
                   trainings={trainings}
-                  context={context}
-                  title="Policy Training Resources"
                 />
               );
             }

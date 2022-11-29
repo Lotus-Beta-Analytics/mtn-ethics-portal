@@ -155,7 +155,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             },
             tooltip: "edit",
 
-            onClick: (event, rowData: AdminQuizCreateType) => {
+            onClick: (event, rowData) => {
               setIsUpdating(true);
               setQuiz({
                 area: rowData.area,
@@ -166,7 +166,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
                 //@ts-ignore
                 questions: JSON.parse(rowData.questions),
                 startDate: rowData?.startDate,
-                title: rowData?.title,
+                title: rowData?.QuizTitle,
                 topic: rowData?.topic,
               });
               history.push("/admin/create-quiz");

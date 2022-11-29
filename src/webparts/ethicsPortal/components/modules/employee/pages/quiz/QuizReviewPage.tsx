@@ -94,10 +94,8 @@ export const QuizReviewPage = () => {
                   <Box>
                     <Typography variant="body1">
                       Thank you for taking the Quiz. You answered &nbsp;
-                      <strong>
-                        {questions.length - staffResponses.length}
-                      </strong>{" "}
-                      out of &nbsp;
+                      <strong>{questions.length - wrongResponses}</strong> out
+                      of &nbsp;
                       <strong>{questions.length}</strong> correct.
                     </Typography>
                     <Typography variant="body1">

@@ -1,10 +1,18 @@
-import { Box, Button, CircularProgress } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { CancelButton } from "../../../shared/components/buttons/CancelButton";
+import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
 import { fetchAdmins } from "./apis/fetchAdmin";
 import { StaffData } from "./components/PeoplePicker";
 import { User, UserForm } from "./forms/UserForm";
@@ -12,6 +20,7 @@ import { ManageAdminPage } from "./ManageAdminPage";
 
 export const CreateAdminPage = () => {
   const [admin, setAdmin] = React.useState<StaffData>();
+  const [component, setComponent] = React.useState("form");
   const res = useQuery<StaffData[]>(["getAdmins"], fetchAdmins);
   const addAdminHandler = async () => {
     if (!admin?.Email && !admin?.DisplayName) return;
@@ -52,29 +61,53 @@ export const CreateAdminPage = () => {
           gap: "2rem",
         }}
       >
-        <UserForm user={admin} onUpdate={(user) => setAdmin(user)} />
-        <Box
-          style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
-        >
-          <Button variant="outlined" color="secondary">
-            Cancel
-          </Button>
-          <Button
-            disabled={!admin?.Email && !admin?.DisplayName}
-            onClick={() => mutation.mutate()}
-            endIcon={
-              mutation.isLoading ? <CircularProgress size={20} /> : <></>
-            }
-            variant="contained"
-            color="secondary"
+        <Box display="flex" justifyContent="space-between">
+          <Select
+            value={component}
+            onChange={(e) => setComponent(e.target.value as string)}
           >
-            Create Admin
-          </Button>
+            <MenuItem value="form">Add Admin</MenuItem>
+            <MenuItem value="table">Manage Admins</MenuItem>
+          </Select>
+          <Box></Box>
         </Box>
+        {(() => {
+          if (component === "form") {
+            return (
+              <Box>
+                <UserForm user={admin} onUpdate={(user) => setAdmin(user)} />
+                <Box
+                  style={{
+                    ...ButtonContainerStyles,
+                  }}
+                >
+                  <CancelButton />
+                  <Button
+                    disabled={!admin?.Email && !admin?.DisplayName}
+                    onClick={() => mutation.mutate()}
+                    endIcon={
+                      mutation.isLoading ? (
+                        <CircularProgress size={20} />
+                      ) : (
+                        <></>
+                      )
+                    }
+                    variant="contained"
+                    color="primary"
+                  >
+                    Create Admin
+                  </Button>
+                </Box>
+              </Box>
+            );
+          }
 
-        <Box>
-          <ManageAdminPage users={res?.data} isLoading={res?.isLoading} />
-        </Box>
+          return (
+            <Box>
+              <ManageAdminPage users={res?.data} isLoading={res?.isLoading} />
+            </Box>
+          );
+        })()}
       </Box>
     </AdminWrapper>
   );

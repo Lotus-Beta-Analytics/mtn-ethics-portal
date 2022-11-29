@@ -17,6 +17,7 @@ import {
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { Add } from "@material-ui/icons";
 import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
+import { ButtonContainerStyles } from "../../../../shared/components/TableCompHelpers";
 
 export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
   context,
@@ -164,22 +165,14 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
         />
         <Box
           style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "1rem",
-            marginTop: "20px",
+            ...ButtonContainerStyles,
           }}
         >
           <CancelButton isLoading={mutation.isLoading} />
           <Button
-            style={{
-              backgroundColor: "#FFCC00",
-              color: "#000000",
-            }}
+            color="primary"
             type="submit"
             variant="contained"
-            color="secondary"
-            size="large"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />
             }

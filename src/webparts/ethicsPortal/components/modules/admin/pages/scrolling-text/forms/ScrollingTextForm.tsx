@@ -7,6 +7,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import * as React from "react";
+import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
 import { ScrollingTextInterface } from "../modals/UpdateScrollingTextModal";
 
 type Props = {
@@ -16,6 +17,7 @@ type Props = {
   canEnable: boolean;
   isLoading: boolean;
   label?: string;
+  isCreating?: boolean;
 };
 
 export const ScrollingTextForm: React.FC<Props> = ({
@@ -25,6 +27,7 @@ export const ScrollingTextForm: React.FC<Props> = ({
   canEnable,
   isLoading,
   label,
+  isCreating,
 }) => {
   return (
     <form
@@ -47,26 +50,37 @@ export const ScrollingTextForm: React.FC<Props> = ({
         fullWidth
         variant="outlined"
         label="Scrolling Text"
+        multiline
+        minRows={4}
       />
-      <Select
-        value={scrollText?.isEnabled ? 1 : 0}
-        onChange={(e) => {
-          console.log(e.target.value, "sel");
+      {!isCreating && (
+        <Select
+          value={scrollText?.isEnabled ? 1 : 0}
+          onChange={(e) => {
+            onUpdate({
+              ...scrollText,
+              isEnabled: e.target.value == 1 ? true : false,
+            });
+          }}
+          fullWidth
+          variant="outlined"
+          label="Select Status"
+        >
+          <MenuItem value={0}>Select Status</MenuItem>
+          {!canEnable && <MenuItem value={1}>Enable</MenuItem>}
+          <MenuItem value={0}>Stop</MenuItem>
+        </Select>
+      )}
 
-          onUpdate({
-            ...scrollText,
-            isEnabled: e.target.value == 1 ? true : false,
-          });
+      <Box
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
-        fullWidth
-        variant="outlined"
-        label="Select Status"
       >
-        <MenuItem value={0}>Select Status</MenuItem>
-        {!canEnable && <MenuItem value={1}>Enable</MenuItem>}
-        <MenuItem value={0}>Stop</MenuItem>
-      </Select>
-      <Box>
+        <CancelButton />
         <Button
           endIcon={isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"

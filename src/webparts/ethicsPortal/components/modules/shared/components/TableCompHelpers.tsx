@@ -28,6 +28,12 @@ export const TableHeaderStyles: React.CSSProperties = {
   color: "black",
   fontSize: "13px",
 };
+export const ButtonContainerStyles: React.CSSProperties = {
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent:"space-between"
+};
 
 export const TableIcons: Icons = {
   Add: React.forwardRef((props: any, ref: any) => (

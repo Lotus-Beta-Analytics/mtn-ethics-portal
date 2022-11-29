@@ -68,6 +68,7 @@ export const QuizContextProvider = ({ children }) => {
   const [seconds, setSeconds] = React.useState(60);
   const [QuizId, setQuizId] = React.useState<number>(null);
   const [expected, setExpected] = React.useState<number>(0);
+  const [staffScore, setStaffScore] = React.useState(0);
 
   React.useEffect(() => {
     const score = questions
@@ -75,6 +76,17 @@ export const QuizContextProvider = ({ children }) => {
       .reduce((a, b) => parseInt(a) + parseInt(b), 0);
     setExpected(score);
   }, [questions]);
+  React.useEffect(() => {
+    const score = responses
+      .filter((response) => response?.isCorrect)
+      .map((response) => response?.point)
+      .reduce((a: any, b: any) => parseInt(a) + parseInt(b), 0);
+    setStaffScore(score);
+  }, [responses]);
+
+  React.useEffect(() => {
+    console.log(staffScore);
+  }, [staffScore]);
 
   const toast = useToasts().addToast;
 
@@ -227,6 +239,7 @@ export const QuizContextProvider = ({ children }) => {
         ["QuizId"]: QuizId,
         duration: `${quizInfo?.duration}m:${seconds}s`,
         ExpectedScore: expected.toString(),
+        TotalPoints: staffScore.toString(),
       });
 
       setLoading(false);
@@ -266,7 +279,6 @@ export const QuizContextProvider = ({ children }) => {
           score: JSON.stringify({
             ...userResult,
           }),
-          TotalPoints: points.toString(),
         });
       history.push("/employee/quiz-result");
       setPage(0);

@@ -4,4 +4,5 @@ export interface TrainingType {
   TrainingTitle: string;
   Category: TrainingCategoryEnum;
   Video: string;
+  ThumbNail?: string;
 }

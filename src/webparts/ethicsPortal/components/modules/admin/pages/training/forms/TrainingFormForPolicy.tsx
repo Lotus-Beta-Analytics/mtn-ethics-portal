@@ -3,28 +3,47 @@ import { Autocomplete } from "@material-ui/lab";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import * as React from "react";
+import { WebContext } from "../../../../../EthicsPortal";
 import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
+import { ReadOnlyURLSearchParams } from "../../policies/ManagePoliciesPage";
 import { TrainingCategoryEnum } from "../enums/TrainingCategoryEnum";
 import { TrainingType } from "../types/TrainingTypes";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   training: TrainingType;
   onUpdate: React.Dispatch<TrainingType>;
   onSubmit: (e: React.FormEvent) => void;
-  context: WebPartContext;
   label?: string;
   isLoading: boolean;
 };
 
-export const VideoCourseForm: React.FC<Props> = ({
+export const TrainingFormForPolicy: React.FC<Props> = ({
   training,
   onUpdate,
   onSubmit,
-  context,
   label,
   isLoading,
 }) => {
+  const { context } = React.useContext(WebContext);
+  const { search } = useLocation();
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
+    [search]
+  );
+
+  if (!searchParams.get("filter")) return <></>;
+
+  React.useEffect(() => {
+    (async () => {
+      onUpdate({
+        ...training,
+        Category: searchParams.get("filter") as TrainingCategoryEnum,
+      });
+    })();
+  }, [searchParams.get("filter")]);
+
   return (
     <form
       onSubmit={(e) => onSubmit(e)}
@@ -43,27 +62,7 @@ export const VideoCourseForm: React.FC<Props> = ({
         onChange={(e) =>
           onUpdate({ ...training, TrainingTitle: e.target.value })
         }
-      />
-      <Autocomplete
-        id="type"
-        freeSolo={false}
-        options={courseCategories?.map((option) => option)}
-        fullWidth
-        value={training?.Category ?? ""}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Course Category"
-            margin="normal"
-            variant="outlined"
-          />
-        )}
-        onChange={(e, newValue) =>
-          onUpdate({
-            ...training,
-            Category: newValue as TrainingCategoryEnum,
-          })
-        }
+        required
       />
       <FileUpload
         context={context}
@@ -94,9 +93,3 @@ export const VideoCourseForm: React.FC<Props> = ({
     </form>
   );
 };
-
-export const courseCategories = [
-  TrainingCategoryEnum.Business_Ethics,
-  TrainingCategoryEnum.Mtn_Ethics,
-  TrainingCategoryEnum.Organisation_Ethics,
-];
