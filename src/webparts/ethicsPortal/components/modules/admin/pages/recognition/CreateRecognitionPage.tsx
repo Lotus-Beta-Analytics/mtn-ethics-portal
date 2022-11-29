@@ -39,34 +39,29 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
 
   const toast = useToasts().addToast;
   const submitHandler = async () => {
-    try {
-      const res = await sp.web.lists.getByTitle("EthicsRecognition").items.add({
-        Name: champion?.DisplayName,
-        Location: location,
-        Division: champion?.Department,
-        EthicalMessage: ethicalMessage,
-        RecognitionImage: file,
-      });
-
-      return res;
-    } catch (e) {
-      return e;
-    }
+    return await sp.web.lists.getByTitle("EthicsRecognition").items.add({
+      Name: champion?.DisplayName,
+      Location: location,
+      Division: champion?.Department,
+      EthicalMessage: ethicalMessage,
+      RecognitionImage: file,
+    });
   };
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllEthicalRecognition"]);
-      successAlert(toast, "Ethical Recognition Added");
-      setFile("");
-      setLocation("");
-      setDivision("");
-      setEthicalMessage("");
-      setName("");
-      setChampion({
-        DisplayName: "",
-        Email: "",
-        Department: "",
+      successAlert(toast, "Ethical Recognition Added").then(() => {
+        setFile("");
+        setLocation("");
+        setDivision("");
+        setEthicalMessage("");
+        setName("");
+        setChampion({
+          DisplayName: "",
+          Email: "",
+          Department: "",
+        });
       });
     },
     onError: () => {

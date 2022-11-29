@@ -42,7 +42,7 @@ export const UpdateRecognitionPage: React.FC<{ context: WebPartContext }> = ({
           .items.getById(recognitionId)
           .get();
         setDivision(res?.Division);
-        setFile(res?.EthicalImage);
+        setFile(res?.RecognitionImage);
         setLocation(res?.Location);
         setName(res?.Name);
         setEthicalMessage(res?.EthicalMessage);
@@ -156,6 +156,7 @@ export const UpdateRecognitionPage: React.FC<{ context: WebPartContext }> = ({
           style={{
             ...ButtonContainerStyles,
           }}
+          my={2}
         >
           <CancelButton isLoading={mutation.isLoading} />
           <Button

@@ -65,9 +65,8 @@ export const PolicyTable: React.FC<Props> = ({ policies, loading, title }) => {
           pageSize: 5,
           pageSizeOptions: [1, 2, 5],
           exportAllData: true,
-          exportFileName: "Projects",
+          exportFileName: "Policies",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[

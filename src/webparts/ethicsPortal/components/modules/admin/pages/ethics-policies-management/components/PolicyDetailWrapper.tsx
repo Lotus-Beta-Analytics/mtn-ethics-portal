@@ -51,7 +51,9 @@ export const PolicyDetailWrapper: React.FC<Props> = ({
         height="20%"
         width="100%"
       >
-        <Typography>{policy?.PolicyTitle}</Typography>
+        <Typography variant="body2" style={{ fontWeight: "bold" }}>
+          {policy?.PolicyTitle}
+        </Typography>
         <Box ml="auto">
           <CustomSplitButton options={options} />
         </Box>

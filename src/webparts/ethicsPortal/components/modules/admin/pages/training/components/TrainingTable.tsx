@@ -133,29 +133,6 @@ export const TrainingTable: React.FC<Props> = ({
               </IconButton>
             </Tooltip>
           ),
-          Toolbar: (props) => {
-            return (
-              <Box>
-                <MTableToolbar {...props} />
-                <Box
-                  width="100%"
-                  height="50px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<FaPlusCircle />}
-                    onClick={() => history.push(`/admin/training`)}
-                  >
-                    Add Training Resource
-                  </Button>
-                </Box>
-              </Box>
-            );
-          },
         }}
       />
       {itemToRemove && (

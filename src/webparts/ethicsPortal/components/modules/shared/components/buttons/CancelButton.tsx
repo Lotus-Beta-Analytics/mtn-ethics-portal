@@ -9,9 +9,10 @@ import { useHistory } from "react-router-dom";
 
 type Props = {
   isLoading?: boolean;
+  onClose?: () => void;
 };
 
-export const CancelButton: React.FC<Props> = ({ isLoading }) => {
+export const CancelButton: React.FC<Props> = ({ isLoading, onClose }) => {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
   return (
@@ -20,7 +21,7 @@ export const CancelButton: React.FC<Props> = ({ isLoading }) => {
         variant="contained"
         color="secondary"
         disabled={isLoading}
-        onClick={() => history.push("/admin/dashboard")}
+        onClick={() => (onClose ? onClose() : history.push("/admin/dashboard"))}
       >
         Cancel
       </Button>

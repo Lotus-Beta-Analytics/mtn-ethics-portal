@@ -59,13 +59,15 @@ export const RecognitionTable: React.FC<Props> = ({
             color: "#FF00dd",
           },
 
+          draggable: true,
+          showSelectAllCheckbox: true,
+
           actionsColumnIndex: -1,
           pageSize: 5,
           pageSizeOptions: [1, 2, 5],
           exportAllData: true,
           exportFileName: "Champions",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[
@@ -91,7 +93,7 @@ export const RecognitionTable: React.FC<Props> = ({
               setItemToRemove({
                 Id: rowData.Id,
                 data: {
-                  PostTitle: rowData.PostTitle,
+                  Name: rowData.Name,
                 },
               });
             },
@@ -131,7 +133,7 @@ export const RecognitionTable: React.FC<Props> = ({
             setItemToRemove(null);
           }}
           id={itemToRemove?.Id}
-          policy={itemToRemove?.data}
+          recognition={itemToRemove?.data}
         />
       )}
     </>

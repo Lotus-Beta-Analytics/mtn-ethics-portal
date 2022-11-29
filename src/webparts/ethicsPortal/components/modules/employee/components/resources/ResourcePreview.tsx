@@ -27,18 +27,18 @@ export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
       style={{ cursor: "pointer" }}
       width="auto"
     >
-      <ResourceThumbnailContainer bg="">
+      <ResourceThumbnailContainer bg={resource?.ThumbNail}>
         {/([A-Z])\.mp4/i.test(resource?.Video) ? (
           <FaVideo style={IconStyle} />
         ) : /([A-Z])\.pdf/i.test(resource?.Video) ? (
-          <FaFilePdf style={IconStyle} />
+          <></>
         ) : /([A-Z])\.pptx/i.test(resource?.Video) ? (
           <img
             style={IconStyle}
             src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/Shared%20Documents/pptx-logo.png"
           />
         ) : (
-          <FaImage style={IconStyle} />
+          <></>
         )}
       </ResourceThumbnailContainer>
       <Typography
@@ -60,7 +60,7 @@ export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
 const ResourceThumbnailContainer = styled.div<{ bg: string }>(({ bg }) => ({
   backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${bg}')`,
   width: "100%",
-  height: "75%",
+  height: "65%",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   borderRadius: "inherit",
@@ -73,13 +73,16 @@ const ResourcePreviewContainer = styled.div<{ bg?: string }>(({ bg }) => ({
   flexDirection: "column",
   boxSizing: "border-box",
   position: "relative",
-  borderRadius: "26px",
+  borderRadius: "20px",
   backgroundColor: "#fff",
   alignItems: "center",
+  boxShadow: "3px 3px 4px #FFCC00",
 
   "&:hover": {
     backgroundColor: "#FFCC00",
-    transform: "scale(1.1)",
     transition: "backgroundColor .2s ease-in-out",
+  },
+  "&:hover + *": {
+    zIndex: "99",
   },
 }));

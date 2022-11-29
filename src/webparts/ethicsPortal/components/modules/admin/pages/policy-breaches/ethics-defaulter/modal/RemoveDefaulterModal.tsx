@@ -49,8 +49,8 @@ export const RemoveDefaulterModal: React.FC<Props> = ({
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to <strong>remove</strong>{" "}
-          {defaulters?.PolicyBreachTitle}?<br></br>
+          Are you sure you want to <strong>remove</strong> {defaulters?.Title}?
+          <br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.
         </Typography>

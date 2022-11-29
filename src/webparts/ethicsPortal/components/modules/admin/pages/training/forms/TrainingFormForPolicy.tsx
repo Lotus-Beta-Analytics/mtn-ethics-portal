@@ -64,21 +64,42 @@ export const TrainingFormForPolicy: React.FC<Props> = ({
         }
         required
       />
-      <FileUpload
-        context={context}
-        fileControl={training?.Video}
-        onUpdate={(newValue) =>
-          onUpdate({
-            ...training,
-            Video: newValue,
-          })
-        }
-        accept={{
-          "video/mp4": [".mp4"],
-          "application/vnd.ms-powerpoint": [".pptx"],
-          "application/pdf": [".pdf"],
-        }}
-      />
+      <Box my={2}>
+        <p>Resource Thumbnail</p>
+        <FileUpload
+          context={context}
+          fileControl={training?.ThumbNail ?? ""}
+          onUpdate={(newValue) => {
+            onUpdate({
+              ...training,
+              ThumbNail: newValue,
+            });
+          }}
+          accept={{
+            "image/*": [".jpg", ".jpeg"],
+          }}
+        />
+      </Box>
+
+      <Box my={2}>
+        <p>Upload Resource</p>
+        <FileUpload
+          context={context}
+          fileControl={training?.Video}
+          onUpdate={(newValue) =>
+            onUpdate({
+              ...training,
+              Video: newValue,
+            })
+          }
+          accept={{
+            "video/mp4": [".mp4"],
+            "application/vnd.ms-powerpoint": [".pptx"],
+            "application/pdf": [".pdf"],
+          }}
+        />
+      </Box>
+
       <Box display="flex" width="100%" justifyContent="space-between">
         <CancelButton />
         <Button

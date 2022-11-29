@@ -21,14 +21,16 @@ export const PolicyTrainingPage: React.FC<Props> = ({
   const queryClient = useQueryClient();
   const mutation = useMutation(
     async () => {
-      return await sp.web.lists.getByTitle("Training").items.add({
-        ...training,
+      await sp.web.lists.getByTitle("Training").items.add({
+        Category: training?.Category,
+        TrainingTitle: training?.TrainingTitle,
+        Video: training?.Video,
+        ThumbNail: training?.ThumbNail,
       });
     },
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["trainings-policies"]);
-
         successAlert(null, "Created").then(() => {
           setComponent("table");
           setTraining(null);

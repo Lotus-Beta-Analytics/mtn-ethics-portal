@@ -165,7 +165,6 @@ export const GalleryTable: React.FC<Props> = ({ gallery, isLoading }) => {
                   <Select
                     value={item}
                     onChange={(e) => setItem(e.target.value as string)}
-                    variant="outlined"
                     style={{ fontWeight: "500" }}
                   >
                     <MenuItem

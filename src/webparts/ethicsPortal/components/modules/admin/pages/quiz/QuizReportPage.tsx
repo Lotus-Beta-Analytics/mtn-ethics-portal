@@ -81,9 +81,8 @@ export const QuizReportPage = () => {
         title: questionsArr[i].question,
         field: `${getAnswer(questionsArr[i].id)}`,
         type: "string",
-        export: true,
-
-        // hidden: true,
+        // export: true,
+        hidden: true,
       });
     }
 

@@ -21,7 +21,7 @@ export const theme = createTheme({
   },
   typography: {
     body2: {
-      fontSize: "12px",
+      fontSize: "14px",
       fontFamily: "sans-serif, Century Gothic",
     },
     allVariants: {
@@ -37,6 +37,13 @@ export const theme = createTheme({
       root: {
         textTransform: "capitalize",
         borderRadius: "10px",
+      },
+    },
+    MuiTextField: {
+      root: {
+        "& ::placeholder": {
+          fontSize: "12px",
+        },
       },
     },
   },

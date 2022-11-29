@@ -42,15 +42,15 @@ export const UpdatePolicyTrainingModal: React.FC<Props> = ({
 
   const mutation = useMutation(
     async () => {
-      try {
-        const res = await sp.web.lists
-          .getByTitle("Training")
-          .items.getById(id)
-          .update(itemToUpdate);
-        return res;
-      } catch (e) {
-        return e;
-      }
+      return await sp.web.lists
+        .getByTitle("Training")
+        .items.getById(id)
+        .update({
+          Category: itemToUpdate?.Category,
+          TrainingTitle: itemToUpdate?.TrainingTitle,
+          Video: itemToUpdate?.Video,
+          ThumbNail: itemToUpdate?.ThumbNail,
+        });
     },
     {
       onSuccess: (data) => {
