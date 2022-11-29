@@ -21,7 +21,7 @@ export const Label: React.FC<Props> = ({ header, content }) => {
         {header}:
       </Typography>
       {(() => {
-        if (content.length < 61) {
+        if (content?.length < 61) {
           return (
             <Typography
               variant="body2"

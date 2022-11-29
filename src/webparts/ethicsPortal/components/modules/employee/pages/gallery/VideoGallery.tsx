@@ -10,6 +10,7 @@ import { sp } from "@pnp/sp";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithImage";
 import { PaginationContainer } from "../../components/pagination/PaginationContainer";
+import { theme } from "../../../../themes/themes";
 
 export const VideoGallery = () => {
   const { search } = useLocation();
@@ -83,16 +84,26 @@ export const VideoGallery = () => {
           ) : (
             <>
               {filtered?.map((item) => (
-                <Box height="300px">
+                <Box height="330px" style={GalleryStyle}>
                   <video
                     src={item?.file}
-                    width="90%"
-                    height="90%"
+                    width="100%"
+                    height="80%"
                     controls
                     autoPlay={false}
-                    style={{ objectFit: "cover", borderRadius: "10px" }}
+                    style={{ objectFit: "cover", borderRadius: "inherit" }}
                   ></video>
-                  <Typography>{item?.imageLabel}</Typography>
+                  <Box
+                    width="100%"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    height="20%"
+                  >
+                    <Typography variant="body2" style={{ fontWeight: "bold" }}>
+                      {item?.imageLabel}
+                    </Typography>
+                  </Box>
                 </Box>
               ))}
             </>
@@ -101,4 +112,10 @@ export const VideoGallery = () => {
       </PaginationContainer>
     </EmployeeWrapper>
   );
+};
+
+export const GalleryStyle: React.CSSProperties = {
+  backgroundColor: "#fff",
+  borderRadius: "20px",
+  boxShadow: `3px 3px 4px ${theme.palette.primary.main}`,
 };

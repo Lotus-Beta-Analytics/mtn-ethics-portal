@@ -139,10 +139,10 @@ export const Post = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography variant="h5">{post?.PostTitle}</Typography>
-              <Typography>
+              <h3>{post?.PostTitle}</h3>
+              <p style={{ fontWeight: "bold", fontSize: "14px" }}>
                 Posted On: {dayjs(post?.Created).format("MMMM DD, YYYY")}
-              </Typography>
+              </p>
             </Box>
             <Box>
               {post?.content && (
@@ -166,7 +166,7 @@ export const Post = () => {
               />
             </Box>
             <Box className="comment-container">
-              <Typography variant="body1">Comments</Typography>
+              <p style={{ fontWeight: "bold", fontSize: "14px" }}>Comments</p>
               <Box
                 display="flex"
                 style={{

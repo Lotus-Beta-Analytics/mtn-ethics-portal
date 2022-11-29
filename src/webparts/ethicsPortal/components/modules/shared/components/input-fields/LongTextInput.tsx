@@ -30,13 +30,9 @@ export const LongTextInput: React.FC<Props> = ({
         maxRows={rows}
         InputProps={{
           onChange: (e) => {
-            if (e.target.value?.length > 49) return;
             onUpdate(e.target.value);
           },
         }}
-        helperText={`Please enter less than 50 words: You have ${Math.abs(
-          50 - (control ? control?.length : 0)
-        )} left`}
       />
     </Box>
   );

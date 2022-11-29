@@ -43,7 +43,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
     },
     { title: "Quiz Title", field: "QuizTitle" },
     { title: "Quiz ID", field: "QuizId" },
-    { title: "Duration", field: "duration" },
+    { title: "Duration (Minutes)", field: "duration" },
     { title: "Quiz Area", field: "area" },
     { title: "Quiz Topic", field: "topic" },
     {
@@ -87,8 +87,9 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
           });
         onUpdate(res);
         setEnabling(false);
-        successAlert(toast, "Quiz now running!");
-        setItem(null);
+        successAlert(toast, "Quiz now running!").then(() => {
+          setItem(null);
+        });
       }
     } catch (e) {
       setEnabling(false);
@@ -106,8 +107,8 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
         });
       onUpdate(res);
       setDisabling(false);
-      successAlert(toast, "Quiz stopped!");
       setItem(null);
+      successAlert(toast, "Quiz stopped!");
     } catch (e) {
       setDisabling(false);
       errorAlert(toast);

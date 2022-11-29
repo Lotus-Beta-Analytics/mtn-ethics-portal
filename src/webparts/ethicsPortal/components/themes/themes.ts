@@ -41,8 +41,13 @@ export const theme = createTheme({
     },
     MuiTextField: {
       root: {
-        "& ::placeholder": {
-          fontSize: "12px",
+        "::placeholder": {
+          fontSize: "14px",
+          fontWeight: "bold",
+        },
+        "MuiInputBase-input": {
+          fontSize: "14px",
+          fontWeight: "bold",
         },
       },
     },

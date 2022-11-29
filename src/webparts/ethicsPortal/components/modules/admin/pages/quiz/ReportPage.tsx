@@ -74,7 +74,7 @@ export const ReportPage = () => {
         <QuizReportTable
           quizReport={quizReport}
           column={columns}
-          title="All Responses"
+          title="All Participants Report"
         />
       </Box>
     </AdminWrapper>

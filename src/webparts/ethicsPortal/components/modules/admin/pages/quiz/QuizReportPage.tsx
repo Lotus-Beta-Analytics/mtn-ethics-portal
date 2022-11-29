@@ -140,13 +140,13 @@ export const QuizReportPage = () => {
           <QuizReportTable
             quizReport={quizReport}
             column={columns}
-            title={`${quizTitle} Quiz`}
+            title={`${quizTitle} Quiz Participants`}
           />
         ) : (
           <QuizReportTable
             quizReport={[]}
             column={columns}
-            title={`${quizTitle} Quiz`}
+            title={`${quizTitle} Quiz Participants`}
           />
         )}
       </Box>

@@ -53,7 +53,7 @@ export const QuizMetaData = (props: Props) => {
         <TextField
           variant="outlined"
           fullWidth
-          label="Quiz Duration"
+          label="Quiz Duration (Minutes)"
           value={quiz?.duration}
           name="duration"
           onChange={(e) => handleChange(e)}

@@ -12,12 +12,13 @@ export const PageHeaderWithImage: React.FC<Props> = ({ bg, text }) => {
   return (
     <TopContainer bg={bg}>
       <Typography
-        variant="h3"
+        variant="h2"
         style={{
           color: theme.palette.common.white,
           fontStyle: "italic",
           boxSizing: "border-box",
-          paddingRight: "20px",
+          paddingRight: "10px",
+          fontWeight: "bold",
         }}
       >
         {text}

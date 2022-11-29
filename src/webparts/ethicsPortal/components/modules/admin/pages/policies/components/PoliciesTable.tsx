@@ -51,7 +51,7 @@ export const PoliciesTable: React.FC<Props> = ({
     <>
       <MaterialTable
         icons={TableIcons}
-        title={title || "All Policies"}
+        title={title || "All Policy Content"}
         columns={columns}
         data={policies}
         isLoading={loading}
@@ -67,7 +67,6 @@ export const PoliciesTable: React.FC<Props> = ({
           exportAllData: true,
           exportFileName: "Policies",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[

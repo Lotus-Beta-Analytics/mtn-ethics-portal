@@ -10,6 +10,7 @@ import { sp } from "@pnp/sp";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithImage";
 import { PaginationContainer } from "../../components/pagination/PaginationContainer";
+import { GalleryStyle } from "./VideoGallery";
 
 export const PhotoGallery = () => {
   const { search } = useLocation();
@@ -85,7 +86,9 @@ export const PhotoGallery = () => {
               {filtered?.map((item) => (
                 <Box height="300px">
                   <PreviewContainer bg={item?.file}></PreviewContainer>
-                  <Typography>{item?.imageLabel}</Typography>
+                  <Typography variant="body2" style={{ fontWeight: "bold" }}>
+                    {item?.imageLabel}
+                  </Typography>
                 </Box>
               ))}
             </>

@@ -133,7 +133,7 @@ export const QuizReviewPage = () => {
               ) : (
                 <Box>
                   <Box minHeight="300px">
-                    <Box>
+                    {/* <Box>
                       <Typography variant="body1">
                         Thank you for taking the Quiz. You answered &nbsp;
                         <strong>{questions.length - wrongResponses}</strong> out
@@ -171,7 +171,7 @@ export const QuizReviewPage = () => {
                           );
                         })}
                       </Box>
-                    </Box>
+                    </Box> */}
                   </Box>
                 </Box>
               )}

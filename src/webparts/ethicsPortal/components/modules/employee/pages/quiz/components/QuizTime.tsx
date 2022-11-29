@@ -4,7 +4,7 @@ import { getQuizContextState } from "../context/QuizContext";
 
 export const QuizTime = () => {
   const { quizInfo, seconds } = getQuizContextState();
-  return quizInfo?.duration ? (
+  return (
     <Box
       className={quizInfo?.duration < 2 ? "running__out timer" : "timer within"}
     >
@@ -16,7 +16,5 @@ export const QuizTime = () => {
         {seconds > 9 ? seconds : `0${seconds}`}
       </Typography>
     </Box>
-  ) : (
-    <></>
   );
 };

@@ -105,9 +105,7 @@ export const AdminNavigation = (props: Props) => {
                         }}
                         className={activeSubMenu === i ? "sub__active" : ""}
                       >
-                        <Box>
-                          <sub.icon />
-                        </Box>
+                        <Box>{sub?.icon && <sub.icon />}</Box>
                         <Box>{sub.title}</Box>
                       </li>
                     );

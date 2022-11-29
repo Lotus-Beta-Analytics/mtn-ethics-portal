@@ -12,12 +12,13 @@ export const LandingPageHeaderWithImage: React.FC<Props> = ({ bg, text }) => {
   return (
     <LandingTopContainer bg={bg}>
       <Typography
-        variant="h3"
+        variant="h2"
         style={{
           color: theme.palette.common.white,
           fontStyle: "italic",
           boxSizing: "border-box",
           paddingRight: "20px",
+          fontWeight: "bold",
         }}
       >
         {text}
