@@ -10,7 +10,9 @@ import { WebPartContext } from "@microsoft/sp-webpart-base";
 
 import * as React from "react";
 import { Accept } from "react-dropzone";
+import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
+import { ButtonContainerStyles } from "../../../../shared/components/TableCompHelpers";
 
 export interface GalleryData {
   file: string;
@@ -101,13 +103,12 @@ export const GalleryForm: React.FC<Props> = ({
         />
       </Box>
       <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
+        style={{
+          ...ButtonContainerStyles,
         }}
         mt={3}
       >
+        <CancelButton />
         <Button
           color="primary"
           variant="contained"

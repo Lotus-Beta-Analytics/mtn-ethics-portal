@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import * as React from "react";
 import { AdminWrapper } from "../../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { PolicyDetailWrapper } from "../components/PolicyDetailWrapper";
@@ -14,6 +14,8 @@ import { TrainingTable } from "../../training/components/TrainingTable";
 import { WebContext } from "../../../../../EthicsPortal";
 import { LandingPage } from "../modals/LandingPageModal";
 import { UpdatePolicyContentPage } from "../../policies/UpdatePolicyPage";
+import { CreatePolicy } from "../../policies/CreatePolicy";
+import { PolicyTrainingPage } from "../../training/PolicyTrainingPage";
 
 export const PolicyDetailPage = () => {
   const { context } = React.useContext(WebContext);
@@ -54,7 +56,7 @@ export const PolicyDetailPage = () => {
       await sp.web.lists
         .getByTitle("Policies")
         .items.select(
-          "PolicyTitle, Created, Id, content, ID, SectionId/ID, SectionId/PolicyTitle"
+          "PolicyTitle, Created, Id, content, ID, SectionId/ID, SectionId/PolicyTitle, FileUrl"
         )
         .expand("SectionId")
         .filter(`SectionId eq '${policyId}'`)
@@ -120,12 +122,20 @@ export const PolicyDetailPage = () => {
           {(() => {
             if (searchParams.get("section") === "policyPage") {
               if (policyQueries.isLoading) return <></>;
+
+              if (policies[policies.length - 1]?.ID) {
+                return (
+                  <UpdatePolicyContentPage
+                    context={context}
+                    sectionId={policyId}
+                    policyId={policies[policies.length - 1]?.ID}
+                  />
+                );
+              }
               return (
-                <UpdatePolicyContentPage
-                  context={context}
-                  sectionId={policyId}
-                  policyId={policies[policies.length - 1]?.ID}
-                />
+                <Box>
+                  <CreatePolicy context={context} />
+                </Box>
               );
             }
             if (searchParams.get("section") === "landingPage") {
@@ -139,11 +149,9 @@ export const PolicyDetailPage = () => {
             }
             if (searchParams.get("section") === "trainingPage") {
               return (
-                <TrainingTable
-                  loading={trainingQueries.isLoading}
+                <PolicyTrainingPage
+                  isLoading={trainingQueries.isLoading}
                   trainings={trainings}
-                  context={context}
-                  title="Policy Training Resources"
                 />
               );
             }

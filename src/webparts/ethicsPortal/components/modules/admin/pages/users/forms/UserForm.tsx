@@ -15,7 +15,7 @@ export const UserForm: React.FC<Props> = ({ user, onUpdate }) => {
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
-        width: "80%",
+        width: "100%",
       }}
     >
       <Box my={2} width="100%">

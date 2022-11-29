@@ -8,9 +8,9 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const PieChart = () => {
   const { result } = getQuizContextState();
-  const labels = ["Correct", "Wrong", "Skipped"];
+  const labels = ["Correct", "Wrong"];
 
-  const series = [result?.correct, result?.wrong, result?.skipped];
+  const series = [result?.correct, result?.wrong];
 
   const fill = [colors.green[200], colors.red[200], colors.grey[200]];
 

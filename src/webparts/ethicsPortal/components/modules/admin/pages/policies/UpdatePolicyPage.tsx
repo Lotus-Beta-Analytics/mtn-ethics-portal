@@ -17,6 +17,7 @@ import { Policy } from "../../../employee/components/PolicyLandingComponent";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
+import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
 import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 import { CreateSection } from "../../components/blog-set-up/sections/CreateSection";
@@ -50,7 +51,7 @@ export const UpdatePolicyPage: React.FC<{ context: WebPartContext }> = ({
           .expand("SectionId")
           .get();
         setPostTitle(res?.PolicyTitle);
-        setFile(res?.FileURL);
+        setFile(res?.FileUrl);
         setSection({
           Content: "",
           Id: res?.SectionId["ID"],
@@ -78,7 +79,7 @@ export const UpdatePolicyPage: React.FC<{ context: WebPartContext }> = ({
       editPolicy(policyId, {
         PolicyTitle: postTitle,
         content: JSON.stringify(content),
-        PolicySection: section,
+        PolicySection: section?.PolicyTitle,
         FileUrl: file,
       }),
     {
@@ -120,21 +121,12 @@ export const UpdatePolicyPage: React.FC<{ context: WebPartContext }> = ({
           variant="outlined"
           value={postTitle}
           onChange={(e) => setPostTitle(e.target.value)}
-          label="Post Title"
+          label="Policy Title"
           fullWidth
           required
           style={{ margin: "1rem 0" }}
         />
         <Box>
-          {file && (
-            <img
-              src={file}
-              width="250px"
-              height="250px"
-              style={{ objectFit: "cover" }}
-            />
-          )}
-
           <Typography>Upload Image</Typography>
           <FileUpload
             fileControl={file}
@@ -159,18 +151,11 @@ export const UpdatePolicyPage: React.FC<{ context: WebPartContext }> = ({
         <Box
           style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
         >
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="large"
-            disabled={mutation.isLoading}
-          >
-            Cancel
-          </Button>
+          <CancelButton isLoading={mutation.isLoading} />
           <Button
             type="submit"
             variant="contained"
-            color="secondary"
+            color="primary"
             size="large"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />
@@ -200,7 +185,7 @@ export const UpdatePolicyContentPage: React.FC<{
   const [postTitle, setPostTitle] = React.useState("");
 
   const { data, isLoading, isError } = useQuery<any>(
-    ["getPolicy", sectionId],
+    ["getPolicy", policyId],
     async () => {
       try {
         const res = await sp.web.lists
@@ -212,7 +197,7 @@ export const UpdatePolicyContentPage: React.FC<{
           .expand("SectionId")
           .get();
         setPostTitle(res?.PolicyTitle);
-        setFile(res?.FileURL);
+        setFile(res?.FileUrl);
         setSection({
           Content: "",
           Id: res?.SectionId["ID"],
@@ -229,7 +214,7 @@ export const UpdatePolicyContentPage: React.FC<{
       }
     },
     {
-      enabled: !!sectionId,
+      enabled: !!policyId,
     }
   );
 
@@ -240,8 +225,9 @@ export const UpdatePolicyContentPage: React.FC<{
       editPolicy(policyId, {
         PolicyTitle: postTitle,
         content: JSON.stringify(content),
-        PolicySection: section,
+        PolicySection: section?.PolicyTitle,
         FileUrl: file,
+        SectionIdId: section?.Id,
       }),
     {
       onSuccess: () => {
@@ -281,18 +267,9 @@ export const UpdatePolicyContentPage: React.FC<{
         style={{ margin: "1rem 0" }}
       />
       <Box>
-        {file && (
-          <img
-            src={file}
-            width="250px"
-            height="250px"
-            style={{ objectFit: "cover" }}
-          />
-        )}
-
         <Typography>Upload Image</Typography>
         <FileUpload
-          fileControl={file}
+          fileControl={file ?? ""}
           onUpdate={(fileUrl) => setFile(fileUrl)}
           context={context}
         />
@@ -302,6 +279,7 @@ export const UpdatePolicyContentPage: React.FC<{
         <CreateSection
           section={section}
           onUpdate={(section) => setSection(section)}
+          label="Policy Section"
         />
       </Box>
       <Box my={2} style={{ overflowY: "auto" }}>
@@ -311,12 +289,16 @@ export const UpdatePolicyContentPage: React.FC<{
         />
       </Box>
 
-      <Box style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+      <Box
+        style={{
+          ...ButtonContainerStyles,
+        }}
+      >
         <CancelButton isLoading={mutation.isLoading} />
         <Button
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           size="large"
           endIcon={
             mutation.isLoading ? <CircularProgress size={20} /> : <Add />

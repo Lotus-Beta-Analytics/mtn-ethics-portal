@@ -11,7 +11,8 @@ import { QuizStatus } from "./modals/EnableQuizPromptModal";
 
 export const QuizReportPage = () => {
   const { quizId } = useParams();
-  const [quizReport, setQuizReport] = React.useState<any>();
+  const [quizReport, setQuizReport] = React.useState<any[]>([]);
+  const [quizTitle, setQuizTitle] = React.useState("");
   const toast = useToasts().addToast;
   const history = useHistory();
   React.useEffect(() => {
@@ -20,14 +21,14 @@ export const QuizReportPage = () => {
         const res = await sp.web.lists
           .getByTitle("QuizResponse")
           .items.select(
-            "Quiz/QuizTitle, Quiz/duration, Quiz/status, StaffName, responses, StaffEmail, score, TotalPoints, ExpectedScore"
+            "Quiz/QuizTitle, Quiz/duration, Quiz/status, StaffName, responses, StaffEmail, score, TotalPoints, ExpectedScore, Created, duration"
           )
           .expand("Quiz")
           .filter(`QuizId eq '${quizId}'`)
           .get();
 
         if (res?.length) {
-          setQuizReport(res[0]);
+          setQuizReport(res);
         }
       } catch (e) {
         errorAlert(toast);
@@ -44,11 +45,33 @@ export const QuizReportPage = () => {
       .items.getById(quizId)
       .get()
       .then((questions) => {
+        setQuizTitle(questions?.QuizTitle);
         setQuestions(
           questions?.questions ? JSON.parse(questions?.questions) : []
         );
       });
   }, [quizId]);
+
+  let ans = {} as any;
+  const getAnswer = (id: string | number) => {
+    if (!quizReport.length) return;
+    const found = quizReport.map(
+      (responses) => responses?.responses && JSON.parse(responses?.responses)
+    );
+    let start = 0;
+
+    while (start < found.length) {
+      const res = found[start].find((it) => it.id === id);
+      if (res) {
+        console.log(res);
+        break;
+      }
+      start++;
+    }
+    return ans;
+  };
+
+  // const optimizedFunctionToGetAnswer = React.useMemo(()=>getAnswer(id:string|number)=)
 
   const answersToQuestionsArr = () => {
     const obj = [];
@@ -56,42 +79,10 @@ export const QuizReportPage = () => {
     for (let i = 0; i < questionsArr?.length; i++) {
       obj.push({
         title: questionsArr[i].question,
-        field: `${questionsArr[i].question}`,
+        field: `${getAnswer(questionsArr[i].id)}`,
         type: "string",
-        render: () => {
-          return (
-            quizReport &&
-            JSON.parse(quizReport?.responses)
-              .filter((response) => {
-                return (
-                  response && response["question"] == questionsArr[i].question
-                );
-              })
-              .map((response) => {
-                return (
-                  <li
-                    style={{
-                      fontSize: "10px",
-                      listStyle: "none",
-                      display: "flex",
-                      padding: ".5rem",
-                      alignItems: "center",
-                      gap: ".5rem",
-                      minWidth: "40%",
-                    }}
-                  >
-                    <Typography>{response?.answer}</Typography>
-                    {response?.isCorrect ? (
-                      <FaCheck color="green" />
-                    ) : (
-                      <FaTimes color="red" />
-                    )}
-                  </li>
-                );
-              })
-          );
-        },
-        export: true,
+        // export: true,
+        hidden: true,
       });
     }
 
@@ -105,7 +96,7 @@ export const QuizReportPage = () => {
   const columns = [
     {
       title: "SN",
-      field: "tableData",
+      field: "tableData[id]",
       render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
     },
     { title: "Staff Name", field: "StaffName" },
@@ -131,15 +122,32 @@ export const QuizReportPage = () => {
       title: "Expected Score",
       field: "ExpectedScore",
     },
+    {
+      title: "TimeStamp",
+      field: "Created",
+      type: "datetime",
+    },
+    {
+      title: "Time Spent",
+      field: "duration",
+    },
   ];
 
   return (
     <AdminWrapper>
       <Box my={2}>
         {quizReport ? (
-          <QuizReportTable quizReport={[quizReport]} column={columns} />
+          <QuizReportTable
+            quizReport={quizReport}
+            column={columns}
+            title={`${quizTitle} Quiz Participants`}
+          />
         ) : (
-          <QuizReportTable quizReport={[]} column={columns} />
+          <QuizReportTable
+            quizReport={[]}
+            column={columns}
+            title={`${quizTitle} Quiz Participants`}
+          />
         )}
       </Box>
     </AdminWrapper>

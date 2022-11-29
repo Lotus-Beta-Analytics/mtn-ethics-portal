@@ -3,6 +3,7 @@ import { Autocomplete } from "@material-ui/lab";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import * as React from "react";
+import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { TrainingCategoryEnum } from "../enums/TrainingCategoryEnum";
 import { TrainingType } from "../types/TrainingTypes";
@@ -24,18 +25,6 @@ export const VideoCourseForm: React.FC<Props> = ({
   label,
   isLoading,
 }) => {
-  const [sections, setSections] = React.useState([]);
-
-  React.useEffect(() => {
-    (async () => {
-      const res = await sp.web.lists
-        .getByTitle("PolicyConfiguration")
-        .items.get();
-
-      setSections(res.map((item) => item.PolicyTitle).concat(courseCategories));
-    })();
-  }, []);
-
   return (
     <form
       onSubmit={(e) => onSubmit(e)}
@@ -58,7 +47,7 @@ export const VideoCourseForm: React.FC<Props> = ({
       <Autocomplete
         id="type"
         freeSolo={false}
-        options={sections?.map((option) => option)}
+        options={courseCategories?.map((option) => option)}
         fullWidth
         value={training?.Category ?? ""}
         renderInput={(params) => (
@@ -91,12 +80,13 @@ export const VideoCourseForm: React.FC<Props> = ({
           "application/pdf": [".pdf"],
         }}
       />
-      <Box>
+      <Box display="flex" width="100%" justifyContent="space-between">
+        <CancelButton />
         <Button
           type="submit"
           endIcon={isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           {label || "Create"}
         </Button>
@@ -105,7 +95,7 @@ export const VideoCourseForm: React.FC<Props> = ({
   );
 };
 
-const courseCategories = [
+export const courseCategories = [
   TrainingCategoryEnum.Business_Ethics,
   TrainingCategoryEnum.Mtn_Ethics,
   TrainingCategoryEnum.Organisation_Ethics,

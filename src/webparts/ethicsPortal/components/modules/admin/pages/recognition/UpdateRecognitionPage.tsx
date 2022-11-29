@@ -16,6 +16,7 @@ import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
+import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
 import { editRecognition } from "./apis/EditRecognition";
 
 export const UpdateRecognitionPage: React.FC<{ context: WebPartContext }> = ({
@@ -41,7 +42,7 @@ export const UpdateRecognitionPage: React.FC<{ context: WebPartContext }> = ({
           .items.getById(recognitionId)
           .get();
         setDivision(res?.Division);
-        setFile(res?.EthicalImage);
+        setFile(res?.RecognitionImage);
         setLocation(res?.Location);
         setName(res?.Name);
         setEthicalMessage(res?.EthicalMessage);
@@ -153,18 +154,15 @@ export const UpdateRecognitionPage: React.FC<{ context: WebPartContext }> = ({
 
         <Box
           style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "1rem",
-            marginTop: "20px",
+            ...ButtonContainerStyles,
           }}
+          my={2}
         >
           <CancelButton isLoading={mutation.isLoading} />
           <Button
             type="submit"
             variant="contained"
-            color="secondary"
-            size="large"
+            color="primary"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />
             }

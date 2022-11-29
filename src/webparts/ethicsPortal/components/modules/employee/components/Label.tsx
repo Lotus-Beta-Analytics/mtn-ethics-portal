@@ -20,12 +20,26 @@ export const Label: React.FC<Props> = ({ header, content }) => {
       >
         {header}:
       </Typography>
-      <Typography
-        variant="body2"
-        style={{ fontWeight: "bold", fontSize: "14px" }}
-      >
-        {content}
-      </Typography>
+      {(() => {
+        if (content?.length < 61) {
+          return (
+            <Typography
+              variant="body2"
+              style={{ fontWeight: "bold", fontSize: "14px" }}
+            >
+              {content}
+            </Typography>
+          );
+        }
+        return (
+          <Typography
+            variant="body2"
+            style={{ fontWeight: "bold", fontSize: "14px" }}
+          >
+            {content.substring(0, 60)}...
+          </Typography>
+        );
+      })()}
     </Box>
   );
 };

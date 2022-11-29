@@ -6,6 +6,8 @@ import { Policy } from "../../../../employee/components/PolicyLandingComponent";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../../components/blog-set-up/PostEditor";
 import { useHistory } from "react-router-dom";
+import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
+import { ButtonContainerStyles } from "../../../../shared/components/TableCompHelpers";
 
 type Props = {
   policy: Policy;
@@ -59,20 +61,16 @@ export const LandingPageForm: React.FC<Props> = ({
         />
       </Box>
 
-      <Box style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          size="large"
-          disabled={isLoading}
-          onClick={() => history.push("/admin/dashboard")}
-        >
-          Cancel
-        </Button>
+      <Box
+        style={{
+          ...ButtonContainerStyles,
+        }}
+      >
+        <CancelButton />
         <Button
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           size="large"
           endIcon={isLoading ? <CircularProgress size={20} /> : <Add />}
           disabled={isLoading}

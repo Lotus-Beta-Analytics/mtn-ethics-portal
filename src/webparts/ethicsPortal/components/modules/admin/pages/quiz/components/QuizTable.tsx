@@ -43,7 +43,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
     },
     { title: "Quiz Title", field: "QuizTitle" },
     { title: "Quiz ID", field: "QuizId" },
-    { title: "Duration", field: "duration" },
+    { title: "Duration (Minutes)", field: "duration" },
     { title: "Quiz Area", field: "area" },
     { title: "Quiz Topic", field: "topic" },
     {
@@ -87,8 +87,9 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
           });
         onUpdate(res);
         setEnabling(false);
-        successAlert(toast, "Quiz now running!");
-        setItem(null);
+        successAlert(toast, "Quiz now running!").then(() => {
+          setItem(null);
+        });
       }
     } catch (e) {
       setEnabling(false);
@@ -106,8 +107,8 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
         });
       onUpdate(res);
       setDisabling(false);
-      successAlert(toast, "Quiz stopped!");
       setItem(null);
+      successAlert(toast, "Quiz stopped!");
     } catch (e) {
       setDisabling(false);
       errorAlert(toast);
@@ -142,7 +143,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             iconProps: {
               style: { fontSize: "20px", color: "gold" },
             },
-            tooltip: "view-report",
+            tooltip: "view participants",
 
             onClick: (event, rowData) => {
               history.push(`quiz/${rowData?.Id}/report`);
@@ -155,7 +156,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             },
             tooltip: "edit",
 
-            onClick: (event, rowData: AdminQuizCreateType) => {
+            onClick: (event, rowData) => {
               setIsUpdating(true);
               setQuiz({
                 area: rowData.area,
@@ -166,7 +167,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
                 //@ts-ignore
                 questions: JSON.parse(rowData.questions),
                 startDate: rowData?.startDate,
-                title: rowData?.title,
+                title: rowData?.QuizTitle,
                 topic: rowData?.topic,
               });
               history.push("/admin/create-quiz");
@@ -180,8 +181,6 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
             tooltip: "remove",
 
             onClick: (event, rowData) => {
-              console.log(rowData, "....");
-
               setItemToRemove({
                 QuizId: rowData.ID,
                 QuizTitle: rowData.QuizTitle,
@@ -228,14 +227,14 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
                       position: "relative",
                     }}
                     color={
-                      props.action.tooltip === "view-report"
+                      props.action.tooltip === "view participants"
                         ? "primary"
                         : props.action.tooltip === "edit"
                         ? "default"
                         : "secondary"
                     }
                   >
-                    {props.action.tooltip === "view-report" ? (
+                    {props.action.tooltip === "view participants" ? (
                       <RemoveRedEye />
                     ) : props.action.tooltip === "edit" ? (
                       <Edit />

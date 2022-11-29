@@ -4,6 +4,7 @@ import {
   TextField,
   IconButton,
   colors,
+  Button,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import { uniqueId } from "lodash";
@@ -138,7 +139,12 @@ export const QuizQuestionSetUp = (props: Props) => {
         </Box>
 
         <Box width="100%">
-          <Box>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            style={{ gap: "2rem" }}
+          >
             <TextField
               variant="outlined"
               fullWidth
@@ -147,7 +153,11 @@ export const QuizQuestionSetUp = (props: Props) => {
               name="option"
               onChange={(e) => setOption(e.target.value)}
             />
-            <Box
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              disabled={!option}
               onClick={() => {
                 if (!option) return;
 
@@ -155,7 +165,6 @@ export const QuizQuestionSetUp = (props: Props) => {
                   updateOptionHandler();
                   return;
                 }
-                // setOptions([option, ...options]);
 
                 setQuestion({
                   ...question,
@@ -164,10 +173,9 @@ export const QuizQuestionSetUp = (props: Props) => {
 
                 setOption("");
               }}
-              className="action-btn"
             >
               {isUpdating ? "Update" : "Add"}
-            </Box>
+            </Button>
           </Box>
           <Box width="100%" display="flex" flexDirection="column">
             {question?.options?.length > 0 &&
@@ -228,56 +236,62 @@ export const QuizQuestionSetUp = (props: Props) => {
           />
         )}
 
-        <Box
-          onClick={() => {
-            if (
-              !question?.answer &&
-              !question?.options?.length &&
-              !question?.type
-            ) {
-              return;
-            }
+        <Box width="100%" display="flex" justifyContent="flex-end" my={2}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => {
+              if (
+                !question?.answer &&
+                !question?.options?.length &&
+                !question?.type
+              ) {
+                return;
+              }
 
+              setQuiz({
+                ...quiz,
+                questions: [
+                  ...(quiz?.questions ?? []),
+                  {
+                    ...question,
+                    id: uniqueId(),
+                  },
+                ],
+              });
+
+              setQuestion({
+                answer: "",
+                options: [],
+                question: "",
+                type: "",
+                point: null,
+                id: "",
+              });
+            }}
+          >
+            Add Question
+          </Button>
+        </Box>
+      </Box>
+      {quiz?.questions && (
+        <QuestionsTable
+          questions={quiz?.questions}
+          onUpdate={(res) => {
             setQuiz({
               ...quiz,
               questions: [
-                ...(quiz?.questions ?? []),
-                {
-                  ...question,
-                  id: uniqueId(),
-                },
+                ...quiz?.questions.filter(
+                  //@ts-ignore
+                  (it) => it.tableData.id !== res.tableData.id
+                ),
               ],
             });
-
-            setQuestion({
-              answer: "",
-              options: [],
-              question: "",
-              type: "",
-              point: null,
-              id: "",
-            });
+            setQuestion(res);
           }}
-          className="action-btn"
-        >
-          Add Question
-        </Box>
-      </Box>
-      <QuestionsTable
-        questions={quiz?.questions}
-        onUpdate={(res) => {
-          setQuiz({
-            ...quiz,
-            questions: [
-              ...quiz?.questions.filter(
-                //@ts-ignore
-                (it) => it.tableData.id !== res.tableData.id
-              ),
-            ],
-          });
-          setQuestion(res);
-        }}
-      />
+        />
+      )}
     </Box>
   );
 };

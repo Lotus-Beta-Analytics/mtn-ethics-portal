@@ -63,7 +63,6 @@ export const ManageDefaulterTable: React.FC<Props> = ({
           exportAllData: true,
           exportFileName: "Projects",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[
@@ -89,7 +88,7 @@ export const ManageDefaulterTable: React.FC<Props> = ({
               setItemToRemove({
                 Id: rowData.Id,
                 data: {
-                  Title: rowData.Title,
+                  Title: rowData.FirstName,
                 },
               });
             },
@@ -127,7 +126,7 @@ export const ManageDefaulterTable: React.FC<Props> = ({
           onClose={() => {
             setItemToRemove(null);
           }}
-          id={itemToRemove?.id}
+          id={itemToRemove?.Id}
           defaulters={itemToRemove?.data}
         />
       )}

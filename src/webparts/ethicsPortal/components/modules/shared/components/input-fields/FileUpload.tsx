@@ -75,18 +75,34 @@ export const FileUpload: React.FC<Props> = ({
             height: "200px",
           }}
         >
-          {/([A-Z])\.mp4/i.test(fileControl) ? (
-            <iframe src={fileControl} width="200px" height="150px"></iframe>
-          ) : (
-            <img
-              src={fileControl}
-              width="200px"
-              height="150px"
-              style={{
-                objectFit: "cover",
-              }}
-            />
-          )}
+          {(() => {
+            if (
+              /([A-Z])\.pdf/i.test(fileControl) ||
+              /([A-Z])\.mp4/i.test(fileControl) ||
+              /([A-Z])\.pptx/i.test(fileControl)
+            ) {
+              return (
+                <iframe
+                  src={fileControl}
+                  width="200px"
+                  height="150px"
+                  style={{
+                    objectFit: "cover",
+                  }}
+                ></iframe>
+              );
+            }
+            return (
+              <img
+                src={fileControl}
+                width="200px"
+                height="150px"
+                style={{
+                  objectFit: "cover",
+                }}
+              />
+            );
+          })()}
 
           <IconButton onClick={() => onUpdate(null)}>
             <ClearRoundedIcon />
@@ -101,7 +117,7 @@ export const FileUpload: React.FC<Props> = ({
           }}
           accept={accept}
           multiple={false}
-          maxSize={10000000}
+          maxSize={20000000}
           onDropRejected={(error) => {
             fileUploadErrorDisplay(toast, error);
           }}

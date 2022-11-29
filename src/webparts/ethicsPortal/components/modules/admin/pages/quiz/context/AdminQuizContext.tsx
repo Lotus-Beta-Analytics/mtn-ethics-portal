@@ -118,6 +118,7 @@ export const CreateAdminQuizContextProvider: React.FC<{
         QuizId: quiz?.QuizId,
       });
       successAlert(toast);
+      history.push("/admin/manage-quiz");
       setLoading(false);
     } catch (e) {
       errorAlert(toast);
@@ -138,6 +139,8 @@ export const CreateAdminQuizContextProvider: React.FC<{
           QuizTitle: quiz?.title,
           instruction: quiz?.instruction,
           topic: quiz?.topic,
+          area: quiz?.area,
+          QuizId: quiz?.QuizId,
         });
       successAlert(toast, "Quiz Updated");
       history.push("/admin/manage-quiz");

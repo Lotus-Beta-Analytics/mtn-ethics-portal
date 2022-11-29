@@ -6,7 +6,7 @@ export const theme = createTheme({
       main: "#FFCC00",
     },
     secondary: {
-      main: "#006993",
+      main: "#000",
     },
     common: {
       black: "#202020",
@@ -21,7 +21,7 @@ export const theme = createTheme({
   },
   typography: {
     body2: {
-      fontSize: "12px",
+      fontSize: "14px",
       fontFamily: "sans-serif, Century Gothic",
     },
     allVariants: {
@@ -32,12 +32,23 @@ export const theme = createTheme({
   overrides: {
     MuiButton: {
       containedPrimary: {
-        width: "180px",
-        borderRadius: "26px",
         backgroundColor: "#FFCC00",
       },
       root: {
         textTransform: "capitalize",
+        borderRadius: "10px",
+      },
+    },
+    MuiTextField: {
+      root: {
+        "::placeholder": {
+          fontSize: "14px",
+          fontWeight: "bold",
+        },
+        "MuiInputBase-input": {
+          fontSize: "14px",
+          fontWeight: "bold",
+        },
       },
     },
   },

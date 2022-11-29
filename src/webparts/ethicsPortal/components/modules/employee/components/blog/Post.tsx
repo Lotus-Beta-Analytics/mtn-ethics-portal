@@ -1,7 +1,6 @@
 import { Avatar, Box, Typography } from "@material-ui/core";
 import * as React from "react";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { PageWrapper } from "../../../shared/components/app-wrapper/employee/PageWrapper";
 import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithImage";
 import { useParams } from "react-router-dom";
 import * as dayjs from "dayjs";
@@ -11,10 +10,10 @@ import { PostAction } from "./PostAction";
 import { EnterComment } from "./EnterComment";
 import Button from "@material-ui/core/Button";
 import { sp } from "@pnp/sp";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { FaShare } from "react-icons/fa";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { AddToast, useToasts } from "react-toast-notifications";
+import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { BlogContent } from "../../../admin/components/blog-set-up/BlogContent";
 import * as _ from "lodash";
@@ -22,6 +21,7 @@ import * as _ from "lodash";
 type User = {
   name: string;
   photoUrl: string;
+  Email: string;
 };
 
 export const Post = () => {
@@ -33,6 +33,7 @@ export const Post = () => {
       return {
         name: res?.DisplayName,
         photoUrl: res?.PictureUrl,
+        Email: res?.Email,
       };
     } catch (e) {
       errorAlert(toast);
@@ -138,10 +139,10 @@ export const Post = () => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography variant="h5">{post?.PostTitle}</Typography>
-              <Typography>
+              <h3>{post?.PostTitle}</h3>
+              <p style={{ fontWeight: "bold", fontSize: "14px" }}>
                 Posted On: {dayjs(post?.Created).format("MMMM DD, YYYY")}
-              </Typography>
+              </p>
             </Box>
             <Box>
               {post?.content && (
@@ -161,10 +162,11 @@ export const Post = () => {
                 unLikes={unLikes?.length}
                 postId={post?.Id}
                 setPage={setPage}
+                StaffEmail={data?.Email}
               />
             </Box>
             <Box className="comment-container">
-              <Typography variant="body1">Comments</Typography>
+              <p style={{ fontWeight: "bold", fontSize: "14px" }}>Comments</p>
               <Box
                 display="flex"
                 style={{

@@ -30,9 +30,9 @@ export const PostPreviewItem: React.FC<Props> = ({ post }) => {
           <MButton text="Read More" endIcon={<FaAngleDoubleRight />} />
         </MLink>
       </PreviewContainer>
-      <Typography>
+      <p style={{ fontWeight: "bold" }}>
         Posted on {new Date(post?.Created).toDateString()}
-      </Typography>
+      </p>
     </Box>
   );
 };
@@ -59,6 +59,6 @@ export const PreviewContainer = styled.div<{
     backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
     backgroundSize: "cover",
     borderRadius: "10px",
-    transform: "scale(0.9)",
+    transform: "scale(1.1)",
   },
 }));

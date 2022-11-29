@@ -11,6 +11,7 @@ type Props = {
   postId?: number | string;
   commentId?: number | string;
   setPage: (page: number) => void;
+  StaffEmail: string;
 };
 
 export const PostAction: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const PostAction: React.FC<Props> = ({
   unLikes,
   postId,
   setPage,
+  StaffEmail,
 }) => {
   const [likePostSet, setLikePostset] = React.useState<Set<number | string>>();
   const [unLikePostSet, setUnLikePostset] =
@@ -28,7 +30,7 @@ export const PostAction: React.FC<Props> = ({
     try {
       const resPost = await sp.web.lists
         .getByTitle("Likes")
-        .items.filter(`PostId eq '${postId}'`)
+        .items.filter(`PostId eq '${postId}' and StaffEmail eq '${StaffEmail}'`)
         .get();
       if (resPost.length > 0) {
         return;
@@ -36,6 +38,7 @@ export const PostAction: React.FC<Props> = ({
       postId && setLikePostset(new Set([postId]));
       await sp.web.lists.getByTitle("Likes").items.add({
         PostId: String(postId),
+        StaffEmail,
         ["POSTID0Id"]: postId,
       });
       setLikePostset(new Set());
@@ -52,7 +55,7 @@ export const PostAction: React.FC<Props> = ({
     try {
       const resPost = await sp.web.lists
         .getByTitle("Likes")
-        .items.filter(`PostId eq '${postId}'`)
+        .items.filter(`PostId eq '${postId}' and StaffEmail eq '${StaffEmail}'`)
         .get();
       if (resPost.length > 0) {
         await sp.web.lists
@@ -76,6 +79,7 @@ export const PostAction: React.FC<Props> = ({
         setUnLikePostset(new Set([postId]));
         await sp.web.lists.getByTitle("UnLikes").items.add({
           PostId: String(postId),
+          StaffEmail,
         });
         setPage(-1);
         setUnLikePostset(new Set());

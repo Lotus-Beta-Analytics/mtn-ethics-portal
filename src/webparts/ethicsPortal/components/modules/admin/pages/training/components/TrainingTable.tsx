@@ -63,11 +63,10 @@ export const TrainingTable: React.FC<Props> = ({
           actionsColumnIndex: -1,
           pageSize: 5,
           pageSizeOptions: [5, 10, 20],
-          search: false,
+
           exportAllData: true,
           exportFileName: "Scrolls",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[
@@ -134,29 +133,6 @@ export const TrainingTable: React.FC<Props> = ({
               </IconButton>
             </Tooltip>
           ),
-          Toolbar: (props) => {
-            return (
-              <Box>
-                <MTableToolbar {...props} />
-                <Box
-                  width="100%"
-                  height="50px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<FaPlusCircle />}
-                    onClick={() => history.push(`/admin/training`)}
-                  >
-                    Add Training Resource
-                  </Button>
-                </Box>
-              </Box>
-            );
-          },
         }}
       />
       {itemToRemove && (

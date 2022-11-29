@@ -21,6 +21,7 @@ import { ReadOnlyURLSearchParams } from "./ManagePoliciesPage";
 import { useLocation } from "react-router-dom";
 import { Policy } from "../../../employee/components/PolicyLandingComponent";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
+import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
 
 type Props = {
   context: WebPartContext;
@@ -72,7 +73,7 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
   });
 
   return (
-    <AdminWrapper>
+    <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -85,7 +86,7 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
           padding: "1.5rem 1rem",
         }}
       >
-        <Typography>Create Policy</Typography>
+        <Typography>Create Policy Content</Typography>
         <TextField
           variant="outlined"
           value={postTitle}
@@ -108,6 +109,7 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
           <CreateSection
             section={section}
             onUpdate={(section) => setSection(section)}
+            label="Policy Section"
           />
         </Box>
         <Box my={2} style={{ overflowY: "auto" }}>
@@ -115,13 +117,15 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
         </Box>
 
         <Box
-          style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
+          style={{
+            ...ButtonContainerStyles,
+          }}
         >
           <CancelButton isLoading={mutation.isLoading} />
           <Button
             type="submit"
             variant="contained"
-            color="secondary"
+            color="primary"
             size="large"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />
@@ -132,6 +136,6 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
           </Button>
         </Box>
       </form>
-    </AdminWrapper>
+    </>
   );
 };

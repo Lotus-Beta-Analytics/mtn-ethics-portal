@@ -61,15 +61,12 @@ export const CreateQuizPage = () => {
         </Stepper>
         <div>
           {activeStep === steps.length ? (
-            <div>
-              <Typography>
-                All steps completed - you&apos;re finished
-              </Typography>
-              <Button onClick={handleReset}>Reset</Button>
-            </div>
+            <div></div>
           ) : (
-            <div style={{ position: "relative", height: "70vh" }}>
-              {getStepContent(activeStep)}
+            <div style={{ position: "relative", minHeight: "80vh" }}>
+              <Box height="80%" my={2} width="100%">
+                {getStepContent(activeStep)}
+              </Box>
               <div style={{ position: "absolute", bottom: 0, right: 0 }}>
                 <Button disabled={activeStep === 0} onClick={handleBack}>
                   Back
@@ -77,6 +74,18 @@ export const CreateQuizPage = () => {
                 <Button
                   variant="contained"
                   color="primary"
+                  disabled={loading}
+                  onClick={() => {
+                    isUpdating ? updateHandler(quiz?.ID) : submitHandler();
+                  }}
+                  style={{ margin: "0 10px" }}
+                >
+                  Save for later
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={loading}
                   onClick={() => {
                     if (activeStep === steps.length - 1) {
                       isUpdating ? updateHandler(quiz?.ID) : submitHandler();

@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   CircularProgress,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -11,12 +13,17 @@ import { useHistory } from "react-router-dom";
 import { Autocomplete } from "@material-ui/lab";
 import { useToasts } from "react-toast-notifications";
 import { sp } from "@pnp/sp";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { locations } from "../../gallery/forms/GalleryForm";
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { Add } from "@material-ui/icons";
 import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
 import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
+import { ButtonContainerStyles } from "../../../../shared/components/TableCompHelpers";
+import { ManageDeafulters } from "../manage-defaulters/ManageDeafulters";
+import { getAllDefaulters } from "../apis/GetAllDefaulters";
+import { ManageDefaulterTable } from "../components/ManageDefaulterTable";
+import { LongTextInput } from "../../../../shared/components/input-fields/LongTextInput";
 
 export const AdminEthicsDefaulter = ({ context }) => {
   const [ethicsHandler, setEthicsHandler] = React.useState("");
@@ -50,25 +57,31 @@ export const AdminEthicsDefaulter = ({ context }) => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllDefaulters"]);
-      successAlert(toast, "Ethics Defaulter Added Successfully");
-      setEthicsImageUrl("");
-      setLocation("");
-      setDivision("");
-      setEthicsMessage("");
-      setFirstName("");
-      setLastName("");
+      successAlert(toast, "Ethics Defaulter Added Successfully").then(() => {
+        setEthicsImageUrl("");
+        setLocation("");
+        setDivision("");
+        setEthicsMessage("");
+        setFirstName("");
+        setLastName("");
+      });
     },
     onError: () => {
       errorAlert(toast);
     },
   });
+  const [component, setComponent] = React.useState("form");
+  const { data, isLoading, isError } = useQuery<any>(
+    ["getAllDefaulters"],
+    getAllDefaulters
+  );
 
   return (
     <AdminWrapper>
       <Box style={{ float: "right" }}>
-        <select
-          onChange={(e) => setEthicsHandler(e.target.value)}
-          value={ethicsHandler}
+        <Select
+          onChange={(e) => setComponent(e.target.value as string)}
+          value={component}
           style={{
             padding: "0.5rem 3rem",
             borderRadius: "26px",
@@ -77,9 +90,9 @@ export const AdminEthicsDefaulter = ({ context }) => {
             height: "3rem",
           }}
         >
-          <option>Add Defaulters</option>
-          <option onClick={manageHandler}>Manage Defaulters</option>
-        </select>
+          <MenuItem value="form">Add Defaulters</MenuItem>
+          <MenuItem value="table">Manage Defaulters</MenuItem>
+        </Select>
       </Box>
       <Box
         style={{
@@ -87,104 +100,114 @@ export const AdminEthicsDefaulter = ({ context }) => {
           marginTop: "60px",
         }}
       >
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            mutation.mutate();
-          }}
-        >
-          <Typography>First Name</Typography>
-          <TextField
-            variant="outlined"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            label="First Name"
-            fullWidth
-            required
-            style={{ margin: "1rem 0" }}
-          />
-          <Typography>Last Name</Typography>
-          <TextField
-            variant="outlined"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            label="Last Name"
-            fullWidth
-            required
-            style={{ margin: "1rem 0" }}
-          />
-          <Typography>Location</Typography>
-          <Autocomplete
-            id="type"
-            freeSolo={false}
-            options={locations?.map((option) => option)}
-            fullWidth
-            value={location}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Choose Location"
-                margin="normal"
-                variant="outlined"
-                required
-              />
-            )}
-            onChange={(e, newvalue) => setLocation(newvalue)}
-          />
-          <Typography>Division</Typography>
-          <TextField
-            variant="outlined"
-            value={division}
-            onChange={(e) => setDivision(e.target.value)}
-            label="Division"
-            fullWidth
-            required
-            style={{ margin: "1rem 0" }}
-          />
+        {(() => {
+          if (component === "form") {
+            return (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  mutation.mutate();
+                }}
+              >
+                <Typography>First Name</Typography>
+                <TextField
+                  variant="outlined"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  label="First Name"
+                  fullWidth
+                  required
+                  style={{ margin: "1rem 0" }}
+                />
+                <Typography>Last Name</Typography>
+                <TextField
+                  variant="outlined"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  label="Last Name"
+                  fullWidth
+                  required
+                  style={{ margin: "1rem 0" }}
+                />
+                <Typography>Location</Typography>
+                <Autocomplete
+                  id="type"
+                  freeSolo={false}
+                  options={locations?.map((option) => option)}
+                  fullWidth
+                  value={location}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Choose Location"
+                      margin="normal"
+                      variant="outlined"
+                      required
+                    />
+                  )}
+                  onChange={(e, newvalue) => setLocation(newvalue)}
+                />
+                <Typography>Division</Typography>
+                <TextField
+                  variant="outlined"
+                  value={division}
+                  onChange={(e) => setDivision(e.target.value)}
+                  label="Division"
+                  fullWidth
+                  required
+                  style={{ margin: "1rem 0" }}
+                />
 
-          <Box style={{ marginBottom: "20px" }}>
-            <Typography>Upload Image</Typography>
-            <FileUpload
-              fileControl={ethicsImageUrl}
-              onUpdate={(fileUrl) => setEthicsImageUrl(fileUrl)}
-              context={context}
+                <Box style={{ marginBottom: "20px" }}>
+                  <Typography>Upload Image</Typography>
+                  <FileUpload
+                    fileControl={ethicsImageUrl}
+                    onUpdate={(fileUrl) => setEthicsImageUrl(fileUrl)}
+                    context={context}
+                  />
+                </Box>
+
+                <Typography>Ethics Message</Typography>
+                <LongTextInput
+                  control={ethicsMessage}
+                  onUpdate={(value) => setEthicsMessage(value)}
+                  label="Ethics Message"
+                />
+
+                <Box
+                  style={{
+                    ...ButtonContainerStyles,
+                  }}
+                >
+                  <CancelButton isLoading={mutation.isLoading} />
+                  <Button
+                    color="primary"
+                    type="submit"
+                    variant="contained"
+                    endIcon={
+                      mutation.isLoading ? (
+                        <CircularProgress size={20} />
+                      ) : (
+                        <Add />
+                      )
+                    }
+                    disabled={mutation.isLoading}
+                  >
+                    Create
+                  </Button>
+                </Box>
+              </form>
+            );
+          }
+
+          return (
+            <ManageDefaulterTable
+              manageDefaulters={data}
+              loading={isLoading}
+              title="Manage Ethics Defaulters"
             />
-          </Box>
-
-          <Typography>Ethics Message</Typography>
-          <TextField
-            variant="outlined"
-            value={ethicsMessage}
-            onChange={(e) => setEthicsMessage(e.target.value)}
-            label="Ethics Message"
-            fullWidth
-            required
-            style={{ margin: "1rem 0" }}
-            multiline
-            minRows={10}
-          />
-
-          <Box
-            style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
-          >
-            <CancelButton isLoading={mutation.isLoading} />
-            <Button
-              style={{
-                backgroundColor: "#FFCC00",
-                color: "#000000",
-              }}
-              type="submit"
-              variant="contained"
-              size="large"
-              endIcon={
-                mutation.isLoading ? <CircularProgress size={20} /> : <Add />
-              }
-              disabled={mutation.isLoading}
-            >
-              Create
-            </Button>
-          </Box>
-        </form>
+          );
+        })()}
       </Box>
     </AdminWrapper>
   );

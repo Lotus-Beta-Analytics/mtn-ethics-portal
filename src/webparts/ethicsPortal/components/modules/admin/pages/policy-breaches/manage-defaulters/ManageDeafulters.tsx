@@ -4,13 +4,6 @@ import { AdminWrapper } from "../../../../shared/components/app-wrapper/admin/Ad
 import { getAllDefaulters } from "../apis/GetAllDefaulters";
 import { ManageDefaulterTable } from "../components/ManageDefaulterTable";
 
-export interface ReadOnlyURLSearchParams extends URLSearchParams {
-  append: never;
-  set: never;
-  delete: never;
-  sort: never;
-}
-
 export const ManageDeafulters = () => {
   const { data, isLoading, isError } = useQuery<any>(
     ["getAllDefaulters"],

@@ -6,13 +6,17 @@ import {
   TableStyles,
 } from "../../../../shared/components/TableCompHelpers";
 
-type Props = { quizReport: any[]; column: any[] };
+type Props = { quizReport: any[]; column: any[]; title: string };
 
-export const QuizReportTable: React.FC<Props> = ({ quizReport, column }) => {
+export const QuizReportTable: React.FC<Props> = ({
+  quizReport,
+  column,
+  title,
+}) => {
   return (
     <MaterialTable
       icons={TableIcons}
-      title={`Quiz Report`}
+      title={title}
       columns={column}
       data={quizReport}
       options={{

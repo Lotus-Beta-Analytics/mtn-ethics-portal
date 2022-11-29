@@ -40,7 +40,10 @@ export const DeleteTrainingVideoModal: React.FC<Props> = ({
       onSuccess: () => {
         successAlert(toast, "Delete successful");
         onClose(true);
-        queryClient.invalidateQueries(["getVideoCourses"]);
+        queryClient.invalidateQueries([
+          "getVideoCourses",
+          "trainings-policies",
+        ]);
       },
       onError: () => {
         errorAlert(toast);
@@ -57,7 +60,7 @@ export const DeleteTrainingVideoModal: React.FC<Props> = ({
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={() => onClose()} variant="outlined">
+        <Button color="secondary" onClick={() => onClose()} variant="contained">
           Cancel
         </Button>
         <Button
@@ -66,7 +69,7 @@ export const DeleteTrainingVideoModal: React.FC<Props> = ({
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Proceed
         </Button>

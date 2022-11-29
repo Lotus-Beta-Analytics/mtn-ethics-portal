@@ -69,6 +69,7 @@ import { ManageCarouselPage } from "./modules/admin/pages/carousel/ManageCarouse
 import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-defaulters/ManageDeafulters";
 import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
 import { EthicsResourceDisplayPage } from "./modules/employee/components/EthicsResourceDisplayPage";
+import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -262,168 +263,159 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       component={EthicsResourceDisplayPage}
                     />
 
-                    {isAdmin && (
-                      <Switch>
-                        <Route
-                          exact
-                          path="/admin/dashboard"
-                          render={() => <AdminDashboard />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/user/create"
-                          render={() => <CreateAdminPage />}
-                        />
+                    <Route
+                      exact
+                      path="/admin/dashboard"
+                      render={() => <AdminDashboard />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/user/create"
+                      render={() => <CreateAdminPage />}
+                    />
 
-                        <Route
-                          exact
-                          path="/admin/create-post"
-                          render={() => <CreateBlogPost context={context} />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/post/:postId/update"
-                          render={() => (
-                            <UpdateBlogPostPage context={context} />
-                          )}
-                        />
-                        <Route
-                          exact
-                          path="/admin/manage-posts"
-                          render={() => <ManageBlogPostsPage />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/create-quiz"
-                          render={() => <CreateQuizPage />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/manage-quiz"
-                          render={() => <ManageQuizPage />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/quiz/:quizId/report"
-                          render={() => <QuizReportPage />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/gallery/"
-                          render={() => <Gallery />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/gallery/:uploadId/update"
-                          render={() => <UpdateGalleryPage context={context} />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/gallery/images"
-                          render={() => <ImageUploadPage context={context} />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/gallery/videos"
-                          render={() => <VideoUploadPage context={context} />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/recognition/create"
-                          render={() => <CreateRecognition context={context} />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/recognition/manage"
-                          render={() => <ManageRecognitionPage />}
-                        />
+                    <Route
+                      exact
+                      path="/admin/create-post"
+                      render={() => <CreateBlogPost context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/post/:postId/update"
+                      render={() => <UpdateBlogPostPage context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/manage-posts"
+                      render={() => <ManageBlogPostsPage />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/create-quiz"
+                      render={() => <CreateQuizPage />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/manage-quiz"
+                      render={() => <ManageQuizPage />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/quiz/:quizId/report"
+                      render={() => <QuizReportPage />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/quiz-report"
+                      render={() => <ReportPage />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/gallery/"
+                      render={() => <Gallery />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/gallery/:uploadId/update"
+                      render={() => <UpdateGalleryPage context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/gallery/images"
+                      render={() => <ImageUploadPage context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/gallery/videos"
+                      render={() => <VideoUploadPage context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/recognition/create"
+                      render={() => <CreateRecognition context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/recognition/manage"
+                      render={() => <ManageRecognitionPage />}
+                    />
 
-                        <Route
-                          exact
-                          path="/admin/recognition/:recognitionId/update"
-                          render={() => (
-                            <UpdateRecognitionPage context={context} />
-                          )}
-                        />
+                    <Route
+                      exact
+                      path="/admin/recognition/:recognitionId/update"
+                      render={() => <UpdateRecognitionPage context={context} />}
+                    />
 
-                        <Route
-                          exact
-                          path="/admin/scrolling-text"
-                          component={ScrollingTextSetUpPage}
-                        />
-                        <Route
-                          exact
-                          path="/admin/carousel"
-                          component={ManageCarouselPage}
-                        />
-                        <Route
-                          exact
-                          path="/admin/training"
-                          render={() => <VideoTrainingPage context={context} />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/policies"
-                          render={() => <ManagePoliciesPage />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/policy/:policyId/update"
-                          render={() => <UpdatePolicyPage context={context} />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/create-policy"
-                          render={() => <CreatePolicy context={context} />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/manage-policy"
-                          render={() => <ManageAdminPolicyPage />}
-                        />
-                        <Route
-                          exact
-                          path="/admin/policy/:policyId"
-                          render={() => <PolicyDetailPage />}
-                        />
+                    <Route
+                      exact
+                      path="/admin/scrolling-text"
+                      component={ScrollingTextSetUpPage}
+                    />
+                    <Route
+                      exact
+                      path="/admin/carousel"
+                      component={ManageCarouselPage}
+                    />
+                    <Route
+                      exact
+                      path="/admin/training"
+                      render={() => <VideoTrainingPage context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/policies"
+                      render={() => <ManagePoliciesPage />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/policy/:policyId/update"
+                      render={() => <UpdatePolicyPage context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/create-policy"
+                      render={() => <CreatePolicy context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/manage-policy"
+                      render={() => <ManageAdminPolicyPage />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/policy/:policyId"
+                      render={() => <PolicyDetailPage />}
+                    />
 
-                        {/* Start of Policy Breaches */}
+                    {/* Start of Policy Breaches */}
 
-                        <Route
-                          exact
-                          path="/admin/policy-breaches"
-                          render={() => (
-                            <PolicyBreachesForm context={context} />
-                          )}
-                        />
+                    <Route
+                      exact
+                      path="/admin/policy-breaches"
+                      render={() => <PolicyBreachesForm context={context} />}
+                    />
 
-                        <Route
-                          exact
-                          path="/admin/ethicsdefaulters"
-                          render={() => (
-                            <AdminEthicsDefaulter context={context} />
-                          )}
-                        />
+                    <Route
+                      exact
+                      path="/admin/ethicsdefaulters"
+                      render={() => <AdminEthicsDefaulter context={context} />}
+                    />
 
-                        <Route
-                          exact
-                          path="/admin/ethics/managedefaulters"
-                          render={() => <ManageDeafulters />}
-                        />
+                    <Route
+                      exact
+                      path="/admin/ethics/managedefaulters"
+                      render={() => <ManageDeafulters />}
+                    />
 
-                        <Route
-                          exact
-                          path="/admin/ethics/defaulters/:defaultersId/update"
-                          render={() => (
-                            <UpdateEthicsDefaulters context={context} />
-                          )}
-                        />
+                    <Route
+                      exact
+                      path="/admin/ethics/defaulters/:defaultersId/update"
+                      render={() => (
+                        <UpdateEthicsDefaulters context={context} />
+                      )}
+                    />
 
-                        <Route path="*" component={NotFound} />
-                      </Switch>
-                    )}
-
-                    {!isAdmin && <Route path="*" component={NotFound} />}
+                    <Route path="*" component={NotFound} />
                   </Switch>
                 </QuizContextProvider>
               </CreateAdminQuizContextProvider>

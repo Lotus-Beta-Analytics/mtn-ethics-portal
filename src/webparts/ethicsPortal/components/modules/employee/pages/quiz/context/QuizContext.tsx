@@ -45,7 +45,7 @@ const QuizContext = React.createContext<QuizContextType>(null);
 type Result = {
   correct: number;
   wrong: number;
-  skipped: number;
+  skipped?: number;
 };
 
 export const QuizContextProvider = ({ children }) => {
@@ -67,6 +67,26 @@ export const QuizContextProvider = ({ children }) => {
   const [quizInfo, setQuizInfo] = React.useState<QuizInfo>();
   const [seconds, setSeconds] = React.useState(60);
   const [QuizId, setQuizId] = React.useState<number>(null);
+  const [expected, setExpected] = React.useState<number>(0);
+  const [staffScore, setStaffScore] = React.useState(0);
+
+  React.useEffect(() => {
+    const score = questions
+      .map((question) => question.point)
+      .reduce((a, b) => parseInt(a) + parseInt(b), 0);
+    setExpected(score);
+  }, [questions]);
+  React.useEffect(() => {
+    const score = responses
+      .filter((response) => response?.isCorrect)
+      .map((response) => response?.point)
+      .reduce((a: any, b: any) => parseInt(a) + parseInt(b), 0);
+    setStaffScore(score);
+  }, [responses]);
+
+  React.useEffect(() => {
+    console.log(staffScore);
+  }, [staffScore]);
 
   const toast = useToasts().addToast;
 
@@ -218,7 +238,8 @@ export const QuizContextProvider = ({ children }) => {
         responses: JSON.stringify(filteredData),
         ["QuizId"]: QuizId,
         duration: `${quizInfo?.duration}m:${seconds}s`,
-        ExpectedScore: expectedScore.toString(),
+        ExpectedScore: expected.toString(),
+        TotalPoints: staffScore.toString(),
       });
 
       setLoading(false);
@@ -242,32 +263,22 @@ export const QuizContextProvider = ({ children }) => {
       let userResult = {
         correct: groupedResponses["true"] ? groupedResponses["true"].length : 0,
         wrong: groupedResponses["false"] ? groupedResponses["false"].length : 0,
-        skipped:
-          groupedResponses["false"] &&
-          groupedResponses["true"] &&
-          groupedResponses["false"].length + groupedResponses["true"].length ===
-            questions.length
-            ? 0
-            : Math.abs(
-                groupedResponses["false"]?.length ??
-                  0 - groupedResponses["true"]?.length ??
-                  0
-              ) === questions.length
-            ? 0
-            : Math.abs(
-                groupedResponses["false"]?.length ??
-                  0 - groupedResponses["true"]?.length ??
-                  0
-              ),
       };
-      setResult(userResult);
+      userResult = {
+        ...userResult,
+        wrong: questions?.length - userResult?.correct,
+      };
+      setResult({
+        ...userResult,
+      });
 
       await sp.web.lists
         .getByTitle("QuizResponse")
         .items.getById(res.data.Id)
         .update({
-          score: JSON.stringify(userResult),
-          TotalPoints: points.toString(),
+          score: JSON.stringify({
+            ...userResult,
+          }),
         });
       history.push("/employee/quiz-result");
       setPage(0);

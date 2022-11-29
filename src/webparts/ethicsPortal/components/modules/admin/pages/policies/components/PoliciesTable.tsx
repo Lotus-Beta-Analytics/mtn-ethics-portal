@@ -51,7 +51,7 @@ export const PoliciesTable: React.FC<Props> = ({
     <>
       <MaterialTable
         icons={TableIcons}
-        title={title || "All Policies"}
+        title={title || "All Policy Content"}
         columns={columns}
         data={policies}
         isLoading={loading}
@@ -67,7 +67,6 @@ export const PoliciesTable: React.FC<Props> = ({
           exportAllData: true,
           exportFileName: "Policies",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[
@@ -121,29 +120,6 @@ export const PoliciesTable: React.FC<Props> = ({
               >
                 {props.action.tooltip === "edit" ? <Edit /> : <CloseSharp />}
               </IconButton>
-            );
-          },
-          Toolbar: (props) => {
-            return (
-              <Box>
-                <MTableToolbar {...props} />
-                <Box
-                  width="100%"
-                  height="50px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<FaPlusCircle />}
-                    onClick={() => history.push("/admin/create-policy")}
-                  >
-                    Add Policy
-                  </Button>
-                </Box>
-              </Box>
             );
           },
         }}

@@ -7,6 +7,8 @@ import { useParams } from "react-router-dom";
 import { Box, Button, CircularProgress } from "@material-ui/core";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { StaffData } from "./components/PeoplePicker";
+import { CancelButton } from "../../../shared/components/buttons/CancelButton";
+import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
 
 export const UpdateAdminPage = () => {
   const [admin, setAdmin] = React.useState<StaffData>();
@@ -63,16 +65,16 @@ export const UpdateAdminPage = () => {
             <UserForm user={admin} onUpdate={(user) => setAdmin(user)} />
             <Box
               style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                gap: "1rem",
+                ...ButtonContainerStyles,
               }}
             >
-              <Button>Cancel</Button>
+              <CancelButton />
               <Button
                 disabled={!admin?.Email && !admin?.DisplayName}
                 onClick={updateAdminHandler}
                 endIcon={submitting ? <CircularProgress size={20} /> : <></>}
+                variant="contained"
+                color="primary"
               >
                 Update Admin
               </Button>

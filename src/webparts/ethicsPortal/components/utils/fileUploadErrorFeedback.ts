@@ -13,7 +13,7 @@ export const fileUploadErrorDisplay = (
   } else if (
     error[0].errors.filter((err) => err.code === "file-too-large")[0]
   ) {
-    toast("Selected file is larger than 10MB", {
+    toast("Selected file is larger than 20MB", {
       appearance: "error",
       autoDismiss: true,
     });

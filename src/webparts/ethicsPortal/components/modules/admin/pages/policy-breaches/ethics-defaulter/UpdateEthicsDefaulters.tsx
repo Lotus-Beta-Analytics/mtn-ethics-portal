@@ -17,6 +17,8 @@ import {
 import { FileUpload } from "../../../../shared/components/input-fields/FileUpload";
 import { Add } from "@material-ui/icons";
 import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
+import { ButtonContainerStyles } from "../../../../shared/components/TableCompHelpers";
+import { LongTextInput } from "../../../../shared/components/input-fields/LongTextInput";
 
 export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
   context,
@@ -46,7 +48,7 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
         setEthicsImageUrl(res?.EthicsFileUrl);
         setLocation(res?.Location);
         setFirstName(res?.FirstName);
-        setEthicsMessage(res?.EthicsMessage);
+        setEthicsMessage(res?.EthicsDefaulterMessage);
 
         return res;
       } catch (err) {
@@ -67,7 +69,7 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
         LastName: lastName,
         Location: location,
         Division: division,
-        EthicsMessage: ethicsMessage,
+        EthicsDefaulterMessage: ethicsMessage,
         EthicsFileUrl: ethicsImageUrl,
       }),
     {
@@ -151,35 +153,21 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
           />
         </Box>
         <Typography>Ethics Message</Typography>
-        <TextField
-          variant="outlined"
-          value={ethicsMessage}
-          onChange={(e) => setEthicsMessage(e.target.value)}
+        <LongTextInput
+          control={ethicsMessage}
+          onUpdate={(value) => setEthicsMessage(value)}
           label="Ethics Message"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-          multiline
-          minRows={10}
         />
         <Box
           style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "1rem",
-            marginTop: "20px",
+            ...ButtonContainerStyles,
           }}
         >
           <CancelButton isLoading={mutation.isLoading} />
           <Button
-            style={{
-              backgroundColor: "#FFCC00",
-              color: "#000000",
-            }}
+            color="primary"
             type="submit"
             variant="contained"
-            color="secondary"
-            size="large"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />
             }

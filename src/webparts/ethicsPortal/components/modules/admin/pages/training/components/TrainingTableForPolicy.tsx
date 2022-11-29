@@ -1,58 +1,57 @@
-import { Tooltip, IconButton } from "@material-ui/core";
+import { Box, Tooltip, IconButton, Button } from "@material-ui/core";
 import Edit from "@material-ui/icons/Edit";
-import MaterialTable from "material-table";
+import MaterialTable, { MTableToolbar } from "material-table";
 import * as React from "react";
 import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
-import {
-  ScrollingTextInterface,
-  UpdateScrollingTextModal,
-} from "../modals/UpdateScrollingTextModal";
-import { DeleteScrollingTextModal } from "../modals/DeleteScrollingTextModal";
+import { useHistory } from "react-router-dom";
+import { TrainingType } from "../types/TrainingTypes";
+import { DocumentViewer } from "../../../../shared/components/document-viewer/DocumentViewer";
+import { DeleteTrainingVideoModal } from "../modals/DeleteTrainingVideoModal";
+import { UpdateCourseVideoModal } from "../modals/UpdateCourseVideoModal";
+import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { FaPlusCircle } from "react-icons/fa";
 import {
   TableHeaderStyles,
   TableIcons,
   TableStyles,
 } from "../../../../shared/components/TableCompHelpers";
+import { UpdatePolicyTrainingModal } from "../modals/UpdatePolicyTrainingModal";
 
 type Props = {
-  scrollingTexts: ScrollingTextInterface[];
+  trainings: TrainingType[];
   loading: boolean;
+  title?: string;
 };
 
-export const ScrollingTextsTable: React.FC<Props> = ({
-  scrollingTexts,
+export const TrainingTableForPolicy: React.FC<Props> = ({
+  trainings,
   loading,
+  title = "All Trainings",
 }) => {
   const columns = [
     {
       title: "SN",
-      field: "tableData",
+      field: "tableData[id]",
       render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
     },
-    { title: "Texts", field: "scrollingText" },
+    { title: "Course Title", field: "TrainingTitle" },
     {
-      title: "Status",
-      field: "isEnabled",
-      render: (rowData) => <>{rowData?.isEnabled ? "Running" : "Stopped"}</>,
+      title: "Category",
+      field: "Category",
     },
   ];
-
-  const [canEnable, setCanEnable] = React.useState(false);
-
-  React.useMemo(() => {
-    setCanEnable(scrollingTexts?.filter((text) => text?.isEnabled).length > 0);
-  }, [scrollingTexts]);
-
+  const history = useHistory();
   const [itemToRemove, setItemToRemove] = React.useState<any>();
   const [itemToUpdate, setItemToUpdate] = React.useState<any>();
+  const [itemToView, setItemToView] = React.useState<any>();
 
   return (
     <>
       <MaterialTable
         icons={TableIcons}
-        title={``}
+        title={title}
         columns={columns}
-        data={scrollingTexts}
+        data={trainings}
         isLoading={loading}
         options={{
           exportButton: { csv: true, pdf: false },
@@ -63,6 +62,7 @@ export const ScrollingTextsTable: React.FC<Props> = ({
           actionsColumnIndex: -1,
           pageSize: 5,
           pageSizeOptions: [5, 10, 20],
+
           exportAllData: true,
           exportFileName: "Scrolls",
           headerStyle: TableHeaderStyles,
@@ -89,6 +89,17 @@ export const ScrollingTextsTable: React.FC<Props> = ({
 
             onClick: (event, rowData) => {
               setItemToRemove(rowData);
+            },
+          },
+          {
+            icon: "visibility",
+            iconProps: {
+              style: { fontSize: "20px", color: "gold" },
+            },
+            tooltip: "view",
+
+            onClick: (event, rowData) => {
+              setItemToView(rowData);
             },
           },
         ]}
@@ -124,24 +135,30 @@ export const ScrollingTextsTable: React.FC<Props> = ({
         }}
       />
       {itemToRemove && (
-        <DeleteScrollingTextModal
-          Id={itemToRemove?.Id}
+        <DeleteTrainingVideoModal
+          id={itemToRemove?.Id}
           open={true}
-          text={itemToRemove?.scrollingText}
+          title={itemToRemove?.TrainingTitle}
           onClose={(item) => {
             setItemToRemove(null);
           }}
         />
       )}
       {itemToUpdate && (
-        <UpdateScrollingTextModal
+        <UpdatePolicyTrainingModal
           id={itemToUpdate?.Id}
           open={true}
-          scrollText={itemToUpdate}
-          canEnable={canEnable}
+          training={itemToUpdate}
           onClose={(item) => {
             setItemToUpdate(null);
           }}
+        />
+      )}
+      {itemToView && (
+        <DocumentViewer
+          open={true}
+          onClose={() => setItemToView(null)}
+          url={itemToView?.Video}
         />
       )}
     </>

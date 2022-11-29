@@ -58,7 +58,6 @@ export const AdminListTable: React.FC<Props> = ({ users, loading }) => {
           exportAllData: true,
           exportFileName: "Admins",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[

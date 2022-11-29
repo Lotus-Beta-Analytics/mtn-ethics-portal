@@ -5,13 +5,9 @@
   margin-left: auto;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
-  background: #000;
-  height: 50px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: bold;
-  color: #fbe11cf2;
 }
 
 .correct-answer {

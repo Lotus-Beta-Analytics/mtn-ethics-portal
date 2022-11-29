@@ -53,7 +53,7 @@ export const QuizMetaData = (props: Props) => {
         <TextField
           variant="outlined"
           fullWidth
-          label="Quiz Duration"
+          label="Quiz Duration (Minutes)"
           value={quiz?.duration}
           name="duration"
           onChange={(e) => handleChange(e)}
@@ -70,9 +70,9 @@ export const QuizMetaData = (props: Props) => {
             label="Start Date"
             format="dd/MM/yyyy"
             margin="normal"
-            id="date-picker-inline"
+            id="date-picker"
             value={quiz?.startDate}
-            variant="inline"
+            variant="dialog"
             inputVariant="outlined"
             disableToolbar
             onChange={(e) =>
@@ -91,25 +91,23 @@ export const QuizMetaData = (props: Props) => {
               />
             )}
           />
-        </MuiPickersUtilsProvider>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
           <KeyboardDatePicker
             label="End Date"
             format="dd/MM/yyyy"
             margin="normal"
             id="date-picker-inline"
-            disabled={!quiz?.startDate}
             value={quiz?.endDate}
-            variant="inline"
+            variant="dialog"
             inputVariant="outlined"
             disableToolbar
+            minDate={new Date(quiz?.startDate)}
             onChange={(e) =>
               setQuiz({
                 ...quiz,
                 endDate: e,
               })
             }
-            minDate={quiz?.startDate}
             TextFieldComponent={(props) => (
               <TextField
                 style={{ width: "100%" }}

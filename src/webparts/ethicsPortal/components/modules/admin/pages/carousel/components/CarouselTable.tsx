@@ -54,11 +54,9 @@ export const CarouselTable: React.FC<Props> = ({ carouselItems, loading }) => {
           actionsColumnIndex: -1,
           pageSize: 5,
           pageSizeOptions: [5, 10, 20],
-          search: false,
           exportAllData: true,
           exportFileName: "Scrolls",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[

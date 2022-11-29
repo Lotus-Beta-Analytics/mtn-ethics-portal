@@ -2,33 +2,87 @@ import { Box, Typography } from "@material-ui/core";
 import * as React from "react";
 import { FaFilePdf, FaFilePowerpoint, FaImage, FaVideo } from "react-icons/fa";
 import { TrainingType } from "../../../admin/pages/training/types/TrainingTypes";
+import styled from "styled-components";
 
 type Props = {
   onClick: () => void;
   resource: TrainingType;
 };
 
+const IconStyle: React.CSSProperties = {
+  position: "absolute",
+  width: "2.5rem",
+  height: "2.5rem",
+  objectFit: "contain",
+  top: "40%",
+  left: "10%",
+};
+
 export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
   return (
-    <Box
+    <ResourcePreviewContainer
       onClick={() => {
         onClick();
       }}
       style={{ cursor: "pointer" }}
       width="auto"
     >
-      <Box>
+      <ResourceThumbnailContainer bg={resource?.ThumbNail}>
         {/([A-Z])\.mp4/i.test(resource?.Video) ? (
-          <FaVideo className="icon" />
+          <FaVideo style={IconStyle} />
         ) : /([A-Z])\.pdf/i.test(resource?.Video) ? (
-          <FaFilePdf className="icon" />
+          <></>
         ) : /([A-Z])\.pptx/i.test(resource?.Video) ? (
-          <FaFilePowerpoint className="icon" />
+          <img
+            style={IconStyle}
+            src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/Shared%20Documents/pptx-logo.png"
+          />
         ) : (
-          <FaImage className="icon" />
+          <></>
         )}
-      </Box>
-      <Typography>{resource?.TrainingTitle}</Typography>
-    </Box>
+      </ResourceThumbnailContainer>
+      <Typography
+        variant="subtitle2"
+        style={{
+          width: "100%",
+          height: "25%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {resource?.TrainingTitle}
+      </Typography>
+    </ResourcePreviewContainer>
   );
 };
+
+const ResourceThumbnailContainer = styled.div<{ bg: string }>(({ bg }) => ({
+  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${bg}')`,
+  width: "100%",
+  height: "65%",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  borderRadius: "inherit",
+  position: "relative",
+}));
+const ResourcePreviewContainer = styled.div<{ bg?: string }>(({ bg }) => ({
+  width: "auto",
+  height: "250px",
+  display: "flex",
+  flexDirection: "column",
+  boxSizing: "border-box",
+  position: "relative",
+  borderRadius: "20px",
+  backgroundColor: "#fff",
+  alignItems: "center",
+  boxShadow: "3px 3px 4px #FFCC00",
+
+  "&:hover": {
+    backgroundColor: "#FFCC00",
+    transition: "backgroundColor .2s ease-in-out",
+  },
+  "&:hover + *": {
+    zIndex: "99",
+  },
+}));

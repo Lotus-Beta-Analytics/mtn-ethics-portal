@@ -14,7 +14,9 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
+import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
 import { locations } from "../gallery/forms/GalleryForm";
 import { PeoplePicker, StaffData } from "../users/components/PeoplePicker";
 
@@ -79,21 +81,15 @@ export const EthicsChampionsActivtiesCreate = () => {
         />
 
         <Box
-          style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
+          style={{
+            ...ButtonContainerStyles,
+          }}
         >
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="large"
-            disabled={mutation.isLoading}
-          >
-            Cancel
-          </Button>
+          <CancelButton />
           <Button
             type="submit"
             variant="contained"
-            color="secondary"
-            size="large"
+            color="primary"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />
             }

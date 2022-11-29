@@ -16,6 +16,7 @@ import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
+import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
 import { locations } from "../gallery/forms/GalleryForm";
 import { PeoplePicker, StaffData } from "../users/components/PeoplePicker";
 
@@ -38,34 +39,29 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
 
   const toast = useToasts().addToast;
   const submitHandler = async () => {
-    try {
-      const res = await sp.web.lists.getByTitle("EthicsRecognition").items.add({
-        Name: champion?.DisplayName,
-        Location: location,
-        Division: champion?.Department,
-        EthicalMessage: ethicalMessage,
-        RecognitionImage: file,
-      });
-
-      return res;
-    } catch (e) {
-      return e;
-    }
+    return await sp.web.lists.getByTitle("EthicsRecognition").items.add({
+      Name: champion?.DisplayName,
+      Location: location,
+      Division: champion?.Department,
+      EthicalMessage: ethicalMessage,
+      RecognitionImage: file,
+    });
   };
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllEthicalRecognition"]);
-      successAlert(toast, "Ethical Recognition Added");
-      setFile("");
-      setLocation("");
-      setDivision("");
-      setEthicalMessage("");
-      setName("");
-      setChampion({
-        DisplayName: "",
-        Email: "",
-        Department: "",
+      successAlert(toast, "Ethical Recognition Added").then(() => {
+        setFile("");
+        setLocation("");
+        setDivision("");
+        setEthicalMessage("");
+        setName("");
+        setChampion({
+          DisplayName: "",
+          Email: "",
+          Department: "",
+        });
       });
     },
     onError: () => {
@@ -146,13 +142,15 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
         </Box>
 
         <Box
-          style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
+          style={{
+            ...ButtonContainerStyles,
+          }}
         >
           <CancelButton isLoading={mutation.isLoading} />
           <Button
             type="submit"
             variant="contained"
-            color="secondary"
+            color="primary"
             size="large"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />

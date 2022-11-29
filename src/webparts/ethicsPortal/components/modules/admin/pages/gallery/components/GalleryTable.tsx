@@ -1,6 +1,13 @@
-import { IconButton, Tooltip } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Select,
+  Tooltip,
+} from "@material-ui/core";
 import Edit from "@material-ui/icons/Edit";
-import MaterialTable from "material-table";
+import MaterialTable, { MTableToolbar } from "material-table";
 import * as React from "react";
 import { useHistory } from "react-router-dom";
 import { CloseSharp, RemoveRedEye } from "@material-ui/icons";
@@ -11,6 +18,7 @@ import {
   TableIcons,
   TableStyles,
 } from "../../../../shared/components/TableCompHelpers";
+import { FaPlusCircle } from "react-icons/fa";
 
 type Props = {
   gallery: GalleryData[];
@@ -19,6 +27,28 @@ type Props = {
 
 export const GalleryTable: React.FC<Props> = ({ gallery, isLoading }) => {
   const history = useHistory();
+  const [data, setData] = React.useState();
+  const [item, setItem] = React.useState<string>("Manage Photos");
+  const [fileType, setFileType] = React.useState<string>();
+
+  React.useEffect(() => {
+    if (item === "Manage Photos") {
+      setFileType("Image");
+    } else {
+      setFileType("Video");
+    }
+  }, [item]);
+
+  React.useEffect(() => {
+    let filtered;
+    if (fileType === "Video") {
+      filtered = gallery?.filter((it) => /([A-Z])\.mp4/i.test(it?.file));
+    } else {
+      filtered = gallery?.filter((it) => !/([A-Z])\.mp4/i.test(it?.file));
+    }
+    setData(filtered);
+  }, [fileType, gallery]);
+
   const columns = [
     {
       title: "SN",
@@ -40,9 +70,9 @@ export const GalleryTable: React.FC<Props> = ({ gallery, isLoading }) => {
     <>
       <MaterialTable
         icons={TableIcons}
-        title={`Uploaded Files`}
+        title={``}
         columns={columns}
-        data={gallery}
+        data={data}
         isLoading={isLoading}
         options={{
           exportButton: { csv: true, pdf: false },
@@ -54,11 +84,9 @@ export const GalleryTable: React.FC<Props> = ({ gallery, isLoading }) => {
 
           pageSize: 5,
           pageSizeOptions: [5, 10, 20],
-          search: false,
           exportAllData: true,
           exportFileName: "Uploads",
           headerStyle: TableHeaderStyles,
-          searchFieldVariant: "outlined",
         }}
         style={TableStyles}
         actions={[
@@ -123,6 +151,40 @@ export const GalleryTable: React.FC<Props> = ({ gallery, isLoading }) => {
               </IconButton>
             </Tooltip>
           ),
+          Toolbar: (props) => {
+            return (
+              <Box my={2}>
+                <MTableToolbar {...props} />
+                <Box
+                  width="100%"
+                  height="50px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                >
+                  <Select
+                    value={item}
+                    onChange={(e) => setItem(e.target.value as string)}
+                    style={{ fontWeight: "500" }}
+                  >
+                    <MenuItem
+                      value="Manage Photos"
+                      style={{ fontWeight: "500" }}
+                    >
+                      Manage Photos
+                    </MenuItem>
+                    <MenuItem
+                      value="Manage Videos"
+                      style={{ fontWeight: "500" }}
+                    >
+                      Manage Videos
+                    </MenuItem>
+                  </Select>
+                  <Box></Box>
+                </Box>
+              </Box>
+            );
+          },
         }}
       />
       {itemToRemove && (

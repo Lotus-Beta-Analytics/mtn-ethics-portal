@@ -53,11 +53,11 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getPosts"]);
-      successAlert(toast, "Post Added");
       setFile(null);
       setPostTitle("");
       setSection(null);
       setContent(null);
+      successAlert(toast, "Post Added");
     },
     onError: () => {
       errorAlert(toast);
@@ -83,7 +83,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           variant="outlined"
           value={postTitle}
           onChange={(e) => setPostTitle(e.target.value)}
-          label="Post Title"
+          label="Article Title"
           fullWidth
           required
           style={{ margin: "1rem 0" }}
@@ -101,6 +101,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           <CreateSection
             section={section}
             onUpdate={(section) => setSection(section)}
+            label="Article Section"
           />
         </Box>
         <Box my={2} style={{ overflowY: "auto" }}>
@@ -108,14 +109,17 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
         </Box>
 
         <Box
-          style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
           <CancelButton isLoading={mutation.isLoading} />
           <Button
             type="submit"
             variant="contained"
-            color="secondary"
-            size="large"
+            color="primary"
             endIcon={
               mutation.isLoading ? <CircularProgress size={20} /> : <Add />
             }
