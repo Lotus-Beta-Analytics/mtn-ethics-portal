@@ -3,6 +3,7 @@ import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { CarouselTable } from "./components/CarouselTable";
 
 export const ManageCarouselPage = () => {
@@ -20,9 +21,9 @@ export const ManageCarouselPage = () => {
   );
   return (
     <AdminWrapper>
-      <Box>
+      <Container>
         <CarouselTable loading={isLoading} carouselItems={items} />
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };

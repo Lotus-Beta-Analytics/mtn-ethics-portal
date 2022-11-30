@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 import { ScrollingTextForm } from "../forms/ScrollingTextForm";
 
 export interface ScrollingTextInterface {
@@ -60,7 +61,7 @@ export const UpdateScrollingTextModal: React.FC<Props> = ({
     },
     {
       onSuccess: (data) => {
-        successAlert(toast, "update successfull");
+        successAlert(toast, "Text Updated successfully");
         onClose();
         queryClient.invalidateQueries(["getScrollTexts"]);
       },
@@ -72,6 +73,7 @@ export const UpdateScrollingTextModal: React.FC<Props> = ({
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Box style={{ boxSizing: "border-box", padding: "2rem" }}>
           <ScrollingTextForm

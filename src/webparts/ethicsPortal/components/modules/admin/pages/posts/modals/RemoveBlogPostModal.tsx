@@ -10,6 +10,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 import { deletePost } from "../apis/deletePost";
 
 type Props = {
@@ -35,7 +36,7 @@ export const RemoveBlogPostModal: React.FC<Props> = ({
       onSuccess: () => {
         onClose();
         queryClient.invalidateQueries(["getAllPosts"]);
-        successAlert(toast, "Delete successful").then(() => {});
+        successAlert(toast, "Article Deleted Successfully").then(() => {});
       },
       onError: () => {
         errorAlert(toast);
@@ -44,16 +45,17 @@ export const RemoveBlogPostModal: React.FC<Props> = ({
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to <strong>remove</strong> {post?.PostTitle}?
+          Are you sure you want to remove <strong>{post?.PostTitle}</strong> ?
           <br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={() => onClose()} variant="outlined">
+        <Button color="secondary" onClick={() => onClose()} variant="contained">
           Cancel
         </Button>
         <Button
@@ -62,7 +64,7 @@ export const RemoveBlogPostModal: React.FC<Props> = ({
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Proceed
         </Button>

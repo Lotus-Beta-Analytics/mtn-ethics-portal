@@ -131,6 +131,7 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
                   display="flex"
                   alignItems="center"
                   justifyContent="flex-end"
+                  my={2}
                 >
                   <Button
                     variant="contained"

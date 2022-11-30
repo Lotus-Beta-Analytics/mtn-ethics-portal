@@ -11,6 +11,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 
 type Props = {
   QuizTitle: string;
@@ -29,20 +30,15 @@ export const DeleteQuizModal: React.FC<Props> = ({
   const toast = useToasts().addToast;
   const mutation = useMutation(
     async (id: number) => {
-      try {
-        await sp.web.lists
-          .getByTitle("QuizQuestions")
-          .items.getById(id)
-          .delete();
-        return true;
-      } catch (err) {
-        return err;
-      }
+      return await sp.web.lists
+        .getByTitle("QuizQuestions")
+        .items.getById(id)
+        .delete();
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Delete successful");
         onClose(true);
+        successAlert(toast, "Quiz Deleted Successfully");
       },
       onError: () => {
         errorAlert(toast);
@@ -51,15 +47,17 @@ export const DeleteQuizModal: React.FC<Props> = ({
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to <strong>remove</strong> {QuizTitle}?<br></br>
+          Are you sure you want to remove <strong>{QuizTitle}</strong> ?
+          <br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={() => onClose()} variant="outlined">
+        <Button color="secondary" onClick={() => onClose()} variant="contained">
           Cancel
         </Button>
         <Button
@@ -68,7 +66,7 @@ export const DeleteQuizModal: React.FC<Props> = ({
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Proceed
         </Button>

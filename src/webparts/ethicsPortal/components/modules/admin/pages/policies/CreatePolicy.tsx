@@ -41,31 +41,26 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
 
   const toast = useToasts().addToast;
   const submitHandler = async () => {
-    try {
-      const res = await sp.web.lists.getByTitle("Policies").items.add({
-        PolicyTitle: postTitle,
-        content: JSON.stringify(content),
-        PolicySection: section?.PolicyTitle,
-        FileUrl: file,
-        ["SectionIdId"]: searchParams.get("sectionId")
-          ? Number(searchParams.get("sectionId"))
-          : section?.Id,
-      });
-
-      return res;
-    } catch (e) {
-      return e;
-    }
+    return await sp.web.lists.getByTitle("Policies").items.add({
+      PolicyTitle: postTitle,
+      content: JSON.stringify(content),
+      PolicySection: section?.PolicyTitle,
+      FileUrl: file,
+      ["SectionIdId"]: searchParams.get("sectionId")
+        ? Number(searchParams.get("sectionId"))
+        : section?.Id,
+    });
   };
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllPolicies"]);
-      successAlert(toast, "Policy Added");
-      setFile(null);
-      setPostTitle("");
-      setSection(null);
-      setContent(null);
+      successAlert(toast, "Policy Added Successfully").then(() => {
+        setFile(null);
+        setPostTitle("");
+        setSection(null);
+        setContent(null);
+      });
     },
     onError: () => {
       errorAlert(toast);

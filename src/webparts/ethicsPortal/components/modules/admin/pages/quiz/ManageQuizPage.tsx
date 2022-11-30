@@ -5,6 +5,7 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { QuizTable } from "./components/QuizTable";
 import { CreateAdminQuizContextProvider } from "./context/AdminQuizContext";
 
@@ -58,9 +59,9 @@ export const ManageQuizPage = (props: Props) => {
 
   return (
     <AdminWrapper>
-      <Box my={3}>
+      <Container>
         <QuizTable quizzes={quizzes} onUpdate={(res) => fetchQuizzes()} />
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };

@@ -34,7 +34,7 @@ export const AddPolicyModal: React.FC<Props> = ({ onClose, open }) => {
     {
       onSuccess(data, variables, context) {
         queryClient.invalidateQueries(["adminPolicies"]);
-        successAlert(toast, "Policy Created");
+        successAlert(toast, "Policy Created Successfully");
         onClose();
       },
       onError(error: Error, variables, context) {
@@ -45,7 +45,7 @@ export const AddPolicyModal: React.FC<Props> = ({ onClose, open }) => {
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>
-        Add New Policy{" "}
+        Add New Policy
         <IconButton
           aria-label="close"
           onClick={() => onClose()}

@@ -21,6 +21,7 @@ import { useLocation } from "react-router-dom";
 import { ReadOnlyURLSearchParams } from "../policies/ManagePoliciesPage";
 import { Policy } from "../../../employee/components/PolicyLandingComponent";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
 type Props = {
   context: WebPartContext;
@@ -57,78 +58,83 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
       setPostTitle("");
       setSection(null);
       setContent(null);
-      successAlert(toast, "Post Added");
+      successAlert(toast, "Article Added Successfully");
     },
     onError: () => {
-      errorAlert(toast);
+      errorAlert(
+        toast,
+        "An error occurred while creating the article. Please try again"
+      );
     },
   });
 
   return (
     <AdminWrapper>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          mutation.mutate();
-        }}
-        style={{
-          width: "80%",
-          margin: "auto",
-          boxSizing: "border-box",
-          padding: "1.5rem 1rem",
-        }}
-      >
-        <Typography>Create Blog Post</Typography>
-        <TextField
-          variant="outlined"
-          value={postTitle}
-          onChange={(e) => setPostTitle(e.target.value)}
-          label="Article Title"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-        />
-        <Box>
-          <Typography>Upload Image</Typography>
-          <FileUpload
-            fileControl={file}
-            onUpdate={(fileUrl) => setFile(fileUrl)}
-            context={context}
-          />
-        </Box>
-
-        <Box my={2}>
-          <CreateSection
-            section={section}
-            onUpdate={(section) => setSection(section)}
-            label="Article Section"
-          />
-        </Box>
-        <Box my={2} style={{ overflowY: "auto" }}>
-          <PostEditor onUpdate={(content) => setContent(content)} />
-        </Box>
-
-        <Box
+      <Container>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            mutation.mutate();
+          }}
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            width: "80%",
+            margin: "auto",
+            boxSizing: "border-box",
+            padding: "1.5rem 1rem",
           }}
         >
-          <CancelButton isLoading={mutation.isLoading} />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            endIcon={
-              mutation.isLoading ? <CircularProgress size={20} /> : <Add />
-            }
-            disabled={mutation.isLoading}
+          <Typography>Create Blog Post</Typography>
+          <TextField
+            variant="outlined"
+            value={postTitle}
+            onChange={(e) => setPostTitle(e.target.value)}
+            label="Article Title"
+            fullWidth
+            required
+            style={{ margin: "1rem 0" }}
+          />
+          <Box>
+            <Typography>Upload Image</Typography>
+            <FileUpload
+              fileControl={file}
+              onUpdate={(fileUrl) => setFile(fileUrl)}
+              context={context}
+            />
+          </Box>
+
+          <Box my={2}>
+            <CreateSection
+              section={section}
+              onUpdate={(section) => setSection(section)}
+              label="Article Section"
+            />
+          </Box>
+          <Box my={2} style={{ overflowY: "auto" }}>
+            <PostEditor onUpdate={(content) => setContent(content)} />
+          </Box>
+
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
           >
-            Create
-          </Button>
-        </Box>
-      </form>
+            <CancelButton isLoading={mutation.isLoading} />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              endIcon={
+                mutation.isLoading ? <CircularProgress size={20} /> : <Add />
+              }
+              disabled={mutation.isLoading}
+            >
+              Create
+            </Button>
+          </Box>
+        </form>
+      </Container>
     </AdminWrapper>
   );
 };

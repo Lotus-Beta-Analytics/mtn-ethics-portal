@@ -70,12 +70,12 @@ export const CarouselItemForm: React.FC<Props> = ({
       <Box
         width="100%"
         display="flex"
-        justifyContent="flex-end"
+        justifyContent="space-between"
         alignItems="center"
         style={{ gap: "2rem" }}
       >
         <Button
-          variant="outlined"
+          variant="contained"
           color="secondary"
           disabled={isLoading}
           onClick={() => onClose()}
@@ -84,9 +84,11 @@ export const CarouselItemForm: React.FC<Props> = ({
         </Button>
         <Button
           variant="contained"
-          color="secondary"
+          color="primary"
           type="submit"
-          endIcon={isLoading ? <CircularProgress size={20} /> : <></>}
+          endIcon={
+            isLoading ? <CircularProgress size={20} color="secondary" /> : <></>
+          }
         >
           {buttonLabel}
         </Button>

@@ -12,6 +12,7 @@ import { TrainingCategoryEnum } from "./enums/TrainingCategoryEnum";
 import { courseCategories, VideoCourseForm } from "./forms/VideoCourseForm";
 import { TrainingType } from "./types/TrainingTypes";
 import { useLocation } from "react-router-dom";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
 export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
   context,
@@ -61,13 +62,7 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
   );
   return (
     <AdminWrapper>
-      <Box
-        mt={2}
-        display="flex"
-        flexDirection="column"
-        width="100%"
-        style={{ minHeight: "100%", gap: "2rem" }}
-      >
+      <Container>
         <Box display="flex" justifyContent="space-between">
           <Select
             value={component}
@@ -105,7 +100,7 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
             </Box>
           );
         })()}
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };

@@ -37,7 +37,7 @@ export const LandingPageModal: React.FC<Props> = ({
         } as Policy),
     {
       onSuccess(data, variables, context) {
-        successAlert(toast, "Update successful");
+        successAlert(toast, "Updated Successfully");
         queryClient.invalidateQueries(["getIt"]);
         onClose();
       },

@@ -148,6 +148,7 @@ export const PolicyTable: React.FC<Props> = ({ policies, loading, title }) => {
                   display="flex"
                   alignItems="center"
                   justifyContent="flex-end"
+                  my={2.5}
                 >
                   <Button
                     variant="contained"

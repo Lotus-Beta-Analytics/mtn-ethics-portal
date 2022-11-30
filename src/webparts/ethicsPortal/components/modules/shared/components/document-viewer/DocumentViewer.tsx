@@ -1,5 +1,6 @@
 import { Box, Dialog, DialogContent } from "@material-ui/core";
 import * as React from "react";
+import { ModalCloseButton } from "../../../admin/components/ModalCloseButton";
 import { ViewerWrapper } from "./ViewerWrapper";
 
 type Props = {
@@ -11,6 +12,7 @@ type Props = {
 export const DocumentViewer: React.FC<Props> = ({ open, onClose, url }) => {
   return (
     <Dialog open={open} onClose={onClose} maxWidth="lg" fullWidth>
+      <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Box
           sx={{

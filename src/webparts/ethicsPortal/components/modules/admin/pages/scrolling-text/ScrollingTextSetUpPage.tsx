@@ -5,6 +5,7 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { ScrollingTextsTable } from "./components/ScrollingTextsTable";
 import { ScrollingTextForm } from "./forms/ScrollingTextForm";
 import { ScrollingTextInterface } from "./modals/UpdateScrollingTextModal";
@@ -39,19 +40,14 @@ export const ScrollingTextSetUpPage = () => {
   });
   const mutation = useMutation(
     async () => {
-      try {
-        const res = await sp.web.lists.getByTitle("ScrollingText").items.add({
-          scrollingText: scrollText?.scrollingText,
-          isEnabled: Boolean(scrollText?.isEnabled),
-        });
-        return res;
-      } catch (e) {
-        return e;
-      }
+      return await sp.web.lists.getByTitle("ScrollingText").items.add({
+        scrollingText: scrollText?.scrollingText,
+        isEnabled: Boolean(scrollText?.isEnabled),
+      });
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Created");
+        successAlert(toast, "Text Added successfully");
         queryClient.invalidateQueries(["getScrollTexts"]);
         setScrollText(null);
       },
@@ -62,13 +58,7 @@ export const ScrollingTextSetUpPage = () => {
   );
   return (
     <AdminWrapper>
-      <Box
-        mt={2}
-        display="flex"
-        flexDirection="column"
-        width="100%"
-        style={{ minHeight: "100%", gap: "2rem" }}
-      >
+      <Container>
         <Box display="flex" justifyContent="space-between">
           <Select
             value={component}
@@ -108,7 +98,7 @@ export const ScrollingTextSetUpPage = () => {
             );
           }
         })()}
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };

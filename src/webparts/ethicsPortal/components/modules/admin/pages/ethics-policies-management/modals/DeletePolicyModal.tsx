@@ -39,7 +39,7 @@ export const DeletePolicyModal: React.FC<Props> = ({
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Delete successful");
+        successAlert(toast, "Policy Deleted Successfully");
         queryClient.invalidateQueries(["adminPolicies"]);
         onClose();
       },
@@ -66,7 +66,7 @@ export const DeletePolicyModal: React.FC<Props> = ({
       </DialogTitle>
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to <strong>remove</strong> {policy?.PolicyTitle}
+          Are you sure you want to remove <strong>{policy?.PolicyTitle}</strong>
           ?<br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.

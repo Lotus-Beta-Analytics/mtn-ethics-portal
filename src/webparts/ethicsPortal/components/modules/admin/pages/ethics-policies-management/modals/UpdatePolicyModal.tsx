@@ -38,8 +38,8 @@ export const UpdatePolicyModal: React.FC<Props> = ({
     {
       onSuccess(data, variables, context) {
         queryClient.invalidateQueries(["adminPolicies"]);
-        successAlert(toast, "Policy updated");
         onClose();
+        successAlert(toast, "Policy Updated Successfully");
       },
       onError(error: Error, variables, context) {
         errorAlert(toast, error.message);

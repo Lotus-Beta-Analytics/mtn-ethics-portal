@@ -19,6 +19,7 @@ import { AdminWrapper } from "../../../../../shared/components/app-wrapper/admin
 import { Add } from "@material-ui/icons";
 import { ButtonContainerStyles } from "../../../../../shared/components/TableCompHelpers";
 import { CancelButton } from "../../../../../shared/components/buttons/CancelButton";
+import { Container } from "../../../ethics-policies-management/components/PolicyDetailWrapper";
 
 type Props = {
   context: WebPartContext;
@@ -62,7 +63,7 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllPolicyBreaches"]);
-      successAlert(toast, "Policy Breaches Added");
+      successAlert(toast, "Policy Breach Added Successfully");
       setFile("");
       setPolicyBreachesTitle("");
       setWriteUp("");
@@ -74,7 +75,7 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
   const update = useMutation(updateHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllPolicyBreaches"]);
-      successAlert(toast, "Policy Breaches Updated").then(() => {});
+      successAlert(toast, "Policy Breach Updated Successfully").then(() => {});
     },
     onError: () => {
       errorAlert(toast);
@@ -83,161 +84,163 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
 
   return (
     <AdminWrapper>
-      {policyBreach ? (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
+      <Container>
+        {policyBreach ? (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
 
-            update.mutate();
-          }}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-            marginTop: "1rem",
-          }}
-        >
-          <Box style={{ marginBottom: "20px" }}>
-            <Typography>Upload Image File</Typography>
-            <FileUpload
-              fileControl={policyBreach?.PolicyBreachImage}
-              onUpdate={(fileUrl) =>
+              update.mutate();
+            }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1.5rem",
+              marginTop: "1rem",
+            }}
+          >
+            <Box style={{ marginBottom: "20px" }}>
+              <Typography>Upload Image File</Typography>
+              <FileUpload
+                fileControl={policyBreach?.PolicyBreachImage}
+                onUpdate={(fileUrl) =>
+                  setPolicyBreach({
+                    ...policyBreach,
+                    PolicyBreachImage: fileUrl,
+                  })
+                }
+                context={context}
+              />
+            </Box>
+
+            <Typography>Policy Breach Title</Typography>
+            <TextField
+              variant="outlined"
+              value={policyBreach?.PolicyBreachTitle}
+              onChange={(e) =>
                 setPolicyBreach({
                   ...policyBreach,
-                  PolicyBreachImage: fileUrl,
+                  PolicyBreachTitle: e.target.value,
                 })
               }
-              context={context}
+              label="Enter Policy Breach Title"
+              fullWidth
+              required
+              //   style={{ margin: "1rem 0" }}
             />
-          </Box>
 
-          <Typography>Policy Breach Title</Typography>
-          <TextField
-            variant="outlined"
-            value={policyBreach?.PolicyBreachTitle}
-            onChange={(e) =>
-              setPolicyBreach({
-                ...policyBreach,
-                PolicyBreachTitle: e.target.value,
-              })
-            }
-            label="Enter Policy Breach Title"
-            fullWidth
-            required
-            //   style={{ margin: "1rem 0" }}
-          />
+            <Typography>Policy Breach Write Up</Typography>
+            <TextField
+              label="Write Up"
+              value={policyBreach?.PolicyBreachWriteUp}
+              fullWidth
+              required
+              variant="outlined"
+              onChange={(e) =>
+                setPolicyBreach({
+                  ...policyBreach,
+                  PolicyBreachWriteUp: e.target.value,
+                })
+              }
+              multiline
+              minRows={10}
+              //   style={{ margin: "1rem 0" }}
+            />
 
-          <Typography>Policy Breach Write Up</Typography>
-          <TextField
-            label="Write Up"
-            value={policyBreach?.PolicyBreachWriteUp}
-            fullWidth
-            required
-            variant="outlined"
-            onChange={(e) =>
-              setPolicyBreach({
-                ...policyBreach,
-                PolicyBreachWriteUp: e.target.value,
-              })
-            }
-            multiline
-            minRows={10}
-            //   style={{ margin: "1rem 0" }}
-          />
-
-          <Box
+            <Box
+              style={{
+                ...ButtonContainerStyles,
+              }}
+            >
+              <CancelButton />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                endIcon={
+                  update.isLoading ? <CircularProgress size={20} /> : <Add />
+                }
+                disabled={update.isLoading}
+              >
+                Update
+              </Button>
+            </Box>
+          </form>
+        ) : (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (policyBreach) {
+                update.mutate();
+              } else mutation.mutate();
+            }}
             style={{
-              ...ButtonContainerStyles,
+              display: "flex",
+              flexDirection: "column",
+              gap: "1.5rem",
+              marginTop: "1rem",
             }}
           >
-            <CancelButton />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="large"
-              endIcon={
-                update.isLoading ? <CircularProgress size={20} /> : <Add />
-              }
-              disabled={update.isLoading}
-            >
-              Update
-            </Button>
-          </Box>
-        </form>
-      ) : (
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (policyBreach) {
-              update.mutate();
-            } else mutation.mutate();
-          }}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "1.5rem",
-            marginTop: "1rem",
-          }}
-        >
-          <Box style={{ marginBottom: "20px" }}>
-            <Typography>Upload Image File</Typography>
-            <FileUpload
-              fileControl={policyBreach?.PolicyBreachImage || file}
-              onUpdate={(fileUrl) => setFile(fileUrl)}
-              context={context}
+            <Box style={{ marginBottom: "20px" }}>
+              <Typography>Upload Image File</Typography>
+              <FileUpload
+                fileControl={policyBreach?.PolicyBreachImage || file}
+                onUpdate={(fileUrl) => setFile(fileUrl)}
+                context={context}
+              />
+            </Box>
+
+            <Typography>Policy Breach Title</Typography>
+            <TextField
+              variant="outlined"
+              value={policyBreach?.PolicyBreachTitle || policyBreachesTitle}
+              onChange={(e) => setPolicyBreachesTitle(e.target.value)}
+              label="Enter Policy Breach Title"
+              fullWidth
+              required
+              //   style={{ margin: "1rem 0" }}
             />
-          </Box>
 
-          <Typography>Policy Breach Title</Typography>
-          <TextField
-            variant="outlined"
-            value={policyBreach?.PolicyBreachTitle || policyBreachesTitle}
-            onChange={(e) => setPolicyBreachesTitle(e.target.value)}
-            label="Enter Policy Breach Title"
-            fullWidth
-            required
-            //   style={{ margin: "1rem 0" }}
-          />
+            <Typography>Policy Breach Write Up</Typography>
+            <TextField
+              label="Write Up"
+              value={policyBreach?.PolicyBreachWriteUp || writeUp}
+              fullWidth
+              required
+              variant="outlined"
+              onChange={(e) => setWriteUp(e.target.value)}
+              multiline
+              minRows={10}
+              //   style={{ margin: "1rem 0" }}
+            />
 
-          <Typography>Policy Breach Write Up</Typography>
-          <TextField
-            label="Write Up"
-            value={policyBreach?.PolicyBreachWriteUp || writeUp}
-            fullWidth
-            required
-            variant="outlined"
-            onChange={(e) => setWriteUp(e.target.value)}
-            multiline
-            minRows={10}
-            //   style={{ margin: "1rem 0" }}
-          />
-
-          <Box
-            style={{
-              ...ButtonContainerStyles,
-            }}
-          >
-            <CancelButton />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="large"
-              endIcon={
-                mutation.isLoading || update.isLoading ? (
-                  <CircularProgress size={20} />
-                ) : (
-                  <Add />
-                )
-              }
-              disabled={mutation.isLoading || update.isLoading}
+            <Box
+              style={{
+                ...ButtonContainerStyles,
+              }}
             >
-              {policyBreach ? "Update" : "Create"}
-            </Button>
-          </Box>
-        </form>
-      )}
+              <CancelButton />
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                size="large"
+                endIcon={
+                  mutation.isLoading || update.isLoading ? (
+                    <CircularProgress size={20} />
+                  ) : (
+                    <Add />
+                  )
+                }
+                disabled={mutation.isLoading || update.isLoading}
+              >
+                {policyBreach ? "Update" : "Create"}
+              </Button>
+            </Box>
+          </form>
+        )}
+      </Container>
     </AdminWrapper>
   );
 };

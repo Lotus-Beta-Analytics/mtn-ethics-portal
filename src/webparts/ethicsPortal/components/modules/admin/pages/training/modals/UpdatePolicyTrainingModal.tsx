@@ -17,6 +17,7 @@ import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { VideoCourseForm } from "../forms/VideoCourseForm";
 import { WebContext } from "../../../../../EthicsPortal";
 import { TrainingFormForPolicy } from "../forms/TrainingFormForPolicy";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 
 type Props = {
   open: boolean;
@@ -66,6 +67,7 @@ export const UpdatePolicyTrainingModal: React.FC<Props> = ({
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Box style={{ boxSizing: "border-box", padding: "2rem" }}>
           <TrainingFormForPolicy

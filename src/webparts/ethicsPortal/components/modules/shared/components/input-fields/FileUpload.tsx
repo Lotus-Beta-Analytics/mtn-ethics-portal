@@ -143,8 +143,14 @@ export const FileUpload: React.FC<Props> = ({
                 <Button
                   style={{ margin: 0, textTransform: "none" }}
                   variant="contained"
-                  color="secondary"
-                  endIcon={upload ? <CircularProgress size={20} /> : <FaFile />}
+                  color="primary"
+                  endIcon={
+                    upload ? (
+                      <CircularProgress size={20} color="secondary" />
+                    ) : (
+                      <></>
+                    )
+                  }
                   size="large"
                 >
                   Browse Computer Files

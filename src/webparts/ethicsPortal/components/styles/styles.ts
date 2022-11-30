@@ -78,8 +78,8 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
 
 export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
-  width: "auto",
-  minHeight: "350px",
+  width: "400px",
+  height: "450px",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   display: "flex",
@@ -92,6 +92,8 @@ export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
   "&:hover > *": {
     display: "flex",
     borderRadius: "26px",
+    transition: "display .2s ease-in-out",
+    transform: "translateY(-3)",
   },
 }));
 

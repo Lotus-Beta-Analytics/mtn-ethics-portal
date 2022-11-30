@@ -53,9 +53,15 @@ export const CreatePolicyForm: React.FC<Props> = ({
         style={{ margin: "1rem 0" }}
       />
 
-      <Box style={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          gap: "1rem",
+        }}
+      >
         <Button
-          variant="outlined"
+          variant="contained"
           color="secondary"
           size="large"
           disabled={isLoading}
@@ -66,9 +72,15 @@ export const CreatePolicyForm: React.FC<Props> = ({
         <Button
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           size="large"
-          endIcon={isLoading ? <CircularProgress size={20} /> : <Add />}
+          endIcon={
+            isLoading ? (
+              <CircularProgress size={20} color="secondary" />
+            ) : (
+              <Add />
+            )
+          }
           disabled={isLoading}
         >
           {label}

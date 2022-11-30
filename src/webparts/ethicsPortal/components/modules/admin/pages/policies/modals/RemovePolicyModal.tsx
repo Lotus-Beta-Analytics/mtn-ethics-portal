@@ -10,6 +10,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 import { deletePolicy } from "../apis/deletePolicy";
 
 type Props = {
@@ -33,9 +34,9 @@ export const RemovePolicyModal: React.FC<Props> = ({
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Delete successful");
         queryClient.invalidateQueries(["getAllPolicies"]);
         onClose();
+        successAlert(toast, "Policy Content Deleted Successfully");
       },
       onError: () => {
         errorAlert(toast);
@@ -44,25 +45,32 @@ export const RemovePolicyModal: React.FC<Props> = ({
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <ModalCloseButton title="Remove Policy Content" onClose={onClose} />
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to <strong>remove</strong> {policy?.PolicyTitle}
+          Are you sure you want to remove <strong>{policy?.PolicyTitle}</strong>
           ?<br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={() => onClose()} variant="outlined">
+        <Button color="secondary" onClick={() => onClose()} variant="contained">
           Cancel
         </Button>
         <Button
           onClick={() => {
             mutation.mutate(id);
           }}
-          endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
+          endIcon={
+            mutation?.isLoading ? (
+              <CircularProgress size={20} color="secondary" />
+            ) : (
+              <></>
+            )
+          }
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Proceed
         </Button>

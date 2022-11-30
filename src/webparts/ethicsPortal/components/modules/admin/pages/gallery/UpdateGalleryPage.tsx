@@ -7,6 +7,7 @@ import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../utils/toast-messages";
 import { GalleryData, GalleryForm } from "./forms/GalleryForm";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
 interface ReadOnlyURLSearchParams extends URLSearchParams {
   append: never;
@@ -53,24 +54,20 @@ export const UpdateGalleryPage: React.FC<{ context: WebPartContext }> = ({
   const toast = useToasts().addToast;
   const mutation = useMutation(
     async () => {
-      try {
-        const data = sp.web.lists
-          .getByTitle("Gallery")
-          .items.getById(uploadId)
-          .update(galleryData);
-        return data;
-      } catch (e) {
-        return e;
-      }
+      return await sp.web.lists
+        .getByTitle("Gallery")
+        .items.getById(uploadId)
+        .update(galleryData);
     },
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["gallery"]);
-        successAlert(toast, "update Successful");
-        setGalleryData(null);
-        setTimeout(() => {
-          history.goBack();
-        }, 1000);
+        successAlert(toast, "Item Updated Successfully").then(() => {
+          setGalleryData(null);
+          setTimeout(() => {
+            history.goBack();
+          }, 1000);
+        });
       },
 
       onError: () => {
@@ -86,7 +83,7 @@ export const UpdateGalleryPage: React.FC<{ context: WebPartContext }> = ({
 
   return (
     <AdminWrapper>
-      <>
+      <Container>
         <GalleryForm
           galleryData={galleryData}
           buttonLabel="Update"
@@ -103,7 +100,7 @@ export const UpdateGalleryPage: React.FC<{ context: WebPartContext }> = ({
               : { "image/*": [".jpg", ".png", ".jpeg"] }
           }
         />
-      </>
+      </Container>
     </AdminWrapper>
   );
 };

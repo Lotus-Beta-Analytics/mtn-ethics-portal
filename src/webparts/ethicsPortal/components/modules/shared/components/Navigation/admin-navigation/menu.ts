@@ -15,13 +15,13 @@ export const adminNavItems = [
     link: "/admin/dashboard",
   },
   {
-    title: "Manage Polices",
+    title: "Manage Policy",
     icon: FaAd,
     link: "/admin/manage-policy",
 
     subNav: [
       {
-        title: "All Policies Content",
+        title: "All Policy Content",
         icon: FaAngrycreative,
         link: "/admin/policies",
       },
