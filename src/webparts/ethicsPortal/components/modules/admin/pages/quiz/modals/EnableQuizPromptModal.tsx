@@ -7,9 +7,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import * as React from "react";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 
 type Props = {
-  onClose: (response: boolean) => void;
+  onClose: (response?: boolean) => void;
   open: boolean;
   type: QuizStatus;
 };
@@ -21,7 +22,7 @@ export const EnableQuizPromptModal: React.FC<Props> = ({
 }) => {
   return (
     <Dialog open={open} onClose={() => onClose(false)}>
-      <DialogTitle></DialogTitle>
+      <ModalCloseButton onClose={() => close()} />
       <DialogContent>
         <Typography>
           {type === QuizStatus.Is_Enabled
@@ -30,11 +31,15 @@ export const EnableQuizPromptModal: React.FC<Props> = ({
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" onClick={() => onClose(false)}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => onClose(false)}
+        >
           Cancel
         </Button>
         <Button
-          color="secondary"
+          color="primary"
           variant="contained"
           onClick={() => onClose(true)}
         >

@@ -72,7 +72,13 @@ export const LandingPageForm: React.FC<Props> = ({
           variant="contained"
           color="primary"
           size="large"
-          endIcon={isLoading ? <CircularProgress size={20} /> : <Add />}
+          endIcon={
+            isLoading ? (
+              <CircularProgress size={20} color="secondary" />
+            ) : (
+              <Add />
+            )
+          }
           disabled={isLoading}
         >
           {label}

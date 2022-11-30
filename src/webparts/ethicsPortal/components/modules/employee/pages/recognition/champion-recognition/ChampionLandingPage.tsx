@@ -37,10 +37,9 @@ export const ChampionLandingPage = () => {
 
       <Box
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
+          display: "flex",
+          flexWrap: "wrap",
           minHeight: "350px",
-          justifyContent: "center",
           alignItems: "center",
           padding: "0.5rem",
           gap: "2.5rem",

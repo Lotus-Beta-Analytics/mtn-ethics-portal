@@ -75,7 +75,7 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["getAllDefaulters"]);
-        successAlert(toast, "Ethics Defaulters Updated Successfully");
+        successAlert(toast, "Defaulter Updated Successfully");
         setTimeout(() => {
           history.goBack();
         });

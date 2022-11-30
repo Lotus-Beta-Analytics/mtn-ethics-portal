@@ -14,6 +14,8 @@ export const EnterComment: React.FC<Props> = ({ comment, onUpdate }) => {
         onChange={(e) => onUpdate(e.target.value)}
         variant="outlined"
         fullWidth
+        minRows={3}
+        multiline
       />
     </Box>
   );

@@ -11,9 +11,9 @@ type Props = {
 
 const IconStyle: React.CSSProperties = {
   position: "absolute",
-  width: "2.5rem",
-  height: "2.5rem",
-  objectFit: "contain",
+  width: "3rem",
+  height: "3rem",
+  objectFit: "cover",
   top: "40%",
   left: "10%",
 };
@@ -35,6 +35,7 @@ export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
         ) : /([A-Z])\.pptx/i.test(resource?.Video) ? (
           <img
             style={IconStyle}
+            className="ppt"
             src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/Shared%20Documents/pptx-logo.png"
           />
         ) : (
@@ -42,13 +43,15 @@ export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
         )}
       </ResourceThumbnailContainer>
       <Typography
-        variant="subtitle2"
+        variant="body2"
         style={{
           width: "100%",
           height: "25%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          textAlign: "center",
+          fontWeight: "bold",
         }}
       >
         {resource?.TrainingTitle}
@@ -60,15 +63,15 @@ export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
 const ResourceThumbnailContainer = styled.div<{ bg: string }>(({ bg }) => ({
   backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${bg}')`,
   width: "100%",
-  height: "65%",
+  height: "75%",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   borderRadius: "inherit",
   position: "relative",
 }));
 const ResourcePreviewContainer = styled.div<{ bg?: string }>(({ bg }) => ({
-  width: "auto",
-  height: "250px",
+  width: "350px",
+  height: "400px",
   display: "flex",
   flexDirection: "column",
   boxSizing: "border-box",
@@ -80,9 +83,15 @@ const ResourcePreviewContainer = styled.div<{ bg?: string }>(({ bg }) => ({
 
   "&:hover": {
     backgroundColor: "#FFCC00",
-    transition: "backgroundColor .2s ease-in-out",
+    transition: "backgroundColor,transform .2s ease-in-out",
+  },
+  "&:hover > div > .ppt": {
+    zIndex: "99",
+    transform: "scale(2)",
   },
   "&:hover + *": {
     zIndex: "99",
   },
 }));
+
+const Image = styled.img``;

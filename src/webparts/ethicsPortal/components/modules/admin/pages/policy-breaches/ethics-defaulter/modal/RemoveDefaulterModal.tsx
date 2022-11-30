@@ -13,6 +13,7 @@ import {
   errorAlert,
   successAlert,
 } from "../../../../../../utils/toast-messages";
+import { ModalCloseButton } from "../../../../components/ModalCloseButton";
 import { DeleteDefaulters } from "../../apis/DeleteDefaulters";
 
 type Props = {
@@ -36,9 +37,9 @@ export const RemoveDefaulterModal: React.FC<Props> = ({
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Delete successful");
-        queryClient.invalidateQueries(["getAllDefaulters"]);
         onClose();
+        queryClient.invalidateQueries(["getAllDefaulters"]);
+        successAlert(toast, "Defaulter Deleted Successfully");
       },
       onError: () => {
         errorAlert(toast);
@@ -47,16 +48,17 @@ export const RemoveDefaulterModal: React.FC<Props> = ({
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to <strong>remove</strong> {defaulters?.Title}?
+          Are you sure you want to remove <strong>{defaulters?.Title}</strong>?
           <br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={() => onClose()} variant="outlined">
+        <Button color="secondary" onClick={() => onClose()} variant="contained">
           Cancel
         </Button>
         <Button
@@ -65,7 +67,7 @@ export const RemoveDefaulterModal: React.FC<Props> = ({
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Proceed
         </Button>

@@ -17,6 +17,7 @@ import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/Admin
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { locations } from "../gallery/forms/GalleryForm";
 import { PeoplePicker, StaffData } from "../users/components/PeoplePicker";
 
@@ -51,7 +52,7 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllEthicalRecognition"]);
-      successAlert(toast, "Ethical Recognition Added").then(() => {
+      successAlert(toast, "Ethical Recognition Added Successfully").then(() => {
         setFile("");
         setLocation("");
         setDivision("");
@@ -71,96 +72,98 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
 
   return (
     <AdminWrapper>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          mutation.mutate();
-        }}
-        style={{
-          width: "80%",
-          margin: "auto",
-          boxSizing: "border-box",
-          padding: "1.5rem 1rem",
-        }}
-      >
-        <Typography>Ethics Champion</Typography>
-        <PeoplePicker
-          staff={champion}
-          onUpdate={(user) => {
-            setChampion(user);
+      <Container>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            mutation.mutate();
           }}
-          label="Full Name"
-        />
-
-        <TextField
-          variant="outlined"
-          value={champion?.Department}
-          label="Division"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-          onChange={() => {}}
-        />
-        <Autocomplete
-          id="type"
-          freeSolo={false}
-          options={locations?.map((option) => option)}
-          fullWidth
-          value={location}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Choose Location"
-              margin="normal"
-              variant="outlined"
-              required
-            />
-          )}
-          onChange={(e, newvalue) => setLocation(newvalue)}
-        />
-
-        <Typography>Ethical Message</Typography>
-        <TextField
-          variant="outlined"
-          value={ethicalMessage}
-          minRows={6}
-          onChange={(e) => setEthicalMessage(e.target.value)}
-          label="Ethical Message"
-          fullWidth
-          required
-          multiline
-          style={{ margin: "1rem 0" }}
-        />
-
-        <Box style={{ marginBottom: "20px" }}>
-          <Typography>Upload Image</Typography>
-          <FileUpload
-            fileControl={file}
-            onUpdate={(fileUrl) => setFile(fileUrl)}
-            context={context}
-          />
-        </Box>
-
-        <Box
           style={{
-            ...ButtonContainerStyles,
+            width: "80%",
+            margin: "auto",
+            boxSizing: "border-box",
+            padding: "1.5rem 1rem",
           }}
         >
-          <CancelButton isLoading={mutation.isLoading} />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={
-              mutation.isLoading ? <CircularProgress size={20} /> : <Add />
-            }
-            disabled={mutation.isLoading}
+          <Typography>Ethics Champion</Typography>
+          <PeoplePicker
+            staff={champion}
+            onUpdate={(user) => {
+              setChampion(user);
+            }}
+            label="Full Name"
+          />
+
+          <TextField
+            variant="outlined"
+            value={champion?.Department}
+            label="Division"
+            fullWidth
+            required
+            style={{ margin: "1rem 0" }}
+            onChange={() => {}}
+          />
+          <Autocomplete
+            id="type"
+            freeSolo={false}
+            options={locations?.map((option) => option)}
+            fullWidth
+            value={location}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Choose Location"
+                margin="normal"
+                variant="outlined"
+                required
+              />
+            )}
+            onChange={(e, newvalue) => setLocation(newvalue)}
+          />
+
+          <Typography>Ethical Message</Typography>
+          <TextField
+            variant="outlined"
+            value={ethicalMessage}
+            minRows={6}
+            onChange={(e) => setEthicalMessage(e.target.value)}
+            label="Ethical Message"
+            fullWidth
+            required
+            multiline
+            style={{ margin: "1rem 0" }}
+          />
+
+          <Box style={{ marginBottom: "20px" }}>
+            <Typography>Upload Image</Typography>
+            <FileUpload
+              fileControl={file}
+              onUpdate={(fileUrl) => setFile(fileUrl)}
+              context={context}
+            />
+          </Box>
+
+          <Box
+            style={{
+              ...ButtonContainerStyles,
+            }}
           >
-            Create
-          </Button>
-        </Box>
-      </form>
+            <CancelButton isLoading={mutation.isLoading} />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+              endIcon={
+                mutation.isLoading ? <CircularProgress size={20} /> : <Add />
+              }
+              disabled={mutation.isLoading}
+            >
+              Create
+            </Button>
+          </Box>
+        </form>
+      </Container>
     </AdminWrapper>
   );
 };

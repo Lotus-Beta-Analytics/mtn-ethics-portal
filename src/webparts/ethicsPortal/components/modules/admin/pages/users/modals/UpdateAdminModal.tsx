@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 import { updateAdmin } from "../apis/updateAdmin";
 import { StaffData } from "../components/PeoplePicker";
 import { UserForm } from "../forms/UserForm";
@@ -39,9 +40,9 @@ export const UpdateAdminModal: React.FC<Props> = ({
     },
     {
       onSuccess: (data) => {
-        successAlert(toast, "Admin updated successfully");
         onClose();
         queryClient.invalidateQueries(["getAdmins"]);
+        successAlert(toast, "Admin updated successfully");
       },
       onError: (error) => {
         console.log(error);
@@ -51,13 +52,14 @@ export const UpdateAdminModal: React.FC<Props> = ({
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Box style={{ boxSizing: "border-box", padding: "2rem" }}>
           <UserForm user={admin} onUpdate={(item) => setAdmin(item)} />
         </Box>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => onClose()} variant="outlined" color="secondary">
+        <Button onClick={() => onClose()} variant="contained" color="secondary">
           Cancel
         </Button>
         <Button

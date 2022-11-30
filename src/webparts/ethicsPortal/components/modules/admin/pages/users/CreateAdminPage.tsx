@@ -13,6 +13,7 @@ import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { fetchAdmins } from "./apis/fetchAdmin";
 import { StaffData } from "./components/PeoplePicker";
 import { User, UserForm } from "./forms/UserForm";
@@ -50,7 +51,7 @@ export const CreateAdminPage = () => {
 
   return (
     <AdminWrapper>
-      <Box
+      <Container
         style={{
           width: "100%",
           padding: "1rem",
@@ -108,7 +109,7 @@ export const CreateAdminPage = () => {
             </Box>
           );
         })()}
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };

@@ -1,7 +1,8 @@
-import { Dialog, DialogContent } from "@material-ui/core";
+import { colors, Dialog, DialogContent, DialogTitle, IconButton, Typography } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
+import { FaTimesCircle } from "react-icons/fa";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../../utils/toast-messages";
 import { CarouselData, CarouselItemForm } from "../forms/CarouselItemForm";
@@ -33,9 +34,9 @@ export const UpdateCarouselItemModal: React.FC<Props> = ({
     },
     {
       onSuccess(data, variables, context) {
-        successAlert(toast, "Item Updated");
         queryClient.invalidateQueries(["carouselItems"]);
         onClose();
+        successAlert(toast, "Item Updated Successfully");
       },
       onError(error: Error, variables, context) {
         errorAlert(toast, error.message);
@@ -44,6 +45,23 @@ export const UpdateCarouselItemModal: React.FC<Props> = ({
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+      <DialogTitle>
+        <Typography variant="body2" style={{ fontWeight: "bold" }}>
+          Update Carousel Item
+        </Typography>
+        <IconButton
+          aria-label="close"
+          onClick={() => onClose()}
+          style={{
+            position: "absolute",
+            right: 8,
+            top: 8,
+            color: colors.grey[500],
+          }}
+        >
+          <FaTimesCircle />
+        </IconButton>
+      </DialogTitle>
       <DialogContent>
         <CarouselItemForm
           formData={formData}

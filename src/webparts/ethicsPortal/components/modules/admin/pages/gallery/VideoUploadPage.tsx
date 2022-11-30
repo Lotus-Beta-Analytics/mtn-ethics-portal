@@ -8,6 +8,7 @@ import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { GalleryData, GalleryForm } from "./forms/GalleryForm";
 import { useHistory } from "react-router-dom";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
 type Props = {
   context: WebPartContext;
@@ -20,21 +21,17 @@ export const VideoUploadPage: React.FC<Props> = ({ context }) => {
   const history = useHistory();
   const mutation = useMutation(
     async () => {
-      try {
-        const data = sp.web.lists.getByTitle("Gallery").items.add(galleryData);
-        return data;
-      } catch (e) {
-        return e;
-      }
+      return await sp.web.lists.getByTitle("Gallery").items.add(galleryData);
     },
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["gallery"]);
-        successAlert(toast, "upload Successful");
-        setGalleryData(null);
-        setTimeout(() => {
-          history.push("/admin/gallery");
-        }, 1000);
+        successAlert(toast, "Item Added Successfully").then(() => {
+          setGalleryData(null);
+          setTimeout(() => {
+            history.push("/admin/gallery");
+          }, 1000);
+        });
       },
 
       onError: () => {
@@ -44,7 +41,7 @@ export const VideoUploadPage: React.FC<Props> = ({ context }) => {
   );
   return (
     <AdminWrapper>
-      <Box>
+      <Container>
         <GalleryForm
           onUpdate={(data) => setGalleryData(data)}
           buttonLabel="Add Video"
@@ -60,7 +57,7 @@ export const VideoUploadPage: React.FC<Props> = ({ context }) => {
           }}
           uploadLabel="Select video to upload"
         />
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };

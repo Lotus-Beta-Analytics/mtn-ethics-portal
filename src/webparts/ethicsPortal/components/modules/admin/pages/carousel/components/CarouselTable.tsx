@@ -14,6 +14,7 @@ import {
   TableIcons,
   TableStyles,
 } from "../../../../shared/components/TableCompHelpers";
+import { ViewItem } from "../modals/ViewItem";
 
 type Props = {
   carouselItems: CarouselData[];
@@ -133,6 +134,7 @@ export const CarouselTable: React.FC<Props> = ({ carouselItems, loading }) => {
                   display="flex"
                   alignItems="center"
                   justifyContent="flex-end"
+                  my={2.5}
                 >
                   <Button
                     variant="contained"
@@ -167,7 +169,7 @@ export const CarouselTable: React.FC<Props> = ({ carouselItems, loading }) => {
         />
       )}
       {itemToView && (
-        <DocumentViewer
+        <ViewItem
           open={true}
           onClose={() => setItemToView(null)}
           url={itemToView?.CarouselImage}

@@ -46,3 +46,28 @@ body {
   position: absolute;
   right: 13%;
 }
+
+.swal-text {
+  font-weight: 600;
+  font-family: sans-serif, "Century Gothic";
+  font-size: 18px;
+}
+
+.swal-button--confirm {
+  border-radius: 20px;
+  background-color: #ffcc00;
+  font-size: 14px;
+  border: none;
+  outline: none;
+  color: #000;
+  width: 200px;
+  height: 50px;
+}
+.swal-button--confirm:hover {
+  background-color: #ffcc00 !important;
+}
+
+.swal-footer {
+  display: flex;
+  justify-content: center;
+}

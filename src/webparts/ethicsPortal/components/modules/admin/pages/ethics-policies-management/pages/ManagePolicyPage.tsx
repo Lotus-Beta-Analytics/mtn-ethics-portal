@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 import { Policy } from "../../../../employee/components/PolicyLandingComponent";
 import { AdminWrapper } from "../../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { Container } from "../components/PolicyDetailWrapper";
 import { PolicyTable } from "../components/PolicyTable";
 
 export const ManageAdminPolicyPage = () => {
@@ -25,7 +26,9 @@ export const ManageAdminPolicyPage = () => {
   );
   return (
     <AdminWrapper>
-      <PolicyTable policies={policies} loading={isLoading} />
+      <Container>
+        <PolicyTable policies={policies} loading={isLoading} />
+      </Container>
     </AdminWrapper>
   );
 };

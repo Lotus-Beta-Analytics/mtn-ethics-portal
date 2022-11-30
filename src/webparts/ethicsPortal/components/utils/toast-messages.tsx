@@ -13,5 +13,10 @@ export const successAlert = (toast?: AddToast, message?: string) => {
   return swal({
     text: message || "Action Successful",
     icon: "success",
+    buttons: {
+      confirm: {
+        text: "Done",
+      },
+    },
   });
 };

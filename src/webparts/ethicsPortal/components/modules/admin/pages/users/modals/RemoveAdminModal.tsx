@@ -10,6 +10,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 import { deleteAdmin } from "../apis/deleteAdmin";
 import { StaffData } from "../components/PeoplePicker";
 import { User } from "../forms/UserForm";
@@ -35,9 +36,9 @@ export const RemoveAdminModal: React.FC<Props> = ({
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Delete successful");
         queryClient.invalidateQueries(["getAdmins"]);
         onClose();
+        successAlert(toast, "Admin Deleted Successfully");
       },
       onError: () => {
         errorAlert(toast);
@@ -47,15 +48,16 @@ export const RemoveAdminModal: React.FC<Props> = ({
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogContent>
+        <ModalCloseButton onClose={onClose} />
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to <strong>remove</strong> {user?.DisplayName}?
+          Are you sure you want to remove <strong>{user?.DisplayName}</strong> ?
           <br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={() => onClose()} variant="outlined">
+        <Button color="secondary" onClick={() => onClose()} variant="contained">
           Cancel
         </Button>
         <Button
@@ -64,7 +66,7 @@ export const RemoveAdminModal: React.FC<Props> = ({
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Proceed
         </Button>

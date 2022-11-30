@@ -187,15 +187,19 @@ export const UpdatePolicyContentPage: React.FC<{
   const { data, isLoading, isError } = useQuery<any>(
     ["getPolicy", policyId],
     async () => {
-      try {
-        const res = await sp.web.lists
-          .getByTitle("Policies")
-          .items.getById(policyId)
-          .select(
-            "PolicyTitle, FileUrl, content, SectionId/PolicyTitle, SectionId/ID"
-          )
-          .expand("SectionId")
-          .get();
+      return await sp.web.lists
+        .getByTitle("Policies")
+        .items.getById(policyId)
+        .select(
+          "PolicyTitle, FileUrl, content, SectionId/PolicyTitle, SectionId/ID"
+        )
+        .expand("SectionId")
+        .get();
+    },
+
+    {
+      enabled: !!policyId,
+      onSuccess(res) {
         setPostTitle(res?.PolicyTitle);
         setFile(res?.FileUrl);
         setSection({
@@ -207,14 +211,7 @@ export const UpdatePolicyContentPage: React.FC<{
         const con = JSON.parse(res?.content);
 
         setContent(con?.data);
-
-        return res;
-      } catch (err) {
-        return err;
-      }
-    },
-    {
-      enabled: !!policyId,
+      },
     }
   );
 

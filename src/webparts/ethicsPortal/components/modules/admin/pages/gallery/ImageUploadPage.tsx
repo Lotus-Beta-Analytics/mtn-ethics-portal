@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { GalleryData, GalleryForm } from "./forms/GalleryForm";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
 type Props = {
   context: WebPartContext;
@@ -20,21 +21,17 @@ export const ImageUploadPage: React.FC<Props> = ({ context }) => {
   const history = useHistory();
   const mutation = useMutation(
     async () => {
-      try {
-        const data = sp.web.lists.getByTitle("Gallery").items.add(galleryData);
-        return data;
-      } catch (e) {
-        return e;
-      }
+      return await sp.web.lists.getByTitle("Gallery").items.add(galleryData);
     },
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["gallery"]);
-        successAlert(toast, "upload Successful");
-        setGalleryData(null);
-        setTimeout(() => {
-          history.push("/admin/gallery");
-        }, 1000);
+        successAlert(toast, "Item Uploaded Successfully").then(() => {
+          setGalleryData(null);
+          setTimeout(() => {
+            history.push("/admin/gallery");
+          }, 1000);
+        });
       },
 
       onError: () => {
@@ -44,7 +41,7 @@ export const ImageUploadPage: React.FC<Props> = ({ context }) => {
   );
   return (
     <AdminWrapper>
-      <Box>
+      <Container>
         <GalleryForm
           onUpdate={(data) => setGalleryData(data)}
           buttonLabel="Add Image"
@@ -56,7 +53,7 @@ export const ImageUploadPage: React.FC<Props> = ({ context }) => {
           }}
           isLoading={mutation.isLoading}
         />
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };

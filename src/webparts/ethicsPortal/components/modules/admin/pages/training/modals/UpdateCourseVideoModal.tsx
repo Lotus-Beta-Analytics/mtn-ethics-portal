@@ -8,6 +8,7 @@ import { TrainingCategoryEnum } from "../enums/TrainingCategoryEnum";
 import { TrainingType } from "../types/TrainingTypes";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { VideoCourseForm } from "../forms/VideoCourseForm";
+import { ModalCloseButton } from "../../../components/ModalCloseButton";
 
 type Props = {
   open: boolean;
@@ -34,30 +35,25 @@ export const UpdateCourseVideoModal: React.FC<Props> = ({
 
   const mutation = useMutation(
     async () => {
-      try {
-        const res = await sp.web.lists
-          .getByTitle("Training")
-          .items.getById(id)
-          .update(itemToUpdate);
-        return res;
-      } catch (e) {
-        return e;
-      }
+      return await sp.web.lists
+        .getByTitle("Training")
+        .items.getById(id)
+        .update(itemToUpdate);
     },
     {
       onSuccess: (data) => {
-        successAlert(toast, "update successfull");
         onClose();
         queryClient.invalidateQueries(["getVideoCourses"]);
+        successAlert(toast, "Training Updated Successfull");
       },
       onError: (error) => {
-        console.log(error);
         errorAlert(toast);
       },
     }
   );
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Box style={{ boxSizing: "border-box", padding: "2rem" }}>
           <VideoCourseForm

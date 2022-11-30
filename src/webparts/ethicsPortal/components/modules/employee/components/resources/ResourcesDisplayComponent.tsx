@@ -70,8 +70,8 @@ export const ResourcesDisplayComponent: React.FC<Props> = ({
           ml="5%"
           mt="5%"
           style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr 1fr",
+            display: "flex",
+            flexWrap: "wrap",
             gap: "2.5rem",
             width: "100%",
             padding: "2% 0",

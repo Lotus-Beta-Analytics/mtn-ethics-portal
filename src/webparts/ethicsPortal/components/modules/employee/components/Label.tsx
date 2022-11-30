@@ -21,7 +21,7 @@ export const Label: React.FC<Props> = ({ header, content }) => {
         {header}:
       </Typography>
       {(() => {
-        if (content?.length < 61) {
+        if (content?.length < 251) {
           return (
             <Typography
               variant="body2"
@@ -36,7 +36,7 @@ export const Label: React.FC<Props> = ({ header, content }) => {
             variant="body2"
             style={{ fontWeight: "bold", fontSize: "14px" }}
           >
-            {content.substring(0, 60)}...
+            {content.substring(0, 250)}...
           </Typography>
         );
       })()}

@@ -80,7 +80,7 @@ export interface PolicyDetail {
   click?: () => void;
 }
 
-const Container = styled.div`
+export const Container = styled.div`
   background: #ffffff;
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
   width: 100%;

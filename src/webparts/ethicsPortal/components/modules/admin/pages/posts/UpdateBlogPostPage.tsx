@@ -21,6 +21,7 @@ import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpe
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
 import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
 import { CreateSection } from "../../components/blog-set-up/sections/CreateSection";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { editPost } from "./apis/editPost";
 import { getPost } from "./apis/getAllPosts";
 
@@ -41,15 +42,18 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
   const { data, isLoading, isError } = useQuery<any>(
     ["getPost", postId],
     async () => {
-      try {
-        const res = await sp.web.lists
-          .getByTitle("Post")
-          .items.getById(postId)
-          .select(
-            "content, PostTitle, FileUrl, SectionId/ID, SectionId/PolicyTitle"
-          )
-          .expand("SectionId")
-          .get();
+      return await sp.web.lists
+        .getByTitle("Post")
+        .items.getById(postId)
+        .select(
+          "content, PostTitle, FileUrl, SectionId/ID, SectionId/PolicyTitle"
+        )
+        .expand("SectionId")
+        .get();
+    },
+    {
+      enabled: !!postId,
+      onSuccess(res) {
         setPostTitle(res?.PostTitle);
         setFile(res?.FileUrl);
         const con = JSON.parse(res?.content);
@@ -60,14 +64,13 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
           ImageUrl: "",
           PolicyTitle: res?.SectionId["PolicyTitle"],
         });
-
-        return res;
-      } catch (err) {
-        return err;
-      }
-    },
-    {
-      enabled: !!postId,
+      },
+      onError(err) {
+        errorAlert(
+          toast,
+          "An error occurred while updating the article. Please try again."
+        );
+      },
     }
   );
 
@@ -85,7 +88,7 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["getAllPosts"]);
-        successAlert(toast, "Post Updated Successfully");
+        successAlert(toast, "Article Updated Successfully");
         setTimeout(() => {
           history.goBack();
         });
@@ -102,73 +105,75 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
 
   return (
     <AdminWrapper>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          mutation.mutate();
-        }}
-        style={{
-          width: "80%",
-          margin: "auto",
-          boxSizing: "border-box",
-          padding: "1.5rem 1rem",
-        }}
-      >
-        <Typography>
-          Update Blog Post | <strong>{data?.PostTitle}</strong>
-        </Typography>
-        <TextField
-          variant="outlined"
-          value={postTitle}
-          onChange={(e) => setPostTitle(e.target.value)}
-          label="Post Title"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-        />
-        <Box>
-          <Typography>Upload Image</Typography>
-          <FileUpload
-            fileControl={file ?? ""}
-            onUpdate={(fileUrl) => setFile(fileUrl)}
-            context={context}
-          />
-        </Box>
-
-        <Box my={2}>
-          <CreateSection
-            section={section}
-            onUpdate={(section) => setSection(section)}
-            label="Article Section"
-          />
-        </Box>
-        <Box my={2} style={{ overflowY: "auto" }}>
-          <PostEditor
-            initialContent={content}
-            onUpdate={(content) => setContent(content)}
-          />
-        </Box>
-
-        <Box
+      <Container>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            mutation.mutate();
+          }}
           style={{
-            ...ButtonContainerStyles,
+            width: "80%",
+            margin: "auto",
+            boxSizing: "border-box",
+            padding: "1.5rem 1rem",
           }}
         >
-          <CancelButton isLoading={mutation.isLoading} />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={
-              mutation.isLoading ? <CircularProgress size={20} /> : <Add />
-            }
-            disabled={mutation.isLoading}
+          <Typography>
+            Update Blog Post | <strong>{data?.PostTitle}</strong>
+          </Typography>
+          <TextField
+            variant="outlined"
+            value={postTitle}
+            onChange={(e) => setPostTitle(e.target.value)}
+            label="Post Title"
+            fullWidth
+            required
+            style={{ margin: "1rem 0" }}
+          />
+          <Box>
+            <Typography>Upload Image</Typography>
+            <FileUpload
+              fileControl={file ?? ""}
+              onUpdate={(fileUrl) => setFile(fileUrl)}
+              context={context}
+            />
+          </Box>
+
+          <Box my={2}>
+            <CreateSection
+              section={section}
+              onUpdate={(section) => setSection(section)}
+              label="Article Section"
+            />
+          </Box>
+          <Box my={2} style={{ overflowY: "auto" }}>
+            <PostEditor
+              initialContent={content}
+              onUpdate={(content) => setContent(content)}
+            />
+          </Box>
+
+          <Box
+            style={{
+              ...ButtonContainerStyles,
+            }}
           >
-            Update
-          </Button>
-        </Box>
-      </form>
+            <CancelButton isLoading={mutation.isLoading} />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+              endIcon={
+                mutation.isLoading ? <CircularProgress size={20} /> : <Add />
+              }
+              disabled={mutation.isLoading}
+            >
+              Update
+            </Button>
+          </Box>
+        </form>
+      </Container>
     </AdminWrapper>
   );
 };

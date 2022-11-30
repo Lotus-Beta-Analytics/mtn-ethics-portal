@@ -3,6 +3,7 @@ import * as React from "react";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { RecognitionTable } from "./components/RecognitionTable";
 import { getAllRecognition } from "./apis/GetAllRecognition";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
 export interface ReadOnlyURLSearchParams extends URLSearchParams {
   append: never;
@@ -20,11 +21,13 @@ export const ManageRecognitionPage = () => {
   if (isError) return <>An Error Occured...</>;
   return (
     <AdminWrapper>
-      <RecognitionTable
-        recognition={data}
-        loading={isLoading}
-        title="Ethics Champions"
-      />
+      <Container>
+        <RecognitionTable
+          recognition={data}
+          loading={isLoading}
+          title="Ethics Champions"
+        />
+      </Container>
     </AdminWrapper>
   );
 };

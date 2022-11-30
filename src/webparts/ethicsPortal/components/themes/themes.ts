@@ -36,19 +36,21 @@ export const theme = createTheme({
       },
       root: {
         textTransform: "capitalize",
-        borderRadius: "10px",
+        borderRadius: "20px",
+        minWidth: "200px",
+        height: "50px",
       },
     },
-    MuiTextField: {
+    MuiDialogActions: {
       root: {
-        "::placeholder": {
-          fontSize: "14px",
-          fontWeight: "bold",
-        },
-        "MuiInputBase-input": {
-          fontSize: "14px",
-          fontWeight: "bold",
-        },
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      },
+    },
+    MuiCircularProgress: {
+      colorPrimary: {
+        color: "#000",
       },
     },
   },

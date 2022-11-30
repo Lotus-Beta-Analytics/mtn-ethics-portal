@@ -5,7 +5,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-import { Menu } from "@material-ui/icons";
+import { ChevronLeft, Menu } from "@material-ui/icons";
 import { ToggleButton } from "@material-ui/lab";
 import * as React from "react";
 import { AdminNavigation } from "../../Navigation/admin-navigation/AdminNavigation";
@@ -82,8 +82,9 @@ export const AdminWrapper = ({ children }) => {
           <Box display="flex" justifyContent="flex-start" my={2}>
             <Button
               onClick={() => history.goBack()}
-              variant="contained"
+              variant="text"
               color="secondary"
+              startIcon={<ChevronLeft />}
             >
               Go back
             </Button>

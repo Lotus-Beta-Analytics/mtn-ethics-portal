@@ -92,7 +92,7 @@ export const PoliciesTable: React.FC<Props> = ({
               setItemToRemove({
                 Id: rowData.Id,
                 data: {
-                  PostTitle: rowData.PostTitle,
+                  PolicyTitle: rowData.PolicyTitle,
                 },
               });
             },

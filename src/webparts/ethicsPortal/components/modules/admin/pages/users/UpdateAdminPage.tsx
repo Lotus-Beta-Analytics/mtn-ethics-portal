@@ -9,6 +9,7 @@ import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/Admin
 import { StaffData } from "./components/PeoplePicker";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
 export const UpdateAdminPage = () => {
   const [admin, setAdmin] = React.useState<StaffData>();
@@ -57,7 +58,7 @@ export const UpdateAdminPage = () => {
   };
   return (
     <AdminWrapper>
-      <Box style={{ width: "100%" }}>
+      <Container style={{ width: "100%" }}>
         {loading ? (
           <CircularProgress size={20} />
         ) : (
@@ -81,7 +82,7 @@ export const UpdateAdminPage = () => {
             </Box>
           </>
         )}
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };
