@@ -27,7 +27,6 @@ export const CreateSection: React.FC<Props> = ({
       setSections(res);
     })();
   }, []);
-  console.log(sectionsNew);
 
   return (
     <Autocomplete
