@@ -42,7 +42,7 @@ export const TrainingFormForPolicy: React.FC<Props> = ({
         Category: searchParams.get("filter") as TrainingCategoryEnum,
       });
     })();
-  }, [searchParams.get("filter")]);
+  }, []);
 
   return (
     <form

@@ -1,4 +1,11 @@
-import { InputAdornment, TextField, Typography } from "@material-ui/core";
+import {
+  Checkbox,
+  FormControlLabel,
+  InputAdornment,
+  Switch,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import Box from "@material-ui/core/Box/Box";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import * as React from "react";
@@ -24,15 +31,16 @@ export const QuizTopic = (props: Props) => {
       QuizId: id.substring(0, 8),
     });
   }, [uuid]);
+
   return (
-    <Box component="form" position="relative">
+    <Box component="form" position="relative" my={2}>
       <Box
         width="70%"
         display="flex"
         justifyContent="space-between"
         alignItems="center"
         flexDirection="column"
-        margin="0 auto"
+        margin="3rem auto"
         style={{ gap: "2rem" }}
       >
         <Typography
@@ -74,17 +82,38 @@ export const QuizTopic = (props: Props) => {
           }}
         />
 
-        <CreateSection
-          label="Select Quiz Area"
-          section={quizArea}
-          onUpdate={(section) => {
-            setQuizArea(section);
-            setQuiz({
-              ...quiz,
-              area: section?.PolicyTitle,
-            });
-          }}
-        />
+        <Box width="100%">
+          <CreateSection
+            label="Select Quiz Area"
+            section={quizArea}
+            onUpdate={(section) => {
+              setQuizArea(section);
+              setQuiz({
+                ...quiz,
+                area: section?.PolicyTitle,
+              });
+            }}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={quiz?.isShuffle || false}
+                name="questionShuffle"
+                color="primary"
+                size="medium"
+              />
+            }
+            label="Shuffle Question"
+            value={quiz?.isShuffle}
+            onChange={(e, newValue) => {
+              setQuiz({
+                ...quiz,
+                isShuffle: newValue,
+              });
+            }}
+            style={{ marginRight: "auto", marginTop: "20px" }}
+          />
+        </Box>
 
         <TextField
           variant="outlined"

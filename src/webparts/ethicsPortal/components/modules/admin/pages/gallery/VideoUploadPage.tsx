@@ -26,7 +26,7 @@ export const VideoUploadPage: React.FC<Props> = ({ context }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["gallery"]);
-        successAlert(toast, "Item Added Successfully").then(() => {
+        successAlert(toast, "Item Created Successfully").then(() => {
           setGalleryData(null);
           setTimeout(() => {
             history.push("/admin/gallery");

@@ -58,7 +58,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
       setPostTitle("");
       setSection(null);
       setContent(null);
-      successAlert(toast, "Article Added Successfully");
+      successAlert(toast, "Article Created Successfully");
     },
     onError: () => {
       errorAlert(

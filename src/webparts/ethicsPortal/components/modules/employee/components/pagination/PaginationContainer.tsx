@@ -1,5 +1,6 @@
 import { Box, Button } from "@material-ui/core";
 import * as React from "react";
+import { theme } from "../../../../themes/themes";
 
 type Props = {
   data: any[];
@@ -30,7 +31,6 @@ export const PaginationContainer: React.FC<Props> = ({
   }, [pageSize]);
   React.useEffect(() => {
     const splice = data?.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
-
     onUpdate(splice);
   }, [page, data]);
 
@@ -45,22 +45,39 @@ export const PaginationContainer: React.FC<Props> = ({
           alignItems: "center",
           gap: ".5rem",
           justifyContent: "center",
+          flexWrap: "wrap",
         }}
         my={2}
       >
         {paginateArr.length > 1 &&
           paginateArr.map((item, index) => (
-            <Button
-              style={{ width: "50px", borderRadius: "26px" }}
+            <Box
+              style={{
+                width: "100px",
+                borderRadius: "26px",
+                cursor: "pointer",
+                height: "50px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
               onClick={() => {
                 handleChangePage(index);
                 setActive(index);
               }}
-              color={active === index ? "primary" : "secondary"}
-              variant="contained"
+              color={
+                active === index
+                  ? theme.palette.secondary.main
+                  : theme.palette.primary.main
+              }
+              bgcolor={
+                active === index
+                  ? theme.palette.primary.main
+                  : theme.palette.secondary.main
+              }
             >
               {item + 1}
-            </Button>
+            </Box>
           ))}
       </Box>
     </>

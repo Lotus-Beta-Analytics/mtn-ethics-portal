@@ -55,7 +55,7 @@ export const CreatePolicy: React.FC<Props> = ({ context }) => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllPolicies"]);
-      successAlert(toast, "Policy Added Successfully").then(() => {
+      successAlert(toast, "Policy Created Successfully").then(() => {
         setFile(null);
         setPostTitle("");
         setSection(null);

@@ -44,7 +44,7 @@ export const EthicsChampionsActivtiesCreate = () => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllEthicalChampionActivities"]);
-      successAlert(toast, "Ethics Champion Activities Added");
+      successAlert(toast, "Champion Activities Created Successfully");
 
       setEthicalMessage("");
     },

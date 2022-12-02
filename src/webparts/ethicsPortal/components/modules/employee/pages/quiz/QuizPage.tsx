@@ -20,6 +20,7 @@ import swal from "sweetalert";
 import { QuizTime } from "./components/QuizTime";
 import { LandingPageHeaderWithImage } from "../../../shared/components/LandingPageHeaderWithImage";
 import { QuizStatus } from "../../../admin/pages/quiz/modals/EnableQuizPromptModal";
+import uuid from "react-uuid";
 
 export const QuizPage = () => {
   const {
@@ -132,7 +133,7 @@ export const QuizPage = () => {
                       <Box className="options">
                         {questions[page]?.options?.map((option) => {
                           return (
-                            <Box className="options-container">
+                            <Box className="options-container" key={uuid()}>
                               <input
                                 type={questions[page]?.type}
                                 name={`option${page}`}

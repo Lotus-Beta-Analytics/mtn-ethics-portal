@@ -57,7 +57,7 @@ export const AdminEthicsDefaulter = ({ context }) => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllDefaulters"]);
-      successAlert(toast, "Ethics Defaulter Added Successfully").then(() => {
+      successAlert(toast, "Defaulter Created Successfully").then(() => {
         setEthicsImageUrl("");
         setLocation("");
         setDivision("");

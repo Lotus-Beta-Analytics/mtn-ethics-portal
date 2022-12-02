@@ -120,7 +120,11 @@ export const QuizContextProvider = ({ children }) => {
 
             let q = items[0].questions;
             q = JSON.parse(q);
-            setQuestions(q);
+            if (items[0].Shuffled) {
+              setQuestions(q.sort((a, b) => 0.5 - Math.random()));
+            } else {
+              setQuestions(q);
+            }
             setTotal(q?.length);
             setGetting(false);
           } else {
@@ -186,7 +190,7 @@ export const QuizContextProvider = ({ children }) => {
 
   React.useEffect(() => {
     if (quizInfo?.duration === 0 && seconds < 1) {
-      errorAlert(toast, "quiz timed out");
+      errorAlert(toast, "Quiz Timed Out");
       setSeconds(0);
       setQuizInfo({
         ...quizInfo,

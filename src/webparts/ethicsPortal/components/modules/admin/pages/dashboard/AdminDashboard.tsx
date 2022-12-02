@@ -16,26 +16,28 @@ export const AdminDashboard = () => {
   const history = useHistory();
   return (
     <AdminWrapper>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          my: 4,
-        }}
-        style={{ gap: "2rem" }}
-      >
-        {dashboardItems.map((item) => {
-          return (
-            <DashboardCard onClick={() => history.push(`${item?.link}`)}>
-              <item.icon
-                style={{
-                  fontSize: "1.5rem",
-                }}
-              />
-              <Typography variant="body1">{item?.title}</Typography>
-            </DashboardCard>
-          );
-        })}
+      <Box minHeight="100vh">
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            width: "100%",
+          }}
+          style={{ gap: "2rem" }}
+        >
+          {dashboardItems.map((item) => {
+            return (
+              <DashboardCard onClick={() => history.push(`${item?.link}`)}>
+                <item.icon
+                  style={{
+                    fontSize: "1.5rem",
+                  }}
+                />
+                <Typography variant="body1">{item?.title}</Typography>
+              </DashboardCard>
+            );
+          })}
+        </Box>
       </Box>
     </AdminWrapper>
   );
@@ -98,7 +100,7 @@ const dashboardItems = [
 const DashboardCard = styled(Box)<BoxProps>({
   width: "auto",
   gap: 1.5,
-  height: "150px",
+  height: "100px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",

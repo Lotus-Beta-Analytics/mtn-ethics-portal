@@ -88,8 +88,7 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["getAllPosts"]);
-        successAlert(toast, "Article Updated Successfully");
-        setTimeout(() => {
+        successAlert(toast, "Article Updated Successfully").then(() => {
           history.goBack();
         });
       },

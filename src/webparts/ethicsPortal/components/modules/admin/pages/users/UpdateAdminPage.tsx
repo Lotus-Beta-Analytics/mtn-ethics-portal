@@ -49,7 +49,7 @@ export const UpdateAdminPage = () => {
         .update({
           ...admin,
         });
-      successAlert(toast, "Admin updated successfully");
+      successAlert(toast, "Admin Updated Successfully");
       setSubmitting(false);
     } catch (e) {
       setSubmitting(false);

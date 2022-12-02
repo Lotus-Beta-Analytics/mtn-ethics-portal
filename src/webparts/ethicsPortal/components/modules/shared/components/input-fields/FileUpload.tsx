@@ -15,6 +15,7 @@ import { useToasts } from "react-toast-notifications";
 import uuid from "react-uuid";
 import { fileUploadErrorDisplay } from "../../../../utils/fileUploadErrorFeedback";
 import { errorAlert } from "../../../../utils/toast-messages";
+import { IconStyle } from "../../../employee/components/resources/ResourcePreview";
 
 type Props = {
   fileControl: string;
@@ -78,18 +79,27 @@ export const FileUpload: React.FC<Props> = ({
           {(() => {
             if (
               /([A-Z])\.pdf/i.test(fileControl) ||
-              /([A-Z])\.mp4/i.test(fileControl) ||
-              /([A-Z])\.pptx/i.test(fileControl)
+              /([A-Z])\.mp4/i.test(fileControl)
             ) {
               return (
                 <iframe
                   src={fileControl}
-                  width="200px"
+                  width="300px"
                   height="150px"
                   style={{
                     objectFit: "cover",
                   }}
+                  title="file"
                 ></iframe>
+              );
+            }
+
+            if (/([A-Z])\.pptx/i.test(fileControl)) {
+              return (
+                <img
+                  style={IconStyle}
+                  src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/Shared%20Documents/pptx-logo.png"
+                />
               );
             }
             return (

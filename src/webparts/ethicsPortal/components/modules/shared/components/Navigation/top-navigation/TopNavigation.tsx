@@ -79,7 +79,7 @@ export const TopNavigation = () => {
 
   const { policies } = policyContextData();
 
-  const handleClickAway = () => {};
+  const handleClickAway = (event) => {};
 
   const MenuItems = [
     {
@@ -173,6 +173,7 @@ export const TopNavigation = () => {
                   setActiveIndex(index);
                   handleClick(e);
                 }}
+                key={index}
               >
                 <MLink to={menu?.link}>{menu.text}</MLink>
               </li>

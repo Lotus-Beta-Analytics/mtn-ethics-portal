@@ -16,9 +16,10 @@ export const AdminNavigation = (props: Props) => {
     <ul
       style={{
         width: "250px",
-        height: "100%",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        overflowY: "auto",
         gap: "1rem",
         backgroundColor: "#fff",
         boxShadow: "2px 2p 5px rgba(0, 0, 0, 0.5)",

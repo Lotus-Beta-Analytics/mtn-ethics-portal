@@ -35,7 +35,7 @@ export const RemoveBlogPostModal: React.FC<Props> = ({
     {
       onSuccess: () => {
         onClose();
-        queryClient.invalidateQueries(["getAllPosts"]);
+        queryClient.invalidateQueries(["policyWriteUps", "getAllPosts"]);
         successAlert(toast, "Article Deleted Successfully").then(() => {});
       },
       onError: () => {

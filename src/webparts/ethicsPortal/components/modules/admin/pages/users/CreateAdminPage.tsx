@@ -40,9 +40,9 @@ export const CreateAdminPage = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation(() => addAdminHandler(), {
     onSuccess: () => {
-      successAlert(toast, "Admin added successfully");
       setAdmin(null);
       queryClient.invalidateQueries(["getAdmins"], { exact: true });
+      successAlert(toast, "Admin Created Successfully");
     },
     onError: () => {
       errorAlert(toast);

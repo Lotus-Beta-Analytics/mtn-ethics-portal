@@ -31,6 +31,7 @@ export const UpdateCourseVideoModal: React.FC<Props> = ({
     Category: training?.Category as TrainingCategoryEnum,
     TrainingTitle: training?.TrainingTitle,
     Video: training?.Video,
+    ThumbNail: training?.ThumbNail,
   });
 
   const mutation = useMutation(
@@ -44,7 +45,7 @@ export const UpdateCourseVideoModal: React.FC<Props> = ({
       onSuccess: (data) => {
         onClose();
         queryClient.invalidateQueries(["getVideoCourses"]);
-        successAlert(toast, "Training Updated Successfull");
+        successAlert(toast, "Training Updated Successfully");
       },
       onError: (error) => {
         errorAlert(toast);
@@ -66,7 +67,7 @@ export const UpdateCourseVideoModal: React.FC<Props> = ({
             onUpdate={(newValue) => {
               setItemToUpdate(newValue);
             }}
-            training={training}
+            training={itemToUpdate}
             label="Update"
           />
         </Box>

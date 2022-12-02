@@ -3,10 +3,10 @@ import * as React from "react";
 import { FC } from "react";
 
 type Props = {
-  handleClickAway: (e: MouseEvent | TouchEvent) => void;
+  handleClickAway: (e, t) => void;
   open: boolean;
   anchorEl: HTMLElement;
-  id: any;
+  id?: any;
 };
 export const ContextMenu: FC<Props> = ({
   handleClickAway,

@@ -16,9 +16,14 @@ import {
 type Props = {
   posts: any[];
   loading: boolean;
+  showTitle?: boolean;
 };
 
-export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
+export const PostsTable: React.FC<Props> = ({
+  posts,
+  loading,
+  showTitle = true,
+}) => {
   const [itemToRemove, setItemToRemove] = React.useState<any>();
 
   const history = useHistory();
@@ -66,6 +71,7 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
           exportAllData: true,
           exportFileName: "Articles",
           headerStyle: TableHeaderStyles,
+          showTitle,
         }}
         style={TableStyles}
         actions={[
@@ -119,30 +125,6 @@ export const PostsTable: React.FC<Props> = ({ posts, loading }) => {
               >
                 {props.action.tooltip === "edit" ? <Edit /> : <CloseSharp />}
               </IconButton>
-            );
-          },
-          Toolbar: (props) => {
-            return (
-              <Box>
-                <MTableToolbar {...props} />
-                <Box
-                  width="100%"
-                  height="50px"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="flex-end"
-                  my={2}
-                >
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<FaPlusCircle />}
-                    onClick={() => history.push(`/admin/create-post`)}
-                  >
-                    Add Post
-                  </Button>
-                </Box>
-              </Box>
             );
           },
         }}

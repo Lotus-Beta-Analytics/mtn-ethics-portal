@@ -63,7 +63,7 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllPolicyBreaches"]);
-      successAlert(toast, "Policy Breach Added Successfully");
+      successAlert(toast, "Policy Breach Created Successfully");
       setFile("");
       setPolicyBreachesTitle("");
       setWriteUp("");
@@ -99,20 +99,6 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
               marginTop: "1rem",
             }}
           >
-            <Box style={{ marginBottom: "20px" }}>
-              <Typography>Upload Image File</Typography>
-              <FileUpload
-                fileControl={policyBreach?.PolicyBreachImage}
-                onUpdate={(fileUrl) =>
-                  setPolicyBreach({
-                    ...policyBreach,
-                    PolicyBreachImage: fileUrl,
-                  })
-                }
-                context={context}
-              />
-            </Box>
-
             <Typography>Policy Breach Title</Typography>
             <TextField
               variant="outlined"
@@ -128,7 +114,19 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
               required
               //   style={{ margin: "1rem 0" }}
             />
-
+            <Box style={{ marginBottom: "20px" }}>
+              <Typography>Upload Image File</Typography>
+              <FileUpload
+                fileControl={policyBreach?.PolicyBreachImage}
+                onUpdate={(fileUrl) =>
+                  setPolicyBreach({
+                    ...policyBreach,
+                    PolicyBreachImage: fileUrl,
+                  })
+                }
+                context={context}
+              />
+            </Box>
             <Typography>Policy Breach Write Up</Typography>
             <TextField
               label="Write Up"
@@ -182,15 +180,6 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
               marginTop: "1rem",
             }}
           >
-            <Box style={{ marginBottom: "20px" }}>
-              <Typography>Upload Image File</Typography>
-              <FileUpload
-                fileControl={policyBreach?.PolicyBreachImage || file}
-                onUpdate={(fileUrl) => setFile(fileUrl)}
-                context={context}
-              />
-            </Box>
-
             <Typography>Policy Breach Title</Typography>
             <TextField
               variant="outlined"
@@ -201,7 +190,14 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
               required
               //   style={{ margin: "1rem 0" }}
             />
-
+            <Box style={{ marginBottom: "20px" }}>
+              <Typography>Upload Image File</Typography>
+              <FileUpload
+                fileControl={policyBreach?.PolicyBreachImage || file}
+                onUpdate={(fileUrl) => setFile(fileUrl)}
+                context={context}
+              />
+            </Box>
             <Typography>Policy Breach Write Up</Typography>
             <TextField
               label="Write Up"

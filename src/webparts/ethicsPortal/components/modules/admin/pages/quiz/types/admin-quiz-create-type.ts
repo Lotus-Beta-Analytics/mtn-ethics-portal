@@ -9,6 +9,7 @@ export interface AdminQuizCreateType {
   questions: QuizQuestion[];
   ID?: number;
   QuizId?: string;
+  isShuffle?: boolean;
 }
 
 export interface QuizQuestion {

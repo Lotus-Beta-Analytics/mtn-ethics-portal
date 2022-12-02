@@ -8,12 +8,14 @@ type Props = {
   section: Policy;
   onUpdate: React.Dispatch<Policy>;
   label?: string;
+  readOnly?: boolean;
 };
 
 export const CreateSection: React.FC<Props> = ({
   onUpdate,
   section,
   label = "Create Section",
+  readOnly,
 }) => {
   const [sectionsNew, setSections] = React.useState<Policy[]>([]);
 
@@ -33,13 +35,16 @@ export const CreateSection: React.FC<Props> = ({
       options={sectionsNew}
       fullWidth
       value={section}
-      getOptionLabel={(option) => option.PolicyTitle}
+      getOptionLabel={(option) => option?.PolicyTitle}
       renderInput={(params) => (
         <TextField
           {...params}
           label={label}
           margin="normal"
           variant="outlined"
+          InputProps={{
+            readOnly: readOnly,
+          }}
         />
       )}
       onChange={(e, newvalue) => onUpdate(newvalue)}

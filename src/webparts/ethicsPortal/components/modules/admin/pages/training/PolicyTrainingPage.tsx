@@ -31,7 +31,7 @@ export const PolicyTrainingPage: React.FC<Props> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["trainings-policies"]);
-        successAlert(null, "Created").then(() => {
+        successAlert(null, "Training Created Successfully").then(() => {
           setComponent("table");
           setTraining(null);
         });

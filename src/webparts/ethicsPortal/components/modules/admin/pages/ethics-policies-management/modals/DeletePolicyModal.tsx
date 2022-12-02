@@ -66,14 +66,14 @@ export const DeletePolicyModal: React.FC<Props> = ({
       </DialogTitle>
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to remove <strong>{policy?.PolicyTitle}</strong>
-          ?<br></br>
+          Are you sure you want to remove
+          <strong>{policy?.PolicyTitle} </strong>?<br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.
         </Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="secondary" onClick={() => onClose()} variant="outlined">
+        <Button color="secondary" onClick={() => onClose()} variant="contained">
           Cancel
         </Button>
         <Button
@@ -82,7 +82,7 @@ export const DeletePolicyModal: React.FC<Props> = ({
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Proceed
         </Button>

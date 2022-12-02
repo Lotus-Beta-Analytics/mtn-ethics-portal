@@ -7,6 +7,11 @@ export const errorAlert = (toast?: AddToast, message?: string) => {
   return swal({
     text: message || "An error has occurred",
     icon: "error",
+    buttons: {
+      confirm: {
+        text: "Done",
+      },
+    },
   });
 };
 export const successAlert = (toast?: AddToast, message?: string) => {

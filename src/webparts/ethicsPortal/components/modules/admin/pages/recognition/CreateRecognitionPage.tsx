@@ -52,7 +52,7 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllEthicalRecognition"]);
-      successAlert(toast, "Ethical Recognition Added Successfully").then(() => {
+      successAlert(toast, "Recognition Created Successfully").then(() => {
         setFile("");
         setLocation("");
         setDivision("");

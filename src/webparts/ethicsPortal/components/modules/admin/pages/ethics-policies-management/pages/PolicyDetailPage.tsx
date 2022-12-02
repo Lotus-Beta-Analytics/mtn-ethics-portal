@@ -16,6 +16,7 @@ import { LandingPage } from "../modals/LandingPageModal";
 import { UpdatePolicyContentPage } from "../../policies/UpdatePolicyPage";
 import { CreatePolicy } from "../../policies/CreatePolicy";
 import { PolicyTrainingPage } from "../../training/PolicyTrainingPage";
+import { CreatePostInPolicy } from "../../posts/CreatePostInPolicy";
 
 export const PolicyDetailPage = () => {
   const { context } = React.useContext(WebContext);
@@ -36,7 +37,7 @@ export const PolicyDetailPage = () => {
       await sp.web.lists
         .getByTitle("Post")
         .items.select(
-          "PostTitle, Created, Id, ID, SectionId/ID, SectionId/PolicyTitle"
+          "PostTitle, Created, FileUrl, Id, ID, SectionId/ID, SectionId/PolicyTitle"
         )
         .expand("SectionId")
         .filter(`SectionId eq '${policyId}'`)
@@ -155,7 +156,13 @@ export const PolicyDetailPage = () => {
                 />
               );
             }
-            return <PostsTable loading={isLoading} posts={posts} />;
+            return (
+              <CreatePostInPolicy
+                isLoading={isLoading}
+                posts={posts}
+                policyId={policyId}
+              />
+            );
           })()}
         </Box>
       </PolicyDetailWrapper>

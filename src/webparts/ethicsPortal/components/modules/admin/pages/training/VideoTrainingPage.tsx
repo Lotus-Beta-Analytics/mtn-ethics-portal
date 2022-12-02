@@ -51,9 +51,9 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Created");
         queryClient.invalidateQueries(["getVideoCourses"]);
         setTraining(null);
+        successAlert(toast, "Training Created Successfully");
       },
       onError: () => {
         errorAlert(toast);
