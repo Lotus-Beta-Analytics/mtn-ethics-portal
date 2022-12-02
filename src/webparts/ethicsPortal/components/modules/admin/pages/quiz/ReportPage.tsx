@@ -71,7 +71,7 @@ export const ReportPage = () => {
 
   return (
     <AdminWrapper>
-      <Container my={2}>
+      <Container style={{ height: "100vh" }}>
         <QuizReportTable
           quizReport={quizReport}
           column={columns}

@@ -70,7 +70,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
 
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ minHeight: "100vh" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -105,7 +105,11 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           <Box my={2}>
             <CreateSection
               section={section}
-              onUpdate={(section) => setSection(section)}
+              onUpdate={(val) => {
+                console.log(val, ":PP///");
+
+                setSection(val);
+              }}
               label="Article Section"
             />
           </Box>

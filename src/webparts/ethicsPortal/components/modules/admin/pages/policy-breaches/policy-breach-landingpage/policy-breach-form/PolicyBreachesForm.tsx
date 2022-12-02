@@ -84,7 +84,7 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
 
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         {policyBreach ? (
           <form
             onSubmit={(e) => {

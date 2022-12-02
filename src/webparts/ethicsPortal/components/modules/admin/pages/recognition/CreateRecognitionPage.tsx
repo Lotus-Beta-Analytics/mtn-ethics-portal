@@ -72,7 +72,7 @@ export const CreateRecognition: React.FC<Props> = ({ context }) => {
 
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();

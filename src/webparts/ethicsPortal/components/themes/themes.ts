@@ -22,10 +22,10 @@ export const theme = createTheme({
   typography: {
     body2: {
       fontSize: "14px",
-      fontFamily: "sans-serif, Century Gothic",
+      fontFamily: "sans-serif, MTNBrighterSans-Medium",
     },
     allVariants: {
-      fontFamily: "sans-serif, Century Gothic",
+      fontFamily: "sans-serif, MTNBrighterSans-Medium",
     },
   },
   spacing: 4,

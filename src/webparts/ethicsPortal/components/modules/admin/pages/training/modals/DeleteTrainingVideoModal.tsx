@@ -37,11 +37,11 @@ export const DeleteTrainingVideoModal: React.FC<Props> = ({
     },
     {
       onSuccess: () => {
-        onClose(true);
         queryClient.invalidateQueries([
           "getVideoCourses",
           "trainings-policies",
         ]);
+        onClose(true);
         successAlert(toast, "Training Deleted Successfully");
       },
       onError: () => {

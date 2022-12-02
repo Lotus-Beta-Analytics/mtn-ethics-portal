@@ -21,7 +21,7 @@ export const ManageRecognitionPage = () => {
   if (isError) return <>An Error Occured...</>;
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <RecognitionTable
           recognition={data}
           loading={isLoading}

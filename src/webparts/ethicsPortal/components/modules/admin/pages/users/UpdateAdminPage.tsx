@@ -58,7 +58,7 @@ export const UpdateAdminPage = () => {
   };
   return (
     <AdminWrapper>
-      <Container style={{ width: "100%" }}>
+      <Container style={{ width: "100%", height: "100vh" }}>
         {loading ? (
           <CircularProgress size={20} />
         ) : (

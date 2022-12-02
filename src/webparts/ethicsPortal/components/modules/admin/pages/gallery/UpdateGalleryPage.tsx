@@ -83,7 +83,7 @@ export const UpdateGalleryPage: React.FC<{ context: WebPartContext }> = ({
 
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <GalleryForm
           galleryData={galleryData}
           buttonLabel="Update"

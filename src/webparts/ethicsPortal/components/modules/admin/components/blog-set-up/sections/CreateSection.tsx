@@ -15,7 +15,7 @@ export const CreateSection: React.FC<Props> = ({
   onUpdate,
   section,
   label = "Create Section",
-  readOnly,
+  readOnly = false,
 }) => {
   const [sectionsNew, setSections] = React.useState<Policy[]>([]);
 
@@ -27,6 +27,7 @@ export const CreateSection: React.FC<Props> = ({
       setSections(res);
     })();
   }, []);
+  console.log(sectionsNew);
 
   return (
     <Autocomplete
@@ -36,15 +37,13 @@ export const CreateSection: React.FC<Props> = ({
       fullWidth
       value={section}
       getOptionLabel={(option) => option?.PolicyTitle}
+      getOptionSelected={(option, value) => option?.Id === value?.Id}
       renderInput={(params) => (
         <TextField
           {...params}
           label={label}
           margin="normal"
           variant="outlined"
-          InputProps={{
-            readOnly: readOnly,
-          }}
         />
       )}
       onChange={(e, newvalue) => onUpdate(newvalue)}

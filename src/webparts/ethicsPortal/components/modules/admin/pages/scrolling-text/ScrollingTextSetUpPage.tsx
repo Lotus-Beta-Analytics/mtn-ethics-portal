@@ -58,7 +58,7 @@ export const ScrollingTextSetUpPage = () => {
   );
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <Box display="flex" justifyContent="space-between">
           <Select
             value={component}

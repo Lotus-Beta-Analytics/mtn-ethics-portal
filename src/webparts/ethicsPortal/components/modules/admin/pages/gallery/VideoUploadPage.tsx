@@ -41,7 +41,7 @@ export const VideoUploadPage: React.FC<Props> = ({ context }) => {
   );
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <GalleryForm
           onUpdate={(data) => setGalleryData(data)}
           buttonLabel="Add Video"

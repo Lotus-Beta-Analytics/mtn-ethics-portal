@@ -19,7 +19,7 @@ export const Gallery = () => {
   });
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <GalleryTable gallery={data} isLoading={isLoading} />
       </Container>
     </AdminWrapper>

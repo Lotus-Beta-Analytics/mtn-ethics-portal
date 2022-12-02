@@ -19,6 +19,7 @@ import { Add } from "@material-ui/icons";
 import { CancelButton } from "../../../../shared/components/buttons/CancelButton";
 import { ButtonContainerStyles } from "../../../../shared/components/TableCompHelpers";
 import { LongTextInput } from "../../../../shared/components/input-fields/LongTextInput";
+import { Container } from "../../ethics-policies-management/components/PolicyDetailWrapper";
 
 export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
   context,
@@ -92,91 +93,93 @@ export const UpdateEthicsDefaulters: React.FC<{ context: WebPartContext }> = ({
 
   return (
     <AdminWrapper>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          mutation.mutate();
-        }}
-        style={{
-          width: "80%",
-          margin: "auto",
-          boxSizing: "border-box",
-          padding: "1.5rem 1rem",
-        }}
-      >
-        <Typography>First Name</Typography>
-        <TextField
-          variant="outlined"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          label="First Name"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-        />
-        <Typography>Last Name</Typography>
-        <TextField
-          variant="outlined"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          label="Last Name"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-        />
-        <Typography>Location</Typography>
-        <TextField
-          variant="outlined"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          label="Location"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-        />
-        <Typography>Division</Typography>
-        <TextField
-          variant="outlined"
-          value={division}
-          onChange={(e) => setDivision(e.target.value)}
-          label="Division"
-          fullWidth
-          required
-          style={{ margin: "1rem 0" }}
-        />
-        <Box>
-          <Typography>Upload Image</Typography>
-          <FileUpload
-            fileControl={ethicsImageUrl}
-            onUpdate={(fileUrl) => setEthicsImageUrl(fileUrl)}
-            context={context}
-          />
-        </Box>
-        <Typography>Ethics Message</Typography>
-        <LongTextInput
-          control={ethicsMessage}
-          onUpdate={(value) => setEthicsMessage(value)}
-          label="Ethics Message"
-        />
-        <Box
+      <Container style={{ height: "100vh" }}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            mutation.mutate();
+          }}
           style={{
-            ...ButtonContainerStyles,
+            width: "80%",
+            margin: "auto",
+            boxSizing: "border-box",
+            padding: "1.5rem 1rem",
           }}
         >
-          <CancelButton isLoading={mutation.isLoading} />
-          <Button
-            color="primary"
-            type="submit"
-            variant="contained"
-            endIcon={
-              mutation.isLoading ? <CircularProgress size={20} /> : <Add />
-            }
-            disabled={mutation.isLoading}
+          <Typography>First Name</Typography>
+          <TextField
+            variant="outlined"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            label="First Name"
+            fullWidth
+            required
+            style={{ margin: "1rem 0" }}
+          />
+          <Typography>Last Name</Typography>
+          <TextField
+            variant="outlined"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            label="Last Name"
+            fullWidth
+            required
+            style={{ margin: "1rem 0" }}
+          />
+          <Typography>Location</Typography>
+          <TextField
+            variant="outlined"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            label="Location"
+            fullWidth
+            required
+            style={{ margin: "1rem 0" }}
+          />
+          <Typography>Division</Typography>
+          <TextField
+            variant="outlined"
+            value={division}
+            onChange={(e) => setDivision(e.target.value)}
+            label="Division"
+            fullWidth
+            required
+            style={{ margin: "1rem 0" }}
+          />
+          <Box>
+            <Typography>Upload Image</Typography>
+            <FileUpload
+              fileControl={ethicsImageUrl}
+              onUpdate={(fileUrl) => setEthicsImageUrl(fileUrl)}
+              context={context}
+            />
+          </Box>
+          <Typography>Ethics Message</Typography>
+          <LongTextInput
+            control={ethicsMessage}
+            onUpdate={(value) => setEthicsMessage(value)}
+            label="Ethics Message"
+          />
+          <Box
+            style={{
+              ...ButtonContainerStyles,
+            }}
           >
-            Update
-          </Button>
-        </Box>
-      </form>
+            <CancelButton isLoading={mutation.isLoading} />
+            <Button
+              color="primary"
+              type="submit"
+              variant="contained"
+              endIcon={
+                mutation.isLoading ? <CircularProgress size={20} /> : <Add />
+              }
+              disabled={mutation.isLoading}
+            >
+              Update
+            </Button>
+          </Box>
+        </form>
+      </Container>
     </AdminWrapper>
   );
 };

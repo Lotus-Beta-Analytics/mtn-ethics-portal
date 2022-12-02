@@ -136,7 +136,7 @@ export const QuizReportPage = () => {
 
   return (
     <AdminWrapper>
-      <Container my={2}>
+      <Container style={{ height: "100vh" }}>
         {quizReport ? (
           <QuizReportTable
             quizReport={quizReport}

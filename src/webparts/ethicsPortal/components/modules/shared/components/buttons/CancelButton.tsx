@@ -21,7 +21,7 @@ export const CancelButton: React.FC<Props> = ({ isLoading, onClose }) => {
         variant="contained"
         color="secondary"
         disabled={isLoading}
-        onClick={() => (onClose ? onClose() : history.push("/admin/dashboard"))}
+        onClick={() => setOpen(true)}
       >
         Cancel
       </Button>
@@ -29,11 +29,9 @@ export const CancelButton: React.FC<Props> = ({ isLoading, onClose }) => {
         <CancelModal
           open={true}
           onClose={(status) => {
+            setOpen(false);
             if (status) {
               history.push("/admin/dashboard");
-              setOpen(false);
-            } else {
-              setOpen(false);
             }
           }}
         />
@@ -47,11 +45,34 @@ const CancelModal: React.FC<{
   onClose: (response: boolean) => void;
 }> = ({ onClose, open }) => {
   return (
-    <Dialog open={open} onClose={() => onClose(false)}>
-      <DialogContent></DialogContent>
+    <Dialog open={open} onClose={() => onClose(false)} maxWidth="sm" fullWidth>
+      <DialogContent
+        style={{
+          height: "200px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontWeight: "bold",
+          fontSize: "16px",
+        }}
+      >
+        Are you sure you want to cancel this operation?
+      </DialogContent>
       <DialogActions>
-        <Button>No</Button>
-        <Button>Yes</Button>
+        <Button
+          onClick={() => onClose(false)}
+          variant="contained"
+          color="secondary"
+        >
+          No
+        </Button>
+        <Button
+          onClick={() => onClose(true)}
+          variant="contained"
+          color="primary"
+        >
+          Yes
+        </Button>
       </DialogActions>
     </Dialog>
   );

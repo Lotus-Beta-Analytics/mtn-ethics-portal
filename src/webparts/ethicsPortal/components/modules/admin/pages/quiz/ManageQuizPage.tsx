@@ -59,7 +59,7 @@ export const ManageQuizPage = (props: Props) => {
 
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <QuizTable quizzes={quizzes} onUpdate={(res) => fetchQuizzes()} />
       </Container>
     </AdminWrapper>
