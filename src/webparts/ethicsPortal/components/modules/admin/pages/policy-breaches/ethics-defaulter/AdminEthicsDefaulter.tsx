@@ -79,7 +79,7 @@ export const AdminEthicsDefaulter = ({ context }) => {
 
   return (
     <AdminWrapper>
-      <Container style={{ height: "100vh" }}>
+      <Container style={{ minHeight: "100vh" }}>
         <Box style={{ float: "right" }}>
           <Select
             onChange={(e) => setComponent(e.target.value as string)}

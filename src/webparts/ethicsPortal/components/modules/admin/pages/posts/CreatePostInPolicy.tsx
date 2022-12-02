@@ -24,7 +24,7 @@ import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 type Props = {
   posts: any[];
   isLoading: boolean;
-  policyId: number | string;
+  policyId: number;
 };
 
 interface Post {
@@ -48,11 +48,11 @@ export const CreatePostInPolicy: React.FC<Props> = ({
     () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
     [search]
   );
-  if (searchParams.get("filter")) {
-    console.log(searchParams.get("filter"));
+  if (!searchParams.get("filter")) {
+    return <></>;
   }
   const submitHandler = async () => {
-    return await sp.web.lists.getByTitle("Post").items.add({
+    return sp.web.lists.getByTitle("Post").items.add({
       ["SectionIdId"]: policyId,
       PostTitle: post?.Title,
       content: JSON.stringify(content),
@@ -62,11 +62,16 @@ export const CreatePostInPolicy: React.FC<Props> = ({
   };
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["policyWriteUps"]);
-      successAlert(null, "Article Created Successfully").then(() => {
-        setComponent("table");
-        setPost(null);
-      });
+      queryClient
+        .invalidateQueries({
+          queryKey: ["policyWriteUps"],
+        })
+        .then(() => {
+          successAlert(null, "Article Created Successfully").then(() => {
+            setComponent("table");
+            setPost(null);
+          });
+        });
     },
     onError: () => {
       errorAlert();
@@ -162,7 +167,12 @@ export const CreatePostInPolicy: React.FC<Props> = ({
           );
         } else {
           return (
-            <PostsTable posts={posts} loading={isLoading} showTitle={false} />
+            <PostsTable
+              posts={posts}
+              loading={isLoading}
+              showTitle={false}
+              showSection={false}
+            />
           );
         }
       })()}

@@ -84,7 +84,7 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
 
   return (
     <AdminWrapper>
-      <Container style={{ height: "100vh" }}>
+      <Container style={{ minHeight: "100vh" }}>
         {policyBreach ? (
           <form
             onSubmit={(e) => {
@@ -97,6 +97,8 @@ export const PolicyBreachesForm: React.FC<Props> = ({ context }) => {
               flexDirection: "column",
               gap: "1.5rem",
               marginTop: "1rem",
+              boxSizing: "border-box",
+              padding: "1.5rem 2rem",
             }}
           >
             <Typography>Policy Breach Title</Typography>

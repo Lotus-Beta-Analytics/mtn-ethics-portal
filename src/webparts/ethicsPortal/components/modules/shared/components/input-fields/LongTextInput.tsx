@@ -12,7 +12,7 @@ type Props = {
 
 export const LongTextInput: React.FC<Props> = ({
   control,
-  rows = 2,
+  rows = 4,
   label,
   placeholder,
   onUpdate,
@@ -27,7 +27,7 @@ export const LongTextInput: React.FC<Props> = ({
         variant="outlined"
         fullWidth
         multiline
-        maxRows={rows}
+        minRows={rows}
         InputProps={{
           onChange: (e) => {
             onUpdate(e.target.value);

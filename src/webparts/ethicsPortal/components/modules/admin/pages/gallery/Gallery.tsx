@@ -8,19 +8,22 @@ import { GalleryTable } from "./components/GalleryTable";
 import { GalleryData } from "./forms/GalleryForm";
 
 export const Gallery = () => {
-  const { data, isLoading } = useQuery<GalleryData[]>(["gallery"], async () => {
-    try {
-      const res = await sp.web.lists.getByTitle("Gallery").items.getAll();
-
-      return res;
-    } catch (err) {
-      return err;
+  const [gallery, setGalleryData] = React.useState<GalleryData[]>([]);
+  const { data, isLoading } = useQuery<GalleryData[]>(
+    ["gallery"],
+    async () => {
+      return await sp.web.lists.getByTitle("Gallery").items.getAll();
+    },
+    {
+      onSuccess(data) {
+        setGalleryData(data);
+      },
     }
-  });
+  );
   return (
     <AdminWrapper>
       <Container style={{ height: "100vh" }}>
-        <GalleryTable gallery={data} isLoading={isLoading} />
+        <GalleryTable gallery={gallery} isLoading={isLoading} />
       </Container>
     </AdminWrapper>
   );

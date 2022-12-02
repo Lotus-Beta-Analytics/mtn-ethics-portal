@@ -10,6 +10,7 @@ import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import * as React from "react";
 import Dropzone, { Accept } from "react-dropzone";
+import { BsFilePpt } from "react-icons/bs";
 import { FaFile } from "react-icons/fa";
 import { useToasts } from "react-toast-notifications";
 import uuid from "react-uuid";
@@ -47,9 +48,13 @@ export const FileUpload: React.FC<Props> = ({
       .files.add(`${appendUUid}${pix.name}`, pix, true)
       .then((result) => {
         result.file.listItemAllFields.get().then((listItemAllFields) => {
-          onUpdate(
-            `${context.pageContext.web.absoluteUrl}/assets/${appendUUid}${pix.name}`
-          );
+          if (listItemAllFields?.ServerRedirectedEmbedUri) {
+            onUpdate(`${listItemAllFields?.ServerRedirectedEmbedUri}`);
+          } else {
+            onUpdate(
+              `${context.pageContext.web.absoluteUrl}/assets/${appendUUid}${pix.name}`
+            );
+          }
           setUpload(false);
         });
       })
@@ -70,48 +75,56 @@ export const FileUpload: React.FC<Props> = ({
             alignItems: "center",
             gap: "1rem",
             borderRadius: "0.5rem",
-            width: "content-fit",
             justifyContent: "space-between",
             boxSizing: "border-box",
-            height: "200px",
           }}
         >
           {(() => {
             if (
-              /([A-Z])\.pdf/i.test(fileControl) ||
-              /([A-Z])\.mp4/i.test(fileControl)
+              /([A-Z])\.jpeg/i.test(fileControl) ||
+              /([A-Z])\.png/i.test(fileControl) ||
+              /([A-Z])\.jpg/i.test(fileControl)
             ) {
+              // return (
+              //   <BsFilePpt
+              //     style={{
+              //       fontSize: "3rem",
+              //     }}
+              //   />
+              // );
               return (
-                <iframe
+                <img
                   src={fileControl}
-                  width="300px"
+                  width="200px"
                   height="150px"
                   style={{
                     objectFit: "cover",
                   }}
-                  title="file"
-                ></iframe>
-              );
-            }
-
-            if (/([A-Z])\.pptx/i.test(fileControl)) {
-              return (
-                <img
-                  style={IconStyle}
-                  src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/Shared%20Documents/pptx-logo.png"
                 />
               );
             }
             return (
-              <img
+              <iframe
                 src={fileControl}
-                width="200px"
-                height="150px"
+                width="300px"
+                height="250px"
                 style={{
                   objectFit: "cover",
                 }}
-              />
+                title="file"
+              ></iframe>
             );
+
+            // return (
+            //   <img
+            //     src={fileControl}
+            //     width="200px"
+            //     height="150px"
+            //     style={{
+            //       objectFit: "cover",
+            //     }}
+            //   />
+            // );
           })()}
 
           <IconButton onClick={() => onUpdate(null)}>

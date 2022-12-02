@@ -84,10 +84,6 @@ export const QuizContextProvider = ({ children }) => {
     setStaffScore(score);
   }, [responses]);
 
-  React.useEffect(() => {
-    console.log(staffScore);
-  }, [staffScore]);
-
   const toast = useToasts().addToast;
 
   const history = useHistory();
@@ -140,10 +136,6 @@ export const QuizContextProvider = ({ children }) => {
       })
       .catch((err) => {
         setGetting(false);
-        toast(`An error occured`, {
-          appearance: "error",
-          autoDismiss: true,
-        });
       });
   }, []);
 
@@ -189,14 +181,14 @@ export const QuizContextProvider = ({ children }) => {
   };
 
   React.useEffect(() => {
-    if (quizInfo?.duration === 0 && seconds < 1) {
-      errorAlert(toast, "Quiz Timed Out");
+    if (quizInfo?.duration === 0 && seconds === 0) {
       setSeconds(0);
       setQuizInfo({
         ...quizInfo,
         duration: 0,
       });
       stopTimer();
+      errorAlert(toast, "Quiz Timed Out");
     }
 
     if (seconds === 0 && quizInfo?.duration > 0) {

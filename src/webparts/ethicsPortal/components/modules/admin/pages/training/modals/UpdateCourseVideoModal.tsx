@@ -44,7 +44,10 @@ export const UpdateCourseVideoModal: React.FC<Props> = ({
     {
       onSuccess: (data) => {
         onClose();
-        queryClient.invalidateQueries(["getVideoCourses"]);
+
+        queryClient.invalidateQueries({
+          queryKey: ["getVideoCourses"],
+        });
         successAlert(toast, "Training Updated Successfully");
       },
       onError: (error) => {

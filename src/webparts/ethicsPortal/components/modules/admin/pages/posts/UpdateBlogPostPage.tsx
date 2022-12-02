@@ -87,7 +87,12 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["getAllPosts"]);
+        queryClient.invalidateQueries({
+          queryKey: ["policyWriteUps"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["getPosts"],
+        });
         successAlert(toast, "Article Updated Successfully").then(() => {
           history.goBack();
         });

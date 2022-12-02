@@ -55,7 +55,7 @@ export const EthicsChampionsActivtiesCreate = () => {
 
   return (
     <AdminWrapper>
-      <Container style={{ height: "100vh" }}>
+      <Container style={{ minHeight: "100vh" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();

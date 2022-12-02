@@ -53,7 +53,9 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["getPosts"]);
+      queryClient.invalidateQueries({
+        queryKey: ["getPosts"],
+      });
       setFile(null);
       setPostTitle("");
       setSection(null);
@@ -106,8 +108,6 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
             <CreateSection
               section={section}
               onUpdate={(val) => {
-                console.log(val, ":PP///");
-
                 setSection(val);
               }}
               label="Article Section"

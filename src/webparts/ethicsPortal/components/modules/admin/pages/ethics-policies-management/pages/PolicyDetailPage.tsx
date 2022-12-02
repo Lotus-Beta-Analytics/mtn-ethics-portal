@@ -1,4 +1,4 @@
-import { Box, Button } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import * as React from "react";
 import { AdminWrapper } from "../../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { PolicyDetailWrapper } from "../components/PolicyDetailWrapper";
@@ -6,11 +6,8 @@ import { useParams } from "react-router-dom";
 import { sp } from "@pnp/sp";
 import { Policy } from "../../../../employee/components/PolicyLandingComponent";
 import { useQuery } from "@tanstack/react-query";
-import { PostsTable } from "../../posts/components/PostsTable";
 import { ReadOnlyURLSearchParams } from "../../policies/ManagePoliciesPage";
 import { useLocation } from "react-router-dom";
-import { PoliciesTable } from "../../policies/components/PoliciesTable";
-import { TrainingTable } from "../../training/components/TrainingTable";
 import { WebContext } from "../../../../../EthicsPortal";
 import { LandingPage } from "../modals/LandingPageModal";
 import { UpdatePolicyContentPage } from "../../policies/UpdatePolicyPage";
@@ -64,7 +61,6 @@ export const PolicyDetailPage = () => {
         .getAll(),
 
     {
-      enabled: !!policyId,
       onSuccess(data) {
         setPolicies(data);
       },

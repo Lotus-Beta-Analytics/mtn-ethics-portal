@@ -61,7 +61,9 @@ export const UpdatePolicyTrainingModal: React.FC<Props> = ({
     {
       onSuccess: (data) => {
         onClose();
-        queryClient.invalidateQueries(["trainings-policies"]);
+        queryClient.invalidateQueries({
+          queryKey: ["trainings-policies"],
+        });
         successAlert(toast, "Training Updated Successfully");
       },
       onError: (error) => {

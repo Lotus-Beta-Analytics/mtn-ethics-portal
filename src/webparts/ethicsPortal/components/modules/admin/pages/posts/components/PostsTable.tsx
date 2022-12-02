@@ -17,12 +17,14 @@ type Props = {
   posts: any[];
   loading: boolean;
   showTitle?: boolean;
+  showSection?: boolean;
 };
 
 export const PostsTable: React.FC<Props> = ({
   posts,
   loading,
   showTitle = true,
+  showSection = true,
 }) => {
   const [itemToRemove, setItemToRemove] = React.useState<any>();
 
@@ -41,6 +43,7 @@ export const PostsTable: React.FC<Props> = ({
     {
       title: "Section",
       field: "SectionId[PolicyTitle]",
+      hidden: showSection,
     },
     {
       title: "Date created",
