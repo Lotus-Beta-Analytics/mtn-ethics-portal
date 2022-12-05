@@ -33,18 +33,17 @@ export const DeleteGalleryModal: React.FC<Props> = ({
   const toast = useToasts().addToast;
   const mutation = useMutation(
     async (id: number) => {
-      try {
-        await sp.web.lists.getByTitle("Gallery").items.getById(id).delete();
-        return true;
-      } catch (err) {
-        return err;
-      }
+      return await sp.web.lists
+        .getByTitle("Gallery")
+        .items.getById(id)
+        .delete();
     },
     {
       onSuccess: () => {
         onClose(true);
-        queryClient.invalidateQueries(["gallery"]);
-        successAlert(toast, "Item Deleted Successfully");
+        queryClient.invalidateQueries(["gallery"]).then(() => {
+          successAlert(toast, "Item Deleted Successfully");
+        });
       },
       onError: () => {
         errorAlert(toast);

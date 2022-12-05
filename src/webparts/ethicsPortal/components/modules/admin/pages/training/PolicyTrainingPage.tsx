@@ -1,11 +1,13 @@
 import { Box, MenuItem, Select } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useLocation, useParams } from "react-router-dom";
 import React from "react";
 import { successAlert, errorAlert } from "../../../../utils/toast-messages";
 import { TrainingTableForPolicy } from "./components/TrainingTableForPolicy";
 import { TrainingFormForPolicy } from "./forms/TrainingFormForPolicy";
 import { TrainingType } from "./types/TrainingTypes";
+import { ReadOnlyURLSearchParams } from "../policies/ManagePoliciesPage";
 
 type Props = {
   trainings: TrainingType[];
@@ -18,10 +20,16 @@ export const PolicyTrainingPage: React.FC<Props> = ({
 }) => {
   const [component, setComponent] = React.useState("form");
   const [training, setTraining] = React.useState<TrainingType>();
+  const { search } = useLocation();
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
+    [search]
+  );
   const queryClient = useQueryClient();
+  const { policyId } = useParams();
   const mutation = useMutation(
     async () => {
-      await sp.web.lists.getByTitle("Training").items.add({
+      return await sp.web.lists.getByTitle("Training").items.add({
         Category: training?.Category,
         TrainingTitle: training?.TrainingTitle,
         Video: training?.Video,
@@ -30,11 +38,16 @@ export const PolicyTrainingPage: React.FC<Props> = ({
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["trainings-policies"]);
-        successAlert(null, "Created").then(() => {
-          setComponent("table");
-          setTraining(null);
-        });
+        queryClient
+          .invalidateQueries({
+            queryKey: ["trainings-policies"],
+          })
+          .then(() => {
+            successAlert(null, "Training Created Successfully").then(() => {
+              setComponent("table");
+              setTraining(null);
+            });
+          });
       },
       onError: () => {
         errorAlert();
@@ -48,7 +61,8 @@ export const PolicyTrainingPage: React.FC<Props> = ({
       display="flex"
       flexDirection="column"
       width="100%"
-      style={{ minHeight: "100%", gap: "2rem" }}
+      style={{ minHeight: "100%", gap: "2rem", boxSizing: "border-box" }}
+      p={2}
     >
       <Box display="flex" justifyContent="flex-start">
         <Select

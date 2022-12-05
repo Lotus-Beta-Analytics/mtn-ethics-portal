@@ -47,7 +47,7 @@ export const ScrollingTextSetUpPage = () => {
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Text Added successfully");
+        successAlert(toast, "Text Created successfully");
         queryClient.invalidateQueries(["getScrollTexts"]);
         setScrollText(null);
       },
@@ -58,7 +58,7 @@ export const ScrollingTextSetUpPage = () => {
   );
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <Box display="flex" justifyContent="space-between">
           <Select
             value={component}

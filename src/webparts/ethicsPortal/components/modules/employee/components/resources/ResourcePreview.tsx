@@ -9,7 +9,7 @@ type Props = {
   resource: TrainingType;
 };
 
-const IconStyle: React.CSSProperties = {
+export const IconStyle: React.CSSProperties = {
   position: "absolute",
   width: "3rem",
   height: "3rem",

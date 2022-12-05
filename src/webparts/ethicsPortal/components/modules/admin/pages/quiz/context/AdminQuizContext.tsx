@@ -116,6 +116,7 @@ export const CreateAdminQuizContextProvider: React.FC<{
         topic: quiz?.topic,
         area: quiz?.area,
         QuizId: quiz?.QuizId,
+        Shuffled: quiz?.isShuffle,
       });
       successAlert(toast, "Quiz Created Successfully");
       history.push("/admin/manage-quiz");
@@ -141,6 +142,7 @@ export const CreateAdminQuizContextProvider: React.FC<{
           topic: quiz?.topic,
           area: quiz?.area,
           QuizId: quiz?.QuizId,
+          Shuffled: quiz?.isShuffle,
         });
       successAlert(toast, "Quiz Updated Successfully");
       history.push("/admin/manage-quiz");

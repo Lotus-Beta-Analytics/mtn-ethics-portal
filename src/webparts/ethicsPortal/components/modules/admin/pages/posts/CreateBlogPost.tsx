@@ -53,12 +53,14 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["getPosts"]);
+      queryClient.invalidateQueries({
+        queryKey: ["getPosts"],
+      });
       setFile(null);
       setPostTitle("");
       setSection(null);
       setContent(null);
-      successAlert(toast, "Article Added Successfully");
+      successAlert(toast, "Article Created Successfully");
     },
     onError: () => {
       errorAlert(
@@ -70,7 +72,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
 
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ minHeight: "100vh" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -105,7 +107,9 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           <Box my={2}>
             <CreateSection
               section={section}
-              onUpdate={(section) => setSection(section)}
+              onUpdate={(val) => {
+                setSection(val);
+              }}
               label="Article Section"
             />
           </Box>

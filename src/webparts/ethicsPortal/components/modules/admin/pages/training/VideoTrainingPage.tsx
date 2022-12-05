@@ -51,9 +51,14 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
     },
     {
       onSuccess: () => {
-        successAlert(toast, "Created");
-        queryClient.invalidateQueries(["getVideoCourses"]);
-        setTraining(null);
+        queryClient
+          .invalidateQueries({
+            queryKey: ["getVideoCourses"],
+          })
+          .then(() => {
+            setTraining(null);
+            successAlert(toast, "Training Created Successfully");
+          });
       },
       onError: () => {
         errorAlert(toast);
@@ -62,7 +67,7 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
   );
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <Box display="flex" justifyContent="space-between">
           <Select
             value={component}

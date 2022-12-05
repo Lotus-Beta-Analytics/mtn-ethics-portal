@@ -133,7 +133,7 @@ export const QuizReviewPage = () => {
               ) : (
                 <Box>
                   <Box minHeight="300px">
-                    {/* <Box>
+                    <Box>
                       <Typography variant="body1">
                         Thank you for taking the Quiz. You answered &nbsp;
                         <strong>{questions.length - wrongResponses}</strong> out
@@ -144,34 +144,7 @@ export const QuizReviewPage = () => {
                         Your score is {points?.staffScore}/
                         {points?.expectedScore}
                       </Typography>
-                      <Typography
-                        variant="body2"
-                        style={{ fontWeight: "bold" }}
-                      >
-                        See answers to the questions
-                      </Typography>
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        style={{ gap: "2rem" }}
-                        mt={2}
-                      >
-                        {questions.map((response, i) => {
-                          return (
-                            <Box>
-                              <Typography>
-                                <strong>Q{i + 1}:</strong>&nbsp;
-                                {response?.question}
-                              </Typography>
-                              <Typography>
-                                <strong>Answer:</strong>&nbsp;
-                                {response?.answer}
-                              </Typography>
-                            </Box>
-                          );
-                        })}
-                      </Box>
-                    </Box> */}
+                    </Box>
                   </Box>
                 </Box>
               )}

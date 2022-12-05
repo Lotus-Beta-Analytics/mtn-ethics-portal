@@ -3,22 +3,40 @@ import * as React from "react";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import { adminNavItems } from "./menu";
 import "./styles.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 type Props = {};
 
 export const AdminNavigation = (props: Props) => {
-  const [activeMainMenu, setActiveMainMenu] = React.useState(-1);
-  const [activeSubMenu, setActiveSubMenu] = React.useState(-1);
-  const [openMenu, setOpenMenu] = React.useState(false);
+  const [activeMainMenu, setActiveMainMenu] = React.useState(
+    localStorage.getItem("navIndex")
+      ? parseInt(localStorage.getItem("navIndex"))
+      : 0
+  );
+  const [activeSubMenu, setActiveSubMenu] = React.useState(
+    localStorage.getItem("subIndex")
+      ? parseInt(localStorage.getItem("subIndex"))
+      : 0
+  );
+  const [openMenu, setOpenMenu] = React.useState(
+    localStorage.getItem("navMenu")
+      ? JSON.parse(localStorage.getItem("navMenu"))
+      : false
+  );
   const history = useHistory();
+
+  React.useEffect(() => {
+    localStorage.setItem("navMenu", JSON.stringify(openMenu));
+  }, [openMenu, activeSubMenu, activeMainMenu]);
+
   return (
     <ul
       style={{
         width: "250px",
-        height: "100%",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        overflowY: "auto",
         gap: "1rem",
         backgroundColor: "#fff",
         boxShadow: "2px 2p 5px rgba(0, 0, 0, 0.5)",
@@ -29,17 +47,19 @@ export const AdminNavigation = (props: Props) => {
         top: 0,
       }}
     >
-      <Box onClick={() => history.push("/")}>
-        <img
-          src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/logo.png"
-          alt=""
-          width="150px"
-          height="50px"
-          style={{
-            objectFit: "contain",
-            cursor: "pointer",
-          }}
-        />
+      <Box>
+        <Link to="/">
+          <img
+            src="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/logo.png"
+            alt=""
+            width="150px"
+            height="50px"
+            style={{
+              objectFit: "contain",
+              cursor: "pointer",
+            }}
+          />
+        </Link>
       </Box>
       {adminNavItems.map((mainMenu, index) => {
         return (
@@ -52,17 +72,17 @@ export const AdminNavigation = (props: Props) => {
                 alignItems: "center",
                 cursor: "pointer",
                 boxSizing: "border-box",
-                fontWeight: "bold",
                 minHeight: "40px",
                 padding: "0 .5rem",
                 userSelect: "none",
               }}
               onClick={() => {
-                setOpenMenu(!openMenu);
+                localStorage.setItem("navIndex", index.toString());
                 setActiveMainMenu(index);
+                setOpenMenu(!openMenu);
                 history.push(mainMenu?.link);
               }}
-              className={activeMainMenu === index ? "active" : ""}
+              className={activeMainMenu === index && openMenu ? "active" : ""}
             >
               <Box>
                 <mainMenu.icon />
@@ -92,6 +112,7 @@ export const AdminNavigation = (props: Props) => {
                     return (
                       <li
                         onClick={() => {
+                          localStorage.setItem("subIndex", i.toString());
                           setActiveSubMenu(i);
                           history.push(sub?.link);
                         }}
@@ -101,7 +122,6 @@ export const AdminNavigation = (props: Props) => {
                           gap: ".5rem",
                           cursor: "pointer",
                           userSelect: "none",
-                          fontWeight: "bold",
                         }}
                         className={activeSubMenu === i ? "sub__active" : ""}
                       >

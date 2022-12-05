@@ -26,7 +26,7 @@ export const ManageAdminPolicyPage = () => {
   );
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <PolicyTable policies={policies} loading={isLoading} />
       </Container>
     </AdminWrapper>

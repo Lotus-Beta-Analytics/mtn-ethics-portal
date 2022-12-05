@@ -7,13 +7,13 @@ import { PostsTable } from "./components/PostsTable";
 
 export const ManageBlogPostsPage = () => {
   const { data, isLoading, isError } = useQuery<any[]>(
-    ["getAllPosts"],
+    ["getPosts"],
     getAllPosts
   );
   if (isError) return <>An Error Occured...</>;
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ minHeight: "100vh" }}>
         <PostsTable posts={data} loading={isLoading} />
       </Container>
     </AdminWrapper>

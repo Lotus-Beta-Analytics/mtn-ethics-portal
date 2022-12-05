@@ -53,15 +53,15 @@ export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
         },
 
         actionsColumnIndex: -1,
-        pageSize: 5,
-        pageSizeOptions: [1, 2, 5, 10],
+        pageSize: 3,
+        pageSizeOptions: [1, 3, 5],
         search: false,
         exportAllData: true,
         exportFileName: "Questions",
         headerStyle: TableHeaderStyles,
-        searchFieldVariant: "outlined",
+        doubleHorizontalScroll: true,
       }}
-      style={TableStyles}
+      style={{ ...TableStyles }}
       actions={[
         {
           icon: "visibility",

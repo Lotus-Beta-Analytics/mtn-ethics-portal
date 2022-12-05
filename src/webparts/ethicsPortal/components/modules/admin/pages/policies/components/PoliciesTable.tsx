@@ -17,12 +17,14 @@ type Props = {
   policies: any[];
   loading: boolean;
   title?: string;
+  showSection?: boolean;
 };
 
 export const PoliciesTable: React.FC<Props> = ({
   policies,
   loading,
   title,
+  showSection = true,
 }) => {
   const [itemToRemove, setItemToRemove] = React.useState<any>();
 
@@ -31,12 +33,17 @@ export const PoliciesTable: React.FC<Props> = ({
   const columns = [
     {
       title: "SN",
-      field: "tableData",
+      field: "tableData[id]",
       render: (rowData) => <div>{rowData.tableData.id + 1}</div>,
     },
     {
       title: "Policy Title",
       field: "PolicyTitle",
+    },
+    {
+      title: "Section",
+      field: "PolicySection",
+      hidden: showSection,
     },
     {
       title: "Date created",

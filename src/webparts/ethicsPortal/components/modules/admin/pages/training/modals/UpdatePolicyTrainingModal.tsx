@@ -33,12 +33,17 @@ export const UpdatePolicyTrainingModal: React.FC<Props> = ({
   training,
 }) => {
   const queryClient = useQueryClient();
+  console.log(training, "LLL");
+
   const { context } = React.useContext(WebContext);
   const toast = useToasts().addToast;
   const [itemToUpdate, setItemToUpdate] = React.useState<TrainingType>({
-    Category: training?.Category as TrainingCategoryEnum,
-    TrainingTitle: training?.TrainingTitle,
-    Video: training?.Video,
+    Category:
+      (training?.Category as TrainingCategoryEnum) ||
+      ("" as TrainingCategoryEnum),
+    TrainingTitle: training?.TrainingTitle || "",
+    Video: training?.Video || "",
+    ThumbNail: training?.ThumbNail,
   });
 
   const mutation = useMutation(
@@ -56,8 +61,10 @@ export const UpdatePolicyTrainingModal: React.FC<Props> = ({
     {
       onSuccess: (data) => {
         onClose();
-        queryClient.invalidateQueries(["trainings-policies"]);
-        successAlert(toast, "update successfull");
+        queryClient.invalidateQueries({
+          queryKey: ["trainings-policies"],
+        });
+        successAlert(toast, "Training Updated Successfully");
       },
       onError: (error) => {
         console.log(error);
@@ -72,12 +79,14 @@ export const UpdatePolicyTrainingModal: React.FC<Props> = ({
         <Box style={{ boxSizing: "border-box", padding: "2rem" }}>
           <TrainingFormForPolicy
             isLoading={mutation.isLoading}
-            training={training}
+            training={itemToUpdate}
             onSubmit={(e) => {
               e.preventDefault();
               mutation.mutate();
             }}
-            onUpdate={(value) => setItemToUpdate(value)}
+            onUpdate={(value) => {
+              setItemToUpdate(value);
+            }}
             label="Update"
           />
         </Box>

@@ -40,9 +40,9 @@ export const CreateAdminPage = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation(() => addAdminHandler(), {
     onSuccess: () => {
-      successAlert(toast, "Admin added successfully");
       setAdmin(null);
       queryClient.invalidateQueries(["getAdmins"], { exact: true });
+      successAlert(toast, "Admin Created Successfully");
     },
     onError: () => {
       errorAlert(toast);
@@ -57,9 +57,9 @@ export const CreateAdminPage = () => {
           padding: "1rem",
           boxSizing: "border-box",
           display: "flex",
-          height: "100%",
           flexDirection: "column",
           gap: "2rem",
+          height: "100vh",
         }}
       >
         <Box display="flex" justifyContent="space-between">

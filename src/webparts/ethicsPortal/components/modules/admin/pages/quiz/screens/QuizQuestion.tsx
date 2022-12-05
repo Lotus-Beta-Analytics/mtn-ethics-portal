@@ -62,7 +62,16 @@ export const QuizQuestionSetUp = (props: Props) => {
   };
 
   return (
-    <Box component="form" style={{ overflowY: "scroll", height: "80%" }}>
+    <Box
+      component="form"
+      style={{
+        overflowY: "auto",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+      mb={4}
+    >
       <Box
         width="70%"
         display="flex"
@@ -71,6 +80,7 @@ export const QuizQuestionSetUp = (props: Props) => {
         flexDirection="column"
         margin="0 auto"
         style={{ gap: "1rem" }}
+        flex={1}
       >
         <Typography
           variant="h5"
@@ -275,23 +285,25 @@ export const QuizQuestionSetUp = (props: Props) => {
           </Button>
         </Box>
       </Box>
-      {quiz?.questions && (
-        <QuestionsTable
-          questions={quiz?.questions}
-          onUpdate={(res) => {
-            setQuiz({
-              ...quiz,
-              questions: [
-                ...quiz?.questions.filter(
-                  //@ts-ignore
-                  (it) => it.tableData.id !== res.tableData.id
-                ),
-              ],
-            });
-            setQuestion(res);
-          }}
-        />
-      )}
+      <Box mb={6}>
+        {quiz?.questions && (
+          <QuestionsTable
+            questions={quiz?.questions}
+            onUpdate={(res) => {
+              setQuiz({
+                ...quiz,
+                questions: [
+                  ...quiz?.questions.filter(
+                    //@ts-ignore
+                    (it) => it.tableData.id !== res.tableData.id
+                  ),
+                ],
+              });
+              setQuestion(res);
+            }}
+          />
+        )}
+      </Box>
     </Box>
   );
 };

@@ -5,6 +5,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { QuizReportTable } from "./components/QuizReportTable";
 import { QuizStatus } from "./modals/EnableQuizPromptModal";
 
@@ -70,13 +71,13 @@ export const ReportPage = () => {
 
   return (
     <AdminWrapper>
-      <Box my={2}>
+      <Container style={{ height: "100vh" }}>
         <QuizReportTable
           quizReport={quizReport}
           column={columns}
           title="All Participants Report"
         />
-      </Box>
+      </Container>
     </AdminWrapper>
   );
 };

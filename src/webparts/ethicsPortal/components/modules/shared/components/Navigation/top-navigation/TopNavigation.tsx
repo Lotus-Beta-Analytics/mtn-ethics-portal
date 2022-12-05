@@ -4,6 +4,7 @@ import { ContextMenu } from "../../../../../contextMenu/ContextMenu";
 import { ContextMenuLink } from "../../../../../contextMenu/ContextMenuLink";
 import { MLink } from "../../../../../styles/styles";
 import { theme } from "../../../../../themes/themes";
+import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { NavigationSearch } from "./components/NavigationSearch";
 import { policyContextData } from "../../../../../contexts/EmployeePolicyContext";
@@ -79,7 +80,7 @@ export const TopNavigation = () => {
 
   const { policies } = policyContextData();
 
-  const handleClickAway = () => {};
+  const handleClickAway = (event) => {};
 
   const MenuItems = [
     {
@@ -169,10 +170,11 @@ export const TopNavigation = () => {
                 className={`${classes.list} ${
                   index === activeIndex && classes.active
                 }`}
-                onClick={(e) => {
+                onMouseEnter={(e) => {
                   setActiveIndex(index);
                   handleClick(e);
                 }}
+                key={index}
               >
                 <MLink to={menu?.link}>{menu.text}</MLink>
               </li>
@@ -202,3 +204,5 @@ export const TopNavigation = () => {
     </Box>
   );
 };
+
+const styledList = styled.li;

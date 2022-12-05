@@ -84,7 +84,6 @@ export const UpdatePolicyPage: React.FC<{ context: WebPartContext }> = ({
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["getAllPolicies"]);
         successAlert(toast, "Policy Updated Successfully");
         setTimeout(() => {
           history.goBack();
@@ -119,7 +118,7 @@ export const UpdatePolicyPage: React.FC<{ context: WebPartContext }> = ({
         </Typography>
         <TextField
           variant="outlined"
-          value={postTitle}
+          value={postTitle || ""}
           onChange={(e) => setPostTitle(e.target.value)}
           label="Policy Title"
           fullWidth
@@ -183,23 +182,20 @@ export const UpdatePolicyContentPage: React.FC<{
 
   const [content, setContent] = React.useState<any>();
   const [postTitle, setPostTitle] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
-  const { data, isLoading, isError } = useQuery<any>(
-    ["getPolicy", policyId],
-    async () => {
-      return await sp.web.lists
-        .getByTitle("Policies")
-        .items.getById(policyId)
-        .select(
-          "PolicyTitle, FileUrl, content, SectionId/PolicyTitle, SectionId/ID"
-        )
-        .expand("SectionId")
-        .get();
-    },
-
-    {
-      enabled: !!policyId,
-      onSuccess(res) {
+  React.useEffect(() => {
+    setLoading(true);
+    (async () => {
+      try {
+        const res = await sp.web.lists
+          .getByTitle("Policies")
+          .items.getById(policyId)
+          .select(
+            "PolicyTitle, FileUrl, content, SectionId/PolicyTitle, SectionId/ID"
+          )
+          .expand("SectionId")
+          .get();
         setPostTitle(res?.PolicyTitle);
         setFile(res?.FileUrl);
         setSection({
@@ -209,11 +205,17 @@ export const UpdatePolicyContentPage: React.FC<{
           PolicyTitle: res?.SectionId["PolicyTitle"],
         });
         const con = JSON.parse(res?.content);
-
-        setContent(con?.data);
-      },
-    }
-  );
+        if (con?.data) {
+          setContent(con?.data);
+        } else {
+          setContent(con);
+        }
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    })();
+  }, [policyId]);
 
   const history = useHistory();
 
@@ -228,7 +230,7 @@ export const UpdatePolicyContentPage: React.FC<{
       }),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["getAllPolicies"]);
+        // queryClient.invalidateQueries(["getAllPolicies"]);
         successAlert(toast, "Policy Updated Successfully");
       },
       onError: () => {
@@ -237,9 +239,7 @@ export const UpdatePolicyContentPage: React.FC<{
     }
   );
 
-  if (isError) return <>An error occured</>;
-
-  if (isLoading) return <>Loading...</>;
+  if (loading) return <>...loading</>;
 
   return (
     <form
@@ -256,9 +256,9 @@ export const UpdatePolicyContentPage: React.FC<{
     >
       <TextField
         variant="outlined"
-        value={postTitle}
+        value={postTitle || ""}
         onChange={(e) => setPostTitle(e.target.value)}
-        label="Post Title"
+        label="Title"
         fullWidth
         required
         style={{ margin: "1rem 0" }}
@@ -277,6 +277,7 @@ export const UpdatePolicyContentPage: React.FC<{
           section={section}
           onUpdate={(section) => setSection(section)}
           label="Policy Section"
+          readOnly={!!section}
         />
       </Box>
       <Box my={2} style={{ overflowY: "auto" }}>

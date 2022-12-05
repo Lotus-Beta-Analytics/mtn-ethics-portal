@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -26,7 +26,7 @@ export const VideoUploadPage: React.FC<Props> = ({ context }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["gallery"]);
-        successAlert(toast, "Item Added Successfully").then(() => {
+        successAlert(toast, "Item Created Successfully").then(() => {
           setGalleryData(null);
           setTimeout(() => {
             history.push("/admin/gallery");
@@ -41,7 +41,8 @@ export const VideoUploadPage: React.FC<Props> = ({ context }) => {
   );
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh", padding: "1.5rem" }}>
+        <Typography>Video Upload Page</Typography>
         <GalleryForm
           onUpdate={(data) => setGalleryData(data)}
           buttonLabel="Add Video"

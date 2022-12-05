@@ -180,14 +180,6 @@ export const Post = () => {
               </Box>
             </Box>
             <Box width="100%" mb={1}>
-              <Typography
-                variant="body1"
-                style={{
-                  fontWeight: "bold",
-                }}
-              >
-                Add Comment
-              </Typography>
               <Box
                 style={{
                   display: "flex",
@@ -212,11 +204,18 @@ export const Post = () => {
                       height: "40px",
                     }}
                   />
-                  <p style={{ fontWeight: "bold", fontSize: "14px" }}>
-                    {data?.name}
-                  </p>
+                  <p style={{ fontSize: "14px" }}>{data?.name}</p>
                 </Box>
+
                 <Box flex="1.4">
+                  <Typography
+                    variant="body1"
+                    style={{
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Add Comment
+                  </Typography>
                   <EnterComment
                     comment={comment}
                     onUpdate={(comment) => setComment(comment)}
@@ -226,9 +225,9 @@ export const Post = () => {
               <Box
                 display="flex"
                 alignItems="center"
-                justifyContent="space-between"
+                justifyContent="flex-end"
+                my={2}
               >
-                <Box></Box>
                 <Button
                   endIcon={<FaShare />}
                   style={{ borderRadius: "100px" }}

@@ -49,7 +49,7 @@ export const UpdateAdminPage = () => {
         .update({
           ...admin,
         });
-      successAlert(toast, "Admin updated successfully");
+      successAlert(toast, "Admin Updated Successfully");
       setSubmitting(false);
     } catch (e) {
       setSubmitting(false);
@@ -58,7 +58,7 @@ export const UpdateAdminPage = () => {
   };
   return (
     <AdminWrapper>
-      <Container style={{ width: "100%" }}>
+      <Container style={{ width: "100%", height: "100vh" }}>
         {loading ? (
           <CircularProgress size={20} />
         ) : (

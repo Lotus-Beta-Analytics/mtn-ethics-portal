@@ -109,13 +109,13 @@ export const LandingPage = () => {
                 width="100%"
               >
                 <Typography
-                  variant="h2"
+                  variant="h1"
                   style={{
                     fontStyle: "italic",
                     width: "50%",
                     boxSizing: "border-box",
                     paddingRight: "1rem",
-                    fontWeight: "bold",
+                    fontWeight: "bolder",
                   }}
                 >
                   {item?.CarouselTitle}

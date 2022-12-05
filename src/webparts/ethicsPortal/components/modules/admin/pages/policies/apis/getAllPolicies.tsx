@@ -4,7 +4,9 @@ import { useQueryClient } from "@tanstack/react-query";
 export const getAllPolicies = async () => {
   return await sp.web.lists
     .getByTitle("Policies")
-    .items.select("Id, ID, PolicyTitle, Created, SectionId/PolicyTitle")
+    .items.select(
+      "Id, ID, PolicyTitle, PolicySection, Created, SectionId/PolicyTitle"
+    )
     .expand("SectionId")
     .getAll();
 };

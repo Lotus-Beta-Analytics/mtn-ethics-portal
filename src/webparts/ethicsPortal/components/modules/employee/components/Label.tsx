@@ -36,7 +36,7 @@ export const Label: React.FC<Props> = ({ header, content }) => {
             variant="body2"
             style={{ fontWeight: "bold", fontSize: "14px" }}
           >
-            {content.substring(0, 250)}...
+            {content?.substring(0, 250)}...
           </Typography>
         );
       })()}

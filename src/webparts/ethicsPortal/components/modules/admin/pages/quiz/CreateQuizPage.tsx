@@ -47,8 +47,8 @@ export const CreateQuizPage = () => {
   } = CreateAdminQuizContextData();
   return (
     <AdminWrapper>
-      <Container>
-        <div className={classes.root}>
+      <Container style={{ minHeight: "100vh" }}>
+        <>
           <Stepper activeStep={activeStep}>
             {steps.map((label, index) => {
               const stepProps: { completed?: boolean } = {};
@@ -65,7 +65,7 @@ export const CreateQuizPage = () => {
             {activeStep === steps.length ? (
               <div></div>
             ) : (
-              <div style={{ position: "relative", minHeight: "80vh" }}>
+              <div style={{ position: "relative", minHeight: "95vh" }}>
                 <Box height="80%" my={2} width="100%">
                   {getStepContent(activeStep)}
                 </Box>
@@ -111,7 +111,7 @@ export const CreateQuizPage = () => {
               </div>
             )}
           </div>
-        </div>
+        </>
       </Container>
     </AdminWrapper>
   );

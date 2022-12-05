@@ -11,7 +11,9 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
 import { ModalCloseButton } from "../../../components/ModalCloseButton";
+import { ReadOnlyURLSearchParams } from "../../policies/ManagePoliciesPage";
 import { deletePost } from "../apis/deletePost";
+import { useParams, useLocation } from "react-router-dom";
 
 type Props = {
   open: boolean;
@@ -28,6 +30,12 @@ export const RemoveBlogPostModal: React.FC<Props> = ({
 }) => {
   const queryClient = useQueryClient();
   const toast = useToasts().addToast;
+  const { search } = useLocation();
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
+    [search]
+  );
+  const { policyId } = useParams();
   const mutation = useMutation(
     (id: number) => {
       return deletePost(id);
@@ -35,8 +43,14 @@ export const RemoveBlogPostModal: React.FC<Props> = ({
     {
       onSuccess: () => {
         onClose();
-        queryClient.invalidateQueries(["getAllPosts"]);
-        successAlert(toast, "Article Deleted Successfully").then(() => {});
+        queryClient.invalidateQueries({
+          queryKey: ["getPosts"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["policyWriteUps"],
+        });
+
+        successAlert(toast, "Article Deleted Successfully");
       },
       onError: () => {
         errorAlert(toast);

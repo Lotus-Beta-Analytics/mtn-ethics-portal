@@ -8,10 +8,12 @@ import {
 } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { useParams, useLocation } from "react-router-dom";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
 import { ModalCloseButton } from "../../../components/ModalCloseButton";
+import { ReadOnlyURLSearchParams } from "../../policies/ManagePoliciesPage";
 
 type Props = {
   title: string;
@@ -27,6 +29,12 @@ export const DeleteTrainingVideoModal: React.FC<Props> = ({
   title,
 }) => {
   const queryClient = useQueryClient();
+  const { policyId } = useParams();
+  const { search } = useLocation();
+  const searchParams = React.useMemo(
+    () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
+    [search]
+  );
   const toast = useToasts().addToast;
   const mutation = useMutation(
     async (id: number) => {
@@ -38,10 +46,13 @@ export const DeleteTrainingVideoModal: React.FC<Props> = ({
     {
       onSuccess: () => {
         onClose(true);
-        queryClient.invalidateQueries([
-          "getVideoCourses",
-          "trainings-policies",
-        ]);
+        queryClient.invalidateQueries({
+          queryKey: ["trainings-policies"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["getVideoCourses"],
+        });
+
         successAlert(toast, "Training Deleted Successfully");
       },
       onError: () => {

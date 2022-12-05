@@ -21,7 +21,7 @@ export const TableStyles: React.CSSProperties = {
   width: "100%",
   background: "none",
   fontSize: "13px",
-  overflowX: "scroll",
+  overflowX: "hidden",
 };
 export const TableHeaderStyles: React.CSSProperties = {
   backgroundColor: "#FFCC00",
@@ -32,7 +32,7 @@ export const ButtonContainerStyles: React.CSSProperties = {
   width: "100%",
   display: "flex",
   alignItems: "center",
-  justifyContent:"space-between"
+  justifyContent: "space-between",
 };
 
 export const TableIcons: Icons = {

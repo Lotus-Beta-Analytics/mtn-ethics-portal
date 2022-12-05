@@ -169,6 +169,7 @@ export const QuizTable: React.FC<Props> = ({ quizzes, onUpdate }) => {
                 startDate: rowData?.startDate,
                 title: rowData?.QuizTitle,
                 topic: rowData?.topic,
+                isShuffle: rowData?.Shuffled,
               });
               history.push("/admin/create-quiz");
             },

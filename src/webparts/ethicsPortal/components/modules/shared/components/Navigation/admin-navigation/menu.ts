@@ -38,7 +38,7 @@ export const adminNavItems = [
         link: "/admin/gallery/videos",
       },
       {
-        title: "Images",
+        title: "Photos",
         icon: FaImages,
         link: "/admin/gallery/images",
       },

@@ -123,18 +123,20 @@ export const PostPreviewContainer = styled(Box)({
 
 export const PageNavigationContainer = styled.div<{ open: boolean }>(
   (props) => ({
-    minWidth: props?.open ? "250px" : "100px",
+    minWidth: props?.open ? "270px" : "100px",
     display: "flex",
     alignItems: "center",
     backgroundColor: theme.palette.primary.main,
     position: "absolute",
-    top: "12%",
+    // top: "12%",
     minHeight: "300px",
-    left: props?.open ? "90%" : "105%",
+    // left: props?.open ? "90%" : 100,
     boxShadow: "3px 2px 5px rgba(0, 0, 0, 0.25)",
-    borderRadius: "10px",
+    borderRadius: "20px 0 0 20px",
     transition: "all .2s ease-in-out",
     boxSizing: "border-box",
     zIndex: "99",
+    marginTop: "10%",
+    marginLeft: props?.open ? "86%" : "100%",
   })
 );

@@ -21,7 +21,7 @@ export const ManageCarouselPage = () => {
   );
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ height: "100vh" }}>
         <CarouselTable loading={isLoading} carouselItems={items} />
       </Container>
     </AdminWrapper>

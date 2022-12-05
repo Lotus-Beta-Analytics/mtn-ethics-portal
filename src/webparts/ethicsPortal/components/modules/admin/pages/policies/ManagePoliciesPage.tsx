@@ -4,6 +4,7 @@ import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/Admin
 import { getAllPolicies } from "./apis/getAllPolicies";
 import { PoliciesTable } from "./components/PoliciesTable";
 import { useLocation } from "react-router-dom";
+import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
 export interface ReadOnlyURLSearchParams extends URLSearchParams {
   append: never;
@@ -40,11 +41,13 @@ export const ManagePoliciesPage = () => {
   if (isError) return <>An Error Occured...</>;
   return (
     <AdminWrapper>
-      <PoliciesTable
-        policies={policies}
-        loading={isLoading}
-        title={searchParams.get("section")}
-      />
+      <Container style={{ height: "100vh" }}>
+        <PoliciesTable
+          policies={policies}
+          loading={isLoading}
+          title={searchParams.get("section")}
+        />
+      </Container>
     </AdminWrapper>
   );
 };

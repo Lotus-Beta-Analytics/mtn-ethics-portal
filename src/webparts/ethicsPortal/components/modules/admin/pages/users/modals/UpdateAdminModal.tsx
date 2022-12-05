@@ -42,7 +42,7 @@ export const UpdateAdminModal: React.FC<Props> = ({
       onSuccess: (data) => {
         onClose();
         queryClient.invalidateQueries(["getAdmins"]);
-        successAlert(toast, "Admin updated successfully");
+        successAlert(toast, "Admin Updated Successfully");
       },
       onError: (error) => {
         console.log(error);
@@ -68,7 +68,7 @@ export const UpdateAdminModal: React.FC<Props> = ({
           }}
           endIcon={mutation?.isLoading ? <CircularProgress size={20} /> : <></>}
           variant="contained"
-          color="secondary"
+          color="primary"
         >
           Update
         </Button>

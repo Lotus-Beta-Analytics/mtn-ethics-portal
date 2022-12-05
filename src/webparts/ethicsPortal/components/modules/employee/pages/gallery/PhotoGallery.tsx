@@ -32,12 +32,7 @@ export const PhotoGallery = () => {
   const { data, isLoading, isError } = useQuery<GalleryData[]>(
     ["getGallery", searchParams.get("location")],
     async () => {
-      try {
-        const res = await sp.web.lists.getByTitle("Gallery").items.getAll();
-        return res;
-      } catch (e) {
-        return e;
-      }
+      return await sp.web.lists.getByTitle("Gallery").items.getAll();
     },
     {
       onSuccess: (dt) => {
@@ -53,6 +48,7 @@ export const PhotoGallery = () => {
           setItems([]);
         }
       },
+      staleTime: 1500000,
     }
   );
   return (

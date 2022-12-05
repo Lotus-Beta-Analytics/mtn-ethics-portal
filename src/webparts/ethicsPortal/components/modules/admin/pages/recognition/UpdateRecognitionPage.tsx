@@ -89,7 +89,7 @@ export const UpdateRecognitionPage: React.FC<{ context: WebPartContext }> = ({
 
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ minHeight: "100vh" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();

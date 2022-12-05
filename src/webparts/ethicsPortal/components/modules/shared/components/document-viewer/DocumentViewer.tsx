@@ -20,19 +20,23 @@ export const DocumentViewer: React.FC<Props> = ({ open, onClose, url }) => {
             height: "80vh",
           }}
         >
-          <ViewerWrapper data={url} onClose={onClose}>
-            {url && (
-              <iframe
-                src={url}
-                title="file"
-                width="100%"
-                height="100%"
-                style={{
-                  objectFit: "cover",
-                }}
-              ></iframe>
-            )}
-          </ViewerWrapper>
+          {(() => {
+            return (
+              <ViewerWrapper data={url} onClose={onClose}>
+                {url && (
+                  <iframe
+                    src={url}
+                    title="file"
+                    width="100%"
+                    height="100%"
+                    style={{
+                      objectFit: "cover",
+                    }}
+                  ></iframe>
+                )}
+              </ViewerWrapper>
+            );
+          })()}
         </Box>
       </DialogContent>
     </Dialog>

@@ -14,7 +14,7 @@ export const ManageDeafulters = () => {
   if (isError) return <>An Error Occured...</>;
   return (
     <AdminWrapper>
-      <Container>
+      <Container style={{ minHeight: "100vh" }}>
         <ManageDefaulterTable
           manageDefaulters={data}
           loading={isLoading}

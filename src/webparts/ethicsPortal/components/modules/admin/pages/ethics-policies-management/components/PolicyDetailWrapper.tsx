@@ -25,7 +25,7 @@ export const PolicyDetailWrapper: React.FC<Props> = ({
   const options: PolicyDetail[] = [
     {
       text: "Articles",
-      link: `/admin/policy/${id}?section=post`,
+      link: `/admin/policy/${id}?section=post&filter=${policy?.PolicyTitle}&sectionId=${id}`,
     },
     {
       text: "Training Slides",
@@ -41,7 +41,7 @@ export const PolicyDetailWrapper: React.FC<Props> = ({
     },
   ];
   return (
-    <Container>
+    <Container style={{ minHeight: "100vh" }}>
       <Box
         py={1}
         style={{ borderBottom: "1px solid #e6e6e6", boxSizing: "border-box" }}

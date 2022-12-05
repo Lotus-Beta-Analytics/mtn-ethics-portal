@@ -89,7 +89,9 @@ export const PolicyTable: React.FC<Props> = ({ policies, loading, title }) => {
             tooltip: "view",
 
             onClick: (event, rowData) => {
-              history.push(`/admin/policy/${rowData.Id}`);
+              history.push(
+                `/admin/policy/${rowData.Id}?filter=${rowData?.PolicyTitle}`
+              );
             },
           },
           {
