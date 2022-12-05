@@ -39,7 +39,7 @@ export const CreatePostInPolicy: React.FC<Props> = ({
   policyId,
 }) => {
   const { context } = React.useContext(WebContext);
-  const [component, setComponent] = React.useState("table");
+  const [component, setComponent] = React.useState("form");
   const [post, setPost] = React.useState<Post>();
   const [content, setContent] = React.useState<any>();
   const queryClient = useQueryClient();
@@ -78,7 +78,7 @@ export const CreatePostInPolicy: React.FC<Props> = ({
     },
   });
   return (
-    <Box>
+    <Box minHeight="100vh">
       <Box display="flex" justifyContent="flex-start">
         <Select
           value={component}

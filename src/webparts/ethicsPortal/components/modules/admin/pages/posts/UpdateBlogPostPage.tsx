@@ -35,44 +35,44 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
 
   const [file, setFile] = React.useState("");
   const [section, setSection] = React.useState<Policy>();
-
+  const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState<any>();
   const [postTitle, setPostTitle] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
-  const { data, isLoading, isError } = useQuery<any>(
-    ["getPost", postId],
-    async () => {
-      return await sp.web.lists
-        .getByTitle("Post")
-        .items.getById(postId)
-        .select(
-          "content, PostTitle, FileUrl, SectionId/ID, SectionId/PolicyTitle"
-        )
-        .expand("SectionId")
-        .get();
-    },
-    {
-      enabled: !!postId,
-      onSuccess(res) {
+  React.useEffect(() => {
+    setLoading(true);
+    (async () => {
+      try {
+        const res = await sp.web.lists
+          .getByTitle("Post")
+          .items.getById(postId)
+          .select(
+            "content, PostTitle, FileUrl, SectionId/ID, SectionId/PolicyTitle"
+          )
+          .expand("SectionId")
+          .get();
         setPostTitle(res?.PostTitle);
+        setTitle(res?.PostTitle);
         setFile(res?.FileUrl);
-        const con = JSON.parse(res?.content);
-        setContent(con?.data);
         setSection({
           Content: "",
           Id: res?.SectionId["ID"],
           ImageUrl: "",
           PolicyTitle: res?.SectionId["PolicyTitle"],
         });
-      },
-      onError(err) {
-        errorAlert(
-          toast,
-          "An error occurred while updating the article. Please try again."
-        );
-      },
-    }
-  );
+        const con = JSON.parse(res?.content);
+        if (con?.data) {
+          setContent(con?.data);
+        } else {
+          setContent(con);
+        }
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    })();
+  }, [postId]);
 
   const history = useHistory();
 
@@ -90,9 +90,7 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
         queryClient.invalidateQueries({
           queryKey: ["policyWriteUps"],
         });
-        queryClient.invalidateQueries({
-          queryKey: ["getPosts"],
-        });
+
         successAlert(toast, "Article Updated Successfully").then(() => {
           history.goBack();
         });
@@ -103,13 +101,11 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
     }
   );
 
-  if (isError) return <>An error occured</>;
-
-  if (isLoading) return <>Loading...</>;
+  if (loading) return <>Loading...</>;
 
   return (
     <AdminWrapper>
-      <Container style={{ height: "100vh" }}>
+      <Container style={{ minHeight: "100vh" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -123,7 +119,7 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
           }}
         >
           <Typography>
-            Update Blog Post | <strong>{data?.PostTitle}</strong>
+            Update Blog Post | <strong>{title}</strong>
           </Typography>
           <TextField
             variant="outlined"
@@ -144,11 +140,13 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
           </Box>
 
           <Box my={2}>
-            <CreateSection
-              section={section}
-              onUpdate={(section) => setSection(section)}
-              label="Article Section"
-            />
+            {!section && (
+              <CreateSection
+                section={section}
+                onUpdate={(section) => setSection(section)}
+                label="Article Section"
+              />
+            )}
           </Box>
           <Box my={2} style={{ overflowY: "auto" }}>
             <PostEditor

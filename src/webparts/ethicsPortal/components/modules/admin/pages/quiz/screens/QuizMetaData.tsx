@@ -74,7 +74,6 @@ export const QuizMetaData = (props: Props) => {
             value={quiz?.startDate}
             variant="dialog"
             inputVariant="outlined"
-            disableToolbar
             onChange={(e) =>
               setQuiz({
                 ...quiz,
@@ -91,16 +90,17 @@ export const QuizMetaData = (props: Props) => {
               />
             )}
           />
-
+        </MuiPickersUtilsProvider>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             label="End Date"
             format="dd/MM/yyyy"
             margin="normal"
             id="date-picker-inline"
             value={quiz?.endDate}
+            fullWidth
             variant="dialog"
             inputVariant="outlined"
-            disableToolbar
             minDate={new Date(quiz?.startDate)}
             onChange={(e) =>
               setQuiz({

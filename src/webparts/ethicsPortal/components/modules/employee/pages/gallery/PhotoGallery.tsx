@@ -48,7 +48,7 @@ export const PhotoGallery = () => {
           setItems([]);
         }
       },
-      staleTime: 15000,
+      staleTime: 1500000,
     }
   );
   return (

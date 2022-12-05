@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { useHistory } from "react-router-dom";
+import { adminNavItems } from "../../../shared/components/Navigation/admin-navigation/menu";
 
 export const AdminDashboard = () => {
   const history = useHistory();
@@ -25,18 +26,20 @@ export const AdminDashboard = () => {
           }}
           style={{ gap: "2rem" }}
         >
-          {dashboardItems.map((item) => {
-            return (
-              <DashboardCard onClick={() => history.push(`${item?.link}`)}>
-                <item.icon
-                  style={{
-                    fontSize: "1.5rem",
-                  }}
-                />
-                <Typography variant="body1">{item?.title}</Typography>
-              </DashboardCard>
-            );
-          })}
+          {adminNavItems
+            .filter((it, i) => it.title !== "Dashboard" && i !== 0)
+            .map((item) => {
+              return (
+                <DashboardCard onClick={() => history.push(`${item?.link}`)}>
+                  <item.icon
+                    style={{
+                      fontSize: "1.5rem",
+                    }}
+                  />
+                  <Typography variant="body1">{item?.title}</Typography>
+                </DashboardCard>
+              );
+            })}
         </Box>
       </Box>
     </AdminWrapper>
