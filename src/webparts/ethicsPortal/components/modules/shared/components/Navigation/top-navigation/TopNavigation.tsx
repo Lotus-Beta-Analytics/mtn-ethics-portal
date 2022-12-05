@@ -4,6 +4,7 @@ import { ContextMenu } from "../../../../../contextMenu/ContextMenu";
 import { ContextMenuLink } from "../../../../../contextMenu/ContextMenuLink";
 import { MLink } from "../../../../../styles/styles";
 import { theme } from "../../../../../themes/themes";
+import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { NavigationSearch } from "./components/NavigationSearch";
 import { policyContextData } from "../../../../../contexts/EmployeePolicyContext";
@@ -169,7 +170,7 @@ export const TopNavigation = () => {
                 className={`${classes.list} ${
                   index === activeIndex && classes.active
                 }`}
-                onClick={(e) => {
+                onMouseEnter={(e) => {
                   setActiveIndex(index);
                   handleClick(e);
                 }}
@@ -203,3 +204,5 @@ export const TopNavigation = () => {
     </Box>
   );
 };
+
+const styledList = styled.li;
