@@ -22,7 +22,7 @@ export const MLink = styled(Link)({
 
 export const TopContainer = styled.div<{ bg: string; height: string }>(
   (props) => ({
-    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 46.21%, rgba(0, 0, 0, 0.4) 64.68%),url('${props.bg}')`,
     width: "100%",
     minHeight: "200px",
     display: "flex",
@@ -38,7 +38,7 @@ export const TopContainer = styled.div<{ bg: string; height: string }>(
 );
 export const LandingTopContainer = styled.div<{ bg: string; height: string }>(
   (props) => ({
-    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
+    backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 46.21%, rgba(0, 0, 0, 0.4) 64.68%),url('${props.bg}')`,
     width: "100%",
     height: props.height ? props.height : "450px",
     display: "flex",
@@ -77,7 +77,7 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
 }));
 
 export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
+  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 46.21%, rgba(0, 0, 0, 0.4) 64.68%),url('${props.bg}')`,
   width: "400px",
   height: "450px",
   backgroundSize: "cover",
@@ -98,7 +98,7 @@ export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
 }));
 
 export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
-  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0) 54.68%),url('${props.bg}')`,
+  backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 36.21%, rgba(0, 0, 0, 0.4) 54.68%),url('${props.bg}')`,
   width: "100%",
   height: "550px",
   backgroundSize: "cover",

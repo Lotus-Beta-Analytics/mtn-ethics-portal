@@ -140,13 +140,11 @@ export const UpdateBlogPostPage: React.FC<{ context: WebPartContext }> = ({
           </Box>
 
           <Box my={2}>
-            {!section && (
-              <CreateSection
-                section={section}
-                onUpdate={(section) => setSection(section)}
-                label="Article Section"
-              />
-            )}
+            <CreateSection
+              section={section}
+              onUpdate={(section) => setSection(section)}
+              label="Article Section"
+            />
           </Box>
           <Box my={2} style={{ overflowY: "auto" }}>
             <PostEditor
