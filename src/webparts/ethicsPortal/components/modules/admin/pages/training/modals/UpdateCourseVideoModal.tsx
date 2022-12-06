@@ -32,6 +32,7 @@ export const UpdateCourseVideoModal: React.FC<Props> = ({
     TrainingTitle: training?.TrainingTitle,
     Video: training?.Video,
     ThumbNail: training?.ThumbNail,
+    FileType: training?.FileType,
   });
 
   const mutation = useMutation(

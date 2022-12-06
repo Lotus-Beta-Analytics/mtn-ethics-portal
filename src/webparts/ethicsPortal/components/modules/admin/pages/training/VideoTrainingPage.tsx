@@ -41,6 +41,8 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
     Category: "" as TrainingCategoryEnum,
     TrainingTitle: "",
     Video: "",
+    FileType: "",
+    ThumbNail: "",
   });
   const mutation = useMutation(
     async () => {
@@ -65,6 +67,7 @@ export const VideoTrainingPage: React.FC<{ context: WebPartContext }> = ({
       },
     }
   );
+
   return (
     <AdminWrapper>
       <Container style={{ height: "100vh" }}>

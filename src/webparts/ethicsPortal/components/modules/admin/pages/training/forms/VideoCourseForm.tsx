@@ -25,6 +25,15 @@ export const VideoCourseForm: React.FC<Props> = ({
   label,
   isLoading,
 }) => {
+  const [FileType, setFileType] = React.useState("");
+
+  React.useMemo(() => {
+    onUpdate({
+      ...training,
+      FileType,
+    });
+  }, [FileType]);
+
   return (
     <form
       onSubmit={(e) => onSubmit(e)}
@@ -79,6 +88,7 @@ export const VideoCourseForm: React.FC<Props> = ({
           "application/vnd.ms-powerpoint": [".pptx"],
           "application/pdf": [".pdf"],
         }}
+        setType={setFileType}
       />
       <Box display="flex" width="100%" justifyContent="space-between">
         <CancelButton />

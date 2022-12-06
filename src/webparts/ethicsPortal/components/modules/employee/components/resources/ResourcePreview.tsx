@@ -16,6 +16,7 @@ export const IconStyle: React.CSSProperties = {
   objectFit: "cover",
   top: "40%",
   left: "10%",
+  color: "#FFCC00",
 };
 
 export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
@@ -28,11 +29,13 @@ export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
       width="auto"
     >
       <ResourceThumbnailContainer bg={resource?.ThumbNail}>
-        {/([A-Z])\.mp4/i.test(resource?.Video) ? (
+        {/video\/mp4+/i.test(resource?.FileType) ? (
           <FaVideo style={IconStyle} />
-        ) : /([A-Z])\.pdf/i.test(resource?.Video) ? (
-          <></>
-        ) : /([A-Z])\.pptx/i.test(resource?.Video) ? (
+        ) : /application\/pdf+/i.test(resource?.FileType) ? (
+          <FaFilePdf style={IconStyle} className="ppt" />
+        ) : /application\/vnd.openxmlformats-officedocument.presentationml.presentation+/i.test(
+            resource?.FileType
+          ) ? (
           <img
             style={IconStyle}
             className="ppt"

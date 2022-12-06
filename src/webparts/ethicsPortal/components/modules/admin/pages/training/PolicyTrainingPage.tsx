@@ -33,7 +33,8 @@ export const PolicyTrainingPage: React.FC<Props> = ({
         Category: training?.Category,
         TrainingTitle: training?.TrainingTitle,
         Video: training?.Video,
-        ThumbNail: training?.ThumbNail,
+          ThumbNail: training?.ThumbNail,
+        FileType: training?.FileType
       });
     },
     {
