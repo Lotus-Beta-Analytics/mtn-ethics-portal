@@ -1,17 +1,12 @@
-import { Box } from "@material-ui/core";
 import { sp } from "@pnp/sp";
-import { useQuery } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { QuizTable } from "./components/QuizTable";
-import { CreateAdminQuizContextProvider } from "./context/AdminQuizContext";
 
-type Props = {};
-
-export const ManageQuizPage = (props: Props) => {
+export const ManageQuizPage = () => {
   const toast = useToasts().addToast;
   const [quizzes, setQuizzes] = React.useState([]);
   const [quizReport, setQuizReport] = React.useState<any[]>([]);
@@ -59,7 +54,7 @@ export const ManageQuizPage = (props: Props) => {
 
   return (
     <AdminWrapper>
-      <Container style={{ height: "100vh" }}>
+      <Container style={{ minHeight: "100vh" }}>
         <QuizTable quizzes={quizzes} onUpdate={(res) => fetchQuizzes()} />
       </Container>
     </AdminWrapper>

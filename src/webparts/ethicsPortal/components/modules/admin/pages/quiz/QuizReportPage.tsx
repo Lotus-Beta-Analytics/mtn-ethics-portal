@@ -17,6 +17,7 @@ export const QuizReportPage = () => {
   const toast = useToasts().addToast;
   const history = useHistory();
   React.useEffect(() => {
+    if (!quizId) return;
     (async () => {
       try {
         const res = await sp.web.lists
@@ -35,7 +36,7 @@ export const QuizReportPage = () => {
         errorAlert(toast);
       }
     })();
-  }, []);
+  }, [quizId]);
 
   const [field, setField] = React.useState([]);
   const [questionsArr, setQuestions] = React.useState([]);
