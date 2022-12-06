@@ -67,11 +67,11 @@ export const ContactUs = () => {
             <h3>Contact Us</h3>
             <span>
               <FaEnvelope />
-              MtnHelpDesk@mtn.com
+              ComplianceEthicsHelpDesk@mtn.com
             </span>
             <span>
               <BsFillTelephoneFill />
-              +2348990992992
+              252
             </span>
           </div>
           {/* form */}
