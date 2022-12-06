@@ -170,7 +170,7 @@ export const TopNavigation = () => {
                 className={`${classes.list} ${
                   index === activeIndex && classes.active
                 }`}
-                onMouseEnter={(e) => {
+                onMouseOver={(e) => {
                   setActiveIndex(index);
                   handleClick(e);
                 }}
@@ -191,6 +191,8 @@ export const TopNavigation = () => {
             <Box
               onClick={() => {
                 setSubMenuIndex(ind);
+                setAnchorEl(null);
+                setActiveIndex(null);
               }}
               className={`${subMenuIndex === ind && classes.filledBG} ${
                 classes.subMenuLink
@@ -204,5 +206,3 @@ export const TopNavigation = () => {
     </Box>
   );
 };
-
-const styledList = styled.li;
