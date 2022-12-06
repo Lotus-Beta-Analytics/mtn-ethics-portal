@@ -33,7 +33,6 @@ export const UpdatePolicyTrainingModal: React.FC<Props> = ({
   training,
 }) => {
   const queryClient = useQueryClient();
-  console.log(training, "LLL");
 
   const { context } = React.useContext(WebContext);
   const toast = useToasts().addToast;
@@ -56,6 +55,7 @@ export const UpdatePolicyTrainingModal: React.FC<Props> = ({
           TrainingTitle: itemToUpdate?.TrainingTitle,
           Video: itemToUpdate?.Video,
           ThumbNail: itemToUpdate?.ThumbNail,
+          FileType: training?.FileType,
         });
     },
     {

@@ -10,19 +10,17 @@ import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
 import * as React from "react";
 import Dropzone, { Accept } from "react-dropzone";
-import { BsFilePpt } from "react-icons/bs";
-import { FaFile } from "react-icons/fa";
 import { useToasts } from "react-toast-notifications";
 import uuid from "react-uuid";
 import { fileUploadErrorDisplay } from "../../../../utils/fileUploadErrorFeedback";
 import { errorAlert } from "../../../../utils/toast-messages";
-import { IconStyle } from "../../../employee/components/resources/ResourcePreview";
 
 type Props = {
   fileControl: string;
   onUpdate: React.Dispatch<string>;
   context: WebPartContext;
   accept?: Accept;
+  setType?: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const FileUpload: React.FC<Props> = ({
@@ -30,6 +28,7 @@ export const FileUpload: React.FC<Props> = ({
   onUpdate,
   context,
   accept = { "image/*": [".jpg", ".jpeg"] },
+  setType,
 }) => {
   const toast = useToasts().addToast;
 
@@ -56,6 +55,7 @@ export const FileUpload: React.FC<Props> = ({
             );
           }
           setUpload(false);
+          setType(file?.type);
         });
       })
       .catch((e) => {

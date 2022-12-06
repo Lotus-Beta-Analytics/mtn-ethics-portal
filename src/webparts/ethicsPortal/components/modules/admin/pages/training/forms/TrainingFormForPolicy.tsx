@@ -27,6 +27,7 @@ export const TrainingFormForPolicy: React.FC<Props> = ({
   isLoading,
 }) => {
   const { context } = React.useContext(WebContext);
+  const [FileType, setFileType] = React.useState("");
   const { search } = useLocation();
   const searchParams = React.useMemo(
     () => new URLSearchParams(search) as ReadOnlyURLSearchParams,
@@ -43,6 +44,12 @@ export const TrainingFormForPolicy: React.FC<Props> = ({
       });
     })();
   }, []);
+  React.useMemo(() => {
+    onUpdate({
+      ...training,
+      FileType,
+    });
+  }, [FileType]);
 
   return (
     <form
@@ -90,6 +97,7 @@ export const TrainingFormForPolicy: React.FC<Props> = ({
             onUpdate({
               ...training,
               Video: newValue,
+              FileType: training?.FileType,
             })
           }
           accept={{
@@ -97,6 +105,7 @@ export const TrainingFormForPolicy: React.FC<Props> = ({
             "application/vnd.ms-powerpoint": [".pptx"],
             "application/pdf": [".pdf"],
           }}
+          setType={setFileType}
         />
       </Box>
 
