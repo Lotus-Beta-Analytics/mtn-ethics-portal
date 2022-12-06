@@ -21,7 +21,7 @@ export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
   const columns = [
     {
       title: "SN",
-      field: "tableData",
+      field: "tableData[id]",
       render: (rowData) => <div>{rowData?.tableData?.id + 1}</div>,
     },
     { title: "Question", field: "question" },
@@ -45,7 +45,6 @@ export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
       title={`All Questions`}
       columns={columns}
       data={questions}
-      //   isLoading={loading}
       options={{
         exportButton: { csv: true, pdf: false },
         actionsCellStyle: {
@@ -59,9 +58,9 @@ export const QuestionsTable: React.FC<Props> = ({ questions, onUpdate }) => {
         exportAllData: true,
         exportFileName: "Questions",
         headerStyle: TableHeaderStyles,
-        doubleHorizontalScroll: true,
+        maxBodyHeight: "60vh",
       }}
-      style={{ ...TableStyles }}
+      style={{ ...TableStyles, marginBottom: "1.5rem" }}
       actions={[
         {
           icon: "visibility",

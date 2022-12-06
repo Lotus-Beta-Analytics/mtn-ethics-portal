@@ -27,7 +27,7 @@ export const ContactUs = () => {
       .then((res) => {
         swal(
           "Success",
-          "Thank you, your Post has been successfully submited",
+          "Thank you, your enquiry has been successfully submited",
           "success"
         );
         setMessage("");
@@ -42,18 +42,8 @@ export const ContactUs = () => {
     sp.profiles.myProperties.get().then((response) => {
       setEmployeeName(response.DisplayName);
       setEmployeeEmail(response.Email);
-      sp.web.lists
-        .getByTitle(`ContactUs`)
-        .items.filter(`EmployeeEmail eq '${response.Email}'`)
-        .get()
-        .then((res) => {
-          if (res.length > 0) {
-            return;
-          }
-          console.log(res);
-        });
     });
-  }, [history]);
+  }, []);
 
   return (
     <EmployeeWrapper backButton={false}>

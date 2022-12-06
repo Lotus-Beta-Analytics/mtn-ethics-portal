@@ -66,11 +66,11 @@ export const QuizQuestionSetUp = (props: Props) => {
       component="form"
       style={{
         overflowY: "auto",
-        height: "100%",
+        maxHeight: "80%",
         display: "flex",
         flexDirection: "column",
       }}
-      mb={4}
+      mb={10}
     >
       <Box
         width="70%"
@@ -285,7 +285,7 @@ export const QuizQuestionSetUp = (props: Props) => {
           </Button>
         </Box>
       </Box>
-      <Box mb={6}>
+      <Box mb={10}>
         {quiz?.questions && (
           <QuestionsTable
             questions={quiz?.questions}

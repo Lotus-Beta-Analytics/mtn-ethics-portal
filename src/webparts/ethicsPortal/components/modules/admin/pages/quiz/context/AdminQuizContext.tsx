@@ -118,9 +118,10 @@ export const CreateAdminQuizContextProvider: React.FC<{
         QuizId: quiz?.QuizId,
         Shuffled: quiz?.isShuffle,
       });
-      successAlert(toast, "Quiz Created Successfully");
-      history.push("/admin/manage-quiz");
       setLoading(false);
+      successAlert(toast, "Quiz Created Successfully").then(() => {
+        history.push("/admin/manage-quiz");
+      });
     } catch (e) {
       errorAlert(toast);
       setLoading(false);
@@ -144,12 +145,13 @@ export const CreateAdminQuizContextProvider: React.FC<{
           QuizId: quiz?.QuizId,
           Shuffled: quiz?.isShuffle,
         });
-      successAlert(toast, "Quiz Updated Successfully");
-      history.push("/admin/manage-quiz");
       setLoading(false);
+      successAlert(toast, "Quiz Updated Successfully").then(() => {
+        history.push("/admin/manage-quiz");
+      });
     } catch (e) {
-      errorAlert(toast);
       setLoading(false);
+      errorAlert(toast);
     }
   };
 
