@@ -46,6 +46,8 @@ export const theme = createTheme({
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        boxSizing: "border-box",
+        margin: ".3rem",
       },
     },
     MuiCircularProgress: {

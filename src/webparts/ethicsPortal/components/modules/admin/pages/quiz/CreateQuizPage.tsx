@@ -69,7 +69,14 @@ export const CreateQuizPage = () => {
                 <Box height="80%" my={2} width="100%">
                   {getStepContent(activeStep)}
                 </Box>
-                <div style={{ position: "absolute", bottom: 0, right: 0 }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    marginTop: "2rem",
+                  }}
+                >
                   <Button
                     disabled={activeStep === 0}
                     onClick={handleBack}

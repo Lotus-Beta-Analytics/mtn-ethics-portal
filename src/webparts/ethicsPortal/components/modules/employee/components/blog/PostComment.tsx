@@ -40,7 +40,7 @@ export const PostComment: React.FC<Props> = ({ comment, comments }) => {
           <p style={{ fontWeight: "bold" }}>{user?.name || "N/A"}</p>
         </Box>
 
-        <p style={{ fontWeight: "bold" }}>{comment?.comment}</p>
+        <p>{comment?.comment}</p>
       </Box>
       <Typography
         variant="caption"
@@ -48,7 +48,6 @@ export const PostComment: React.FC<Props> = ({ comment, comments }) => {
           position: "absolute",
           bottom: 5,
           right: 5,
-          fontWeight: "bold",
         }}
       >
         {format(comment?.Created)}
