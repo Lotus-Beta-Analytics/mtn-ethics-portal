@@ -92,7 +92,7 @@
 }
 
 .contactUs__InputMessage textarea {
-  width: 88%;
+  width: 92.5%;
   padding: 13px;
   height: 100px;
   border: none;
@@ -102,7 +102,7 @@
 
 .contactUs_btn {
   float: right;
-  margin-right: 14%;
+  margin-right: 10%;
 }
 
 .contactUs_btn button {
