@@ -46,7 +46,7 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
   const [active, setActive] = React.useState(-1);
 
   return (
-    <>
+    <Box position="relative">
       <PageNavigationContainer open={open}>
         <IconButton onClick={() => setOpen(!open)}>
           {open ? (
@@ -86,6 +86,6 @@ export const PageNavigation: React.FC<Props> = ({ nav }) => {
             })}
         </Box>
       </PageNavigationContainer>
-    </>
+    </Box>
   );
 };

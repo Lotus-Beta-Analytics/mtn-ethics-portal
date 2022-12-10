@@ -30,7 +30,7 @@ export const ResourcePreview: React.FC<Props> = ({ onClick, resource }) => {
     >
       <ResourceThumbnailContainer bg={resource?.ThumbNail}>
         {/video\/mp4+/i.test(resource?.FileType) ? (
-          <FaVideo style={IconStyle} />
+          <FaVideo style={IconStyle} className="ppt" />
         ) : /application\/pdf+/i.test(resource?.FileType) ? (
           <FaFilePdf style={IconStyle} className="ppt" />
         ) : /application\/vnd.openxmlformats-officedocument.presentationml.presentation+/i.test(

@@ -7,7 +7,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { uniqueId } from "lodash";
+import uuid from "react-uuid";
 import * as React from "react";
 import { FaBook, FaEdit, FaTrash } from "react-icons/fa";
 import { QuestionsTable } from "../components/QuestionsTable";
@@ -266,7 +266,7 @@ export const QuizQuestionSetUp = (props: Props) => {
                   ...(quiz?.questions ?? []),
                   {
                     ...question,
-                    id: uniqueId(),
+                    id: uuid(),
                   },
                 ],
               });

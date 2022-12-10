@@ -28,9 +28,14 @@ export const AdminDashboard = () => {
         >
           {adminNavItems
             .filter((it, i) => it.title !== "Dashboard" && i !== 0)
-            .map((item) => {
+            .map((item, index) => {
               return (
-                <DashboardCard onClick={() => history.push(`${item?.link}`)}>
+                <DashboardCard
+                  onClick={() => {
+                    localStorage.setItem("navIndex", (index + 1).toString());
+                    history.push(`${item?.link}`);
+                  }}
+                >
                   <item.icon
                     style={{
                       fontSize: "1.5rem",
