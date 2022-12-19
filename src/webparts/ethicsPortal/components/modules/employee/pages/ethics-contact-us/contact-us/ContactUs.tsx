@@ -9,6 +9,7 @@ import { LandingPageHeaderWithImage } from "../../../../shared/components/Landin
 import { sp } from "@pnp/sp";
 import "./styles.css";
 import swal from "sweetalert";
+import Malito from "./Malito";
 
 export const ContactUs = () => {
   const [employeeName, setEmployeeName] = React.useState("");
@@ -57,7 +58,16 @@ export const ContactUs = () => {
             <h3>Contact Us</h3>
             <span>
               <FaEnvelope />
-              ComplianceEthicsHelpDesk@mtn.com
+              {/* <Malito
+                email="https://outlook.live.com/mail/0/deeplink/compose?to= ComplianceEthicsHelpDesk@mtn.com"
+                subject=""
+                body=""
+              >
+                ComplianceEthicsHelpDesk@mtn.com
+              </Malito> */}
+              <a href="mailto:ComplianceEthicsHelpDesk@mtn.com">
+                ComplianceEthicsHelpDesk@mtn.com
+              </a>
             </span>
             <span>
               <BsFillTelephoneFill />
