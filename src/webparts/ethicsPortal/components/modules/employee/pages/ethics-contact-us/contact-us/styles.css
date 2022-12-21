@@ -17,6 +17,11 @@
   box-shadow: 1px 2px lightgray;
 }
 
+.contact__header a {
+  text-decoration: none;
+  color: black;
+}
+
 .contact__header span {
   display: flex;
   justify-content: center;
