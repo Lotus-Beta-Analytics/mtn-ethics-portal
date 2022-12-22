@@ -50,13 +50,14 @@ export const EthicsChampionLandingPage = () => {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
-              minHeight: "350px",
+              // minHeight: "350px",
               justifyContent: "center",
               alignItems: "center",
+              marginLeft: "10%",
               padding: "0.5rem",
-              gap: "2.5rem",
-              position: "relative",
-              width: "100%",
+              // gap: "1.5rem",
+              // position: "relative",
+              // width: "100%",
             }}
           >
             {items?.map((item) => (

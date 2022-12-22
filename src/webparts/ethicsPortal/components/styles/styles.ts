@@ -78,23 +78,24 @@ export const HomeItemContainer = styled.div<{ bg: string }>((props) => ({
 
 export const ImageContainerEthics = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `linear-gradient(95.9deg, rgba(0, 0, 0, 0.2) 46.21%, rgba(0, 0, 0, 0.4) 64.68%),url('${props.bg}')`,
-  width: "400px",
-  height: "450px",
+  width: "270px",
+  height: "370px",
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   display: "flex",
   flexDirection: "column",
+  flexWrap: "wrap",
   color: theme.palette.common.black,
   boxSizing: "border-box",
   position: "relative",
   borderRadius: "26px",
   marginBottom: "25px",
-  "&:hover > *": {
-    display: "flex",
-    borderRadius: "26px",
-    transition: "display .2s ease-in-out",
-    transform: "translateY(-3)",
-  },
+  // "&:hover > *": {
+  //   display: "flex",
+  //   borderRadius: "26px",
+  //   transition: "display .2s ease-in-out",
+  //   transform: "translateY(-3)",
+  // },
 }));
 
 export const CarouselContainer = styled.div<{ bg: string }>((props) => ({
