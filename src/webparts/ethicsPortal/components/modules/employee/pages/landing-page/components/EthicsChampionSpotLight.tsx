@@ -9,7 +9,7 @@ export const EthicsChampionSpotLight = () => {
   React.useEffect(() => {
     asyncHandler(async () => {
       const res = await sp.web.lists.getByTitle("SPOTLIGHT").items.get();
-      console.log(res);
+      setChampion(res[res.length - 1]);
     })();
   }, []);
   return champion?.ChampionImage ? (
