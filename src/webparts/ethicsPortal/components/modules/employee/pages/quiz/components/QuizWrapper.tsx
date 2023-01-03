@@ -7,7 +7,7 @@ export const QuizWrapper = ({ children }) => {
 
 const QuizWrapperContainer = styled.div`
   width: 93%;
-  height: 500px;
+  min-height: 500px;
   border: 5px solid #ffcc00;
   padding: 3rem;
   margin: 20px auto;

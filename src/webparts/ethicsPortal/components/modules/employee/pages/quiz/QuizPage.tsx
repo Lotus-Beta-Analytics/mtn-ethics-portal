@@ -1,13 +1,10 @@
 import { Box, Typography } from "@material-ui/core";
 import * as React from "react";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { PageWrapper } from "../../../shared/components/app-wrapper/employee/PageWrapper";
-import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithImage";
 import { QuizWrapper } from "./components/QuizWrapper";
 import { getQuizContextState } from "./context/QuizContext";
 import "./styles.css";
 import { CircularProgress } from "@material-ui/core";
-import { useToasts } from "react-toast-notifications";
 import { isChecked } from "./util";
 import {
   ShowNextNavButton,
@@ -121,11 +118,18 @@ export const QuizPage = () => {
                       paddingLeft: "1rem",
                     }}
                   >
-                    <Box>
-                      <Typography>
+                    <Box my={2}>
+                      <Typography variant="body2">
                         Question {page + 1} of {total}
                       </Typography>
-                      <Typography variant="h4">
+                      <Typography
+                        style={{
+                          fontSize: "18px",
+                          lineHeight: "20px",
+                          margin: "5px 0",
+                        }}
+                        variant="body2"
+                      >
                         {questions[page]?.question}
                       </Typography>
                     </Box>

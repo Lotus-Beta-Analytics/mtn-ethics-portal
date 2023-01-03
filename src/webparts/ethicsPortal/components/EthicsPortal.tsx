@@ -34,6 +34,7 @@ import { CreateAdminQuizContextProvider } from "./modules/admin/pages/quiz/conte
 import { CreateBlogPost } from "./modules/admin/pages/posts/CreateBlogPost";
 import { ManageQuizPage } from "./modules/admin/pages/quiz/ManageQuizPage";
 import { ContactUs } from "./modules/employee/pages/ethics-contact-us/contact-us/ContactUs";
+import { QuickLinkPage } from "./modules/employee/pages/quick-links/QuickLinkPage";
 import { CreateAdminPage } from "./modules/admin/pages/users/CreateAdminPage";
 import { UpdateBlogPostPage } from "./modules/admin/pages/posts/UpdateBlogPostPage";
 import { ManageBlogPostsPage } from "./modules/admin/pages/posts/ManageBlogPostsPage";
@@ -72,6 +73,7 @@ import { EthicsResourceDisplayPage } from "./modules/employee/components/EthicsR
 import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
 import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
 import { EthicsActivitesTable } from "./modules/admin/pages/recognition/EthicsActivitesTable";
+import { QuickLinkSetUpPage } from "./modules/admin/pages/quick-links/QuickLinkSetUpPage";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -226,6 +228,11 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       path="/employee/quiz/landing"
                       component={QuizLandingPage}
                     />
+                    <Route
+                      exact
+                      path="/quick-links"
+                      component={QuickLinkPage}
+                    />
 
                     <Route
                       exact
@@ -310,6 +317,11 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       exact
                       path="/admin/quiz-report"
                       render={() => <ReportPage />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/manage-links"
+                      render={() => <QuickLinkSetUpPage />}
                     />
                     <Route
                       exact

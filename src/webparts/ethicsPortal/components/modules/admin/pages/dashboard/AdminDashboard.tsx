@@ -1,14 +1,5 @@
 import { Box, BoxProps, colors, styled, Typography } from "@material-ui/core";
 import * as React from "react";
-import {
-  FaBook,
-  FaDochub,
-  FaImages,
-  FaPeopleArrows,
-  FaPeopleCarry,
-  FaQuestion,
-  FaTextWidth,
-} from "react-icons/fa";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { useHistory } from "react-router-dom";
 import { adminNavItems } from "../../../shared/components/Navigation/admin-navigation/menu";
@@ -17,7 +8,7 @@ export const AdminDashboard = () => {
   const history = useHistory();
   return (
     <AdminWrapper>
-      <Box height="100vh">
+      <Box minHeight="100vh">
         <Box
           sx={{
             display: "grid",
@@ -28,9 +19,15 @@ export const AdminDashboard = () => {
         >
           {adminNavItems
             .filter((it, i) => it.title !== "Dashboard" && i !== 0)
-            .map((item) => {
+            .map((item, index) => {
               return (
-                <DashboardCard onClick={() => history.push(`${item?.link}`)}>
+                <DashboardCard
+                  onClick={() => {
+                    localStorage.setItem("navIndex", (index + 1).toString());
+                    localStorage.setItem("activeRoute", item?.link);
+                    history.push(`${item?.link}`);
+                  }}
+                >
                   <item.icon
                     style={{
                       fontSize: "1.5rem",

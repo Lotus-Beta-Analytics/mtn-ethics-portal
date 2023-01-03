@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { theme } from "../themes/themes";
 
 export const AppContainer = styled(Box)({
-  minWidth: "95vw",
+  width: "95vw",
   minHeight: "100vh",
   display: "flex",
   flexDirection: "column",
@@ -128,16 +128,14 @@ export const PageNavigationContainer = styled.div<{ open: boolean }>(
     display: "flex",
     alignItems: "center",
     backgroundColor: theme.palette.primary.main,
-    position: "absolute",
-    // top: "12%",
+    position: "fixed",
+    top: "40%",
     minHeight: "300px",
-    // left: props?.open ? "90%" : 100,
+    left: props?.open ? "83%" : "95%",
     boxShadow: "3px 2px 5px rgba(0, 0, 0, 0.25)",
     borderRadius: "20px 0 0 20px",
     transition: "all .2s ease-in-out",
     boxSizing: "border-box",
     zIndex: "99",
-    marginTop: "10%",
-    marginLeft: props?.open ? "86%" : "100%",
   })
 );

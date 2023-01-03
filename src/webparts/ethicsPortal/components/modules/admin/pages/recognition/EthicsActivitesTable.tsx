@@ -25,7 +25,7 @@ import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpe
 
 // };
 
-export const EthicsActivitesTable = ({ context, buttonLabel }) => {
+export const EthicsActivitesTable = ({ context }) => {
   const [component, setComponent] = React.useState("form");
   const [secComponent, setSecComponent] = React.useState("manage-form");
 
@@ -115,7 +115,7 @@ export const EthicsActivitesTable = ({ context, buttonLabel }) => {
                       )
                     }
                   >
-                    {buttonLabel}
+                    {/* {buttonLabel} */}
                   </Button>
                 </Box>
               </form>
