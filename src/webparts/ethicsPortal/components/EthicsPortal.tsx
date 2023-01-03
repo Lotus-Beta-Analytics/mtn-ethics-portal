@@ -137,11 +137,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                     <Route
                       exact
-                      path="/recognition/champion"
-                      component={ChampionLandingPage}
-                    />
-                    <Route
-                      exact
                       path="/recognition/ethicschampion"
                       component={EthicsChampionLandingPage}
                     />
@@ -154,18 +149,9 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     <Route
                       exact
                       path="/recognition/champion"
-                      component={ChampionLandingPage}
-                    />
-                    <Route
-                      exact
-                      path="/recognition/ethicschampion"
                       component={EthicsChampionLandingPage}
                     />
-                    <Route
-                      exact
-                      path="/recognition/ethicschampion/activties"
-                      component={EthicsChampionsActivties}
-                    />
+
                     <Route
                       exact
                       path="/trainings/traininglandingpage"
