@@ -1,10 +1,7 @@
 import * as React from "react";
 import { Box } from "@material-ui/core";
 import { EmployeeWrapper } from "../../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { PageWrapper } from "../../../../../shared/components/app-wrapper/employee/PageWrapper";
 import styled from "styled-components";
-import { ImageContainerEthics } from "../../../../../../styles/styles";
-import styles from "./styles.module.scss";
 import { PaginationContainer } from "../../../../components/pagination/PaginationContainer";
 import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
