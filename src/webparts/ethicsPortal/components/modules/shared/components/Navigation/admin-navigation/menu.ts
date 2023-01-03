@@ -82,7 +82,7 @@ export const adminNavItems = [
       {
         title: "Ethics Champion Activities",
         icon: FaImages,
-        link: "#",
+        link: "/admin/recognition/activities/table-photo",
       },
     ],
   },

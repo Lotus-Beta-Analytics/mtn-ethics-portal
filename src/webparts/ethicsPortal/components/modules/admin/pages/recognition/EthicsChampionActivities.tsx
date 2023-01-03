@@ -21,7 +21,7 @@ import { Container } from "../ethics-policies-management/components/PolicyDetail
 import { locations } from "../gallery/forms/GalleryForm";
 import { PeoplePicker, StaffData } from "../users/components/PeoplePicker";
 
-export const EthicsChampionsActivtiesCreate = () => {
+export const EthicsChampionsActivtiesCreate = ({ context }) => {
   const [ethicalMessage, setEthicalMessage] = React.useState("");
 
   const queryClient = useQueryClient();

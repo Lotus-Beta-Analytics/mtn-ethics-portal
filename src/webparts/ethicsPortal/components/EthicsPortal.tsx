@@ -70,6 +70,8 @@ import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-d
 import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
 import { EthicsResourceDisplayPage } from "./modules/employee/components/EthicsResourceDisplayPage";
 import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
+import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
+import { EthicsActivitesTable } from "./modules/admin/pages/recognition/EthicsActivitesTable";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -344,6 +346,18 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       exact
                       path="/admin/recognition/:recognitionId/update"
                       render={() => <UpdateRecognitionPage context={context} />}
+                    />
+                    <Route
+                      exact
+                      path="/admin/recognition/champion/activities-create"
+                      render={() => (
+                        <EthicsChampionsActivtiesCreate context={context} />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path="/admin/recognition/activities/table-photo"
+                      render={() => <EthicsActivitesTable context={context} />}
                     />
 
                     <Route
