@@ -72,6 +72,7 @@ import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/et
 import { EthicsResourceDisplayPage } from "./modules/employee/components/EthicsResourceDisplayPage";
 import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
 import { QuickLinkSetUpPage } from "./modules/admin/pages/quick-links/QuickLinkSetUpPage";
+import { SectionedBlogPosts } from "./modules/employee/pages/ethics-articles/ethics-articles-page/SectionedBlogPosts";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -202,6 +203,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       path="/ethics/articleslandingpage"
                       component={ArticlesLandingPage}
                     />
+                    <Route exact path="/posts" component={SectionedBlogPosts} />
 
                     <Route
                       exact

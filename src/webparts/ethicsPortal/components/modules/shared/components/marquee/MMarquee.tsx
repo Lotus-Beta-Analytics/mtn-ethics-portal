@@ -8,11 +8,6 @@ type Props = {
   text?: string;
 };
 
-enum options {
-  top = 0,
-  default = "10%",
-}
-
 export const MMarquee: React.FC<Props> = () => {
   const [activeText, setActiveText] = React.useState("");
 
@@ -48,6 +43,8 @@ export const MMarquee: React.FC<Props> = () => {
           width: "100%",
           minHeight: "60px",
         }}
+        pauseOnHover={true}
+        speed={40}
       >
         <Typography
           color="primary"

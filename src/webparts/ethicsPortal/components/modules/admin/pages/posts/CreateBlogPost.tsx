@@ -8,18 +8,19 @@ import {
 import { Add } from "@material-ui/icons";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { sp } from "@pnp/sp";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { PostEditor } from "../../components/blog-set-up/PostEditor";
-import { BlogSectionEnums } from "../../components/blog-set-up/sections/blog-section-enums/blog-section-enums";
-import { CreateSection } from "../../components/blog-set-up/sections/CreateSection";
+import {
+  PostCreateSection,
+  PostOptionsInterfacce as PostOptionsInterface,
+} from "../../components/blog-set-up/sections/CreateSection";
 import { useLocation } from "react-router-dom";
 import { ReadOnlyURLSearchParams } from "../policies/ManagePoliciesPage";
-import { Policy } from "../../../employee/components/PolicyLandingComponent";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 
@@ -29,7 +30,7 @@ type Props = {
 
 export const CreateBlogPost: React.FC<Props> = ({ context }) => {
   const [file, setFile] = React.useState("");
-  const [section, setSection] = React.useState<Policy>();
+  const [section, setSection] = React.useState<PostOptionsInterface>();
   const [content, setContent] = React.useState<any>();
   const [postTitle, setPostTitle] = React.useState("");
   const queryClient = useQueryClient();
@@ -43,11 +44,8 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
     return await sp.web.lists.getByTitle("Post").items.add({
       PostTitle: postTitle,
       content: JSON.stringify(content),
-      PostSection: section?.PolicyTitle,
+      PostSection: section?.value,
       FileUrl: file,
-      ["SectionIdId"]: searchParams.get("sectionId")
-        ? Number(searchParams.get("sectionId"))
-        : section?.Id,
     });
   };
 
@@ -90,7 +88,7 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
             variant="outlined"
             value={postTitle}
             onChange={(e) => setPostTitle(e.target.value)}
-            label="Article Title"
+            label="Blog Title"
             fullWidth
             required
             style={{ margin: "1rem 0" }}
@@ -105,12 +103,12 @@ export const CreateBlogPost: React.FC<Props> = ({ context }) => {
           </Box>
 
           <Box my={2}>
-            <CreateSection
+            <PostCreateSection
               section={section}
               onUpdate={(val) => {
                 setSection(val);
               }}
-              label="Article Section"
+              label="Blog Section"
             />
           </Box>
           <Box my={2} style={{ overflowY: "auto" }}>

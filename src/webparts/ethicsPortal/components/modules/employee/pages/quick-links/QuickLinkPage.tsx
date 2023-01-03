@@ -5,9 +5,11 @@ import { PageHeaderWithImage } from "../../../shared/components/PageHeaderWithIm
 import { useQuery } from "@tanstack/react-query";
 import { sp } from "@pnp/sp";
 import { QuickLinkData } from "../../../admin/pages/quick-links/forms/QuickLinkForm";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const QuickLinkPage = () => {
-  const [quickLinks, setQuickLinks] = React.useState<QuickLinkData[]>();
+  const [quickLinks, setQuickLinks] = React.useState<QuickLinkData[]>([]);
   const { isLoading } = useQuery<QuickLinkData[]>(
     ["quickLinks"],
     async () => {
@@ -34,8 +36,35 @@ export const QuickLinkPage = () => {
   return (
     <EmployeeWrapper showFooter={true} backButton={true}>
       <Box width="90%" m="auto">
-        <PageHeaderWithImage bg={``} text="Quick Links" />
+        <PageHeaderWithImage
+          bg={`https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/PostFiles/Frame%2018.png`}
+          text="Quick Links"
+        />
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        style={{ gap: "1rem" }}
+        width="100%"
+        minHeight="500px"
+        ml="5%"
+      >
+        {quickLinks.map((item) => {
+          return (
+            <QuickLinkButton to={item?.LinkTo}>
+              {item?.QuickLinkTitle}
+            </QuickLinkButton>
+          );
+        })}
       </Box>
     </EmployeeWrapper>
   );
 };
+
+const QuickLinkButton = styled(Link)`
+  color: #006993;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
