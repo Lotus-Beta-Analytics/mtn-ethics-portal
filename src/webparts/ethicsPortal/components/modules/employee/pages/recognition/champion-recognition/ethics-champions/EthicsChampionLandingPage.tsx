@@ -106,7 +106,7 @@ const StyledContainer = styled.div<{ bg: string }>((props) => ({
 const CurvedImageContainer = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `url('${props.bg}')`,
   width: "100%",
-  minHeight: "260px",
+  height: "230px",
   backgroundSize: "cover",
   backgroundPosition: "top",
   backgroundRepeat: "no-repeat",
