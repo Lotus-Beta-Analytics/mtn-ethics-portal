@@ -21,6 +21,12 @@ import { useQuery } from "@tanstack/react-query";
 import { PostPreviewItem } from "../../components/blog/PostPreviewItem";
 import Slider from "react-slick";
 import { CarouselData } from "../../../admin/pages/carousel/forms/CarouselItemForm";
+import { PostPreview } from "./components/PostPreviewContainer";
+import { PageNavigationLinkItem } from "./components/PageNavigationLinkItem";
+import { PostSection } from "../../../admin/components/blog-set-up/sections/CreateSection";
+import { LandingActivitiesContainer } from "./components/LandingActivitiesContainer";
+import { EthicsChampionBanner } from "./components/EthicsChampionBanner";
+import { EthicsChampionSpotLight } from "./components/EthicsChampionSpotLight";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,10 +50,15 @@ const settings = {
 };
 
 export const LandingPage = () => {
-  const [pageMenu, setPageMenu] = React.useState<any[]>([
-    { id: 1, text: "Quick Links", link: "" },
-    { id: 2, text: "Click to Declare a gift", link: "" },
-    { id: 3, text: "Click to Declare conflict of interest", link: "" },
+  const [pageMenu, setPageMenu] = React.useState<
+    {
+      label: string;
+      link: string;
+    }[]
+  >([
+    { label: "Quick Links", link: "/quick-link" },
+    { label: "Click to Declare a gift", link: "" },
+    { label: "Click to Declare conflict of interest", link: "" },
   ]);
   const { data, isLoading } = useQuery<any[]>(["item"], async () => {
     try {
@@ -59,6 +70,8 @@ export const LandingPage = () => {
   });
 
   const [carouselItems, setCarouselItems] = React.useState<CarouselData[]>([]);
+  const [eyesWideOpenCaption, setEyesWideOpenCaption] = React.useState("");
+  const [didYouKnowCaption, setDidYouKnowCaption] = React.useState("");
 
   React.useEffect(() => {
     Promise.all([
@@ -74,7 +87,7 @@ export const LandingPage = () => {
           if (findAdmin?.length > 0) {
             setPageMenu([
               ...pageMenu,
-              { id: 3, text: "Admin", link: "/admin/dashboard" },
+              { label: "Admin", link: "/admin/dashboard" },
             ]);
           }
         } catch (e) {
@@ -88,15 +101,27 @@ export const LandingPage = () => {
         const sliced = res.slice(0, 4);
         setCarouselItems(res);
       })(),
+      (async () => {
+        const res = await sp.web.lists
+          .getByTitle("Post")
+          .items.filter(`PostSection eq '${PostSection.Did_You_Know}'`)
+          .getAll();
+        setDidYouKnowCaption(res[res.length - 1]?.PostTitle);
+      })(),
+      (async () => {
+        const res = await sp.web.lists
+          .getByTitle("Post")
+          .items.filter(`PostSection eq '${PostSection.Eyes_Wide_Open}'`)
+          .getAll();
+        setEyesWideOpenCaption(res[res.length - 1]?.PostTitle);
+      })(),
     ]);
   }, []);
   return (
-    <EmployeeWrapper
-      pageNavigation={true}
-      pageMenu={pageMenu}
-      backButton={false}
-    >
+    <EmployeeWrapper pageNavigation={false} backButton={false}>
       <>
+        {!carouselItems.length && <Box height="300px" width="100%"></Box>}
+        <Box></Box>
         <Slider {...settings}>
           {carouselItems.map((item) => (
             <CarouselContainer bg={item?.CarouselImage}>
@@ -139,26 +164,64 @@ export const LandingPage = () => {
         <Box
           style={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-around",
             flexWrap: "nowrap",
             minHeight: "230px",
-            gap: "2.5rem",
-            margin: "auto",
+            margin: "2.5rem 0",
+            gap: "1.5rem",
+            width: "100%",
+            justifyContent: "space-around",
           }}
         >
-          <PostPreviewContainer>
-            {isLoading ? (
-              <CircularProgress />
-            ) : (
-              <>
-                {data?.map((post) => (
-                  <PostPreviewItem post={post} key={post.Id} />
-                ))}
-              </>
-            )}
-          </PostPreviewContainer>
+          <PostPreview
+            background="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/PostFiles/did%20you%20know.png"
+            caption={didYouKnowCaption}
+            heading="Did you Know"
+            link={`/posts?postSection=${PostSection.Did_You_Know}`}
+          />
+          <PostPreview
+            background="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/PostFiles/eyes%20wide%20open.png"
+            caption={eyesWideOpenCaption}
+            heading="Eyes Wide Open"
+            link={`/posts?postSection=${PostSection.Eyes_Wide_Open}`}
+          />
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              height: "100%",
+              marginLeft: "auto",
+              alignItems: "flex-end",
+              paddingRight: "7rem",
+              boxSizing: "border-box",
+              flexBasis: ".5",
+            }}
+          >
+            {pageMenu.map((item, i) => {
+              return <PageNavigationLinkItem {...item} />;
+            })}
+          </Box>
         </Box>
+        <LandingActivitiesContainer>
+          <Typography
+            variant="subtitle1"
+            style={{
+              fontWeight: "bold",
+            }}
+          >
+            Ethical Employee of the Year
+          </Typography>
+          <Box
+            display="flex"
+            height="350px"
+            style={{
+              gap: "1rem",
+            }}
+          >
+            <EthicsChampionSpotLight />
+            <EthicsChampionBanner />
+          </Box>
+        </LandingActivitiesContainer>
 
         <MMarquee />
       </>

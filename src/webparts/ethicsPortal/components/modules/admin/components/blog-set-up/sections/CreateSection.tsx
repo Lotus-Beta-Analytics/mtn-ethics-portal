@@ -15,7 +15,6 @@ export const CreateSection: React.FC<Props> = ({
   onUpdate,
   section,
   label = "Create Section",
-  readOnly = false,
 }) => {
   const [sectionsNew, setSections] = React.useState<Policy[]>([]);
 
@@ -49,3 +48,46 @@ export const CreateSection: React.FC<Props> = ({
     />
   );
 };
+export const PostCreateSection: React.FC<{
+  onUpdate: React.Dispatch<PostOptionsInterfacce>;
+  section: PostOptionsInterfacce;
+  label: string;
+}> = ({ onUpdate, section, label = "Create Section" }) => {
+  return (
+    <Autocomplete
+      id="type"
+      freeSolo={false}
+      options={PostOptions}
+      fullWidth
+      value={section}
+      getOptionLabel={(option) => option?.label}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          margin="normal"
+          variant="outlined"
+        />
+      )}
+      onChange={(e, newvalue) => onUpdate(newvalue)}
+    />
+  );
+};
+export enum PostSection {
+  Did_You_Know = "DYK",
+  Eyes_Wide_Open = "EYO",
+}
+export const PostOptions = [
+  {
+    label: "Did you know",
+    value: PostSection.Did_You_Know,
+  },
+  {
+    label: "Eyes Wide Open",
+    value: PostSection.Eyes_Wide_Open,
+  },
+];
+export interface PostOptionsInterfacce {
+  label: string;
+  value: PostSection;
+}
