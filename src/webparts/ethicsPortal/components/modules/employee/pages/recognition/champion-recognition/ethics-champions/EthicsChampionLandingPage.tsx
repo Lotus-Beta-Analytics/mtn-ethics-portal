@@ -114,5 +114,5 @@ const CurvedImageContainer = styled.div<{ bg: string }>((props) => ({
   alignItems: "center",
   justifyContent: "center",
   boxSizing: "border-box",
-  borderRadius: "0 0 60% 60%",
+  borderRadius: "0 0 65% 65%",
 }));
