@@ -7,7 +7,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { uniqueId } from "lodash";
+import uuid from "react-uuid";
 import * as React from "react";
 import { FaBook, FaEdit, FaTrash } from "react-icons/fa";
 import { QuestionsTable } from "../components/QuestionsTable";
@@ -158,7 +158,7 @@ export const QuizQuestionSetUp = (props: Props) => {
             <TextField
               variant="outlined"
               fullWidth
-              label="Option"
+              label="Answer Option"
               value={option}
               name="option"
               onChange={(e) => setOption(e.target.value)}
@@ -232,7 +232,7 @@ export const QuizQuestionSetUp = (props: Props) => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Select Answer"
+                label="Select Correct Answer"
                 margin="normal"
                 variant="outlined"
               />
@@ -266,7 +266,7 @@ export const QuizQuestionSetUp = (props: Props) => {
                   ...(quiz?.questions ?? []),
                   {
                     ...question,
-                    id: uniqueId(),
+                    id: uuid(),
                   },
                 ],
               });

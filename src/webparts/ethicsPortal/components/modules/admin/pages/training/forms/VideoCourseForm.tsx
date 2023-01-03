@@ -45,7 +45,7 @@ export const VideoCourseForm: React.FC<Props> = ({
       }}
     >
       <TextField
-        label="Course Title"
+        label="Training Title"
         value={training?.TrainingTitle ?? ""}
         variant="outlined"
         fullWidth
@@ -62,7 +62,7 @@ export const VideoCourseForm: React.FC<Props> = ({
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Course Category"
+            label="Training Category"
             margin="normal"
             variant="outlined"
           />
@@ -74,6 +74,23 @@ export const VideoCourseForm: React.FC<Props> = ({
           })
         }
       />
+      <Box my={2}>
+        <p>Video Thumbnail</p>
+        <FileUpload
+          context={context}
+          fileControl={training?.ThumbNail ?? ""}
+          onUpdate={(newValue) => {
+            onUpdate({
+              ...training,
+              ThumbNail: newValue,
+            });
+          }}
+          accept={{
+            "image/*": [".jpg", ".jpeg"],
+          }}
+        />
+      </Box>
+      <Box></Box>
       <FileUpload
         context={context}
         fileControl={training?.Video}
@@ -85,8 +102,6 @@ export const VideoCourseForm: React.FC<Props> = ({
         }
         accept={{
           "video/mp4": [".mp4"],
-          "application/vnd.ms-powerpoint": [".pptx"],
-          "application/pdf": [".pdf"],
         }}
         setType={setFileType}
       />

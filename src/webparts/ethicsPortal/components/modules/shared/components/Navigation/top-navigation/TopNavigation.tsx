@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     container: {
-      minWidth: "95vw",
+      width: "95vw",
       boxSizing: "border-box",
       padding: theme.spacing(4),
       backgroundColor: theme.palette.primary.main,
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
       listStyle: "none",
       alignItems: "center",
       boxSizing: "border-box",
-      gap: "3.5rem",
+      justifyContent: "space-evenly",
       zIndex: "inherit",
     },
     list: {
@@ -69,18 +69,24 @@ export const TopNavigation = () => {
   const [activeIndex, setActiveIndex] = React.useState(null);
   const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [open, setOpen] = React.useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
-  const open = Boolean(anchorEl);
   const id = open ? `${activeIndex + 1}item` : undefined;
   const [subMenuIndex, setSubMenuIndex] = React.useState(null);
 
   const { policies } = policyContextData();
 
-  const handleClickAway = (event) => {};
+  React.useEffect(() => {
+    setOpen(Boolean(anchorEl));
+  }, [anchorEl]);
+
+  const handleClickAway = (event) => {
+    setOpen(false);
+  };
 
   const MenuItems = [
     {
@@ -170,7 +176,7 @@ export const TopNavigation = () => {
                 className={`${classes.list} ${
                   index === activeIndex && classes.active
                 }`}
-                onMouseOver={(e) => {
+                onClick={(e) => {
                   setActiveIndex(index);
                   handleClick(e);
                 }}

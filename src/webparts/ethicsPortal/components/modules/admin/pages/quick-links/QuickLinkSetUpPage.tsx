@@ -1,17 +1,16 @@
-import { Box } from "@material-ui/core";
-import { sp } from "@pnp/sp";
-import { useQuery } from "@tanstack/react-query";
-import * as React from "react";
+import React from "react";
 import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/AdminWrapper";
 import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
-import { CarouselTable } from "./components/CarouselTable";
+import { useQuery } from "@tanstack/react-query";
+import { sp } from "@pnp/sp";
+import { QuickLinksTable } from "./components/QuickLinksTable";
 
-export const ManageCarouselPage = () => {
+export const QuickLinkSetUpPage = () => {
   const [items, setItems] = React.useState([]);
   const { isLoading } = useQuery(
-    ["carouselItems"],
+    ["quickLinks"],
     () => {
-      return sp.web.lists.getByTitle("CarouselItems").items.getAll();
+      return sp.web.lists.getByTitle("QuickLinks").items.getAll();
     },
     {
       onSuccess(data) {
@@ -22,7 +21,7 @@ export const ManageCarouselPage = () => {
   return (
     <AdminWrapper>
       <Container style={{ minHeight: "100vh" }}>
-        <CarouselTable loading={isLoading} carouselItems={items} />
+        <QuickLinksTable loading={isLoading} quickLinkItems={items} />
       </Container>
     </AdminWrapper>
   );

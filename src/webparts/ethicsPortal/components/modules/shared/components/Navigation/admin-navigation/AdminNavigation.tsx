@@ -23,20 +23,29 @@ export const AdminNavigation = (props: Props) => {
       ? JSON.parse(localStorage.getItem("navMenu"))
       : false
   );
+  const [activeRoute, setActiveRoute] = React.useState(
+    localStorage.getItem("activeRoute")
+      ? localStorage.getItem("activeRoute")
+      : "/admin/dashboard"
+  );
   const history = useHistory();
 
   React.useEffect(() => {
     localStorage.setItem("navMenu", JSON.stringify(openMenu));
   }, [openMenu, activeSubMenu, activeMainMenu]);
 
+  React.useEffect(() => {
+    history.push(activeRoute);
+  }, []);
+
   return (
     <ul
       style={{
         width: "250px",
-        minHeight: "100vh",
+        height: "100%",
         display: "flex",
         flexDirection: "column",
-        overflowY: "auto",
+        overflowY: "scroll",
         gap: "1rem",
         backgroundColor: "#fff",
         boxShadow: "2px 2p 5px rgba(0, 0, 0, 0.5)",
@@ -78,9 +87,11 @@ export const AdminNavigation = (props: Props) => {
               }}
               onClick={() => {
                 localStorage.setItem("navIndex", index.toString());
+                localStorage.setItem("activeRoute", mainMenu?.link);
                 setActiveMainMenu(index);
                 setOpenMenu(!openMenu);
                 history.push(mainMenu?.link);
+                setActiveRoute(mainMenu?.link);
               }}
               className={activeMainMenu === index && openMenu ? "active" : ""}
             >
@@ -113,8 +124,10 @@ export const AdminNavigation = (props: Props) => {
                       <li
                         onClick={() => {
                           localStorage.setItem("subIndex", i.toString());
+                          localStorage.setItem("activeRoute", sub?.link);
                           setActiveSubMenu(i);
                           history.push(sub?.link);
+                          setActiveRoute(sub?.link);
                         }}
                         style={{
                           display: "flex",

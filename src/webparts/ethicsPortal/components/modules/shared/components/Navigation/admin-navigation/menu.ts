@@ -69,7 +69,7 @@ export const adminNavItems = [
     ],
   },
   {
-    title: "Recognition",
+    title: "Ethics Champions",
     icon: FaAngrycreative,
     link: "/admin/recognition/create",
 
@@ -142,5 +142,10 @@ export const adminNavItems = [
         link: "/admin/manage-posts",
       },
     ],
+  },
+  {
+    title: "Quick Links",
+    icon: FaDochub,
+    link: "/admin/manage-links",
   },
 ];
