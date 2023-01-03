@@ -14,7 +14,7 @@ const StyledContainer = styled.div`
   height: 450px;
   background: #f2f3f8;
   border-radius: 9px;
-  margin-top: 2.5rem;
+  margin: 2.5rem 0;
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
