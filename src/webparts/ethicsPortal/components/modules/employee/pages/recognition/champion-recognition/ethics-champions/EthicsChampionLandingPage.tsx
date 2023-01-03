@@ -56,7 +56,7 @@ export const EthicsChampionLandingPage = () => {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
-              minHeight: "300px",
+              minHeight: "250px",
               margin: "auto",
               padding: "0.5rem",
               gap: "1rem",
@@ -77,7 +77,7 @@ export const EthicsChampionLandingPage = () => {
                     boxSizing: "border-box",
                     paddingTop: ".5rem",
                   }}
-                  height="240px"
+                  height="220px"
                 >
                   <Label header="Name" content={item?.Name} />
                   <Label header="Division" content={item?.Division} />

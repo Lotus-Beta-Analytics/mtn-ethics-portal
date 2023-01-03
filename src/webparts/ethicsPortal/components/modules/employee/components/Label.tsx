@@ -10,13 +10,13 @@ export const Label: React.FC<Props> = ({ header, content }) => {
   return (
     <Box
       display="grid"
-      style={{ gap: ".5rem", gridTemplateColumns: ".5fr 1.5fr" }}
+      style={{ gap: ".2rem", gridTemplateColumns: ".5fr 1fr" }}
       width="100%"
       color="#000"
     >
       <Typography
         variant="body2"
-        style={{ fontWeight: "bold", fontSize: "13px", marginLeft: "15px" }}
+        style={{ fontWeight: "bold", fontSize: "12px", marginLeft: "15px" }}
       >
         {header}:
       </Typography>
@@ -25,7 +25,7 @@ export const Label: React.FC<Props> = ({ header, content }) => {
           return (
             <Typography
               variant="body2"
-              style={{ fontWeight: "bold", fontSize: "14px" }}
+              style={{ fontWeight: "bold", fontSize: "13px" }}
             >
               {content}
             </Typography>
@@ -34,7 +34,7 @@ export const Label: React.FC<Props> = ({ header, content }) => {
         return (
           <Typography
             variant="body2"
-            style={{ fontWeight: "bold", fontSize: "14px" }}
+            style={{ fontWeight: "bold", fontSize: "13px" }}
           >
             {content?.substring(0, 250)}...
           </Typography>
