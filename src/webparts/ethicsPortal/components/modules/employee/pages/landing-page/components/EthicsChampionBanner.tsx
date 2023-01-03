@@ -22,7 +22,7 @@ export const EthicsChampionBanner = () => {
       </Box>
 
       <MLink
-        to="/recognition/ethicschampion"
+        to="/recognition/champion"
         style={{ textDecoration: "none", color: "#000" }}
       >
         <MButton endIcon={<FaAngleDoubleRight />} text="See All..." />

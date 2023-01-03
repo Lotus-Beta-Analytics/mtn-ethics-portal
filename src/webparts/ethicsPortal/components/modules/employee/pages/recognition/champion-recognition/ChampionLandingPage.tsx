@@ -19,7 +19,7 @@ export const ChampionLandingPage = () => {
       .getByTitle(`EthicsRecognition`)
       .items.get()
       .then((res) => {
-        setItems(res.slice(0, 6));
+        setItems(res);
       });
   }, []);
 
