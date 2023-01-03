@@ -56,7 +56,7 @@ export const LandingPage = () => {
       link: string;
     }[]
   >([
-    { label: "Quick Links", link: "/quick-link" },
+    { label: "Quick Links", link: "/quick-links" },
     { label: "Click to Declare a gift", link: "" },
     { label: "Click to Declare conflict of interest", link: "" },
   ]);
@@ -192,7 +192,7 @@ export const LandingPage = () => {
               height: "100%",
               marginLeft: "auto",
               alignItems: "flex-end",
-              paddingRight: "7rem",
+              paddingRight: "8rem",
               boxSizing: "border-box",
               flexBasis: ".5",
             }}

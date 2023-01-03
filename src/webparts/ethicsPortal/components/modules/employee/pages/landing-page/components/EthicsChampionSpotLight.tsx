@@ -2,19 +2,19 @@ import styled from "styled-components";
 import React from "react";
 import { Box } from "@material-ui/core";
 import { sp } from "@pnp/sp";
-import { errorAlert } from "../../../../../utils/toast-messages";
+import { asyncHandler } from "../../../../../utils/asyncHandler";
 
 export const EthicsChampionSpotLight = () => {
-  const [champion, setChampion] = React.useState("");
+  const [champion, setChampion] = React.useState<Champion>();
   React.useEffect(() => {
     asyncHandler(async () => {
       const res = await sp.web.lists.getByTitle("SPOTLIGHT").items.get();
       console.log(res);
     })();
   }, []);
-  return champion ? (
+  return champion?.ChampionImage ? (
     <StyledContainer>
-      <CurvedImageContainer bg={champion}></CurvedImageContainer>
+      <CurvedImageContainer bg={champion?.ChampionImage}></CurvedImageContainer>
       <Box></Box>
     </StyledContainer>
   ) : (
@@ -36,9 +36,6 @@ const StyledContainer = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `url('${props.bg}')`,
   flex: "0.5",
   height: "100%",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  backgroundRepeat: "no-repeat",
   display: "flex",
   flexDirection: "column",
   boxSizing: "border-box",
@@ -74,8 +71,10 @@ const ImageContainer = styled.div<{ bg: string }>((props) => ({
   borderRadius: "26px",
 }));
 
-const asyncHandler = (fn) => () =>
-  Promise.resolve(fn()).catch((err) => {
-    console.log(err);
-    errorAlert();
-  });
+interface Champion {
+  ChampionImage: string;
+  ChampionDivision: string;
+  ChampionLocation: string;
+  ChampionName: string;
+  ChampionMessage: string;
+}
