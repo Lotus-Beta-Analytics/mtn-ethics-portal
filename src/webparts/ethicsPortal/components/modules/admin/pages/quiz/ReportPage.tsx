@@ -71,7 +71,11 @@ export const ReportPage = () => {
 
   return (
     <AdminWrapper>
+<<<<<<< HEAD
       <Container style={{ minHeight: "100vh" }}>
+=======
+      <Container style={{ height: "100vh" }}>
+>>>>>>> a3c154238c00668419cfd7c7cab467fd8dff1416
         <QuizReportTable
           quizReport={quizReport}
           column={columns}
