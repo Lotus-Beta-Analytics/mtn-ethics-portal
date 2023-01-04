@@ -10,6 +10,10 @@ import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/
 import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
 import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
 import { Label } from "../../../components/Label";
+import {
+  CurvedImageContainer,
+  StyledContainer,
+} from "../../recognition/champion-recognition/ethics-champions/EthicsChampionLandingPage";
 
 export const EthicsDefaulters = () => {
   const [pageSize, setPageSize] = React.useState(null);
@@ -54,16 +58,15 @@ export const EthicsDefaulters = () => {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
-              minHeight: "350px",
-              justifyContent: "center",
-              alignItems: "center",
+              minHeight: "250px",
+              margin: "auto",
               padding: "0.5rem",
-              gap: "2.5rem",
-              position: "relative",
-              width: "100%",
+              gap: "1rem",
+              width: "95%",
+              boxSizing: "border-box",
             }}
           >
-            {items?.map((item) => (
+            {/* {items?.map((item) => (
               <ImageContainerEthics bg={item?.EthicsFileUrl}>
                 <Box className="mtn__coverImage" style={{ zIndex: 99 }}>
                   <div className="mtn__CoverImageSpan">
@@ -77,6 +80,31 @@ export const EthicsDefaulters = () => {
                   </div>
                 </Box>
               </ImageContainerEthics>
+            ))} */}
+            {items?.map((item) => (
+              <StyledContainer>
+                <CurvedImageContainer
+                  bg={item?.EthicsFileUrl}
+                ></CurvedImageContainer>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  style={{
+                    gap: "1rem",
+                    boxSizing: "border-box",
+                    paddingTop: ".5rem",
+                  }}
+                  height="220px"
+                >
+                  <Label header="Name" content={item?.FirstName} />
+                  <Label header="Division" content={item?.Division} />
+                  <Label header="Location" content={item?.Location} />
+                  <Label
+                    header="Ethics Message"
+                    content={item?.EthicsDefaulterMessage}
+                  />
+                </Box>
+              </StyledContainer>
             ))}
           </Box>
         </PaginationContainer>

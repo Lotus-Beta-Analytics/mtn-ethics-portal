@@ -4,21 +4,15 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  CircularProgress,
 } from "@material-ui/core";
 import * as React from "react";
 import { EmployeeWrapper } from "../../../shared/components/app-wrapper/employee/EmployeeWrapper";
 import { FaAngleDoubleRight } from "react-icons/fa";
-import {
-  CarouselContainer,
-  MLink,
-  PostPreviewContainer,
-} from "../../../../styles/styles";
+import { CarouselContainer } from "../../../../styles/styles";
 import { MMarquee } from "../../../shared/components/marquee/MMarquee";
 import { MButton } from "../../../shared/components/buttons/MButton";
 import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
-import { PostPreviewItem } from "../../components/blog/PostPreviewItem";
 import Slider from "react-slick";
 import { CarouselData } from "../../../admin/pages/carousel/forms/CarouselItemForm";
 import { PostPreview } from "./components/PostPreviewContainer";
@@ -27,17 +21,6 @@ import { PostSection } from "../../../admin/components/blog-set-up/sections/Crea
 import { LandingActivitiesContainer } from "./components/LandingActivitiesContainer";
 import { EthicsChampionBanner } from "./components/EthicsChampionBanner";
 import { EthicsChampionSpotLight } from "./components/EthicsChampionSpotLight";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      borderRadius: "100px",
-      "&:hover": {
-        backgroundColor: theme.palette.primary.light,
-      },
-    },
-  })
-);
 
 const settings = {
   dots: true,
@@ -121,7 +104,7 @@ export const LandingPage = () => {
     <EmployeeWrapper pageNavigation={false} backButton={false}>
       <>
         {!carouselItems.length && <Box height="300px" width="100%"></Box>}
-        <Box></Box>
+
         <Slider {...settings}>
           {carouselItems.map((item) => (
             <CarouselContainer bg={item?.CarouselImage}>

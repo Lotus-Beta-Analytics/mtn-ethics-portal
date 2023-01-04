@@ -93,7 +93,7 @@ export const EthicsChampionLandingPage = () => {
   );
 };
 
-const StyledContainer = styled.div<{ bg: string }>((props) => ({
+export const StyledContainer = styled.div<{ bg: string }>((props) => ({
   width: "100%",
   minHeight: "300px",
   display: "flex",
@@ -103,7 +103,7 @@ const StyledContainer = styled.div<{ bg: string }>((props) => ({
   boxShadow: "2px 2px 10px rgba(0,0,0,0.4)",
   paddingBottom: "1rem",
 }));
-const CurvedImageContainer = styled.div<{ bg: string }>((props) => ({
+export const CurvedImageContainer = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `url('${props.bg}')`,
   width: "100%",
   height: "230px",
