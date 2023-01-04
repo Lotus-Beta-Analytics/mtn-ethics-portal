@@ -34,10 +34,6 @@ export const AdminNavigation = (props: Props) => {
     localStorage.setItem("navMenu", JSON.stringify(openMenu));
   }, [openMenu, activeSubMenu, activeMainMenu]);
 
-  React.useEffect(() => {
-    history.push(activeRoute);
-  }, []);
-
   return (
     <ul
       style={{

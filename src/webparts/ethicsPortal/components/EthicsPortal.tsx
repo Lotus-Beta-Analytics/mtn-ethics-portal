@@ -74,6 +74,7 @@ import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
 import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
 import { EthicsActivitesTable } from "./modules/admin/pages/recognition/EthicsActivitesTable";
 import { QuickLinkSetUpPage } from "./modules/admin/pages/quick-links/QuickLinkSetUpPage";
+import { UpdateEthicsActivitiesPhoto } from "./modules/admin/pages/recognition/UpdateEthicsActivitiesPhoto";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -359,13 +360,21 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       path="/admin/recognition/:recognitionId/update"
                       render={() => <UpdateRecognitionPage context={context} />}
                     />
+
                     <Route
+                      exact
+                      path="/admin/ethics/activities/:activitiesPhotoId/update"
+                      render={() => (
+                        <UpdateEthicsActivitiesPhoto context={context} />
+                      )}
+                    />
+                    {/* <Route
                       exact
                       path="/admin/recognition/champion/activities-create"
                       render={() => (
                         <EthicsChampionsActivtiesCreate context={context} />
                       )}
-                    />
+                    /> */}
                     <Route
                       exact
                       path="/admin/recognition/activities/table-photo"
