@@ -9,7 +9,7 @@ import {
   TableIcons,
   TableStyles,
 } from "../../../../shared/components/TableCompHelpers";
-import { RemoveEthicsActivitiesPhotoModal } from "../modal/RemoveEthicsActivitiesPhotoModal";
+import { RemoveEthicsActivitiesModal } from "../modal/RemoveEthicsActivitiesModal";
 
 type Props = {
   recognition: any[];
@@ -17,7 +17,7 @@ type Props = {
   title?: string;
 };
 
-export const EthicsActivitiesPhotoTable: React.FC<Props> = ({
+export const EthicsActivitiesTable: React.FC<Props> = ({
   recognition,
   loading,
   title,
@@ -33,7 +33,7 @@ export const EthicsActivitiesPhotoTable: React.FC<Props> = ({
       render: (rowData) => <div>{rowData.tableData.id + 1}</div>,
     },
     {
-      title: "Champion Activities Photo Title",
+      title: "Title",
       field: "EthicsActivitiesTitle",
     },
     {
@@ -49,7 +49,7 @@ export const EthicsActivitiesPhotoTable: React.FC<Props> = ({
     <>
       <MaterialTable
         icons={TableIcons}
-        title={title || "Champions"}
+        title={title || "Champion Activities"}
         columns={columns}
         data={recognition}
         isLoading={loading}
@@ -79,7 +79,7 @@ export const EthicsActivitiesPhotoTable: React.FC<Props> = ({
             tooltip: "edit",
 
             onClick: (event, rowData) => {
-              history.push(`/admin/ethics/activities/${rowData?.Id}/update`);
+              history.push(`/admin/${rowData?.Id}/activities`);
             },
           },
           {
@@ -93,7 +93,7 @@ export const EthicsActivitiesPhotoTable: React.FC<Props> = ({
               setItemToRemove({
                 Id: rowData.Id,
                 data: {
-                  EthicActivitiesPhotoTitle: rowData.EthicActivitiesPhotoTitle,
+                  Title: rowData.EthicsActivitiesTitle,
                 },
               });
             },
@@ -127,7 +127,7 @@ export const EthicsActivitiesPhotoTable: React.FC<Props> = ({
       />
 
       {itemToRemove && (
-        <RemoveEthicsActivitiesPhotoModal
+        <RemoveEthicsActivitiesModal
           open={true}
           onClose={(item) => {
             setItemToRemove(null);

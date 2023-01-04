@@ -11,7 +11,7 @@ import * as React from "react";
 import { useToasts } from "react-toast-notifications";
 import { successAlert, errorAlert } from "../../../../../utils/toast-messages";
 import { ModalCloseButton } from "../../../components/ModalCloseButton";
-import { deleteEthicsActivitiesPhoto } from "../apis/DeleteRecoggnition";
+import { deleteEthicsActivity } from "../apis/DeleteRecoggnition";
 
 type Props = {
   open: boolean;
@@ -20,7 +20,7 @@ type Props = {
   id: number;
 };
 
-export const RemoveEthicsActivitiesVideoModal: React.FC<Props> = ({
+export const RemoveEthicsActivitiesModal: React.FC<Props> = ({
   open,
   onClose,
   recognition,
@@ -30,13 +30,15 @@ export const RemoveEthicsActivitiesVideoModal: React.FC<Props> = ({
   const toast = useToasts().addToast;
   const mutation = useMutation(
     (id: number) => {
-      return deleteEthicsActivitiesPhoto(id);
+      return deleteEthicsActivity(id);
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries(["getAllEthicsPhotoActivities"]);
+        queryClient.invalidateQueries({
+          queryKey: ["getAllEthicsActivities"],
+        });
         onClose();
-        successAlert(toast, "Ethics Activities Photo Deleted Successfully");
+        successAlert(toast, "Ethics Activity Deleted Successfully");
       },
       onError: () => {
         errorAlert(toast);
@@ -48,8 +50,8 @@ export const RemoveEthicsActivitiesVideoModal: React.FC<Props> = ({
       <ModalCloseButton onClose={onClose} />
       <DialogContent>
         <Typography style={{ boxSizing: "border-box", padding: "3rem" }}>
-          Are you sure you want to remove
-          <strong>{recognition?.EthicsActivitiesPhotoTitle}</strong>?<br></br>
+          Are you sure you want to remove&nbsp;
+          <strong>{recognition?.Title}</strong>?<br></br>
           This action is irreversible. Click <strong>Proceed</strong> to
           continue.
         </Typography>

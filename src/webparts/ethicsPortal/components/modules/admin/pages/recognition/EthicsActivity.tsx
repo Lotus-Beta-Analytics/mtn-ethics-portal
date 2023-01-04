@@ -11,89 +11,48 @@ import { AdminWrapper } from "../../../shared/components/app-wrapper/admin/Admin
 import { FileUpload } from "../../../shared/components/input-fields/FileUpload";
 import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import {
-  getAllEthicsPhotoActivities,
-  getAllEthicsVideoActivities,
-  getAllRecognition,
+  getAllEthicsActivities,
 } from "./apis/GetAllRecognition";
-import { EthicsActivitiesPhotoTable } from "./components/EthicsActivitiesPhotoTable";
+import { EthicsActivitiesTable } from "./components/EthicsActivitiesTable";
 import "./styles.css";
 import { Typography, Button } from "@material-ui/core";
-// import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { useToasts } from "react-toast-notifications";
 import { CancelButton } from "../../../shared/components/buttons/CancelButton";
 import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpers";
 import { Add } from "@material-ui/icons";
 import { sp } from "@pnp/sp/presets/all";
 import { errorAlert, successAlert } from "../../../../utils/toast-messages";
-import { EthicsActivitiesVideoTable } from "./components/EthicsActivitiesVideoTable";
 
-enum ContentType {
+export enum ContentType {
   Photo = "photo",
   Video = "video",
   Write_Up = "write_up",
 }
 
-export const EthicsActivitesTable = ({ context }) => {
+export const EthicsActivity = ({ context }) => {
   const [component, setComponent] = React.useState("table");
-  const [contentType, setContentType] = React.useState(ContentType.Photo);
+  const [contentType, setContentType] = React.useState<ContentType>(
+    ContentType.Photo
+  );
 
-  const [activitiesTitle, setActivitiesTitle] = React.useState("");
-  const [ethicsImageUrl, setEthicsImageUrl] = React.useState("");
-
-  const [activitiesTitleVideo, setActivitiesTitleVideo] = React.useState("");
-  const [ethicsVideoUrl, setEthicsVideoUrl] = React.useState("");
-
+  const [activityTitle, setActivityTitle] = React.useState("");
   const [content, setContent] = React.useState("");
 
   const queryClient = useQueryClient();
 
   const toast = useToasts().addToast;
 
-  const { data, isLoading, isError } = useQuery<any>(
-    ["getAllEthicsPhotoActivities"],
-    getAllEthicsPhotoActivities
-  );
-
-  if (isError) return <>An Error Occured...</>;
-
-  // const submitHandler = async () => {
-  //   return await sp.web.lists.getByTitle("EthicsActivitiesPhoto").items.add({
-  //     EthicsActivitiesPhotoTitle: activitiesTitle,
-  //     PhotoFile: ethicsImageUrl,
-  //   });
-  // };
-
-  // const mutation = useMutation(submitHandler, {
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(["addEthicsActivityPhotos"]);
-  //     successAlert(toast, "Ethics Activities Photo Created Successfully").then(
-  //       () => {
-  //         setActivitiesTitle("");
-  //         setEthicsImageUrl("");
-  //       }
-  //     );
-  //   },
-  //   onError: () => {
-  //     errorAlert(toast);
-  //   },
-  // });
-
-  // Video Part
   const {
-    data: datas,
-    isLoading: itsLoading,
-    isError: itsError,
-  } = useQuery<any>(
-    ["getAllEthicsVideoActivities"],
-    getAllEthicsVideoActivities
+    data = [],
+    isLoading,
+
+  } = useQuery<any[]>(["getAllEthicsActivities", contentType], () =>
+    getAllEthicsActivities(contentType)
   );
 
-  if (itsError) return <>An Error Occured...</>;
-
-  // Video part
   const handlerSubmit = async () => {
     return await sp.web.lists.getByTitle("EthicsActivities").items.add({
-      EthicsActivitiesTitle: activitiesTitleVideo,
+      EthicsActivitiesTitle: activityTitle,
       content,
       ActivityType: contentType,
     });
@@ -101,13 +60,8 @@ export const EthicsActivitesTable = ({ context }) => {
 
   const mutations = useMutation(handlerSubmit, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["addEthicsActivityVideos"]);
-      successAlert(toast, "Ethics Activities Video Created Successfully").then(
-        () => {
-          setActivitiesTitleVideo("");
-          setEthicsVideoUrl("");
-        }
-      );
+      queryClient.invalidateQueries(["getAllEthicsActivities", contentType]);
+      successAlert(toast, "Ethics Activity Created Successfully");
     },
     onError: () => {
       errorAlert(toast);
@@ -124,8 +78,6 @@ export const EthicsActivitesTable = ({ context }) => {
               fileControl={content}
               onUpdate={(fileUrl) => setContent(fileUrl)}
               context={context}
-
-              // label="Upload Image"
             />
           </Box>
         );
@@ -137,6 +89,8 @@ export const EthicsActivitesTable = ({ context }) => {
             multiline={true}
             minRows={5}
             fullWidth
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
         );
       case ContentType.Video:
@@ -150,7 +104,6 @@ export const EthicsActivitesTable = ({ context }) => {
               accept={{
                 "video/mp4": [".mp4"],
               }}
-              // label="Upload Image"
             />
           </Box>
         );
@@ -217,7 +170,7 @@ export const EthicsActivitesTable = ({ context }) => {
           {(() => {
             if (component === "table" && contentType === ContentType.Photo) {
               return (
-                <EthicsActivitiesPhotoTable
+                <EthicsActivitiesTable
                   recognition={data}
                   loading={isLoading}
                   title="Ethics Champions Activities Photo"
@@ -227,15 +180,21 @@ export const EthicsActivitesTable = ({ context }) => {
 
             if (component === "table" && contentType === ContentType.Video) {
               return (
-                <EthicsActivitiesVideoTable
-                  recognition={datas}
-                  loading={itsLoading}
+                <EthicsActivitiesTable
+                  recognition={data}
+                  loading={isLoading}
                   title="Ethics Champions Activities Video"
                 />
               );
             }
             if (component === "table" && contentType === ContentType.Write_Up) {
-              return <div>Write Up</div>;
+              return (
+                <EthicsActivitiesTable
+                  recognition={data}
+                  loading={isLoading}
+                  title="Ethics Champions Activities Write Ups"
+                />
+              );
             }
           })()}
         </Box>
@@ -252,8 +211,8 @@ export const EthicsActivitesTable = ({ context }) => {
                 >
                   <TextField
                     variant="outlined"
-                    value={activitiesTitleVideo}
-                    onChange={(e) => setActivitiesTitleVideo(e.target.value)}
+                    value={activityTitle}
+                    onChange={(e) => setActivityTitle(e.target.value)}
                     label="Ethics Activity Title"
                     fullWidth
                     required

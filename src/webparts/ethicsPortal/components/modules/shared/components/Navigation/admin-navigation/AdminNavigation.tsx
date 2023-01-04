@@ -23,11 +23,7 @@ export const AdminNavigation = (props: Props) => {
       ? JSON.parse(localStorage.getItem("navMenu"))
       : false
   );
-  const [activeRoute, setActiveRoute] = React.useState(
-    localStorage.getItem("activeRoute")
-      ? localStorage.getItem("activeRoute")
-      : "/admin/dashboard"
-  );
+
   const history = useHistory();
 
   React.useEffect(() => {
@@ -87,7 +83,6 @@ export const AdminNavigation = (props: Props) => {
                 setActiveMainMenu(index);
                 setOpenMenu(!openMenu);
                 history.push(mainMenu?.link);
-                setActiveRoute(mainMenu?.link);
               }}
               className={activeMainMenu === index && openMenu ? "active" : ""}
             >
@@ -123,7 +118,6 @@ export const AdminNavigation = (props: Props) => {
                           localStorage.setItem("activeRoute", sub?.link);
                           setActiveSubMenu(i);
                           history.push(sub?.link);
-                          setActiveRoute(sub?.link);
                         }}
                         style={{
                           display: "flex",

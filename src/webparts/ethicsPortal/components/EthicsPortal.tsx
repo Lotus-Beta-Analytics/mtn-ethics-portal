@@ -18,7 +18,6 @@ import { QuizReviewPage } from "./modules/employee/pages/quiz/QuizReviewPage";
 import { QuizContextProvider } from "./modules/employee/pages/quiz/context/QuizContext";
 import { QuizResultPage } from "./modules/employee/pages/quiz/QuizResultPage";
 import { useHistory } from "react-router-dom";
-import { ChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ChampionLandingPage";
 import { EthicsChampionLandingPage } from "./modules/employee/pages/recognition/champion-recognition/ethics-champions/EthicsChampionLandingPage";
 import { EthicsChampionsActivties } from "./modules/employee/pages/recognition/champion-recognition/ethics-champion-activties/EthicsChampionsActivties";
 import { EthicsTrainings } from "./modules/employee/pages/training/ethic-trainings/EthicsTrainings";
@@ -71,12 +70,11 @@ import { ManageDeafulters } from "./modules/admin/pages/policy-breaches/manage-d
 import { UpdateEthicsDefaulters } from "./modules/admin/pages/policy-breaches/ethics-defaulter/UpdateEthicsDefaulters";
 import { EthicsResourceDisplayPage } from "./modules/employee/components/EthicsResourceDisplayPage";
 import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
-import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
-import { EthicsActivitesTable } from "./modules/admin/pages/recognition/EthicsActivitesTable";
+import { EthicsActivity } from "./modules/admin/pages/recognition/EthicsActivity";
 import { QuickLinkSetUpPage } from "./modules/admin/pages/quick-links/QuickLinkSetUpPage";
-import { UpdateEthicsActivitiesPhoto } from "./modules/admin/pages/recognition/UpdateEthicsActivitiesPhoto";
 import { SectionedBlogPosts } from "./modules/employee/pages/ethics-articles/ethics-articles-page/SectionedBlogPosts";
 import { EthicsChampionOfTheYear } from "./modules/admin/pages/recognition/EthicsChampionOfTheYear";
+import { UpdateEthicsActivity } from "./modules/admin/pages/recognition/UpdateEthicsActivity";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -360,22 +358,17 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                     <Route
                       exact
-                      path="/admin/ethics/activities/:activitiesPhotoId/update"
-                      render={() => (
-                        <UpdateEthicsActivitiesPhoto context={context} />
-                      )}
+                      // path="/admin/ethics/activities/:activitiesPhotoId/update"
+                      // render={() => (
+                      //   <UpdateEthicsActivitiesPhoto context={context} />
+                      // )}
+                      path="/admin/recognition/activities"
+                      render={() => <EthicsActivity context={context} />}
                     />
-                    {/* <Route
-                      exact
-                      path="/admin/recognition/champion/activities-create"
-                      render={() => (
-                        <EthicsChampionsActivtiesCreate context={context} />
-                      )}
-                    /> */}
                     <Route
                       exact
-                      path="/admin/recognition/activities/table-photo"
-                      render={() => <EthicsActivitesTable context={context} />}
+                      path="/admin/:activityId/activities"
+                      render={() => <UpdateEthicsActivity context={context} />}
                     />
 
                     <Route
