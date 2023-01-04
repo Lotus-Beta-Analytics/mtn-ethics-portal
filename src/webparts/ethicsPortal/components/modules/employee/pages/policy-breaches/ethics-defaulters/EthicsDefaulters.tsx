@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useToasts } from "react-toast-notifications";
 import { errorAlert } from "../../../../../utils/toast-messages";
 import { EmployeeWrapper } from "../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { ImageContainerEthics } from "../../../../../styles/styles";
 import { PageWrapper } from "../../../../shared/components/app-wrapper/employee/PageWrapper";
 import { PageHeaderWithImage } from "../../../../shared/components/PageHeaderWithImage";
 import { PaginationContainer } from "../../../components/pagination/PaginationContainer";
@@ -66,21 +65,6 @@ export const EthicsDefaulters = () => {
               boxSizing: "border-box",
             }}
           >
-            {/* {items?.map((item) => (
-              <ImageContainerEthics bg={item?.EthicsFileUrl}>
-                <Box className="mtn__coverImage" style={{ zIndex: 99 }}>
-                  <div className="mtn__CoverImageSpan">
-                    <Label header="Name" content={item?.FirstName} />
-                    <Label header="Division" content={item?.Division} />
-                    <Label header="Location" content={item?.Location} />
-                    <Label
-                      header="Ethics Message"
-                      content={item?.EthicsDefaulterMessage}
-                    />
-                  </div>
-                </Box>
-              </ImageContainerEthics>
-            ))} */}
             {items?.map((item) => (
               <StyledContainer>
                 <CurvedImageContainer
