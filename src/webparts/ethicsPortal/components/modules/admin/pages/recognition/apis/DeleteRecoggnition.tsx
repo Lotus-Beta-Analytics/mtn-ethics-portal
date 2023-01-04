@@ -7,9 +7,9 @@ export const deleteRecognition = async (id: number) => {
     .delete();
 };
 
-export const deleteEthicsActivitiesPhoto = async (id: number) => {
+export const deleteEthicsActivity = async (id: number) => {
   return await sp.web.lists
-    .getByTitle("EthicsActivitiesPhoto")
+    .getByTitle("EthicsActivities")
     .items.getById(id)
     .delete();
 };

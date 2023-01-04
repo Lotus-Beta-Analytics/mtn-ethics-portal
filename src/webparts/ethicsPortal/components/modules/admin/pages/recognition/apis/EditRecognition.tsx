@@ -7,9 +7,9 @@ export const editRecognition = async (id: number, data: any) => {
     .update(data);
 };
 
-export const editEthicsActivitiesPhoto = async (id: number, data: any) => {
+export const editEthicsActivity = async (id: number, data: any) => {
   return await sp.web.lists
-    .getByTitle("EthicsActivitiesPhoto")
+    .getByTitle("EthicsActivities")
     .items.getById(id)
     .update(data);
 };
