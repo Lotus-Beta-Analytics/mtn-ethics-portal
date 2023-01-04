@@ -76,6 +76,7 @@ import { EthicsActivitesTable } from "./modules/admin/pages/recognition/EthicsAc
 import { QuickLinkSetUpPage } from "./modules/admin/pages/quick-links/QuickLinkSetUpPage";
 import { UpdateEthicsActivitiesPhoto } from "./modules/admin/pages/recognition/UpdateEthicsActivitiesPhoto";
 import { SectionedBlogPosts } from "./modules/employee/pages/ethics-articles/ethics-articles-page/SectionedBlogPosts";
+import { EthicsChampionOfTheYear } from "./modules/admin/pages/recognition/EthicsChampionOfTheYear";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -347,6 +348,14 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       exact
                       path="/admin/recognition/:recognitionId/update"
                       render={() => <UpdateRecognitionPage context={context} />}
+                    />
+
+                    <Route
+                      exact
+                      path="/admin/recognition/endofyear"
+                      render={() => (
+                        <EthicsChampionOfTheYear context={context} />
+                      )}
                     />
 
                     <Route
