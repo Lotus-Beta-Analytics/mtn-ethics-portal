@@ -18,12 +18,7 @@ type Props = {
   pageTitle?: string;
 };
 
-export const WriteUpLandingComponent: React.FC<Props> = ({
-  backgroundImage,
-  filter,
-  pageTitle,
-  sectionId,
-}) => {
+export const WriteUpLandingComponent: React.FC<Props> = ({ sectionId }) => {
   const [pageSize, setPageSize] = React.useState(null);
   const rowsPerPage = 6;
   const [items, setItems] = React.useState([]);

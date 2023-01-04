@@ -1,16 +1,17 @@
 import * as React from "react";
 import { Box } from "@material-ui/core";
 import { EmployeeWrapper } from "../../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { PageWrapper } from "../../../../../shared/components/app-wrapper/employee/PageWrapper";
-import { PageHeaderWithImage } from "../../../../../shared/components/PageHeaderWithImage";
-import { ImageContainerEthics } from "../../../../../../styles/styles";
-import styles from "./styles.module.scss";
+import styled from "styled-components";
 import { PaginationContainer } from "../../../../components/pagination/PaginationContainer";
 import { sp } from "@pnp/sp";
 import { useQuery } from "@tanstack/react-query";
 import { errorAlert } from "../../../../../../utils/toast-messages";
 import { useToasts } from "react-toast-notifications";
 import { Label } from "../../../../components/Label";
+import { LandingPageHeaderWithImage } from "../../../../../shared/components/LandingPageHeaderWithImage";
+const pageMenu = [
+  { id: 1, text: "Activities", link: "/recognition/activities" },
+];
 
 export const EthicsChampionLandingPage = () => {
   const [pageSize, setPageSize] = React.useState(null);
@@ -30,15 +31,17 @@ export const EthicsChampionLandingPage = () => {
   });
   const toast = useToasts().addToast;
   return (
-    <EmployeeWrapper>
-      <PageWrapper>
-        <PageHeaderWithImage
+    <EmployeeWrapper
+      pageNavigation={true}
+      pageMenu={pageMenu}
+      backButton={false}
+      showFooter={true}
+    >
+      <>
+        <LandingPageHeaderWithImage
           bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo.png"
-          text="Ethics Champions"
+          text="Champion Recognition"
         />
-        <div className={styles.titleH3}>
-          <h3>Ethics Champions</h3>
-        </div>
 
         <PaginationContainer
           data={data}
@@ -50,6 +53,7 @@ export const EthicsChampionLandingPage = () => {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr",
+<<<<<<< HEAD
               // minHeight: "350px",
               justifyContent: "center",
               alignItems: "center",
@@ -58,26 +62,68 @@ export const EthicsChampionLandingPage = () => {
               // gap: "1.5rem",
               // position: "relative",
               // width: "100%",
+=======
+              minHeight: "250px",
+              margin: "auto",
+              padding: "0.5rem",
+              gap: "1rem",
+              width: "95%",
+              boxSizing: "border-box",
+>>>>>>> 2a9ed8da66558a652b9e9984133ebe0b9889b72e
             }}
           >
             {items?.map((item) => (
-              <ImageContainerEthics bg={item?.RecognitionImage}>
-                <Box className="mtn__coverImage">
-                  <div className="mtn__CoverImageSpan">
-                    <Label header="Name" content={item?.Name} />
-                    <Label header="Division" content={item?.Division} />
-                    <Label header="Location" content={item?.Location} />
-                    <Label
-                      header="Ethics Message"
-                      content={item?.EthicalMessage}
-                    />
-                  </div>
+              <StyledContainer>
+                <CurvedImageContainer
+                  bg={item?.RecognitionImage}
+                ></CurvedImageContainer>
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  style={{
+                    gap: "1rem",
+                    boxSizing: "border-box",
+                    paddingTop: ".5rem",
+                  }}
+                  height="220px"
+                >
+                  <Label header="Name" content={item?.Name} />
+                  <Label header="Division" content={item?.Division} />
+                  <Label header="Location" content={item?.Location} />
+                  <Label
+                    header="Ethics Message"
+                    content={item?.EthicalMessage}
+                  />
                 </Box>
-              </ImageContainerEthics>
+              </StyledContainer>
             ))}
           </Box>
         </PaginationContainer>
-      </PageWrapper>
+      </>
     </EmployeeWrapper>
   );
 };
+
+const StyledContainer = styled.div<{ bg: string }>((props) => ({
+  width: "100%",
+  minHeight: "300px",
+  display: "flex",
+  flexDirection: "column",
+  boxSizing: "border-box",
+  borderRadius: "26px",
+  boxShadow: "2px 2px 10px rgba(0,0,0,0.4)",
+  paddingBottom: "1rem",
+}));
+const CurvedImageContainer = styled.div<{ bg: string }>((props) => ({
+  backgroundImage: `url('${props.bg}')`,
+  width: "100%",
+  height: "230px",
+  backgroundSize: "cover",
+  backgroundPosition: "top",
+  backgroundRepeat: "no-repeat",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  boxSizing: "border-box",
+  borderRadius: "0 0 65% 65%",
+}));

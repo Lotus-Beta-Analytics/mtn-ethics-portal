@@ -74,7 +74,11 @@ import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
 import { EthicsChampionsActivtiesCreate } from "./modules/admin/pages/recognition/EthicsChampionActivities";
 import { EthicsActivitesTable } from "./modules/admin/pages/recognition/EthicsActivitesTable";
 import { QuickLinkSetUpPage } from "./modules/admin/pages/quick-links/QuickLinkSetUpPage";
+<<<<<<< HEAD
 import { UpdateEthicsActivitiesPhoto } from "./modules/admin/pages/recognition/UpdateEthicsActivitiesPhoto";
+=======
+import { SectionedBlogPosts } from "./modules/employee/pages/ethics-articles/ethics-articles-page/SectionedBlogPosts";
+>>>>>>> 2a9ed8da66558a652b9e9984133ebe0b9889b72e
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
   props: IEthicsPortalProps
@@ -139,11 +143,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                     <Route
                       exact
-                      path="/recognition/champion"
-                      component={ChampionLandingPage}
-                    />
-                    <Route
-                      exact
                       path="/recognition/ethicschampion"
                       component={EthicsChampionLandingPage}
                     />
@@ -156,18 +155,9 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     <Route
                       exact
                       path="/recognition/champion"
-                      component={ChampionLandingPage}
-                    />
-                    <Route
-                      exact
-                      path="/recognition/ethicschampion"
                       component={EthicsChampionLandingPage}
                     />
-                    <Route
-                      exact
-                      path="/recognition/ethicschampion/activties"
-                      component={EthicsChampionsActivties}
-                    />
+
                     <Route
                       exact
                       path="/trainings/traininglandingpage"
@@ -205,6 +195,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                       path="/ethics/articleslandingpage"
                       component={ArticlesLandingPage}
                     />
+                    <Route exact path="/posts" component={SectionedBlogPosts} />
 
                     <Route
                       exact
