@@ -350,7 +350,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                     <Route
                       exact
-                      path="/admin/recognition/endofyear"
+                      path="/admin/recognition/championofyear"
                       render={() => (
                         <EthicsChampionOfTheYear context={context} />
                       )}

@@ -32,6 +32,7 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
   const [division, setDivision] = React.useState("");
   const [name, setName] = React.useState("");
   const [location, setLocation] = React.useState("");
+  const [championYear, setChampionYear] = React.useState("");
   const [ethicalMessage, setEthicalMessage] = React.useState("");
   const [champion, setChampion] = React.useState<StaffData>({
     DisplayName: "",
@@ -43,19 +44,20 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
 
   const toast = useToasts().addToast;
   const submitHandler = async () => {
-    return await sp.web.lists.getByTitle("EthicsRecognition").items.add({
-      Name: champion?.DisplayName,
-      Location: location,
-      Division: champion?.Department,
-      EthicalMessage: ethicalMessage,
-      RecognitionImage: file,
+    return await sp.web.lists.getByTitle("SPOTLIGHT").items.add({
+      ChampionName: champion?.DisplayName,
+      ChampionLocation: location,
+      ChampionDivision: champion?.Department,
+      ChampionMessage: ethicalMessage,
+      ChampionImage: file,
+      Year: championYear,
     });
   };
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["getAllEthicalRecognition"]);
-      successAlert(toast, "Recognition Created Successfully").then(() => {
+      queryClient.invalidateQueries(["getAllChampionOfTheYear"]);
+      successAlert(toast, "Champion Created Successfully").then(() => {
         setFile("");
         setLocation("");
         setDivision("");
@@ -151,6 +153,15 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
                   fullWidth
                   required
                   multiline
+                  style={{ margin: "1rem 0" }}
+                />
+                <TextField
+                  variant="outlined"
+                  value={championYear}
+                  onChange={(e) => setChampionYear(e.target.value)}
+                  label="Champion Year"
+                  fullWidth
+                  required
                   style={{ margin: "1rem 0" }}
                 />
 

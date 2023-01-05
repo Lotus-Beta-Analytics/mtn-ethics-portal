@@ -17,7 +17,7 @@ type Props = {
   title?: string;
 };
 
-export const EthicsEndOfYearTable: React.FC<Props> = ({
+export const EthicsChampionOfTheYear: React.FC<Props> = ({
   recognition,
   loading,
   title,
