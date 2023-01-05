@@ -36,3 +36,7 @@ export const getAllEthicsActivities = async (filter: ContentType) => {
 export const getAllEthicsWriteUpActivities = async () => {
   return await sp.web.lists.getByTitle("EthicsActivities").items.getAll();
 };
+
+export const getAllChampionOfTheYear = async () => {
+  return await sp.web.lists.getByTitle("SPOTLIGHT").items.getAll();
+};
