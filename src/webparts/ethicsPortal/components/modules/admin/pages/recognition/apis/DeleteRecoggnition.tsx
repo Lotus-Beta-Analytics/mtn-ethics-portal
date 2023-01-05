@@ -6,3 +6,10 @@ export const deleteRecognition = async (id: number) => {
     .items.getById(id)
     .delete();
 };
+
+export const deleteEthicsActivity = async (id: number) => {
+  return await sp.web.lists
+    .getByTitle("EthicsActivities")
+    .items.getById(id)
+    .delete();
+};

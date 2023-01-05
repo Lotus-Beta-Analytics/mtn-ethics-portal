@@ -19,6 +19,7 @@ export const ChampionLandingPage = () => {
       .getByTitle(`EthicsRecognition`)
       .items.get()
       .then((res) => {
+        setItems(res.slice(0, 3));
         setItems(res);
       });
   }, []);
@@ -35,16 +36,22 @@ export const ChampionLandingPage = () => {
         text="Champion Recognition"
       />
 
+      <div className="titleH3">
+        <h3>Meet Your Ethics Champions</h3>
+      </div>
+
       <Box
         style={{
           display: "flex",
           flexWrap: "wrap",
-          minHeight: "350px",
+          // minHeight: "350px",
           alignItems: "center",
-          padding: "0.5rem",
-          gap: "2.5rem",
-          position: "relative",
-          width: "100%",
+          padding: "3rem",
+          gap: "3rem",
+          marginLeft: "17%",
+          justifyContent: "center",
+          // position: "relative",
+          width: "65%",
         }}
       >
         {items?.map((item) => (

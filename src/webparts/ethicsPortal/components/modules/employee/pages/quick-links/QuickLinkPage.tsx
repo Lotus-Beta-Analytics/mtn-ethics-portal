@@ -25,7 +25,10 @@ export const QuickLinkPage = () => {
   if (isLoading) {
     <EmployeeWrapper showFooter={true} backButton={true}>
       <Box width="90%" m="auto">
-        <PageHeaderWithImage bg={``} text="Quick Links" />
+        <PageHeaderWithImage
+          bg={`https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/PostFiles/Frame%2018.png`}
+          text="Quick Links"
+        />
         <Box>
           <CircularProgress />
         </Box>
