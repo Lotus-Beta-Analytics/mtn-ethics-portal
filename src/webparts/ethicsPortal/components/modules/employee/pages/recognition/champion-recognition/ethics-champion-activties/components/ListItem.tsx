@@ -1,6 +1,7 @@
 import React from "react";
 import { ContentType } from "../../../../../../admin/pages/recognition/EthicsActivity";
-import { Box,  Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
+import "./styles.css";
 
 type Props = {
   EthicsActivitiesTitle: string;
@@ -17,14 +18,18 @@ export const ListItem: React.FC<Props> = ({
     switch (type) {
       case ContentType.Photo:
         return (
-          <img
-            src={content}
-            width="300px"
-            height="250px"
-            style={{
-              objectFit: "contain",
-            }}
-          />
+          <div className="contentTypePhoto">
+            <img
+              src={content}
+              width="300px"
+              height="250px"
+              style={{
+                // objectFit: "contain",
+                borderRadius: "26px",
+                borderBottomColor: "4px solid rgba(243, 226, 103, 0.898)",
+              }}
+            />
+          </div>
         );
       case ContentType.Video:
         return (
@@ -34,6 +39,7 @@ export const ListItem: React.FC<Props> = ({
             height="250px"
             style={{
               objectFit: "cover",
+              borderRadius: "26px",
             }}
             controls
             autoPlay={false}
@@ -41,7 +47,10 @@ export const ListItem: React.FC<Props> = ({
         );
       case ContentType.Write_Up:
         return (
-          <Typography variant="body2" style={{ fontStyle: "italic" }}>
+          <Typography
+            variant="body2"
+            style={{ fontStyle: "italic", fontWeight: "bold" }}
+          >
             {content}
           </Typography>
         );
@@ -59,7 +68,9 @@ export const ListItem: React.FC<Props> = ({
         gap: ".5rem",
       }}
     >
-      <Typography variant="h6">{title}</Typography>
+      <Typography variant="h6" style={{ fontWeight: "bold", fontSize: "13px" }}>
+        {title}
+      </Typography>
       {getContentType()}
     </Box>
   );

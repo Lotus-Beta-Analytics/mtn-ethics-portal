@@ -32,7 +32,7 @@ export const EthicsChampionsActivties = () => {
       </Box>
 
       <Box>
-        <h6 style={{ textAlign: "center" }}>Ethics Champion Activities</h6>
+        <h4 style={{ textAlign: "center" }}>Ethics Champion Activities</h4>
         <PaginationContainer
           data={items}
           onUpdate={(splicedItems) => setData(splicedItems)}
