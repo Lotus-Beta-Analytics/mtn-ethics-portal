@@ -1,14 +1,16 @@
 import { Box } from "@material-ui/core";
 import { sp } from "@pnp/sp";
 import * as React from "react";
-import { ImageContainerEthics } from "../../../../../../styles/styles";
-import { ContentType } from "../../../../../admin/pages/recognition/EthicsActivity";
 import { EmployeeWrapper } from "../../../../../shared/components/app-wrapper/employee/EmployeeWrapper";
-import { LandingPageHeaderWithImage } from "../../../../../shared/components/LandingPageHeaderWithImage";
-import { Label } from "../../../../components/Label";
+import { PaginationContainer } from "../../../../components/pagination/PaginationContainer";
+import { ListItem } from "./components/ListItem";
+import { PageHeaderWithImage } from "../../../../../shared/components/PageHeaderWithImage";
 
 export const EthicsChampionsActivties = () => {
   const [items, setItems] = React.useState([]);
+  const [data, setData] = React.useState([]);
+  const [pageSize, setPageSize] = React.useState(null);
+  const rowsPerPage = 10;
 
   React.useEffect(() => {
     sp.web.lists
@@ -16,18 +18,44 @@ export const EthicsChampionsActivties = () => {
       .items.get()
       .then((res) => {
         setItems(res);
-        console.log(res);
+        setPageSize(Math.ceil(res.length / rowsPerPage));
       });
   }, []);
 
   return (
     <EmployeeWrapper pageNavigation={false} backButton={true} showFooter={true}>
-      <LandingPageHeaderWithImage
-        bg="https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo.png"
-        text="Champion Recognition"
-      />
+      <Box width="90%" m="auto">
+        <PageHeaderWithImage
+          bg={`https://mtncloud.sharepoint.com/sites/MTNAppDevelopment/ethicsportal/assets/mtn-ethicslogo.png`}
+          text="Champion Recognition Activities"
+        />
+      </Box>
+
       <Box>
-        <div>Ethics Champion Activities</div>
+        <h6 style={{ textAlign: "center" }}>Ethics Champion Activities</h6>
+        <PaginationContainer
+          data={items}
+          onUpdate={(splicedItems) => setData(splicedItems)}
+          pageSize={pageSize}
+          rowsPerPage={rowsPerPage}
+        >
+          <Box
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              minHeight: "250px",
+              margin: "auto",
+              padding: "0.5rem",
+              gap: "1rem",
+              width: "95%",
+              boxSizing: "border-box",
+            }}
+          >
+            {data?.map((item) => (
+              <ListItem {...item} />
+            ))}
+          </Box>
+        </PaginationContainer>
       </Box>
     </EmployeeWrapper>
   );
