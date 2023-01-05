@@ -9,22 +9,21 @@ import {
   TableIcons,
   TableStyles,
 } from "../../../../shared/components/TableCompHelpers";
-import { RemoveEthicsActivitiesModal } from "../modal/RemoveEthicsActivitiesModal";
+import { RemoveSpotlightModal } from "../modal/RemoveSpotlightModal";
 
 type Props = {
-  recognition: any[];
-  loading: boolean;
+  recognition?: any[];
+  loading?: boolean;
   title?: string;
 };
 
-export const EthicsEndOfYearTable: React.FC<Props> = ({
+export const EthicsSpotlightTable: React.FC<Props> = ({
   recognition,
   loading,
   title,
 }) => {
   const [itemToRemove, setItemToRemove] = React.useState<any>();
-
-  const history = useHistory();
+  const [itemToEdit, setItemToEdit] = React.useState<any>();
 
   const columns = [
     {
@@ -33,8 +32,20 @@ export const EthicsEndOfYearTable: React.FC<Props> = ({
       render: (rowData) => <div>{rowData.tableData.id + 1}</div>,
     },
     {
-      title: "Title",
-      field: "EthicsActivitiesTitle",
+      title: "Name",
+      field: "ChampionName",
+    },
+    {
+      title: "Division",
+      field: "ChampionDivision",
+    },
+    {
+      title: "Location",
+      field: "ChampionLocation",
+    },
+    {
+      title: "Year",
+      field: "Year",
     },
     {
       title: "Date created",
@@ -49,7 +60,7 @@ export const EthicsEndOfYearTable: React.FC<Props> = ({
     <>
       <MaterialTable
         icons={TableIcons}
-        title={title || "Champion Activities"}
+        title={title || "Spot Lights"}
         columns={columns}
         data={recognition}
         isLoading={loading}
@@ -79,7 +90,7 @@ export const EthicsEndOfYearTable: React.FC<Props> = ({
             tooltip: "edit",
 
             onClick: (event, rowData) => {
-              history.push(`/admin/${rowData?.Id}/activities`);
+              setItemToEdit(rowData);
             },
           },
           {
@@ -93,7 +104,7 @@ export const EthicsEndOfYearTable: React.FC<Props> = ({
               setItemToRemove({
                 Id: rowData.Id,
                 data: {
-                  Title: rowData.EthicsActivitiesTitle,
+                  Name: rowData.ChampionName,
                 },
               });
             },
@@ -127,7 +138,7 @@ export const EthicsEndOfYearTable: React.FC<Props> = ({
       />
 
       {itemToRemove && (
-        <RemoveEthicsActivitiesModal
+        <RemoveSpotlightModal
           open={true}
           onClose={(item) => {
             setItemToRemove(null);

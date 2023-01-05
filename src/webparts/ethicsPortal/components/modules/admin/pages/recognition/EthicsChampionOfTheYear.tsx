@@ -22,6 +22,7 @@ import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpe
 import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { locations } from "../gallery/forms/GalleryForm";
 import { PeoplePicker, StaffData } from "../users/components/PeoplePicker";
+import { EthicsSpotlightTable } from "./components/EthicsSpotlightTable";
 
 type Props = {
   context: WebPartContext;
@@ -29,8 +30,6 @@ type Props = {
 
 export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
   const [file, setFile] = React.useState("");
-  const [division, setDivision] = React.useState("");
-  const [name, setName] = React.useState("");
   const [location, setLocation] = React.useState("");
   const [ethicalMessage, setEthicalMessage] = React.useState("");
   const [champion, setChampion] = React.useState<StaffData>({
@@ -43,12 +42,12 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
 
   const toast = useToasts().addToast;
   const submitHandler = async () => {
-    return await sp.web.lists.getByTitle("EthicsRecognition").items.add({
-      Name: champion?.DisplayName,
-      Location: location,
-      Division: champion?.Department,
-      EthicalMessage: ethicalMessage,
-      RecognitionImage: file,
+    return await sp.web.lists.getByTitle("SPOTLIGHT").items.add({
+      ChampionName: champion?.DisplayName,
+      ChampionLocation: location,
+      ChampionDivision: champion?.Department,
+      Year: new Date(Date.now()).getFullYear().toString(),
+      ChampionImage: file,
     });
   };
 
@@ -58,9 +57,7 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
       successAlert(toast, "Recognition Created Successfully").then(() => {
         setFile("");
         setLocation("");
-        setDivision("");
         setEthicalMessage("");
-        setName("");
         setChampion({
           DisplayName: "",
           Email: "",
@@ -76,18 +73,15 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
   return (
     <AdminWrapper>
       <Container style={{ minHeight: "100vh" }}>
-        <Box>
-          <div>
-            <Select
-              value={component}
-              onChange={(e) => setComponent(e.target.value as string)}
-              style={{ width: "20%", float: "right" }}
-            >
-              <MenuItem value="form">Ethics Champion of the Year</MenuItem>
-              {/* <MenuItem value="add-form">Add Champion</MenuItem> */}
-              <MenuItem value="table">Manage Champion</MenuItem>
-            </Select>
-          </div>
+        <Box display="flex" justifyContent="flex-end">
+          <Select
+            value={component}
+            onChange={(e) => setComponent(e.target.value as string)}
+            style={{ width: "20%", float: "right" }}
+          >
+            <MenuItem value="form">Add Champion</MenuItem>
+            <MenuItem value="table">Manage Champion</MenuItem>
+          </Select>
         </Box>
 
         {(() => {
@@ -141,7 +135,7 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
                   onChange={(e, newvalue) => setLocation(newvalue)}
                 />
 
-                <Typography>Ethical Activities Message</Typography>
+                <Typography>Ethical Message</Typography>
                 <TextField
                   variant="outlined"
                   value={ethicalMessage}
@@ -189,7 +183,7 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
               </form>
             );
 
-          return <></>;
+          return <EthicsSpotlightTable />;
         })()}
       </Container>
     </AdminWrapper>

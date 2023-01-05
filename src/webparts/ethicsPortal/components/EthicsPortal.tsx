@@ -73,7 +73,10 @@ import { ReportPage } from "./modules/admin/pages/quiz/ReportPage";
 import { EthicsActivity } from "./modules/admin/pages/recognition/EthicsActivity";
 import { QuickLinkSetUpPage } from "./modules/admin/pages/quick-links/QuickLinkSetUpPage";
 import { SectionedBlogPosts } from "./modules/employee/pages/ethics-articles/ethics-articles-page/SectionedBlogPosts";
-import { EthicsChampionOfTheYear } from "./modules/admin/pages/recognition/EthicsChampionOfTheYear";
+import {
+  EthicsChampionOfTheYear,
+  EthicsChampionOfTheYear as EthicsSpotlightCreate,
+} from "./modules/admin/pages/recognition/EthicsChampionOfTheYear";
 import { UpdateEthicsActivity } from "./modules/admin/pages/recognition/UpdateEthicsActivity";
 
 const EthicsPortal: React.FC<IEthicsPortalProps> = (
@@ -350,7 +353,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                     <Route
                       exact
-                      path="/admin/recognition/endofyear"
+                      path="/admin/recognition/spotlight"
                       render={() => (
                         <EthicsChampionOfTheYear context={context} />
                       )}
@@ -358,10 +361,6 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
 
                     <Route
                       exact
-                      // path="/admin/ethics/activities/:activitiesPhotoId/update"
-                      // render={() => (
-                      //   <UpdateEthicsActivitiesPhoto context={context} />
-                      // )}
                       path="/admin/recognition/activities"
                       render={() => <EthicsActivity context={context} />}
                     />
