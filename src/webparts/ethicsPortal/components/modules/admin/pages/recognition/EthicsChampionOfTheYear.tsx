@@ -22,6 +22,7 @@ import { ButtonContainerStyles } from "../../../shared/components/TableCompHelpe
 import { Container } from "../ethics-policies-management/components/PolicyDetailWrapper";
 import { locations } from "../gallery/forms/GalleryForm";
 import { PeoplePicker, StaffData } from "../users/components/PeoplePicker";
+import { EthicsSpotlightTable } from "./components/EthicsSpotlightTable";
 
 type Props = {
   context: WebPartContext;
@@ -29,8 +30,6 @@ type Props = {
 
 export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
   const [file, setFile] = React.useState("");
-  const [division, setDivision] = React.useState("");
-  const [name, setName] = React.useState("");
   const [location, setLocation] = React.useState("");
   const [championYear, setChampionYear] = React.useState("");
   const [ethicalMessage, setEthicalMessage] = React.useState("");
@@ -40,6 +39,8 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
     Department: "",
   });
   const [component, setComponent] = React.useState("form");
+  const [spotlights, setSpotLights] = React.useState<any[]>([]);
+  const [cannotCreate, setCannotCreate] = React.useState<boolean>(false);
   const queryClient = useQueryClient();
 
   const toast = useToasts().addToast;
@@ -48,21 +49,19 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
       ChampionName: champion?.DisplayName,
       ChampionLocation: location,
       ChampionDivision: champion?.Department,
-      ChampionMessage: ethicalMessage,
+      Year: new Date(Date.now()).getFullYear().toString(),
       ChampionImage: file,
-      Year: championYear,
+      ChampionMessage: ethicalMessage,
     });
   };
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["getAllChampionOfTheYear"]);
-      successAlert(toast, "Champion Created Successfully").then(() => {
+      queryClient.invalidateQueries(["spotlight"]);
+      successAlert(toast, "Spotlight Created Successfully").then(() => {
         setFile("");
         setLocation("");
-        setDivision("");
         setEthicalMessage("");
-        setName("");
         setChampion({
           DisplayName: "",
           Email: "",
@@ -75,26 +74,43 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
     },
   });
 
+  const { isLoading } = useQuery(
+    ["spotlight"],
+    async () => sp.web.lists.getByTitle("SPOTLIGHT").items.getAll(),
+    {
+      onSuccess(data) {
+        setSpotLights(data);
+        setCannotCreate(
+          data.filter(
+            (it) => it.Year === new Date(Date.now()).getFullYear().toString()
+          ).length >= 1
+        );
+      },
+    }
+  );
+
   return (
     <AdminWrapper>
       <Container style={{ minHeight: "100vh" }}>
-        <Box>
-          <div>
-            <Select
-              value={component}
-              onChange={(e) => setComponent(e.target.value as string)}
-              style={{ width: "20%", float: "right" }}
-            >
-              <MenuItem value="form">Ethics Champion of the Year</MenuItem>
-              {/* <MenuItem value="add-form">Add Champion</MenuItem> */}
-              <MenuItem value="table">Manage Champion</MenuItem>
-            </Select>
-          </div>
+        <Box display="flex" justifyContent="flex-end">
+          <Select
+            value={component}
+            onChange={(e) => setComponent(e.target.value as string)}
+            style={{ width: "20%", float: "right" }}
+          >
+            <MenuItem value="form">Add Champion</MenuItem>
+            <MenuItem value="table">Manage Champion</MenuItem>
+          </Select>
         </Box>
 
         {(() => {
           if (component === "form")
-            return (
+            return cannotCreate ? (
+              <Typography>
+                Champion already created for &nbsp;
+                {new Date(Date.now()).getFullYear().toString()}.
+              </Typography>
+            ) : (
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -143,7 +159,7 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
                   onChange={(e, newvalue) => setLocation(newvalue)}
                 />
 
-                <Typography>Ethical Activities Message</Typography>
+                <Typography>Ethical Message</Typography>
                 <TextField
                   variant="outlined"
                   value={ethicalMessage}
@@ -200,7 +216,13 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
               </form>
             );
 
-          return <></>;
+          return (
+            <EthicsSpotlightTable
+              recognition={spotlights}
+              loading={isLoading}
+              title="Spot Lights"
+            />
+          );
         })()}
       </Container>
     </AdminWrapper>

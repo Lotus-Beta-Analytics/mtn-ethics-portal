@@ -61,7 +61,10 @@ export const EthicsActivity = ({ context }) => {
   const mutations = useMutation(handlerSubmit, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getAllEthicsActivities", contentType]);
-      successAlert(toast, "Ethics Activity Created Successfully");
+      successAlert(toast, "Ethics Activity Created Successfully").then(()=>{
+        setActivityTitle("")
+        setContent("")
+      });
     },
     onError: () => {
       errorAlert(toast);

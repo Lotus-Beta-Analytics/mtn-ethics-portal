@@ -80,6 +80,11 @@ export const adminNavItems = [
         link: "/admin/recognition/manage",
       },
       {
+        title: "Spotlight",
+        icon: FaImages,
+        link: "/admin/recognition/spotlight",
+      },
+      {
         title: "Ethics Champion Activities",
         icon: FaImages,
         link: "/admin/recognition/activities",
