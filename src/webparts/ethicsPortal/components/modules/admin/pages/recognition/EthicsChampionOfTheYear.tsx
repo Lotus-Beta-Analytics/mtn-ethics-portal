@@ -31,7 +31,6 @@ type Props = {
 export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
   const [file, setFile] = React.useState("");
   const [location, setLocation] = React.useState("");
-  const [championYear, setChampionYear] = React.useState("");
   const [ethicalMessage, setEthicalMessage] = React.useState("");
   const [champion, setChampion] = React.useState<StaffData>({
     DisplayName: "",
@@ -169,15 +168,6 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
                   fullWidth
                   required
                   multiline
-                  style={{ margin: "1rem 0" }}
-                />
-                <TextField
-                  variant="outlined"
-                  value={championYear}
-                  onChange={(e) => setChampionYear(e.target.value)}
-                  label="Champion Year"
-                  fullWidth
-                  required
                   style={{ margin: "1rem 0" }}
                 />
 
