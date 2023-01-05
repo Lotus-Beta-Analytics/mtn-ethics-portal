@@ -9,7 +9,12 @@ export const EthicsChampionSpotLight = () => {
   const [champion, setChampion] = React.useState<Champion>();
   React.useEffect(() => {
     asyncHandler(async () => {
-      const res = await sp.web.lists.getByTitle("SPOTLIGHT").items.get();
+      const res = await sp.web.lists
+        .getByTitle("SPOTLIGHT")
+        .items.filter(
+          `Year eq '${new Date(Date.now()).getFullYear().toString()}'`
+        )
+        .get();
       setChampion(res[res.length - 1]);
     })();
   }, []);
@@ -52,8 +57,8 @@ const CurvedImageContainer = styled.div<{ bg: string }>((props) => ({
   backgroundImage: `url('${props.bg}')`,
   width: "100%",
   height: "100%",
-  backgroundSize: "contain",
-  backgroundPosition: "center",
+  backgroundSize: "cover",
+  backgroundPosition: "top",
   backgroundRepeat: "no-repeat",
   display: "flex",
   alignItems: "center",

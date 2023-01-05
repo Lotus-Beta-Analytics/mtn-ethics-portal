@@ -10,6 +10,7 @@ import {
   TableStyles,
 } from "../../../../shared/components/TableCompHelpers";
 import { RemoveSpotlightModal } from "../modal/RemoveSpotlightModal";
+import { UpdateSpotLightModal } from "../modal/UpdateSpotLightModal";
 
 type Props = {
   recognition?: any[];
@@ -90,7 +91,14 @@ export const EthicsSpotlightTable: React.FC<Props> = ({
             tooltip: "edit",
 
             onClick: (event, rowData) => {
-              setItemToEdit(rowData);
+              setItemToEdit({
+                ChampionName: rowData.ChampionName,
+                ChampionDivision: rowData.ChampionDivision,
+                ChampionImage: rowData.ChampionImage,
+                ChampionLocation: rowData.ChampionLocation,
+                ChampionMessage: rowData.ChampionMessage,
+                Id: rowData.Id,
+              });
             },
           },
           {
@@ -145,6 +153,16 @@ export const EthicsSpotlightTable: React.FC<Props> = ({
           }}
           id={itemToRemove?.Id}
           recognition={itemToRemove?.data}
+        />
+      )}
+      {itemToEdit && (
+        <UpdateSpotLightModal
+          open={true}
+          onClose={(item) => {
+            setItemToEdit(null);
+          }}
+          id={itemToEdit?.Id}
+          recognition={itemToEdit}
         />
       )}
     </>

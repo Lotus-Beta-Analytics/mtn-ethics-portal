@@ -38,6 +38,8 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
     Department: "",
   });
   const [component, setComponent] = React.useState("form");
+  const [spotlights, setSpotLights] = React.useState<any[]>([]);
+  const [cannotCreate, setCannotCreate] = React.useState<boolean>(false);
   const queryClient = useQueryClient();
 
   const toast = useToasts().addToast;
@@ -53,8 +55,8 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
 
   const mutation = useMutation(submitHandler, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["getAllEthicalRecognition"]);
-      successAlert(toast, "Recognition Created Successfully").then(() => {
+      queryClient.invalidateQueries(["spotlight"]);
+      successAlert(toast, "Spotlight Created Successfully").then(() => {
         setFile("");
         setLocation("");
         setEthicalMessage("");
@@ -69,6 +71,21 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
       errorAlert(toast);
     },
   });
+
+  const { isLoading } = useQuery(
+    ["spotlight"],
+    async () => sp.web.lists.getByTitle("SPOTLIGHT").items.getAll(),
+    {
+      onSuccess(data) {
+        setSpotLights(data);
+        setCannotCreate(
+          data.filter(
+            (it) => it.Year === new Date(Date.now()).getFullYear().toString()
+          ).length >= 1
+        );
+      },
+    }
+  );
 
   return (
     <AdminWrapper>
@@ -86,7 +103,12 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
 
         {(() => {
           if (component === "form")
-            return (
+            return cannotCreate ? (
+              <Typography>
+                Champion already created for &nbsp;
+                {new Date(Date.now()).getFullYear().toString()}.
+              </Typography>
+            ) : (
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -183,7 +205,13 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
               </form>
             );
 
-          return <EthicsSpotlightTable />;
+          return (
+            <EthicsSpotlightTable
+              recognition={spotlights}
+              loading={isLoading}
+              title="Spot Lights"
+            />
+          );
         })()}
       </Container>
     </AdminWrapper>
