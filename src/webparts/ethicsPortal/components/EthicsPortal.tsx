@@ -144,7 +144,7 @@ const EthicsPortal: React.FC<IEthicsPortalProps> = (
                     />
                     <Route
                       exact
-                      path="/recognition/ethicschampion/activties"
+                      path="/recognition/champion/activties"
                       component={EthicsChampionsActivties}
                     />
 
