@@ -2,6 +2,8 @@ import {
   Box,
   Button,
   CircularProgress,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -36,6 +38,7 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
     Email: "",
     Department: "",
   });
+  const [component, setComponent] = React.useState("form");
   const queryClient = useQueryClient();
 
   const toast = useToasts().addToast;
@@ -73,96 +76,121 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
   return (
     <AdminWrapper>
       <Container style={{ minHeight: "100vh" }}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            mutation.mutate();
-          }}
-          style={{
-            width: "80%",
-            margin: "auto",
-            boxSizing: "border-box",
-            padding: "1.5rem 1rem",
-          }}
-        >
-          <Typography>Ethics Champion End of the Year</Typography>
-          <PeoplePicker
-            staff={champion}
-            onUpdate={(user) => {
-              setChampion(user);
-            }}
-            label="Full Name"
-          />
-
-          <TextField
-            variant="outlined"
-            value={champion?.Department}
-            label="Division"
-            fullWidth
-            required
-            style={{ margin: "1rem 0" }}
-            onChange={() => {}}
-          />
-          <Autocomplete
-            id="type"
-            freeSolo={false}
-            options={locations?.map((option) => option)}
-            fullWidth
-            value={location}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Choose Location"
-                margin="normal"
-                variant="outlined"
-                required
-              />
-            )}
-            onChange={(e, newvalue) => setLocation(newvalue)}
-          />
-
-          <Typography>Ethical Message</Typography>
-          <TextField
-            variant="outlined"
-            value={ethicalMessage}
-            minRows={6}
-            onChange={(e) => setEthicalMessage(e.target.value)}
-            label="Ethical Message"
-            fullWidth
-            required
-            multiline
-            style={{ margin: "1rem 0" }}
-          />
-
-          <Box style={{ marginBottom: "20px" }}>
-            <Typography>Upload Image</Typography>
-            <FileUpload
-              fileControl={file}
-              onUpdate={(fileUrl) => setFile(fileUrl)}
-              context={context}
-            />
-          </Box>
-
-          <Box
-            style={{
-              ...ButtonContainerStyles,
-            }}
-          >
-            <CancelButton isLoading={mutation.isLoading} />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="large"
-              endIcon={
-                mutation.isLoading ? <CircularProgress size={20} /> : <Add />
-              }
-              disabled={mutation.isLoading}
+        <Box>
+          <div>
+            <Select
+              value={component}
+              onChange={(e) => setComponent(e.target.value as string)}
+              style={{ width: "20%", float: "right" }}
             >
-              Create
-            </Button>
-          </Box>
-        </form>
+              <MenuItem value="form">Ethics Champion of the Year</MenuItem>
+              {/* <MenuItem value="add-form">Add Champion</MenuItem> */}
+              <MenuItem value="table">Manage Champion</MenuItem>
+            </Select>
+          </div>
+        </Box>
+
+        {(() => {
+          if (component === "form")
+            return (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  mutation.mutate();
+                }}
+                style={{
+                  width: "80%",
+                  margin: "auto",
+                  boxSizing: "border-box",
+                  padding: "1.5rem 1rem",
+                }}
+              >
+                <Typography>Ethics Champion End of the Year</Typography>
+                <PeoplePicker
+                  staff={champion}
+                  onUpdate={(user) => {
+                    setChampion(user);
+                  }}
+                  label="Full Name"
+                />
+
+                <TextField
+                  variant="outlined"
+                  value={champion?.Department}
+                  label="Division"
+                  fullWidth
+                  required
+                  style={{ margin: "1rem 0" }}
+                  onChange={() => {}}
+                />
+                <Autocomplete
+                  id="type"
+                  freeSolo={false}
+                  options={locations?.map((option) => option)}
+                  fullWidth
+                  value={location}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Choose Location"
+                      margin="normal"
+                      variant="outlined"
+                      required
+                    />
+                  )}
+                  onChange={(e, newvalue) => setLocation(newvalue)}
+                />
+
+                <Typography>Ethical Activities Message</Typography>
+                <TextField
+                  variant="outlined"
+                  value={ethicalMessage}
+                  minRows={6}
+                  onChange={(e) => setEthicalMessage(e.target.value)}
+                  label="Ethical Message"
+                  fullWidth
+                  required
+                  multiline
+                  style={{ margin: "1rem 0" }}
+                />
+
+                <Box style={{ marginBottom: "20px" }}>
+                  <Typography>Upload Image</Typography>
+                  <FileUpload
+                    fileControl={file}
+                    onUpdate={(fileUrl) => setFile(fileUrl)}
+                    context={context}
+                  />
+                </Box>
+
+                <Box
+                  style={{
+                    ...ButtonContainerStyles,
+                  }}
+                >
+                  <CancelButton isLoading={mutation.isLoading} />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    endIcon={
+                      mutation.isLoading ? (
+                        <CircularProgress size={20} />
+                      ) : (
+                        <Add />
+                      )
+                    }
+                    disabled={mutation.isLoading}
+                  >
+                    Create
+                  </Button>
+                </Box>
+              </form>
+            );
+
+          return <></>;
+        })()}
       </Container>
     </AdminWrapper>
   );
