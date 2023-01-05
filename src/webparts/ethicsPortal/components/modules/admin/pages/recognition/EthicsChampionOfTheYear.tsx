@@ -50,6 +50,7 @@ export const EthicsChampionOfTheYear: React.FC<Props> = ({ context }) => {
       ChampionDivision: champion?.Department,
       Year: new Date(Date.now()).getFullYear().toString(),
       ChampionImage: file,
+      ChampionMessage: ethicalMessage,
     });
   };
 
