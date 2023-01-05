@@ -49,7 +49,7 @@ const StyledContainer = styled.div<{ bg: string }>((props) => ({
   display: "flex",
   flexDirection: "column",
   boxSizing: "border-box",
-  padding: "1rem",
+  paddingBottom: "1rem",
   borderRadius: "26px",
   boxShadow: "2px 2px 10px rgba(0,0,0,0.4)",
 }));
@@ -58,7 +58,7 @@ const CurvedImageContainer = styled.div<{ bg: string }>((props) => ({
   width: "100%",
   height: "100%",
   backgroundSize: "cover",
-  backgroundPosition: "top",
+  backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   display: "flex",
   alignItems: "center",

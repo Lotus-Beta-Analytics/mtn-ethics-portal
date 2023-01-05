@@ -35,7 +35,7 @@ export const RemoveSpotlightModal: React.FC<Props> = ({
     {
       onSuccess: () => {
         queryClient.invalidateQueries({
-          queryKey: ["getAllEthicsActivities"],
+          queryKey: ["spotlight"],
         });
         onClose();
         successAlert(toast, "Spotlight Deleted Successfully");
